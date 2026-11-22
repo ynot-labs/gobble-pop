@@ -1,8 +1,8 @@
-name: Deploy Gobble Pop! H5 to GitHub Pages
+name: Deploy Gobble Pop! H5 to GitHub Pages (Release + Beta)
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "beta"]
   workflow_dispatch:
 
 permissions:
@@ -18,16 +18,41 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Release (main)
         uses: actions/checkout@v4
+        with:
+          ref: main
+          path: release_repo
+
+      - name: Checkout Beta (beta)
+        uses: actions/checkout@v4
+        with:
+          ref: beta
+          path: beta_repo
+        continue-on-error: true
+
+      - name: Assemble Dual-Channel Pages Site (/ = Release, /beta/ = Beta)
+        run: |
+          mkdir -p _site
+          cp -r release_repo/build/h5/. _site/
+          touch _site/.nojekyll
+          if [ -d "beta_repo/build/h5" ]; then
+            mkdir -p _site/beta
+            cp -r beta_repo/build/h5/. _site/beta/
+            touch _site/beta/.nojekyll
+          fi
+          echo "=== Release (/) ==="
+          ls -lh _site
+          echo "=== Beta (/beta/) ==="
+          ls -lh _site/beta || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload H5 artifact
+      - name: Upload Dual-Channel H5 Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "build/h5"
+          path: "_site"
 
   deploy:
     environment:

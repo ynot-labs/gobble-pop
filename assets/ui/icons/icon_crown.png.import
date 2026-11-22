@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yijdmsuhovu1"
-path="res://.godot/imported/w1_08_cake_w1_palette_atlas.webp-a54800368daeae5a26e00438e5ee2411.ctex"
+uid="uid://rsk6ji6er5mg"
+path="res://.godot/imported/icon_crown.png-ecca98319f17e1465546f31c6f5ff242.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "ca0086a51d5605b0190e98a421c1e7fe"
 }
 
 [deps]
 
-source_file="res://assets/models/world1/w1_08_cake_w1_palette_atlas.webp"
-dest_files=["res://.godot/imported/w1_08_cake_w1_palette_atlas.webp-a54800368daeae5a26e00438e5ee2411.ctex"]
+source_file="res://assets/ui/icons/icon_crown.png"
+dest_files=["res://.godot/imported/icon_crown.png-ecca98319f17e1465546f31c6f5ff242.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

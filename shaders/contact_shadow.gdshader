@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode unshaded, depth_draw_never, cull_disabled;
 
-uniform float shadow_alpha : hint_range(0.0, 0.5) = 0.30;
+uniform float shadow_alpha : hint_range(0.0, 0.6) = 0.38;
 
 void fragment() {
 	vec2 p = (UV - vec2(0.5)) * 2.0;

@@ -36,6 +36,7 @@ var active_gum_trap: Node3D = null
 
 var board_bounds := Vector2(8.0, 10.0)
 var is_controllable: bool = false
+var is_paused: bool = false
 
 # Floating virtual joystick state (exposed for HUD rendering!)
 var joy_active: bool = false
@@ -60,7 +61,24 @@ var _pulse_boost: float = 0.0
 func _ready() -> void:
 	_build_vortex_visual()
 	_build_sticky_strands_and_goo()
+	if not GameManager.skin_equipped.is_connected(apply_skin):
+		GameManager.skin_equipped.connect(apply_skin)
+	apply_skin(GameManager.equipped_skin)
 	reset_for_level(1, Vector3.ZERO)
+
+
+func apply_skin(skin_id: String) -> void:
+	if not _vortex_mat:
+		return
+	var def := GameManager.get_skin_def(skin_id)
+	_vortex_mat.set_shader_parameter("gold_dark", def.get("gold_dark", Color(0.46, 0.31, 0.12)))
+	_vortex_mat.set_shader_parameter("gold_mid", def.get("gold_mid", Color(0.84, 0.68, 0.34)))
+	_vortex_mat.set_shader_parameter("gold_shine", def.get("gold_shine", Color(1.0, 0.96, 0.80)))
+	_vortex_mat.set_shader_parameter("xp_cyan", def.get("xp_cyan", Color(0.30, 0.96, 1.0)))
+	_vortex_mat.set_shader_parameter("vortex_abyss", def.get("vortex_abyss", Color(0.02, 0.16, 0.24)))
+	_vortex_mat.set_shader_parameter("vortex_teal", def.get("vortex_teal", Color(0.07, 0.62, 0.72)))
+	_vortex_mat.set_shader_parameter("vortex_aqua", def.get("vortex_aqua", Color(0.45, 0.95, 0.98)))
+	_pulse_boost = 0.85
 
 
 func _build_vortex_visual() -> void:
@@ -75,28 +93,19 @@ func _build_vortex_visual() -> void:
 	_vortex_mesh.material_override = _vortex_mat
 	add_child(_vortex_mesh)
 
-	if ResourceLoader.exists("res://assets/models/core/core_01_base_hole.glb"):
-		var p1: PackedScene = load("res://assets/models/core/core_01_base_hole.glb")
-		if p1:
-			_rim_base_model = p1.instantiate()
-			_rim_base_model.position.y = -0.04
-			add_child(_rim_base_model)
-	if ResourceLoader.exists("res://assets/models/core/core_02_fever_hole.glb"):
-		var p2: PackedScene = load("res://assets/models/core/core_02_fever_hole.glb")
-		if p2:
-			_rim_fever_model = p2.instantiate()
-			_rim_fever_model.position.y = -0.04
-			_rim_fever_model.visible = false
-			add_child(_rim_fever_model)
+	# Keep the hole sleek and flush-embedded using the directional brushed-gold shader bezel
+	# (eliminates the chunky flat-yellow plastic 3D ring!).
+	_rim_base_model = null
+	_rim_fever_model = null
 
-	# Soft lavender magnet aura ring
+	# Luminous candy magenta magnet aura ring
 	_magnet_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
 	tor.outer_radius = 1.0
-	tor.inner_radius = 0.95
+	tor.inner_radius = 0.94
 	_magnet_ring.mesh = tor
 	var mmat := StandardMaterial3D.new()
-	mmat.albedo_color = Color(0.58, 0.46, 0.78, 0.42)
+	mmat.albedo_color = Color(0.92, 0.25, 0.68, 0.52)
 	mmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_magnet_ring.material_override = mmat
@@ -105,19 +114,31 @@ func _build_vortex_visual() -> void:
 	add_child(_magnet_ring)
 
 
+func _apply_gold_rim_finish(node: Node) -> void:
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = Color("#FFD644")
+		mat.roughness = 0.20
+		mat.metallic = 0.32
+		mi.set_surface_override_material(0, mat)
+	for child in node.get_children():
+		_apply_gold_rim_finish(child)
+
+
 func _build_sticky_strands_and_goo() -> void:
-	# Soft sticky glob visibly stuck on the hole rim when trapped (adapts to W1-W4 trap color!)
+	# Juicy candy sticky glob visibly stuck on the hole rim when trapped (adapts to W1-W4 trap color!)
 	_rim_goo_blob = MeshInstance3D.new()
 	var sp := SphereMesh.new()
 	sp.radius = 0.36
 	sp.height = 0.42
 	_rim_goo_blob.mesh = sp
 	_rim_goo_mat = StandardMaterial3D.new()
-	_rim_goo_mat.albedo_color = Color("#D85B88")
-	_rim_goo_mat.roughness = 0.32
+	_rim_goo_mat.albedo_color = Color("#FF52A8")
+	_rim_goo_mat.roughness = 0.16
 	_rim_goo_mat.emission_enabled = true
-	_rim_goo_mat.emission = Color("#D85B88")
-	_rim_goo_mat.emission_energy_multiplier = 0.08
+	_rim_goo_mat.emission = Color("#FF52A8")
+	_rim_goo_mat.emission_energy_multiplier = 0.16
 	_rim_goo_blob.material_override = _rim_goo_mat
 	_rim_goo_blob.visible = false
 	add_child(_rim_goo_blob)
@@ -128,7 +149,7 @@ func _build_sticky_strands_and_goo() -> void:
 	_strand_mesh_inst.mesh = _strand_mesh
 	_strand_mesh_inst.top_level = true
 	_strand_mat = StandardMaterial3D.new()
-	_strand_mat.albedo_color = Color("#D85B88")
+	_strand_mat.albedo_color = Color("#FF52A8")
 	_strand_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_strand_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	_strand_mesh_inst.material_override = _strand_mat
@@ -302,6 +323,8 @@ func _update_virtual_joystick(pointer_pos: Vector2) -> void:
 
 
 func _process(delta: float) -> void:
+	if is_paused:
+		return
 	# Compute desired input vector (Floating Virtual Joystick OR WASD/Arrows)
 	var inp := Vector2.ZERO
 	if is_controllable:

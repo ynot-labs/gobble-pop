@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0x3fda2qhw2c"
-path="res://.godot/imported/w1_06_boba_tea_w1_06_boba_tex.webp-9e12eefc916caf8fb5fbd5c0ee699040.ctex"
+uid="uid://da3gycwfji61m"
+path="res://.godot/imported/icon_star_empty.png-552b5a5ce954e3c0ee42e43b172cdd97.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "e048c492a1eca64b86a84cd29799db91"
 }
 
 [deps]
 
-source_file="res://assets/models/world1/w1_06_boba_tea_w1_06_boba_tex.webp"
-dest_files=["res://.godot/imported/w1_06_boba_tea_w1_06_boba_tex.webp-9e12eefc916caf8fb5fbd5c0ee699040.ctex"]
+source_file="res://assets/ui/icons/icon_star_empty.png"
+dest_files=["res://.godot/imported/icon_star_empty.png-552b5a5ce954e3c0ee42e43b172cdd97.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

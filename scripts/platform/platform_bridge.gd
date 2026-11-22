@@ -68,5 +68,5 @@ func _notification(what: int) -> void:
 
 
 func trigger_haptic(duration_ms: int = 25) -> void:
-	if is_mobile:
+	if is_mobile and (not is_instance_valid(GameManager) or GameManager.haptics_enabled):
 		Input.vibrate_handheld(duration_ms)

@@ -30,6 +30,14 @@ func _ready() -> void:
 
 	PlatformBridge.visibility_changed.connect(_on_visibility_changed)
 	_preload_audio_assets()
+	call_deferred("_sync_from_game_manager")
+
+
+func _sync_from_game_manager() -> void:
+	if is_instance_valid(GameManager):
+		if not GameManager.settings_changed.is_connected(_apply_mute_state):
+			GameManager.settings_changed.connect(_apply_mute_state)
+	_apply_mute_state()
 
 
 func _process(delta: float) -> void:
@@ -90,12 +98,21 @@ func _preload_audio_assets() -> void:
 		_sfx_cache["fail"] = _make_arpeggio_wav([440.0, 392.0, 329.63], 0.16)
 	if not _sfx_cache.has("rv_blast"):
 		_sfx_cache["rv_blast"] = _make_arpeggio_wav([392.0, 523.25, 659.25, 1046.5], 0.08)
+	if not _sfx_cache.has("ui_click"):
+		_sfx_cache["ui_click"] = _make_pop_wav(680.0, 0.06, 1.25)
+	if not _sfx_cache.has("star_pop"):
+		_sfx_cache["star_pop"] = _make_arpeggio_wav([783.99, 1046.5], 0.07)
+	if not _sfx_cache.has("coin_get"):
+		_sfx_cache["coin_get"] = _make_arpeggio_wav([987.77, 1318.5], 0.06)
+	if not _sfx_cache.has("chest_open"):
+		_sfx_cache["chest_open"] = _make_arpeggio_wav([523.25, 659.25, 783.99, 1046.5, 1567.98], 0.08)
 
 
 func start_bgm() -> void:
 	if _sfx_cache.has("bgm") and not _bgm_player.playing:
 		_bgm_player.stream = _sfx_cache["bgm"]
 		_bgm_player.play()
+	_apply_mute_state()
 
 
 func play_swallow(tier: int) -> void:
@@ -114,6 +131,8 @@ func play_swallow(tier: int) -> void:
 
 func play_sfx(key: String, pitch: float = 1.0) -> void:
 	if _is_silenced() or not _sfx_cache.has(key):
+		return
+	if is_instance_valid(GameManager) and not GameManager.sfx_enabled:
 		return
 	var p := _sfx_pool[_pool_index]
 	_pool_index = (_pool_index + 1) % _sfx_pool.size()
@@ -144,6 +163,11 @@ func _is_silenced() -> bool:
 
 func _apply_mute_state() -> void:
 	AudioServer.set_bus_mute(0, _is_silenced())
+	var bgm_on := true
+	if is_instance_valid(GameManager):
+		bgm_on = GameManager.bgm_enabled
+	if _bgm_player:
+		_bgm_player.volume_db = -10.0 if (bgm_on and not _is_silenced()) else -80.0
 
 
 func _make_pop_wav(base_freq: float, dur: float, sweep_ratio: float) -> AudioStreamWAV:
