@@ -3,7 +3,7 @@
   "world": 2,
   "formation_name": "Unicorn Star",
   "difficulty_tag": "NORMAL",
-  "duration": 44,
+  "duration": 26,
   "arena": [
     20,
     24
@@ -16,8 +16,8 @@
   "streak_hint": 0,
   "targets": {
     "w2_figurine": 10,
-    "w2_arcade": 6,
-    "w2_unicorn": 4
+    "w2_arcade": 7,
+    "w2_unicorn": 5
   },
   "items": [
     {
@@ -871,7 +871,7 @@
     {
       "key": "w2_arcade",
       "pos": [
-        6.6,
+        6.8,
         0.0
       ],
       "color_idx": 0
@@ -879,8 +879,8 @@
     {
       "key": "w2_arcade",
       "pos": [
-        4.67,
-        5.09
+        4.81,
+        5.37
       ],
       "color_idx": 0
     },
@@ -888,22 +888,22 @@
       "key": "w2_arcade",
       "pos": [
         0.0,
-        7.2
+        7.6
       ],
       "color_idx": 0
     },
     {
       "key": "w2_arcade",
       "pos": [
-        -4.67,
-        5.09
+        -4.81,
+        5.37
       ],
       "color_idx": 0
     },
     {
       "key": "w2_arcade",
       "pos": [
-        -6.6,
+        -6.8,
         0.0
       ],
       "color_idx": 0
@@ -911,8 +911,8 @@
     {
       "key": "w2_arcade",
       "pos": [
-        -4.67,
-        -5.09
+        -4.81,
+        -5.37
       ],
       "color_idx": 0
     },
@@ -920,15 +920,15 @@
       "key": "w2_arcade",
       "pos": [
         -0.0,
-        -7.2
+        -7.6
       ],
       "color_idx": 0
     },
     {
       "key": "w2_arcade",
       "pos": [
-        4.67,
-        -5.09
+        4.81,
+        -5.37
       ],
       "color_idx": 0
     },
@@ -936,39 +936,39 @@
       "key": "w2_unicorn",
       "pos": [
         0.0,
-        -8.8
+        -9.8
       ],
       "color_idx": 0
     },
     {
       "key": "w2_unicorn",
       "pos": [
-        7.8,
-        -2.72
+        7.99,
+        -3.03
       ],
       "color_idx": 0
     },
     {
       "key": "w2_unicorn",
       "pos": [
-        4.82,
-        7.12
+        4.94,
+        7.93
       ],
       "color_idx": 0
     },
     {
       "key": "w2_unicorn",
       "pos": [
-        -4.82,
-        7.12
+        -4.94,
+        7.93
       ],
       "color_idx": 0
     },
     {
       "key": "w2_unicorn",
       "pos": [
-        -7.8,
-        -2.72
+        -7.99,
+        -3.03
       ],
       "color_idx": 0
     }
@@ -979,13 +979,6 @@
       "pos": [
         0,
         -3.5
-      ]
-    },
-    {
-      "kind": "magnet",
-      "pos": [
-        0,
-        3.5
       ]
     }
   ],
@@ -1003,5 +996,6 @@
       ]
     }
   ],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

@@ -2,6 +2,8 @@ extends Node3D
 class_name StickyTrap
 
 var trap_radius: float = 0.94
+var trap_color: Color = Color("#FF2E93")
+var trap_label: String = "STICKY GUM!"
 var _mat: ShaderMaterial
 var _cleared: bool = false
 var _cooldown: float = 0.0
@@ -14,15 +16,26 @@ func setup(spawn_pos: Vector3, world_id: int = 1) -> void:
 
 	_mat = ShaderMaterial.new()
 	_mat.shader = load("res://shaders/sticky_gum.gdshader")
+	var model_path := "res://assets/models/world1/w1_09_bubblegum.glb"
+
 	if world_id == 3:
+		trap_color = Color("#FFC107")
+		trap_label = "MELTED CHEESE!"
 		_mat.set_shader_parameter("gum_color", Color("#FFC107"))
 		_mat.set_shader_parameter("highlight_color", Color("#FFF3B0"))
+		model_path = "res://assets/models/world3/w3_06_cheese.glb"
 	elif world_id == 4:
+		trap_color = Color("#39FF14")
+		trap_label = "STICKY SLIME!"
 		_mat.set_shader_parameter("gum_color", Color("#39FF14"))
 		_mat.set_shader_parameter("highlight_color", Color("#C8FFBE"))
+		model_path = "res://assets/models/world4/w4_07_slime_trap.glb"
+	else:
+		trap_color = Color("#FF2E93")
+		trap_label = "STICKY GUM!"
 
-	if ResourceLoader.exists("res://assets/models/world1/w1_09_bubblegum.glb"):
-		var packed: PackedScene = load("res://assets/models/world1/w1_09_bubblegum.glb")
+	if ResourceLoader.exists(model_path):
+		var packed: PackedScene = load(model_path)
 		if packed:
 			var inst := packed.instantiate()
 			inst.rotation.y = randf() * TAU
@@ -65,7 +78,7 @@ func step_interaction(hole: HoleController, level_number: int, delta: float) -> 
 
 	if dist < trigger_dist and _cooldown <= 0.0:
 		_cooldown = 3.1
-		hole.trigger_sticky_trap(self, DDAController.get_sticky_slow_duration(level_number))
+		hole.trigger_sticky_trap(self, DDAController.get_sticky_slow_duration(level_number), trap_color, trap_label)
 
 	if hole.sticky_timer > 0.0 and hole.active_gum_trap == self:
 		var pull := diff.normalized() * minf(dist, 1.15) if dist > 0.05 else Vector3.ZERO

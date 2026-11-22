@@ -5,7 +5,7 @@ signal level_changed(new_level: int, radius: float)
 signal xp_changed(current_xp: float, next_threshold: float, progress: float)
 signal fever_changed(ratio: float, active: bool)
 signal buff_changed(buff_name: String, remaining: float)
-signal sticky_triggered(trap_pos: Vector3)
+signal sticky_triggered(trap_pos: Vector3, trap_color: Color, trap_label: String)
 
 ## Calibrated cumulative XP thresholds matching gobble-pop-demo & GDD (Lv.1 -> Lv.5)
 const LEVEL_RADIUS_MULT: Array[float] = [1.0, 1.45, 2.0, 2.65, 3.5]
@@ -49,9 +49,11 @@ var _vortex_mat: ShaderMaterial
 var _rim_base_model: Node3D
 var _rim_fever_model: Node3D
 var _rim_goo_blob: MeshInstance3D
+var _rim_goo_mat: StandardMaterial3D
 var _magnet_ring: MeshInstance3D
 var _strand_mesh_inst: MeshInstance3D
 var _strand_mesh: ImmediateMesh
+var _strand_mat: StandardMaterial3D
 var _pulse_boost: float = 0.0
 
 
@@ -104,32 +106,32 @@ func _build_vortex_visual() -> void:
 
 
 func _build_sticky_strands_and_goo() -> void:
-	# Glossy hot-pink gum glob visibly stuck on the hole rim when trapped!
+	# Glossy sticky glob visibly stuck on the hole rim when trapped (adapts to W1-W4 trap color!)
 	_rim_goo_blob = MeshInstance3D.new()
 	var sp := SphereMesh.new()
 	sp.radius = 0.36
 	sp.height = 0.42
 	_rim_goo_blob.mesh = sp
-	var gmat := StandardMaterial3D.new()
-	gmat.albedo_color = Color("#FF2E93")
-	gmat.roughness = 0.14
-	gmat.emission_enabled = true
-	gmat.emission = Color("#FF2E93")
-	gmat.emission_energy_multiplier = 0.25
-	_rim_goo_blob.material_override = gmat
+	_rim_goo_mat = StandardMaterial3D.new()
+	_rim_goo_mat.albedo_color = Color("#FF2E93")
+	_rim_goo_mat.roughness = 0.14
+	_rim_goo_mat.emission_enabled = true
+	_rim_goo_mat.emission = Color("#FF2E93")
+	_rim_goo_mat.emission_energy_multiplier = 0.25
+	_rim_goo_blob.material_override = _rim_goo_mat
 	_rim_goo_blob.visible = false
 	add_child(_rim_goo_blob)
 
-	# Live 3D stretchy curved bubblegum strands connecting active_gum_trap -> hole rim
+	# Live 3D stretchy curved strands connecting active_gum_trap -> hole rim
 	_strand_mesh = ImmediateMesh.new()
 	_strand_mesh_inst = MeshInstance3D.new()
 	_strand_mesh_inst.mesh = _strand_mesh
 	_strand_mesh_inst.top_level = true
-	var smat := StandardMaterial3D.new()
-	smat.albedo_color = Color("#FF2E93")
-	smat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	smat.cull_mode = BaseMaterial3D.CULL_DISABLED
-	_strand_mesh_inst.material_override = smat
+	_strand_mat = StandardMaterial3D.new()
+	_strand_mat.albedo_color = Color("#FF2E93")
+	_strand_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_strand_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	_strand_mesh_inst.material_override = _strand_mat
 	add_child(_strand_mesh_inst)
 
 
@@ -230,13 +232,18 @@ func activate_magnet(dur: float = MAGNET_DURATION) -> void:
 	buff_changed.emit("magnet", magnet_timer)
 
 
-func trigger_sticky_trap(trap_node: Node3D, duration: float) -> void:
+func trigger_sticky_trap(trap_node: Node3D, duration: float, trap_col: Color = Color("#FF2E93"), trap_lbl: String = "STICKY GUM!") -> void:
 	sticky_timer = maxf(sticky_timer, duration)
 	active_gum_trap = trap_node
 	_velocity *= 0.45 # Noticeable sticky snag without total dead-stop!
+	_rim_goo_mat.albedo_color = trap_col
+	_rim_goo_mat.emission = trap_col
+	_strand_mat.albedo_color = trap_col
+	if _vortex_mat:
+		_vortex_mat.set_shader_parameter("rim_gum", trap_col)
 	AudioManager.play_sfx("sticky")
 	PlatformBridge.trigger_haptic(35)
-	sticky_triggered.emit(trap_node.position)
+	sticky_triggered.emit(trap_node.position, trap_col, trap_lbl)
 	buff_changed.emit("sticky", sticky_timer)
 
 

@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Fortress Corners",
   "difficulty_tag": "HARD",
-  "duration": 38,
+  "duration": 34,
   "arena": [
     22,
     26
@@ -16,14 +16,110 @@
   "streak_hint": 19,
   "targets": {
     "w1_donut": 8,
-    "w1_cake": 4,
+    "w1_cake": 5,
     "w1_grand_cake": 2
   },
   "items": [
     {
       "key": "w1_sprinkle",
       "pos": [
-        -3.9,
+        2.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        2.63,
+        1.03
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        2.14,
+        1.93
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        1.4,
+        2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        0.49,
+        2.95
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -0.49,
+        2.95
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -1.4,
+        2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.14,
+        1.93
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.63,
+        1.03
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.63,
+        -1.03
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.14,
+        -1.93
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -1.4,
         -2.6
       ],
       "color_idx": 0
@@ -31,424 +127,168 @@
     {
       "key": "w1_sprinkle",
       "pos": [
-        -2.6,
-        -2.6
+        -0.49,
+        -2.95
       ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -1.3,
-        -2.6
+        0.49,
+        -2.95
       ],
       "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
+      "pos": [
+        1.4,
+        -2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        2.14,
+        -1.93
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        2.63,
+        -1.03
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -4.6,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -2.3,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
       "pos": [
         0.0,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        2.3,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        4.6,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        4.6,
         -2.6
       ],
       "color_idx": 0
     },
     {
-      "key": "w1_sprinkle",
+      "key": "w1_strawberry",
       "pos": [
-        1.3,
-        -2.6
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        2.6,
-        -2.6
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        3.9,
-        -2.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -3.9,
-        -1.3
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -2.6,
-        -1.3
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        2.6,
-        -1.3
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        3.9,
-        -1.3
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -3.9,
-        0.0
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -2.6,
+        4.6,
         0.0
       ],
       "color_idx": 0
     },
     {
-      "key": "w1_sprinkle",
+      "key": "w1_strawberry",
       "pos": [
-        2.6,
-        0.0
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        3.9,
-        0.0
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -3.9,
-        1.3
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -2.6,
-        1.3
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        2.6,
-        1.3
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        3.9,
-        1.3
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -3.9,
-        2.6
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -2.6,
-        2.6
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -1.3,
+        4.6,
         2.6
       ],
       "color_idx": 0
     },
     {
-      "key": "w1_sprinkle",
+      "key": "w1_strawberry",
+      "pos": [
+        4.6,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        2.3,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
       "pos": [
         0.0,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -2.3,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -4.6,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -4.6,
         2.6
       ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        1.3,
-        2.6
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        2.6,
-        2.6
-      ],
       "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        3.9,
-        2.6
-      ],
-      "color_idx": 1
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -5.2,
-        -5.8
+        -4.6,
+        0.0
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -3.71,
-        -5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -2.23,
-        -5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -0.74,
-        -5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        0.74,
-        -5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        2.23,
-        -5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        3.71,
-        -5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        -5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        -4.14
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        -2.49
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        -0.83
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        0.83
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        2.49
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        4.14
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        5.2,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        3.71,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        2.23,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        0.74,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -0.74,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -2.23,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -3.71,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -5.2,
-        5.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -5.2,
-        4.14
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -5.2,
-        2.49
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -5.2,
-        0.83
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -5.2,
-        -0.83
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -5.2,
-        -2.49
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -5.2,
-        -4.14
+        -4.6,
+        -2.6
       ],
       "color_idx": 0
     },
@@ -463,7 +303,7 @@
     {
       "key": "w1_boba_tea",
       "pos": [
-        -4.08,
+        -2.27,
         -7.6
       ],
       "color_idx": 0
@@ -471,23 +311,7 @@
     {
       "key": "w1_boba_tea",
       "pos": [
-        -1.36,
-        -7.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        1.36,
-        -7.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        4.08,
+        2.27,
         -7.6
       ],
       "color_idx": 0
@@ -504,7 +328,7 @@
       "key": "w1_boba_tea",
       "pos": [
         6.8,
-        -4.56
+        -2.53
       ],
       "color_idx": 0
     },
@@ -512,23 +336,7 @@
       "key": "w1_boba_tea",
       "pos": [
         6.8,
-        -1.52
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        6.8,
-        1.52
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        6.8,
-        4.56
+        2.53
       ],
       "color_idx": 0
     },
@@ -543,7 +351,7 @@
     {
       "key": "w1_boba_tea",
       "pos": [
-        4.08,
+        2.27,
         7.6
       ],
       "color_idx": 0
@@ -551,23 +359,7 @@
     {
       "key": "w1_boba_tea",
       "pos": [
-        1.36,
-        7.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        -1.36,
-        7.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        -4.08,
+        -2.27,
         7.6
       ],
       "color_idx": 0
@@ -584,7 +376,7 @@
       "key": "w1_boba_tea",
       "pos": [
         -6.8,
-        4.56
+        2.53
       ],
       "color_idx": 0
     },
@@ -592,30 +384,14 @@
       "key": "w1_boba_tea",
       "pos": [
         -6.8,
-        1.52
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        -6.8,
-        -1.52
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_boba_tea",
-      "pos": [
-        -6.8,
-        -4.56
+        -2.53
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        3.6,
+        3.8,
         0.0
       ],
       "color_idx": 0
@@ -623,111 +399,79 @@
     {
       "key": "w1_macaron",
       "pos": [
-        3.24,
-        1.74
+        3.07,
+        2.47
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        2.24,
-        3.13
+        1.17,
+        3.99
       ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        0.8,
-        3.9
+        -1.17,
+        3.99
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -0.8,
-        3.9
+        -3.07,
+        2.47
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -2.24,
-        3.13
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w1_macaron",
-      "pos": [
-        -3.24,
-        1.74
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_macaron",
-      "pos": [
-        -3.6,
+        -3.8,
         0.0
       ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_macaron",
-      "pos": [
-        -3.24,
-        -1.74
-      ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -2.24,
-        -3.13
+        -3.07,
+        -2.47
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -0.8,
-        -3.9
+        -1.17,
+        -3.99
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        0.8,
-        -3.9
+        1.17,
+        -3.99
       ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        2.24,
-        -3.13
+        3.07,
+        -2.47
       ],
       "color_idx": 0
-    },
-    {
-      "key": "w1_macaron",
-      "pos": [
-        3.24,
-        -1.74
-      ],
-      "color_idx": 1
     },
     {
       "key": "w1_donut",
       "pos": [
-        -8.2,
+        -8.4,
         -5.0
       ],
       "color_idx": 0
@@ -735,7 +479,7 @@
     {
       "key": "w1_donut",
       "pos": [
-        8.2,
+        8.4,
         -5.0
       ],
       "color_idx": 1
@@ -743,7 +487,7 @@
     {
       "key": "w1_donut",
       "pos": [
-        -8.2,
+        -8.4,
         5.0
       ],
       "color_idx": 0
@@ -751,7 +495,7 @@
     {
       "key": "w1_donut",
       "pos": [
-        8.2,
+        8.4,
         5.0
       ],
       "color_idx": 1
@@ -760,7 +504,7 @@
       "key": "w1_donut",
       "pos": [
         -4.5,
-        -9.5
+        -9.8
       ],
       "color_idx": 0
     },
@@ -768,7 +512,7 @@
       "key": "w1_donut",
       "pos": [
         4.5,
-        -9.5
+        -9.8
       ],
       "color_idx": 1
     },
@@ -776,7 +520,7 @@
       "key": "w1_donut",
       "pos": [
         -4.5,
-        9.5
+        9.8
       ],
       "color_idx": 0
     },
@@ -784,55 +528,39 @@
       "key": "w1_donut",
       "pos": [
         4.5,
-        9.5
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_donut",
-      "pos": [
-        0,
-        -7.2
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_donut",
-      "pos": [
-        0,
-        7.2
+        9.8
       ],
       "color_idx": 1
     },
     {
       "key": "w1_cake",
       "pos": [
-        -8.4,
-        -9.8
+        -8.8,
+        -10.2
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        8.4,
-        -9.8
+        8.8,
+        -10.2
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        -8.4,
-        9.8
+        -8.8,
+        10.2
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        8.4,
-        9.8
+        8.8,
+        10.2
       ],
       "color_idx": 0
     },
@@ -840,14 +568,22 @@
       "key": "w1_cake",
       "pos": [
         0,
-        -10.4
+        -10.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w1_cake",
+      "pos": [
+        0,
+        10.6
       ],
       "color_idx": 0
     },
     {
       "key": "w1_grand_cake",
       "pos": [
-        -8.4,
+        -9.2,
         0
       ],
       "color_idx": 0
@@ -855,7 +591,7 @@
     {
       "key": "w1_grand_cake",
       "pos": [
-        8.4,
+        9.2,
         0
       ],
       "color_idx": 0
@@ -866,14 +602,7 @@
       "kind": "ice",
       "pos": [
         0,
-        -3.2
-      ]
-    },
-    {
-      "kind": "magnet",
-      "pos": [
-        0,
-        3.2
+        -2.6
       ]
     }
   ],
@@ -927,5 +656,6 @@
       ]
     }
   ],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

@@ -1,0 +1,595 @@
+{
+  "level": 31,
+  "world": 3,
+  "formation_name": "Sushi Conveyor",
+  "difficulty_tag": "EASY",
+  "duration": 45,
+  "arena": [
+    18,
+    22
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 3,
+  "streak_hint": 0,
+  "targets": {
+    "w3_ramen": 9,
+    "w3_big_ramen": 5
+  },
+  "items": [
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.8,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.56,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.33,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.09,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -1.85,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -0.62,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.62,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        1.85,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.09,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.33,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.56,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.8,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.56,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.33,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.09,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.09,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.33,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.56,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.8,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.56,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.33,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.09,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -1.85,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -0.62,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.62,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        1.85,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.09,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.33,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.56,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.8,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -6.2,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -4.82,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.44,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.07,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -0.69,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        0.69,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.07,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.44,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.82,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.2,
+        -3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -6.2,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -4.82,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.44,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.07,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -0.69,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        0.69,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.07,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.44,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.82,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.2,
+        3.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.16,
+        3.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        2.4,
+        5.37
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -2.4,
+        5.37
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.16,
+        3.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.16,
+        -3.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -2.4,
+        -5.37
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -0.0,
+        -6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        2.4,
+        -5.37
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.16,
+        -3.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -6.5,
+        -7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        6.5,
+        -7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -6.5,
+        7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        6.5,
+        7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        0,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        0,
+        8.2
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "magnet",
+      "pos": [
+        0,
+        3.2
+      ]
+    }
+  ],
+  "traps": [],
+  "walls": [],
+  "bombs": []
+}

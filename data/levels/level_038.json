@@ -1,0 +1,761 @@
+{
+  "level": 38,
+  "world": 3,
+  "formation_name": "Izakaya Twins",
+  "difficulty_tag": "NORMAL",
+  "duration": 48,
+  "arena": [
+    22,
+    26
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 5,
+  "streak_hint": 0,
+  "targets": {
+    "w3_big_ramen": 8,
+    "w3_bento": 4,
+    "w3_grand_bento": 2
+  },
+  "items": [
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.6,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.92,
+        -3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.8,
+        -2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.09,
+        -1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.51,
+        -1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.8,
+        -2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -8.68,
+        -3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.0,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -8.68,
+        -6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.8,
+        -7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.51,
+        -8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.09,
+        -8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.8,
+        -7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.92,
+        -6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        9.0,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        8.68,
+        -3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        7.8,
+        -2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.51,
+        -1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.09,
+        -1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.8,
+        -2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.92,
+        -3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.6,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.92,
+        -6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.8,
+        -7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.09,
+        -8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.51,
+        -8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        7.8,
+        -7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        8.68,
+        -6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.6,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.92,
+        6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.8,
+        7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -5.09,
+        8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -6.51,
+        8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -7.8,
+        7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -8.68,
+        6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -9.0,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -8.68,
+        3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -7.8,
+        2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -6.51,
+        1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -5.09,
+        1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.8,
+        2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.92,
+        3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        9.0,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        8.68,
+        6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.8,
+        7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.51,
+        8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        5.09,
+        8.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.8,
+        7.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.92,
+        6.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.6,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.92,
+        3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.8,
+        2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        5.09,
+        1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.51,
+        1.89
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.8,
+        2.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        8.68,
+        3.72
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        -8.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        -6.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        -5.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        -3.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        3.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        5.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        6.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        0.0,
+        8.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -5.8,
+        0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        5.8,
+        0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -8.6,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        8.6,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -8.6,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        8.6,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -3.0,
+        -8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        3.0,
+        -8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -3.0,
+        8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        3.0,
+        8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -5.8,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        5.8,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        -8.8,
+        -9.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        8.8,
+        -9.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        -8.8,
+        9.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        8.8,
+        9.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_grand_bento",
+      "pos": [
+        -5.8,
+        5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_grand_bento",
+      "pos": [
+        5.8,
+        -5.2
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        0,
+        -2.6
+      ]
+    },
+    {
+      "kind": "magnet",
+      "pos": [
+        0,
+        2.6
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        -2.8,
+        0
+      ]
+    },
+    {
+      "pos": [
+        2.8,
+        0
+      ]
+    },
+    {
+      "pos": [
+        0,
+        -5.2
+      ]
+    },
+    {
+      "pos": [
+        0,
+        5.2
+      ]
+    },
+    {
+      "pos": [
+        -5.8,
+        -1.8
+      ]
+    },
+    {
+      "pos": [
+        5.8,
+        1.8
+      ]
+    }
+  ],
+  "walls": [],
+  "bombs": [
+    {
+      "pos": [
+        -2.8,
+        -5.2
+      ]
+    },
+    {
+      "pos": [
+        2.8,
+        -5.2
+      ]
+    },
+    {
+      "pos": [
+        -2.8,
+        5.2
+      ]
+    },
+    {
+      "pos": [
+        2.8,
+        5.2
+      ]
+    }
+  ]
+}

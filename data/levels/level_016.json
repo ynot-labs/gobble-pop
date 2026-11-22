@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Hex Honeycomb",
   "difficulty_tag": "NORMAL",
-  "duration": 42,
+  "duration": 33,
   "arena": [
     22,
     26
@@ -31,42 +31,34 @@
     {
       "key": "w1_sprinkle",
       "pos": [
-        8.27,
-        1.6
+        8.22,
+        1.91
       ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        7.89,
-        3.15
+        7.67,
+        3.74
       ],
       "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        7.27,
-        4.6
+        6.8,
+        5.41
       ],
       "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        6.43,
-        5.91
+        5.62,
+        6.84
       ],
       "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        5.4,
-        7.05
-      ],
-      "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
@@ -74,47 +66,39 @@
         4.2,
         7.97
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        2.87,
-        8.65
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        1.46,
-        9.06
-      ],
       "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        0.0,
-        9.2
+        2.6,
+        8.75
       ],
       "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -1.46,
-        9.06
+        0.88,
+        9.15
       ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -2.87,
-        8.65
+        -0.88,
+        9.15
       ],
       "color_idx": 2
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.6,
+        8.75
+      ],
+      "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
@@ -122,45 +106,37 @@
         -4.2,
         7.97
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -5.4,
-        7.05
-      ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -6.43,
-        5.91
+        -5.62,
+        6.84
       ],
       "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -7.27,
-        4.6
+        -6.8,
+        5.41
       ],
       "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -7.89,
-        3.15
+        -7.67,
+        3.74
       ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -8.27,
-        1.6
+        -8.22,
+        1.91
       ],
       "color_idx": 2
     },
@@ -175,42 +151,34 @@
     {
       "key": "w1_sprinkle",
       "pos": [
-        -8.27,
-        -1.6
+        -8.22,
+        -1.91
       ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -7.89,
-        -3.15
+        -7.67,
+        -3.74
       ],
       "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -7.27,
-        -4.6
+        -6.8,
+        -5.41
       ],
       "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -6.43,
-        -5.91
+        -5.62,
+        -6.84
       ],
       "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -5.4,
-        -7.05
-      ],
-      "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
@@ -218,47 +186,39 @@
         -4.2,
         -7.97
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -2.87,
-        -8.65
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        -1.46,
-        -9.06
-      ],
       "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        -0.0,
-        -9.2
+        -2.6,
+        -8.75
       ],
       "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        1.46,
-        -9.06
+        -0.88,
+        -9.15
       ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        2.87,
-        -8.65
+        0.88,
+        -9.15
       ],
       "color_idx": 2
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        2.6,
+        -8.75
+      ],
+      "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
@@ -266,45 +226,37 @@
         4.2,
         -7.97
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_sprinkle",
-      "pos": [
-        5.4,
-        -7.05
-      ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        6.43,
-        -5.91
+        5.62,
+        -6.84
       ],
       "color_idx": 2
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        7.27,
-        -4.6
+        6.8,
+        -5.41
       ],
       "color_idx": 0
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        7.89,
-        -3.15
+        7.67,
+        -3.74
       ],
       "color_idx": 1
     },
     {
       "key": "w1_sprinkle",
       "pos": [
-        8.27,
-        -1.6
+        8.22,
+        -1.91
       ],
       "color_idx": 2
     },
@@ -319,40 +271,32 @@
     {
       "key": "w1_strawberry",
       "pos": [
-        6.18,
-        1.81
+        6.09,
+        2.16
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        5.54,
-        3.5
+        5.18,
+        4.11
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        4.53,
-        4.95
+        3.76,
+        5.66
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        3.2,
-        6.06
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        1.66,
-        6.76
+        1.98,
+        6.66
       ],
       "color_idx": 0
     },
@@ -367,40 +311,32 @@
     {
       "key": "w1_strawberry",
       "pos": [
-        -1.66,
-        6.76
+        -1.98,
+        6.66
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -3.2,
-        6.06
+        -3.76,
+        5.66
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -4.53,
-        4.95
+        -5.18,
+        4.11
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -5.54,
-        3.5
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -6.18,
-        1.81
+        -6.09,
+        2.16
       ],
       "color_idx": 0
     },
@@ -415,40 +351,32 @@
     {
       "key": "w1_strawberry",
       "pos": [
-        -6.18,
-        -1.81
+        -6.09,
+        -2.16
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -5.54,
-        -3.5
+        -5.18,
+        -4.11
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -4.53,
-        -4.95
+        -3.76,
+        -5.66
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        -3.2,
-        -6.06
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        -1.66,
-        -6.76
+        -1.98,
+        -6.66
       ],
       "color_idx": 0
     },
@@ -463,40 +391,32 @@
     {
       "key": "w1_strawberry",
       "pos": [
-        1.66,
-        -6.76
+        1.98,
+        -6.66
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        3.2,
-        -6.06
+        3.76,
+        -5.66
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        4.53,
-        -4.95
+        5.18,
+        -4.11
       ],
       "color_idx": 0
     },
     {
       "key": "w1_strawberry",
       "pos": [
-        5.54,
-        -3.5
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_strawberry",
-      "pos": [
-        6.18,
-        -1.81
+        6.09,
+        -2.16
       ],
       "color_idx": 0
     },
@@ -511,66 +431,58 @@
     {
       "key": "w1_macaron",
       "pos": [
-        4.13,
-        1.64
+        4.07,
+        1.84
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        3.37,
-        3.09
+        3.11,
+        3.39
       ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        2.2,
-        4.16
+        1.68,
+        4.43
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        0.76,
-        4.73
+        0.0,
+        4.8
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -0.76,
-        4.73
+        -1.68,
+        4.43
       ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -2.2,
-        4.16
+        -3.11,
+        3.39
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -3.37,
-        3.09
+        -4.07,
+        1.84
       ],
       "color_idx": 1
-    },
-    {
-      "key": "w1_macaron",
-      "pos": [
-        -4.13,
-        1.64
-      ],
-      "color_idx": 2
     },
     {
       "key": "w1_macaron",
@@ -578,71 +490,63 @@
         -4.4,
         0.0
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w1_macaron",
-      "pos": [
-        -4.13,
-        -1.64
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w1_macaron",
-      "pos": [
-        -3.37,
-        -3.09
-      ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -2.2,
-        -4.16
+        -4.07,
+        -1.84
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -0.76,
-        -4.73
+        -3.11,
+        -3.39
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        0.76,
-        -4.73
+        -1.68,
+        -4.43
       ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        2.2,
-        -4.16
+        -0.0,
+        -4.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        3.37,
-        -3.09
+        1.68,
+        -4.43
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        4.13,
-        -1.64
+        3.11,
+        -3.39
       ],
       "color_idx": 2
+    },
+    {
+      "key": "w1_macaron",
+      "pos": [
+        4.07,
+        -1.84
+      ],
+      "color_idx": 0
     },
     {
       "key": "w1_boba_tea",
@@ -878,13 +782,6 @@
       ]
     },
     {
-      "kind": "ice",
-      "pos": [
-        3.4,
-        0
-      ]
-    },
-    {
       "kind": "magnet",
       "pos": [
         0,
@@ -930,5 +827,6 @@
       ]
     }
   ],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

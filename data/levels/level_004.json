@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Ice-Magnet Cross",
   "difficulty_tag": "EASY",
-  "duration": 45,
+  "duration": 44,
   "arena": [
     18,
     22
@@ -661,5 +661,6 @@
     }
   ],
   "traps": [],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

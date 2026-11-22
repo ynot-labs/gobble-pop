@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Butterfly Wings",
   "difficulty_tag": "NORMAL",
-  "duration": 44,
+  "duration": 28,
   "arena": [
     20,
     24
@@ -740,5 +740,6 @@
       ]
     }
   ],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }
