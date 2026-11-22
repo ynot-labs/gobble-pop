@@ -1,13 +1,16 @@
 extends Node3D
 class_name StickyTrap
 
-var trap_radius: float = 0.92
+var trap_radius: float = 0.94
 var _mat: ShaderMaterial
 var _cleared: bool = false
+var _cooldown: float = 0.0
+var _pulse: float = 0.0
 
 
 func setup(spawn_pos: Vector3, world_id: int = 1) -> void:
 	position = spawn_pos
+	_pulse = randf() * TAU
 
 	_mat = ShaderMaterial.new()
 	_mat.shader = load("res://shaders/sticky_gum.gdshader")
@@ -46,18 +49,28 @@ func _apply_shader_recursive(node: Node, mat: Material) -> void:
 		_apply_shader_recursive(child, mat)
 
 
-func step_interaction(hole: HoleController, level_number: int) -> void:
+func step_interaction(hole: HoleController, level_number: int, delta: float) -> void:
 	if _cleared:
 		return
+	_pulse += delta * 3.2
+	var s := 1.0 + sin(_pulse) * 0.05
+	scale = Vector3(s, 1.0, s)
+
+	if _cooldown > 0.0:
+		_cooldown = maxf(_cooldown - delta, 0.0)
+
 	var diff := Vector3(hole.position.x - position.x, 0.0, hole.position.z - position.z)
 	var dist := diff.length()
-	var trigger_dist := trap_radius + hole.current_radius * 0.55
+	var trigger_dist := trap_radius * 0.78 + hole.current_radius * 0.72
 
-	if dist < trigger_dist:
-		hole.apply_sticky_slow(DDAController.get_sticky_slow_duration(level_number))
-		var pull := diff.normalized() * minf(dist, 0.9)
+	if dist < trigger_dist and _cooldown <= 0.0:
+		_cooldown = 3.1
+		hole.trigger_sticky_trap(self, DDAController.get_sticky_slow_duration(level_number))
+
+	if hole.sticky_timer > 0.0 and hole.active_gum_trap == self:
+		var pull := diff.normalized() * minf(dist, 1.15) if dist > 0.05 else Vector3.ZERO
 		_mat.set_shader_parameter("pull_offset", pull)
-		_mat.set_shader_parameter("pull_strength", 0.75)
+		_mat.set_shader_parameter("pull_strength", 0.85)
 	else:
 		_mat.set_shader_parameter("pull_strength", 0.0)
 
@@ -67,6 +80,6 @@ func pop_and_clear() -> void:
 		return
 	_cleared = true
 	var tw := create_tween()
-	tw.tween_property(self, "scale", Vector3(1.35, 1.35, 1.35), 0.12)
-	tw.tween_property(self, "scale", Vector3.ZERO, 0.16)
+	tw.tween_property(self, "scale", Vector3(1.38, 1.38, 1.38), 0.10)
+	tw.tween_property(self, "scale", Vector3.ZERO, 0.15)
 	tw.tween_callback(queue_free)

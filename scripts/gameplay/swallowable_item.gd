@@ -7,50 +7,89 @@ enum State { IDLE, PULLING, SWALLOWED }
 
 var item_key: String = ""
 var tier: int = 1
-var xp_value: float = 10.0
+var xp_value: float = 5.0
 var item_radius: float = 0.3
+var item_height: float = 0.4
 var tint_color: Color = Color.WHITE
+var is_objective: bool = false
 var state: State = State.IDLE
 
 var _fall_vel := Vector3.ZERO
 var _tilt_axis := Vector3.RIGHT
 var _visual_root: Node3D
-var _bump_cooldown: float = 0.0
+var _target_ring: MeshInstance3D
+var _target_ring_mat: StandardMaterial3D
+var _lock_label: Label3D
+var _bounce: float = 0.0
 
 
-func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0) -> void:
+func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0, p_is_objective: bool = false) -> void:
 	item_key = key
 	tier = int(def.get("tier", 1))
-	xp_value = float(def.get("xp", 10.0))
+	xp_value = float(def.get("xp", 5.0))
 	item_radius = float(def.get("radius", 0.3))
+	item_height = float(def.get("height", 0.4))
+	is_objective = p_is_objective
 	var colors: Array = def.get("colors", ["#FF6FA5"])
-	var hex: String = colors[color_idx % colors.size()]
-	tint_color = Color(hex)
+	tint_color = Color(str(colors[color_idx % colors.size()]))
 	position = spawn_pos
 
 	_visual_root = Node3D.new()
 	add_child(_visual_root)
 
-	# Auto-load Blender GLB if present (Phase 2+), otherwise stylized vinyl greybox
+	if is_objective:
+		_build_target_ring()
+	if tier >= 3:
+		_build_lock_badge()
+
 	var model_path: String = str(def.get("model", ""))
 	if model_path != "" and ResourceLoader.exists(model_path):
 		var packed: PackedScene = load(model_path)
 		if packed:
 			var inst := packed.instantiate()
 			if item_key == "w1_grand_cake":
-				inst.scale = Vector3(1.28, 1.28, 1.28)
-			elif item_key == "w1_sprinkle":
+				inst.scale = Vector3(1.26, 1.26, 1.26)
+			elif item_key in ["w1_sprinkle", "w2_block"]:
 				inst.rotation.y = randf() * TAU
 				_apply_variant_tint(inst, tint_color)
-			elif item_key == "w1_gummy_bear" or item_key == "w1_macaron":
-				if color_idx > 0:
-					_apply_variant_tint(inst, tint_color)
+			elif item_key in ["w1_gummy_bear", "w1_macaron", "w2_figurine"] and color_idx > 0:
+				_apply_variant_tint(inst, tint_color)
 			elif item_key == "w1_donut" and color_idx == 1:
 				_apply_variant_tint(inst, Color("#8CE0FF"))
+			elif item_key in ["w2_duck", "w2_arcade", "w2_unicorn"]:
+				inst.rotation.y = randf_range(-0.6, 0.6)
 			_visual_root.add_child(inst)
 			return
 
-	_build_stylized_greybox(str(def.get("shape", "sphere")), float(def.get("height", 0.4)))
+	_build_fallback_mesh()
+
+
+func _build_target_ring() -> void:
+	_target_ring = MeshInstance3D.new()
+	var tor := TorusMesh.new()
+	tor.outer_radius = item_radius * 1.18 + 0.14
+	tor.inner_radius = item_radius * 1.18 + 0.04
+	_target_ring.mesh = tor
+	_target_ring.position.y = 0.035
+	_target_ring_mat = StandardMaterial3D.new()
+	_target_ring_mat.albedo_color = Color(1.0, 1.0, 1.0, 0.85)
+	_target_ring_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_target_ring_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_target_ring.material_override = _target_ring_mat
+	add_child(_target_ring)
+
+
+func _build_lock_badge() -> void:
+	_lock_label = Label3D.new()
+	_lock_label.text = "Lv.%d" % tier
+	_lock_label.font_size = 56
+	_lock_label.outline_size = 16
+	_lock_label.modulate = Color("#FDE047")
+	_lock_label.outline_modulate = Color("#0F172A")
+	_lock_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	_lock_label.no_depth_test = true
+	_lock_label.position = Vector3(0.0, item_height + 0.55, 0.0)
+	add_child(_lock_label)
 
 
 func _apply_variant_tint(node: Node, col: Color) -> void:
@@ -65,182 +104,78 @@ func _apply_variant_tint(node: Node, col: Color) -> void:
 		_apply_variant_tint(child, col)
 
 
-func _build_stylized_greybox(shape: String, h: float) -> void:
+func _build_fallback_mesh() -> void:
+	var m := MeshInstance3D.new()
+	var sph := SphereMesh.new()
+	sph.radius = item_radius
+	sph.height = item_height
+	m.mesh = sph
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = tint_color
-	mat.roughness = 0.24
-	mat.metallic = 0.05
-
-	match shape:
-		"capsule":
-			var m := MeshInstance3D.new()
-			var cap := CapsuleMesh.new()
-			cap.radius = item_radius * 0.55
-			cap.height = item_radius * 2.1
-			m.mesh = cap
-			m.material_override = mat
-			m.rotation_degrees = Vector3(90, randf() * 180.0, 0)
-			m.position.y = cap.radius
-			_visual_root.add_child(m)
-		"strawberry":
-			var body := MeshInstance3D.new()
-			var sph := SphereMesh.new()
-			sph.radius = item_radius
-			sph.height = h
-			body.mesh = sph
-			body.material_override = mat
-			body.position.y = h * 0.5
-			_visual_root.add_child(body)
-
-			var leaf := MeshInstance3D.new()
-			var cyl := CylinderMesh.new()
-			cyl.top_radius = item_radius * 0.65
-			cyl.bottom_radius = item_radius * 0.2
-			cyl.height = 0.09
-			leaf.mesh = cyl
-			var gmat := StandardMaterial3D.new()
-			gmat.albedo_color = Color("#34C759")
-			gmat.roughness = 0.3
-			leaf.material_override = gmat
-			leaf.position.y = h * 0.92
-			_visual_root.add_child(leaf)
-		"macaron":
-			var cream_mat := StandardMaterial3D.new()
-			cream_mat.albedo_color = Color("#FFF9EE")
-			cream_mat.roughness = 0.2
-			for idx in range(3):
-				var disc := MeshInstance3D.new()
-				var cyl := CylinderMesh.new()
-				cyl.top_radius = item_radius * (0.94 if idx == 1 else 1.0)
-				cyl.bottom_radius = cyl.top_radius
-				cyl.height = h * (0.28 if idx == 1 else 0.34)
-				disc.mesh = cyl
-				disc.material_override = cream_mat if idx == 1 else mat
-				disc.position.y = h * (0.18 + idx * 0.31)
-				_visual_root.add_child(disc)
-		"donut":
-			var m := MeshInstance3D.new()
-			var tor := TorusMesh.new()
-			tor.outer_radius = item_radius
-			tor.inner_radius = item_radius * 0.42
-			m.mesh = tor
-			m.material_override = mat
-			m.position.y = h * 0.5
-			_visual_root.add_child(m)
-		"cake":
-			var pink_mat := StandardMaterial3D.new()
-			pink_mat.albedo_color = Color("#FF74A4")
-			pink_mat.roughness = 0.22
-			var red_mat := StandardMaterial3D.new()
-			red_mat.albedo_color = Color("#FF2E4C")
-			red_mat.roughness = 0.2
-
-			var tier1 := MeshInstance3D.new()
-			var c1 := CylinderMesh.new()
-			c1.top_radius = item_radius
-			c1.bottom_radius = item_radius * 1.03
-			c1.height = h * 0.48
-			tier1.mesh = c1
-			tier1.material_override = mat
-			tier1.position.y = c1.height * 0.5
-			_visual_root.add_child(tier1)
-
-			var tier2 := MeshInstance3D.new()
-			var c2 := CylinderMesh.new()
-			c2.top_radius = item_radius * 0.68
-			c2.bottom_radius = item_radius * 0.72
-			c2.height = h * 0.38
-			tier2.mesh = c2
-			tier2.material_override = pink_mat
-			tier2.position.y = c1.height + c2.height * 0.5
-			_visual_root.add_child(tier2)
-
-			var berry := MeshInstance3D.new()
-			var bs := SphereMesh.new()
-			bs.radius = item_radius * 0.24
-			bs.height = item_radius * 0.52
-			berry.mesh = bs
-			berry.material_override = red_mat
-			berry.position.y = c1.height + c2.height + bs.radius * 0.75
-			_visual_root.add_child(berry)
-		"cup":
-			var cup := MeshInstance3D.new()
-			var cyl := CylinderMesh.new()
-			cyl.top_radius = item_radius
-			cyl.bottom_radius = item_radius * 0.78
-			cyl.height = h * 0.75
-			cup.mesh = cyl
-			cup.material_override = mat
-			cup.position.y = cyl.height * 0.5
-			_visual_root.add_child(cup)
-
-			var straw := MeshInstance3D.new()
-			var sc := CylinderMesh.new()
-			sc.top_radius = 0.08
-			sc.bottom_radius = 0.08
-			sc.height = h * 0.55
-			straw.mesh = sc
-			var smat := StandardMaterial3D.new()
-			smat.albedo_color = Color("#FF9EC4")
-			straw.material_override = smat
-			straw.position = Vector3(0.06, h * 0.82, 0.0)
-			straw.rotation_degrees.z = -12.0
-			_visual_root.add_child(straw)
-		_:
-			var m := MeshInstance3D.new()
-			var sph := SphereMesh.new()
-			sph.radius = item_radius
-			sph.height = h
-			m.mesh = sph
-			m.material_override = mat
-			m.position.y = h * 0.5
-			_visual_root.add_child(m)
+	mat.roughness = 0.22
+	m.material_override = mat
+	m.position.y = item_height * 0.5
+	_visual_root.add_child(m)
 
 
-func step_interaction(hole: HoleController, delta: float) -> void:
+func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2) -> void:
 	if state == State.SWALLOWED:
 		return
 
-	if _bump_cooldown > 0.0:
-		_bump_cooldown -= delta
+	var can_eat := tier <= hole.hole_level
+	if _target_ring and state == State.IDLE:
+		_target_ring_mat.albedo_color = Color("#16A34A") if can_eat else Color(1.0, 1.0, 1.0, 0.80)
+	if _lock_label:
+		_lock_label.visible = (not can_eat) and (state == State.IDLE)
+
+	if _bounce > 0.0:
+		_bounce = maxf(_bounce - delta * 5.0, 0.0)
+		if state == State.IDLE:
+			var s := 1.0 + sin(_bounce * PI) * 0.14
+			_visual_root.scale = Vector3(s, 1.0 / s, s)
+	elif state == State.IDLE:
+		_visual_root.scale = Vector3.ONE
 
 	var to_hole := Vector3(hole.position.x - position.x, 0.0, hole.position.z - position.z)
 	var dist := to_hole.length()
 
 	if state == State.IDLE:
-		var can_eat := tier <= hole.hole_level
 		var magnet_r := hole.get_magnet_radius()
-
-		# Magnet gently drags edible objects toward the hole
 		if can_eat and magnet_r > 0.0 and dist < magnet_r and dist > 0.05:
 			var pull_dir := to_hole / dist
-			position += pull_dir * 7.8 * delta
+			position += pull_dir * 7.6 * delta
 
-		var capture_r := hole.get_suction_radius()
-		if dist < capture_r:
-			if can_eat:
-				state = State.PULLING
-				_tilt_axis = Vector3(-to_hole.z, 0.0, to_hole.x).normalized()
-				if _tilt_axis.length_squared() < 0.01:
-					_tilt_axis = Vector3.RIGHT
-			elif _bump_cooldown <= 0.0:
-				# Too large: playful bump feedback
-				_bump_cooldown = 0.35
-				var tw := create_tween()
-				tw.tween_property(_visual_root, "scale", Vector3(1.12, 0.88, 1.12), 0.07)
-				tw.tween_property(_visual_root, "scale", Vector3.ONE, 0.12)
+		# Calibrated eat threshold matching gobble-pop-demo: (hole_r * 1.05 - item_r * 0.25) * pullFactor
+		var suction_r := maxf(0.48, hole.get_suction_radius() - item_radius * 0.24)
+		if can_eat and dist < suction_r:
+			state = State.PULLING
+			if _target_ring:
+				_target_ring.visible = false
+			if _lock_label:
+				_lock_label.visible = false
+			_tilt_axis = Vector3(-to_hole.z, 0.0, to_hole.x).normalized()
+			if _tilt_axis.length_squared() < 0.01:
+				_tilt_axis = Vector3.RIGHT
+		elif (not can_eat) and dist < (hole.current_radius + item_radius * 0.85) and dist > 0.02:
+			# Solid oversized bump pushback (just like demo & Hole Stars!)
+			var push := (hole.current_radius + item_radius * 0.85 - dist) * 0.26
+			position.x -= (to_hole.x / dist) * push
+			position.z -= (to_hole.z / dist) * push
+			position.x = clampf(position.x, -board_bounds.x + item_radius, board_bounds.x - item_radius)
+			position.z = clampf(position.z, -board_bounds.y + item_radius, board_bounds.y - item_radius)
+			_bounce = 1.0
 	elif state == State.PULLING:
 		var pull_dir := to_hole.normalized() if dist > 0.01 else Vector3.ZERO
-		_fall_vel.x = lerpf(_fall_vel.x, pull_dir.x * 11.0, minf(delta * 12.0, 1.0))
-		_fall_vel.z = lerpf(_fall_vel.z, pull_dir.z * 11.0, minf(delta * 12.0, 1.0))
-		_fall_vel.y -= 28.0 * delta
+		_fall_vel.x = lerpf(_fall_vel.x, pull_dir.x * 11.5, minf(delta * 13.0, 1.0))
+		_fall_vel.z = lerpf(_fall_vel.z, pull_dir.z * 11.5, minf(delta * 13.0, 1.0))
+		_fall_vel.y -= 29.0 * delta
 		position += _fall_vel * delta
 
-		_visual_root.rotate(_tilt_axis, delta * 7.5)
-		var shrink := clampf(1.0 + position.y * 0.42, 0.22, 1.0)
+		_visual_root.rotate(_tilt_axis, delta * 8.2)
+		var shrink := clampf(1.0 + position.y * 0.44, 0.18, 1.0)
 		_visual_root.scale = Vector3.ONE * shrink
 
 		if position.y < -1.15:
 			state = State.SWALLOWED
-			swallowed.emit(item_key, tier, xp_value, Vector3(hole.position.x, 0.15, hole.position.z), tint_color)
+			swallowed.emit(item_key, tier, xp_value, Vector3(hole.position.x, 0.16, hole.position.z), tint_color)
 			queue_free()
