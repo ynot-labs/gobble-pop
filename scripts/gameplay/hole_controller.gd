@@ -36,6 +36,7 @@ var active_gum_trap: Node3D = null
 
 var board_bounds := Vector2(8.0, 10.0)
 var is_controllable: bool = false
+var is_paused: bool = false
 
 # Floating virtual joystick state (exposed for HUD rendering!)
 var joy_active: bool = false
@@ -60,7 +61,24 @@ var _pulse_boost: float = 0.0
 func _ready() -> void:
 	_build_vortex_visual()
 	_build_sticky_strands_and_goo()
+	if not GameManager.skin_equipped.is_connected(apply_skin):
+		GameManager.skin_equipped.connect(apply_skin)
+	apply_skin(GameManager.equipped_skin)
 	reset_for_level(1, Vector3.ZERO)
+
+
+func apply_skin(skin_id: String) -> void:
+	if not _vortex_mat:
+		return
+	var def := GameManager.get_skin_def(skin_id)
+	_vortex_mat.set_shader_parameter("gold_dark", def.get("gold_dark", Color(0.46, 0.31, 0.12)))
+	_vortex_mat.set_shader_parameter("gold_mid", def.get("gold_mid", Color(0.84, 0.68, 0.34)))
+	_vortex_mat.set_shader_parameter("gold_shine", def.get("gold_shine", Color(1.0, 0.96, 0.80)))
+	_vortex_mat.set_shader_parameter("xp_cyan", def.get("xp_cyan", Color(0.30, 0.96, 1.0)))
+	_vortex_mat.set_shader_parameter("vortex_abyss", def.get("vortex_abyss", Color(0.02, 0.16, 0.24)))
+	_vortex_mat.set_shader_parameter("vortex_teal", def.get("vortex_teal", Color(0.07, 0.62, 0.72)))
+	_vortex_mat.set_shader_parameter("vortex_aqua", def.get("vortex_aqua", Color(0.45, 0.95, 0.98)))
+	_pulse_boost = 0.85
 
 
 func _build_vortex_visual() -> void:
@@ -305,6 +323,8 @@ func _update_virtual_joystick(pointer_pos: Vector2) -> void:
 
 
 func _process(delta: float) -> void:
+	if is_paused:
+		return
 	# Compute desired input vector (Floating Virtual Joystick OR WASD/Arrows)
 	var inp := Vector2.ZERO
 	if is_controllable:

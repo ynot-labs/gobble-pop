@@ -41,6 +41,23 @@ SHEETS = [
             "item_w4_potion", "item_w4_spellbook", "item_w4_cauldron", "icon_hole",
         ],
     ),
+    (
+        os.path.join(ART_DIR, "candy_pop_ui_icons_4x3_clean_1795356039344.jpg"),
+        4, 3,
+        [
+            "icon_coin", "icon_star", "icon_star_empty", "icon_pause",
+            "icon_home", "icon_shop", "icon_map", "icon_gear",
+            "icon_lock", "icon_chest", "icon_hand", "icon_bgm",
+        ],
+    ),
+    (
+        os.path.join(ART_DIR, "candy_pop_game_icons_4x2_1795356019855.jpg"),
+        4, 2,
+        [
+            "icon_arrow", "icon_shard", "skin_classic", "skin_berry",
+            "skin_neon", "skin_royal", "skin_mint", "skin_magma",
+        ],
+    ),
 ]
 
 
@@ -112,9 +129,11 @@ def process_cell(raw, img_w, x0, y0, cw, ch, name, target_size=128):
         try_seed(0, y)
         try_seed(cw - 1, y)
 
-    # For donut / restart arrow / magnet, also seed pure-white center if donut!
-    if name in ("item_w1_donut", "icon_restart"):
+    # For donut / restart arrow / gear / lock, also seed known pure-white enclosed holes!
+    if name in ("item_w1_donut", "icon_restart", "icon_gear"):
         try_seed(cw // 2, ch // 2)
+    if name == "icon_lock":
+        try_seed(cw // 2, int(ch * 0.28))
 
     while q:
         cx, cy = q.popleft()

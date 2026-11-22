@@ -237,16 +237,50 @@ static func create_square_icon_button(icon_name: String, badge_txt: String, show
 		b.add_child(lbl)
 
 	# Optional compact golden video-ad icon badge in top-right corner
-	if show_ad:
-		var ad_icon := make_icon_rect(get_icon("icon_ad"), 30)
-		ad_icon.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-		ad_icon.offset_left = -30
-		ad_icon.offset_right = 2
-		ad_icon.offset_top = -6
-		ad_icon.offset_bottom = 24
-		b.add_child(ad_icon)
+	var ad_icon := make_icon_rect(get_icon("icon_ad"), 30)
+	ad_icon.name = "AdBadge"
+	ad_icon.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	ad_icon.offset_left = -30
+	ad_icon.offset_right = 2
+	ad_icon.offset_top = -6
+	ad_icon.offset_bottom = 24
+	ad_icon.visible = show_ad
+	b.add_child(ad_icon)
+
+	# Optional free-inventory count badge in top-right corner (hidden unless count > 0)
+	var cnt_pill := PanelContainer.new()
+	cnt_pill.name = "CountBadge"
+	cnt_pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	cnt_pill.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	cnt_pill.offset_left = -38
+	cnt_pill.offset_right = 6
+	cnt_pill.offset_top = -8
+	cnt_pill.offset_bottom = 26
+	cnt_pill.add_theme_stylebox_override("panel", make_pill_style(Color("#25CF65"), Color("#12853E"), 14, 6, 1))
+	var cnt_lbl := Label.new()
+	cnt_lbl.name = "CountText"
+	cnt_lbl.text = "x1"
+	cnt_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	apply_outlined_label(cnt_lbl, 16, Color.WHITE, Color("#0A4C22"), 3)
+	cnt_pill.add_child(cnt_lbl)
+	cnt_pill.visible = false
+	b.add_child(cnt_pill)
 
 	return b
+
+
+static func set_booster_button_stock(b: Button, stock_count: int) -> void:
+	var ad_icon := b.get_node_or_null("AdBadge") as Control
+	var cnt_pill := b.get_node_or_null("CountBadge") as Control
+	if stock_count > 0:
+		if ad_icon: ad_icon.visible = false
+		if cnt_pill:
+			cnt_pill.visible = true
+			var lbl := cnt_pill.get_node_or_null("CountText") as Label
+			if lbl: lbl.text = "x%d" % stock_count
+	else:
+		if ad_icon: ad_icon.visible = true
+		if cnt_pill: cnt_pill.visible = false
 
 
 static func create_cta_button(icon_name: String, txt: String, bg: Color, bevel: Color, outline_col: Color, min_sz: Vector2 = Vector2(540, 88), font_sz: int = 30, extra_icon: String = "") -> Button:
