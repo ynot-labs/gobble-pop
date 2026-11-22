@@ -207,19 +207,19 @@ func _build_home_view() -> void:
 
 	var res_row := HBoxContainer.new()
 	res_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	res_row.add_theme_constant_override("separation", 12)
+	res_row.add_theme_constant_override("separation", 14)
 	top_v.add_child(res_row)
 
-	_star_pill = CandyUI.create_icon_pill("icon_star", "0", Color("#F7AD26"), Color("#B86D0A"), 24, 34, Color("#663804"))
+	_star_pill = CandyUI.create_icon_pill("icon_star", "0", Color("#F7AD26"), Color("#B86D0A"), 28, 42, Color("#663804"))
 	res_row.add_child(_star_pill)
 
-	_coin_pill = CandyUI.create_icon_pill("icon_coin", "150", Color("#FF8A2B"), Color("#C2410C"), 24, 34, Color("#662004"))
+	_coin_pill = CandyUI.create_icon_pill("icon_coin", "150", Color("#FF8A2B"), Color("#C2410C"), 28, 42, Color("#662004"))
 	res_row.add_child(_coin_pill)
 
-	_shard_pill = CandyUI.create_icon_pill("icon_shard", "2", Color("#A855F7"), Color("#6B21A8"), 24, 34, Color("#3B0764"))
+	_shard_pill = CandyUI.create_icon_pill("icon_shard", "2", Color("#A855F7"), Color("#6B21A8"), 28, 42, Color("#3B0764"))
 	res_row.add_child(_shard_pill)
 
-	var btn_gear := CandyUI.create_square_icon_button("icon_gear", "", false, Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), 66, 38)
+	var btn_gear := CandyUI.create_square_icon_button("icon_gear", "", false, Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), 82, 46)
 	btn_gear.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		settings_requested.emit()
@@ -259,49 +259,49 @@ func _build_home_view() -> void:
 	# Win-Streak Milestone Chest Strip
 	var chest_card := PanelContainer.new()
 	chest_card.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	chest_card.custom_minimum_size = Vector2(620, 88)
-	chest_card.add_theme_stylebox_override("panel", CandyUI.make_pill_style(Color(1.0, 0.98, 0.93, 0.96), Color("#E08E22"), 28, 18, 10))
+	chest_card.custom_minimum_size = Vector2(680, 102)
+	chest_card.add_theme_stylebox_override("panel", CandyUI.make_pill_style(Color(1.0, 0.98, 0.93, 0.96), Color("#E08E22"), 30, 20, 12))
 	bot_v.add_child(chest_card)
 
 	var ch_row := HBoxContainer.new()
 	ch_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	ch_row.add_theme_constant_override("separation", 14)
+	ch_row.add_theme_constant_override("separation", 16)
 	chest_card.add_child(ch_row)
 
-	ch_row.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_flame"), 46))
+	ch_row.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_flame"), 54))
 
 	var ch_mid := VBoxContainer.new()
 	ch_mid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	ch_mid.add_theme_constant_override("separation", 6)
+	ch_mid.add_theme_constant_override("separation", 8)
 	ch_row.add_child(ch_mid)
 
 	_streak_label = Label.new()
 	_streak_label.text = "STREAK 0 · 0/3"
-	CandyUI.apply_outlined_label(_streak_label, 22, Color.WHITE, Color("#662004"), 4)
+	CandyUI.apply_outlined_label(_streak_label, 25, Color.WHITE, Color("#662004"), 4)
 	ch_mid.add_child(_streak_label)
 
 	_chest_bar = ProgressBar.new()
-	_chest_bar.custom_minimum_size = Vector2(360, 22)
+	_chest_bar.custom_minimum_size = Vector2(390, 26)
 	_chest_bar.max_value = 100.0
 	_chest_bar.show_percentage = false
 	var cb_bg := StyleBoxFlat.new()
 	cb_bg.bg_color = Color("#E2E8F0")
 	cb_bg.border_color = Color("#CBD5E1")
 	cb_bg.set_border_width_all(2)
-	cb_bg.set_corner_radius_all(10)
+	cb_bg.set_corner_radius_all(12)
 	var cb_fill := StyleBoxFlat.new()
 	cb_fill.bg_color = Color("#FF8A2B")
-	cb_fill.set_corner_radius_all(8)
+	cb_fill.set_corner_radius_all(10)
 	_chest_bar.add_theme_stylebox_override("background", cb_bg)
 	_chest_bar.add_theme_stylebox_override("fill", cb_fill)
 	ch_mid.add_child(_chest_bar)
 
-	_chest_btn = CandyUI.create_square_icon_button("icon_chest", "", false, Color("#F7AD26"), Color("#B86D0A"), Color("#663804"), 78, 52)
+	_chest_btn = CandyUI.create_square_icon_button("icon_chest", "", false, Color("#F7AD26"), Color("#B86D0A"), Color("#663804"), 92, 60)
 	_chest_btn.pressed.connect(_on_claim_chest_pressed)
 	ch_row.add_child(_chest_btn)
 
-	# Massive Glossy Green PLAY LV.X Hero Button
-	_play_btn = CandyUI.create_cta_button("icon_play", "PLAY  LV.1", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(580, 114), 40)
+	# Massive Glossy Green PLAY LV.X Hero Button (Mobile-sized!)
+	_play_btn = CandyUI.create_cta_button("icon_play", "PLAY  LV.1", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(660, 128), 44)
 	_play_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_play_btn.pressed.connect(func():
 		AudioManager.start_bgm()
@@ -310,13 +310,13 @@ func _build_home_view() -> void:
 	)
 	bot_v.add_child(_play_btn)
 
-	# Bottom Navigation Dock: MAP | FREE BOOSTERS STASH | SKINS
+	# Bottom Navigation Dock: MAP | FREE BOOSTERS STASH | SKINS (Chunky Mobile Sizing!)
 	var dock := HBoxContainer.new()
 	dock.alignment = BoxContainer.ALIGNMENT_CENTER
-	dock.add_theme_constant_override("separation", 24)
+	dock.add_theme_constant_override("separation", 26)
 	bot_v.add_child(dock)
 
-	var btn_map := CandyUI.create_square_icon_button("icon_map", "MAP", false, Color("#22B8EE"), Color("#0B78A8"), Color("#0A4266"), 126, 62)
+	var btn_map := CandyUI.create_square_icon_button("icon_map", "MAP", false, Color("#22B8EE"), Color("#0B78A8"), Color("#0A4266"), 152, 74)
 	btn_map.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		open_map()
@@ -325,34 +325,34 @@ func _build_home_view() -> void:
 
 	# Booster Stash Capsule
 	var stash := PanelContainer.new()
-	stash.custom_minimum_size = Vector2(240, 112)
-	stash.add_theme_stylebox_override("panel", CandyUI.make_pill_style(Color(1.0, 0.99, 0.95, 0.95), Color("#28B9E8"), 28, 16, 10))
+	stash.custom_minimum_size = Vector2(280, 136)
+	stash.add_theme_stylebox_override("panel", CandyUI.make_pill_style(Color(1.0, 0.99, 0.95, 0.95), Color("#28B9E8"), 30, 18, 12))
 	dock.add_child(stash)
 
 	var stash_h := HBoxContainer.new()
 	stash_h.alignment = BoxContainer.ALIGNMENT_CENTER
-	stash_h.add_theme_constant_override("separation", 18)
+	stash_h.add_theme_constant_override("separation", 24)
 	stash.add_child(stash_h)
 
 	var mag_v := VBoxContainer.new()
 	mag_v.alignment = BoxContainer.ALIGNMENT_CENTER
-	mag_v.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_magnet"), 48))
+	mag_v.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_magnet"), 58))
 	_stash_mag_lbl = Label.new()
 	_stash_mag_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	CandyUI.apply_outlined_label(_stash_mag_lbl, 22, Color("#EC36A0"), Color("#4A072D"), 4)
+	CandyUI.apply_outlined_label(_stash_mag_lbl, 26, Color("#EC36A0"), Color("#4A072D"), 4)
 	mag_v.add_child(_stash_mag_lbl)
 	stash_h.add_child(mag_v)
 
 	var ice_v := VBoxContainer.new()
 	ice_v.alignment = BoxContainer.ALIGNMENT_CENTER
-	ice_v.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_ice"), 48))
+	ice_v.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_ice"), 58))
 	_stash_ice_lbl = Label.new()
 	_stash_ice_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	CandyUI.apply_outlined_label(_stash_ice_lbl, 22, Color("#0EA5E9"), Color("#083344"), 4)
+	CandyUI.apply_outlined_label(_stash_ice_lbl, 26, Color("#0EA5E9"), Color("#083344"), 4)
 	ice_v.add_child(_stash_ice_lbl)
 	stash_h.add_child(ice_v)
 
-	var btn_skins := CandyUI.create_square_icon_button("icon_shop", "SKINS", false, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 126, 62)
+	var btn_skins := CandyUI.create_square_icon_button("icon_shop", "SKINS", false, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 152, 74)
 	btn_skins.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		open_shop()

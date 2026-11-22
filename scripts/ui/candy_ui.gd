@@ -144,32 +144,32 @@ static func create_icon_pill(icon_name: String, txt: String, bg: Color, bevel: C
 
 static func create_target_chip(item_key: String, count: int, tier: int, bg: Color, bevel: Color, outline_col: Color) -> PanelContainer:
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 24, 12, 4))
+	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 28, 14, 6))
 
 	var hb := HBoxContainer.new()
 	hb.name = "Box"
 	hb.alignment = BoxContainer.ALIGNMENT_CENTER
-	hb.add_theme_constant_override("separation", 6)
+	hb.add_theme_constant_override("separation", 7)
 	panel.add_child(hb)
 
-	var tr := make_icon_rect(get_item_icon(item_key), 42)
+	var tr := make_icon_rect(get_item_icon(item_key), 50)
 	tr.name = "Icon"
 	hb.add_child(tr)
 
 	var lbl := Label.new()
 	lbl.name = "Count"
 	lbl.text = str(count)
-	apply_outlined_label(lbl, 26, Color.WHITE, outline_col, 5)
+	apply_outlined_label(lbl, 30, Color.WHITE, outline_col, 5)
 	hb.add_child(lbl)
 
 	if tier >= 2:
 		var lv_lbl := Label.new()
 		lv_lbl.name = "TierTag"
 		lv_lbl.text = "Lv.%d" % tier
-		apply_outlined_label(lv_lbl, 15, Color("#FFF3A1"), outline_col, 3)
+		apply_outlined_label(lv_lbl, 17, Color("#FFF3A1"), outline_col, 3)
 		hb.add_child(lv_lbl)
 
-	var chk := make_icon_rect(get_icon("icon_check"), 32)
+	var chk := make_icon_rect(get_icon("icon_check"), 38)
 	chk.name = "Check"
 	chk.visible = false
 	hb.add_child(chk)
@@ -230,20 +230,21 @@ static func create_square_icon_button(icon_name: String, badge_txt: String, show
 		lbl.text = badge_txt
 		lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		lbl.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-		lbl.offset_top = -34
+		lbl.offset_top = -38
 		lbl.offset_bottom = -8
 		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		apply_outlined_label(lbl, 20, Color.WHITE, outline_col, 4)
+		apply_outlined_label(lbl, 23 if btn_size >= 120 else 20, Color.WHITE, outline_col, 4)
 		b.add_child(lbl)
 
 	# Optional compact golden video-ad icon badge in top-right corner
-	var ad_icon := make_icon_rect(get_icon("icon_ad"), 30)
+	var ad_sz := 38 if btn_size >= 120 else 30
+	var ad_icon := make_icon_rect(get_icon("icon_ad"), ad_sz)
 	ad_icon.name = "AdBadge"
 	ad_icon.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	ad_icon.offset_left = -30
-	ad_icon.offset_right = 2
-	ad_icon.offset_top = -6
-	ad_icon.offset_bottom = 24
+	ad_icon.offset_left = -ad_sz + 2
+	ad_icon.offset_right = 4
+	ad_icon.offset_top = -8
+	ad_icon.offset_bottom = ad_sz - 6
 	ad_icon.visible = show_ad
 	b.add_child(ad_icon)
 
@@ -252,16 +253,16 @@ static func create_square_icon_button(icon_name: String, badge_txt: String, show
 	cnt_pill.name = "CountBadge"
 	cnt_pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cnt_pill.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	cnt_pill.offset_left = -38
-	cnt_pill.offset_right = 6
-	cnt_pill.offset_top = -8
-	cnt_pill.offset_bottom = 26
-	cnt_pill.add_theme_stylebox_override("panel", make_pill_style(Color("#25CF65"), Color("#12853E"), 14, 6, 1))
+	cnt_pill.offset_left = -46 if btn_size >= 120 else -38
+	cnt_pill.offset_right = 8
+	cnt_pill.offset_top = -10
+	cnt_pill.offset_bottom = 30 if btn_size >= 120 else 26
+	cnt_pill.add_theme_stylebox_override("panel", make_pill_style(Color("#25CF65"), Color("#12853E"), 16, 8, 2))
 	var cnt_lbl := Label.new()
 	cnt_lbl.name = "CountText"
 	cnt_lbl.text = "x1"
 	cnt_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	apply_outlined_label(cnt_lbl, 16, Color.WHITE, Color("#0A4C22"), 3)
+	apply_outlined_label(cnt_lbl, 20 if btn_size >= 120 else 16, Color.WHITE, Color("#0A4C22"), 3)
 	cnt_pill.add_child(cnt_lbl)
 	cnt_pill.visible = false
 	b.add_child(cnt_pill)
@@ -332,20 +333,22 @@ static func create_cta_button(icon_name: String, txt: String, bg: Color, bevel: 
 
 
 static func update_cta_button(b: Button, icon_name: String, txt: String, bg: Color, bevel: Color, outline_col: Color, extra_icon: String = "") -> void:
-	b.add_theme_stylebox_override("normal", make_button_style(bg, bevel, false, 28, 18, 10))
-	b.add_theme_stylebox_override("hover", make_button_style(bg.lightened(0.05), bevel, false, 28, 18, 10))
-	b.add_theme_stylebox_override("pressed", make_button_style(bg, bevel, true, 28, 18, 10))
+	b.add_theme_stylebox_override("normal", make_button_style(bg, bevel, false, 30, 20, 12))
+	b.add_theme_stylebox_override("hover", make_button_style(bg.lightened(0.05), bevel, false, 30, 20, 12))
+	b.add_theme_stylebox_override("pressed", make_button_style(bg, bevel, true, 30, 20, 12))
 	var hb := b.get_node_or_null("Content")
 	if hb:
 		for c in hb.get_children():
 			c.queue_free()
+		var ic_sz := 54 if b.custom_minimum_size.y >= 100 else 46
+		var f_sz := 38 if b.custom_minimum_size.y >= 115 else (34 if b.custom_minimum_size.y >= 100 else 30)
 		if icon_name != "":
-			hb.add_child(make_icon_rect(get_icon(icon_name), 44))
+			hb.add_child(make_icon_rect(get_icon(icon_name), ic_sz))
 		if extra_icon != "":
-			hb.add_child(make_icon_rect(get_icon(extra_icon), 42))
+			hb.add_child(make_icon_rect(get_icon(extra_icon), ic_sz - 2))
 		var lbl := Label.new()
 		lbl.text = txt
-		apply_outlined_label(lbl, 28, Color.WHITE, outline_col, 5)
+		apply_outlined_label(lbl, f_sz, Color.WHITE, outline_col, 6)
 		hb.add_child(lbl)
 
 

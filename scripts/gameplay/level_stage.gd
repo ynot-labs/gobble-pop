@@ -145,6 +145,12 @@ func _run_qa_screen(screen: String, lv: int) -> void:
 			_gameplay_hud_root.visible = true
 			_load_level(lv, false)
 			_pause_gameplay()
+		"exit":
+			_in_lobby = false
+			_home_lobby_ui.close_all()
+			_gameplay_hud_root.visible = true
+			_load_level(lv, false)
+			_request_exit_confirm()
 		"ftue":
 			_in_lobby = false
 			_home_lobby_ui.close_all()
@@ -274,58 +280,58 @@ func _build_hud() -> void:
 	top_vbox.add_theme_constant_override("separation", 9)
 	top_margin.add_child(top_vbox)
 
-	# === ROW 1: Commercial Icon-First Top HUD ([Home Exit] | [Timer] | [Targets Icons] | [Flame] | [Pause]) ===
+	# === ROW 1: Mobile-Friendly Icon-First Top HUD ([Home Exit] | [Timer] | [Targets Icons] | [Flame] | [Pause]) ===
 	var row1 := HBoxContainer.new()
 	row1.alignment = BoxContainer.ALIGNMENT_CENTER
-	row1.add_theme_constant_override("separation", 8)
+	row1.add_theme_constant_override("separation", 10)
 	top_vbox.add_child(row1)
 
-	var btn_exit_home := CandyUI.create_square_icon_button("icon_home", "", false, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 60, 34)
+	var btn_exit_home := CandyUI.create_square_icon_button("icon_home", "", false, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 84, 48)
 	btn_exit_home.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
-		_show_home_lobby()
+		_request_exit_confirm()
 	)
 	row1.add_child(btn_exit_home)
 
-	_timer_pill = CandyUI.create_icon_pill("icon_timer", "0:45", Color("#22B8EE"), Color("#0B78A8"), 28, 36, Color("#0A4266"))
+	_timer_pill = CandyUI.create_icon_pill("icon_timer", "0:45", Color("#22B8EE"), Color("#0B78A8"), 34, 44, Color("#0A4266"))
 	row1.add_child(_timer_pill)
 
 	_targets_box = HBoxContainer.new()
 	_targets_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	_targets_box.add_theme_constant_override("separation", 8)
+	_targets_box.add_theme_constant_override("separation", 10)
 	row1.add_child(_targets_box)
 
-	_streak_pill = CandyUI.create_icon_pill("icon_flame", "0", Color("#FF8A2B"), Color("#C2410C"), 24, 34, Color("#662004"))
+	_streak_pill = CandyUI.create_icon_pill("icon_flame", "0", Color("#FF8A2B"), Color("#C2410C"), 30, 42, Color("#662004"))
 	row1.add_child(_streak_pill)
 
-	_btn_pause = CandyUI.create_square_icon_button("icon_pause", "", false, Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), 62, 34)
+	_btn_pause = CandyUI.create_square_icon_button("icon_pause", "", false, Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), 84, 48)
 	_btn_pause.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		_pause_gameplay()
 	)
 	row1.add_child(_btn_pause)
 
-	# === ROW 2: Sleek Hole Level + Level Badge + Golden Lightning Fever Bar ===
+	# === ROW 2: Larger Mobile Hole Level + Level Badge + Golden Lightning Fever Bar ===
 	var row2 := HBoxContainer.new()
 	row2.alignment = BoxContainer.ALIGNMENT_CENTER
-	row2.add_theme_constant_override("separation", 10)
+	row2.add_theme_constant_override("separation", 12)
 	top_vbox.add_child(row2)
 
-	_level_pill = CandyUI.create_icon_pill("icon_crown", "LV.1", Color("#F7AD26"), Color("#B86D0A"), 20, 28, Color("#663804"))
+	_level_pill = CandyUI.create_icon_pill("icon_crown", "LV.1", Color("#F7AD26"), Color("#B86D0A"), 25, 34, Color("#663804"))
 	row2.add_child(_level_pill)
 
-	_hole_lvl_pill = CandyUI.create_icon_pill("icon_hole", "Lv.1", Color("#24C964"), Color("#12823D"), 21, 30, Color("#094A22"))
+	_hole_lvl_pill = CandyUI.create_icon_pill("icon_hole", "Lv.1", Color("#24C964"), Color("#12823D"), 26, 36, Color("#094A22"))
 	row2.add_child(_hole_lvl_pill)
 
 	var fever_wrap := HBoxContainer.new()
 	fever_wrap.alignment = BoxContainer.ALIGNMENT_CENTER
-	fever_wrap.add_theme_constant_override("separation", 6)
+	fever_wrap.add_theme_constant_override("separation", 8)
 	row2.add_child(fever_wrap)
 
-	fever_wrap.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_fever"), 30))
+	fever_wrap.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_fever"), 38))
 
 	_fever_bar = ProgressBar.new()
-	_fever_bar.custom_minimum_size = Vector2(210, 24)
+	_fever_bar.custom_minimum_size = Vector2(250, 30)
 	_fever_bar.max_value = 100.0
 	_fever_bar.value = 0.0
 	_fever_bar.show_percentage = false
@@ -352,24 +358,24 @@ func _build_hud() -> void:
 	CandyUI.apply_outlined_label(_buff_label, 24, Color("#FFF4B8"), Color("#881337"), 5)
 	top_vbox.add_child(_buff_label)
 
-	# === BOTTOM BAR: Chunky Square 3D Arcade Icon Buttons (Magnet | Freeze | Retry) ===
+	# === BOTTOM BAR: Large Mobile-Friendly 3D Arcade Icon Buttons (Magnet | Freeze | Retry) ===
 	var bot_bar := HBoxContainer.new()
 	_gameplay_hud_root.add_child(bot_bar)
 	bot_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	bot_bar.offset_top = -140
-	bot_bar.offset_bottom = -24
+	bot_bar.offset_top = -176
+	bot_bar.offset_bottom = -26
 	bot_bar.alignment = BoxContainer.ALIGNMENT_CENTER
-	bot_bar.add_theme_constant_override("separation", 28)
+	bot_bar.add_theme_constant_override("separation", 34)
 
-	_btn_rv_mag = CandyUI.create_square_icon_button("icon_magnet", "7s", true, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 108, 60)
+	_btn_rv_mag = CandyUI.create_square_icon_button("icon_magnet", "7s", true, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 138, 74)
 	_btn_rv_mag.pressed.connect(_on_magnet_booster_pressed)
 	bot_bar.add_child(_btn_rv_mag)
 
-	_btn_rv_ice = CandyUI.create_square_icon_button("icon_ice", "+6s", true, Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), 108, 60)
+	_btn_rv_ice = CandyUI.create_square_icon_button("icon_ice", "+6s", true, Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), 138, 74)
 	_btn_rv_ice.pressed.connect(_on_ice_booster_pressed)
 	bot_bar.add_child(_btn_rv_ice)
 
-	var btn_retry := CandyUI.create_square_icon_button("icon_restart", "", false, Color("#24B4F5"), Color("#0B70B8"), Color("#083B66"), 108, 56)
+	var btn_retry := CandyUI.create_square_icon_button("icon_restart", "", false, Color("#24B4F5"), Color("#0B70B8"), Color("#083B66"), 138, 70)
 	btn_retry.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		_load_level(_level_number, false)
@@ -439,19 +445,19 @@ func _build_hud() -> void:
 	_overlay_desc.add_theme_color_override("font_color", Color("#4B5563"))
 	ov_box.add_child(_overlay_desc)
 
-	_btn_primary = CandyUI.create_cta_button("icon_play", "PLAY", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(560, 92), 32)
+	_btn_primary = CandyUI.create_cta_button("icon_play", "PLAY", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(620, 108), 38)
 	_btn_primary.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	ov_box.add_child(_btn_primary)
 
 	var sub_row := HBoxContainer.new()
 	sub_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	sub_row.add_theme_constant_override("separation", 16)
+	sub_row.add_theme_constant_override("separation", 18)
 	ov_box.add_child(sub_row)
 
-	_btn_secondary = CandyUI.create_cta_button("icon_ad", "LV.2 + 7s", Color("#F7A526"), Color("#B8670A"), Color("#663404"), Vector2(440, 82), 26, "icon_magnet")
+	_btn_secondary = CandyUI.create_cta_button("icon_ad", "LV.2 + 7s", Color("#F7A526"), Color("#B8670A"), Color("#663404"), Vector2(490, 96), 32, "icon_magnet")
 	sub_row.add_child(_btn_secondary)
 
-	_btn_tertiary_home = CandyUI.create_square_icon_button("icon_home", "", false, Color("#22B8EE"), Color("#0B78A8"), Color("#0A4266"), 82, 46)
+	_btn_tertiary_home = CandyUI.create_square_icon_button("icon_home", "", false, Color("#22B8EE"), Color("#0B78A8"), Color("#0A4266"), 96, 54)
 	_btn_tertiary_home.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		_show_home_lobby()
@@ -604,6 +610,21 @@ func _pause_gameplay() -> void:
 	_hole.is_paused = true
 	_helpers_ui.hide_radars()
 	_pause_settings_ui.open_pause(_level_number)
+	PlatformBridge.notify_gameplay_stop()
+
+
+func _request_exit_confirm() -> void:
+	if _in_lobby:
+		return
+	if _overlay_panel.visible:
+		_show_home_lobby()
+		return
+	_paused = true
+	_playing = false
+	_hole.is_controllable = false
+	_hole.is_paused = true
+	_helpers_ui.hide_radars()
+	_pause_settings_ui.open_exit_confirm(_level_number)
 	PlatformBridge.notify_gameplay_stop()
 
 

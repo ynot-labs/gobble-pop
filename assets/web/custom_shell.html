@@ -125,6 +125,19 @@
 	<script>
 		const GODOT_CONFIG = $GODOT_CONFIG;
 		const GODOT_THREADS_ENABLED = $GODOT_THREADS_ENABLED;
+		// Automatic byte-exact cache buster so browser/CDN NEVER serves stale index.pck after an update!
+		(function () {
+			const pckVer = (GODOT_CONFIG && GODOT_CONFIG.fileSizes && GODOT_CONFIG.fileSizes['index.pck'])
+				? String(GODOT_CONFIG.fileSizes['index.pck'])
+				: String(Date.now());
+			const origFetch = window.fetch.bind(window);
+			window.fetch = function (input, init) {
+				if (typeof input === 'string' && /\.pck(\?|$)/i.test(input) && !input.includes('pckv=')) {
+					input += (input.includes('?') ? '&' : '?') + 'pckv=' + pckVer;
+				}
+				return origFetch(input, init);
+			};
+		}());
 		const engine = new Engine(GODOT_CONFIG);
 
 		(function () {
