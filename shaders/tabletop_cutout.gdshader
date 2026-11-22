@@ -3,10 +3,10 @@ render_mode unshaded, cull_disabled;
 
 uniform vec3 hole_world_pos = vec3(0.0, 0.0, 0.0);
 uniform float hole_radius = 0.85;
-uniform vec3 color_a : source_color = vec3(0.776, 0.859, 0.820);
-uniform vec3 color_b : source_color = vec3(0.718, 0.812, 0.769);
-uniform vec3 border_color : source_color = vec3(0.553, 0.659, 0.612);
-uniform float tile_scale = 0.50;
+uniform vec3 color_a : source_color = vec3(0.757, 0.941, 0.878);
+uniform vec3 color_b : source_color = vec3(0.894, 0.980, 0.933);
+uniform vec3 border_color : source_color = vec3(0.463, 0.843, 0.745);
+uniform float tile_scale = 0.52;
 uniform vec2 board_half_size = vec2(7.0, 10.5);
 uniform bool use_albedo_tex = false;
 uniform sampler2D albedo_tex : source_color, filter_linear_mipmap, repeat_enable;
@@ -33,19 +33,19 @@ void fragment() {
 		base_col = mix(color_a, color_b, checker) + vec3(vein);
 	}
 
-	// Subtle studio falloff toward table edges (cozy focus without glare)
+	// Subtle studio falloff toward table edges (zero white clipping on sunny pastel tiles)
 	vec2 norm_p = world_pos.xz / max(board_half_size, vec2(1.0));
 	float vig = clamp(dot(norm_p, norm_p), 0.0, 1.5);
-	base_col *= (1.0 - vig * 0.07);
+	base_col *= (0.99 - vig * 0.06);
 
-	// Grounded cozy table frame border
+	// Crisp candy table frame border
 	vec2 edge_d = board_half_size - abs(world_pos.xz);
-	float frame_mask = 1.0 - smoothstep(0.0, 0.58, min(edge_d.x, edge_d.y));
+	float frame_mask = 1.0 - smoothstep(0.0, 0.56, min(edge_d.x, edge_d.y));
 	base_col = mix(base_col, border_color, frame_mask * 0.82);
 
-	// Soft contact shadow around hole rim
-	float rim_ao = smoothstep(hole_radius * 0.97, hole_radius * 1.36, dist);
-	base_col *= mix(0.74, 1.0, rim_ao);
+	// Clean grounded contact shadow around hole rim
+	float rim_ao = smoothstep(hole_radius * 0.97, hole_radius * 1.38, dist);
+	base_col *= mix(0.76, 1.0, rim_ao);
 
 	ALBEDO = base_col;
 }

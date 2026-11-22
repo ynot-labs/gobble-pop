@@ -20,8 +20,11 @@ var _visual_root: Node3D
 var _contact_shadow: MeshInstance3D
 var _target_ring: MeshInstance3D
 var _target_ring_mat: StandardMaterial3D
+var _target_outer_ring: MeshInstance3D
+var _target_outer_mat: StandardMaterial3D
 var _lock_label: Label3D
 var _bounce: float = 0.0
+var _shimmer_phase: float = 0.0
 
 static var _shared_shadow_mat: ShaderMaterial = null
 
@@ -88,30 +91,45 @@ func _build_contact_shadow() -> void:
 
 
 func _build_target_ring() -> void:
+	_shimmer_phase = randf() * TAU
+	# Option 2 Signature Double Golden Shimmer Ring (crisp inner gold band + luminous outer aura!)
 	_target_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
-	tor.outer_radius = item_radius * 1.16 + 0.095
-	tor.inner_radius = item_radius * 1.16 + 0.025
+	tor.outer_radius = item_radius * 1.15 + 0.095
+	tor.inner_radius = item_radius * 1.15 + 0.025
 	_target_ring.mesh = tor
 	_target_ring.position.y = 0.032
 	_target_ring_mat = StandardMaterial3D.new()
-	_target_ring_mat.albedo_color = Color(0.99, 0.97, 0.92, 0.78)
+	_target_ring_mat.albedo_color = Color(1.0, 0.84, 0.25, 0.92)
 	_target_ring_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_target_ring_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_target_ring.material_override = _target_ring_mat
 	add_child(_target_ring)
 
+	_target_outer_ring = MeshInstance3D.new()
+	var tor2 := TorusMesh.new()
+	tor2.outer_radius = item_radius * 1.24 + 0.16
+	tor2.inner_radius = item_radius * 1.24 + 0.095
+	_target_outer_ring.mesh = tor2
+	_target_outer_ring.position.y = 0.026
+	_target_outer_mat = StandardMaterial3D.new()
+	_target_outer_mat.albedo_color = Color(1.0, 0.90, 0.42, 0.42)
+	_target_outer_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_target_outer_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_target_outer_ring.material_override = _target_outer_mat
+	add_child(_target_outer_ring)
+
 
 func _build_lock_badge() -> void:
 	_lock_label = Label3D.new()
 	_lock_label.text = "Lv.%d" % tier
-	_lock_label.font_size = 46
-	_lock_label.outline_size = 13
-	_lock_label.modulate = Color("#FFFBF4")
-	_lock_label.outline_modulate = Color("#4A3F38")
+	_lock_label.font_size = 48
+	_lock_label.outline_size = 15
+	_lock_label.modulate = Color("#FFF08A")
+	_lock_label.outline_modulate = Color("#3D2114")
 	_lock_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	_lock_label.no_depth_test = true
-	_lock_label.position = Vector3(0.0, item_height + 0.48, 0.0)
+	_lock_label.position = Vector3(0.0, item_height + 0.50, 0.0)
 	add_child(_lock_label)
 
 
@@ -134,13 +152,11 @@ func _soften_material_recursive(node: Node, is_solid_variant: bool = false) -> v
 		var src_mat := mi.get_active_material(0)
 		if src_mat is BaseMaterial3D:
 			var dup := src_mat.duplicate() as BaseMaterial3D
-			# Cozy matte ceramic/vinyl finish: grounded, clean, zero harsh specular blowout
-			dup.roughness = maxf(dup.roughness, 0.42)
+			# Option 2 Glossy Candy Toy finish: crisp appetizing specular highlights!
+			dup.roughness = clampf(dup.roughness, 0.14, 0.24)
 			dup.metallic = minf(dup.metallic, 0.06)
 			if not is_solid_variant:
-				dup.albedo_color = Color(0.95, 0.94, 0.92)
-			if dup.emission_enabled:
-				dup.emission_energy_multiplier = minf(dup.emission_energy_multiplier, 0.02)
+				dup.albedo_color = Color.WHITE
 			mi.set_surface_override_material(0, dup)
 	for child in node.get_children():
 		_soften_material_recursive(child, is_solid_variant)
@@ -166,7 +182,19 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 
 	var can_eat := tier <= hole.hole_level
 	if _target_ring and state == State.IDLE:
-		_target_ring_mat.albedo_color = Color(0.18, 0.62, 0.40, 0.82) if can_eat else Color(0.98, 0.96, 0.92, 0.56)
+		_shimmer_phase += delta * (4.2 if can_eat else 2.2)
+		var pulse := 1.0 + sin(_shimmer_phase) * (0.06 if can_eat else 0.025)
+		_target_ring.scale = Vector3(pulse, 1.0, pulse)
+		if can_eat:
+			_target_ring_mat.albedo_color = Color(0.18, 0.90, 0.48, 0.95)
+			if _target_outer_ring:
+				_target_outer_ring.scale = Vector3(pulse * 1.03, 1.0, pulse * 1.03)
+				_target_outer_mat.albedo_color = Color(0.32, 0.96, 0.58, 0.46)
+		else:
+			_target_ring_mat.albedo_color = Color(1.0, 0.84, 0.25, 0.92)
+			if _target_outer_ring:
+				_target_outer_ring.scale = Vector3(pulse, 1.0, pulse)
+				_target_outer_mat.albedo_color = Color(1.0, 0.90, 0.42, 0.40)
 	if _lock_label:
 		_lock_label.visible = (not can_eat) and (state == State.IDLE)
 
@@ -195,6 +223,8 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 				_contact_shadow.visible = false
 			if _target_ring:
 				_target_ring.visible = false
+			if _target_outer_ring:
+				_target_outer_ring.visible = false
 			if _lock_label:
 				_lock_label.visible = false
 			_tilt_axis = Vector3(-to_hole.z, 0.0, to_hole.x).normalized()

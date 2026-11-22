@@ -80,6 +80,7 @@ func _build_vortex_visual() -> void:
 		if p1:
 			_rim_base_model = p1.instantiate()
 			_rim_base_model.position.y = -0.04
+			_apply_gold_rim_finish(_rim_base_model)
 			add_child(_rim_base_model)
 	if ResourceLoader.exists("res://assets/models/core/core_02_fever_hole.glb"):
 		var p2: PackedScene = load("res://assets/models/core/core_02_fever_hole.glb")
@@ -89,14 +90,14 @@ func _build_vortex_visual() -> void:
 			_rim_fever_model.visible = false
 			add_child(_rim_fever_model)
 
-	# Soft lavender magnet aura ring
+	# Luminous candy magenta magnet aura ring
 	_magnet_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
 	tor.outer_radius = 1.0
-	tor.inner_radius = 0.95
+	tor.inner_radius = 0.94
 	_magnet_ring.mesh = tor
 	var mmat := StandardMaterial3D.new()
-	mmat.albedo_color = Color(0.58, 0.46, 0.78, 0.42)
+	mmat.albedo_color = Color(0.92, 0.25, 0.68, 0.52)
 	mmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_magnet_ring.material_override = mmat
@@ -105,19 +106,31 @@ func _build_vortex_visual() -> void:
 	add_child(_magnet_ring)
 
 
+func _apply_gold_rim_finish(node: Node) -> void:
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = Color("#FFD644")
+		mat.roughness = 0.20
+		mat.metallic = 0.32
+		mi.set_surface_override_material(0, mat)
+	for child in node.get_children():
+		_apply_gold_rim_finish(child)
+
+
 func _build_sticky_strands_and_goo() -> void:
-	# Soft sticky glob visibly stuck on the hole rim when trapped (adapts to W1-W4 trap color!)
+	# Juicy candy sticky glob visibly stuck on the hole rim when trapped (adapts to W1-W4 trap color!)
 	_rim_goo_blob = MeshInstance3D.new()
 	var sp := SphereMesh.new()
 	sp.radius = 0.36
 	sp.height = 0.42
 	_rim_goo_blob.mesh = sp
 	_rim_goo_mat = StandardMaterial3D.new()
-	_rim_goo_mat.albedo_color = Color("#D85B88")
-	_rim_goo_mat.roughness = 0.32
+	_rim_goo_mat.albedo_color = Color("#FF52A8")
+	_rim_goo_mat.roughness = 0.16
 	_rim_goo_mat.emission_enabled = true
-	_rim_goo_mat.emission = Color("#D85B88")
-	_rim_goo_mat.emission_energy_multiplier = 0.08
+	_rim_goo_mat.emission = Color("#FF52A8")
+	_rim_goo_mat.emission_energy_multiplier = 0.16
 	_rim_goo_blob.material_override = _rim_goo_mat
 	_rim_goo_blob.visible = false
 	add_child(_rim_goo_blob)
@@ -128,7 +141,7 @@ func _build_sticky_strands_and_goo() -> void:
 	_strand_mesh_inst.mesh = _strand_mesh
 	_strand_mesh_inst.top_level = true
 	_strand_mat = StandardMaterial3D.new()
-	_strand_mat.albedo_color = Color("#D85B88")
+	_strand_mat.albedo_color = Color("#FF52A8")
 	_strand_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_strand_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	_strand_mesh_inst.material_override = _strand_mat

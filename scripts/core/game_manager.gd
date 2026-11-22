@@ -1,8 +1,14 @@
 extends Node
 
 const SAVE_PATH := "user://gobble_pop_save.json"
+const BUILD_CONFIG_PATH := "res://data/build_config.json"
+
+var build_channel: String = "release"
+var enable_level_skip: bool = false
+var build_version: String = "1.0.0"
 
 var current_level: int = 1
+var max_unlocked_level: int = 1
 var win_streak: int = 0
 var skin_shards: int = 0
 var unlocked_worlds: int = 1
@@ -10,8 +16,26 @@ var item_catalog: Dictionary = {}
 
 
 func _ready() -> void:
+	_load_build_config()
 	_load_item_catalog()
 	load_progress()
+
+
+func _load_build_config() -> void:
+	if FileAccess.file_exists(BUILD_CONFIG_PATH):
+		var parsed = JSON.parse_string(FileAccess.get_file_as_string(BUILD_CONFIG_PATH))
+		if parsed is Dictionary:
+			build_channel = str(parsed.get("channel", "release"))
+			enable_level_skip = bool(parsed.get("enable_level_skip", false))
+			build_version = str(parsed.get("version", "1.0.0"))
+	# Allow automated QA screenshot comparison of Release vs Beta builds without editing config
+	if OS.get_environment("QA_FORCE_RELEASE") == "1":
+		build_channel = "release"
+		enable_level_skip = false
+
+
+func is_beta_build() -> bool:
+	return enable_level_skip and build_channel == "beta"
 
 
 func _load_item_catalog() -> void:
@@ -30,8 +54,10 @@ func get_item_def(item_id: String) -> Dictionary:
 
 
 func save_progress() -> void:
+	max_unlocked_level = maxi(max_unlocked_level, current_level)
 	var data := {
 		"current_level": current_level,
+		"max_unlocked_level": max_unlocked_level,
 		"win_streak": win_streak,
 		"skin_shards": skin_shards,
 		"unlocked_worlds": unlocked_worlds,
@@ -46,7 +72,8 @@ func load_progress() -> void:
 		return
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
 	if parsed is Dictionary:
-		current_level = int(parsed.get("current_level", 1))
+		current_level = clampi(int(parsed.get("current_level", 1)), 1, 50)
+		max_unlocked_level = clampi(int(parsed.get("max_unlocked_level", current_level)), 1, 50)
 		win_streak = int(parsed.get("win_streak", 0))
 		skin_shards = int(parsed.get("skin_shards", 0))
-		unlocked_worlds = int(parsed.get("unlocked_worlds", 1))
+		unlocked_worlds = clampi(int(parsed.get("unlocked_worlds", 1)), 1, 4)
