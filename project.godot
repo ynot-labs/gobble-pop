@@ -14,7 +14,11 @@ config/name="Gobble Pop!"
 config/description="3-Platform IAA Casual Eat & Grow Physics Puzzle Game"
 run/main_scene="res://scenes/main/main.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-boot_splash/bg_color=Color(0.95, 0.98, 0.96, 1)
+config/icon="res://assets/web/app_icon.png"
+boot_splash/bg_color=Color(0.84, 0.97, 0.92, 1)
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=true
 
 [autoload]
 

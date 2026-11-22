@@ -18,8 +18,8 @@ const FEVER_DURATION: float = 4.5
 const FEVER_SPEED_BONUS: float = 1.24
 const FEVER_SUCTION_BONUS: float = 1.25
 const MAGNET_DURATION: float = 5.5
-const STICKY_SPEED_MULT: float = 0.38 # Hard -62% speed cap when stuck in bubblegum!
-const STICKY_SNAP_DIST: float = 4.6
+const STICKY_SPEED_MULT: float = 0.45 # -55% speed (firm drag, still escapable!)
+const STICKY_SNAP_DIST: float = 3.35  # Strain steadily ~0.9s to snap the strands free!
 const JOYSTICK_MAX_R: float = 56.0
 
 var hole_level: int = 1
@@ -233,9 +233,9 @@ func activate_magnet(dur: float = MAGNET_DURATION) -> void:
 func trigger_sticky_trap(trap_node: Node3D, duration: float) -> void:
 	sticky_timer = maxf(sticky_timer, duration)
 	active_gum_trap = trap_node
-	_velocity *= 0.25 # Immediate heavy snag feeling!
+	_velocity *= 0.45 # Noticeable sticky snag without total dead-stop!
 	AudioManager.play_sfx("sticky")
-	PlatformBridge.trigger_haptic(40)
+	PlatformBridge.trigger_haptic(35)
 	sticky_triggered.emit(trap_node.position)
 	buff_changed.emit("sticky", sticky_timer)
 
@@ -319,15 +319,18 @@ func _process(delta: float) -> void:
 
 	var target_vel := Vector3(inp.x * speed, 0.0, inp.y * speed)
 
-	# REAL ELASTIC SPRING TUG-BACK FORCE when tethered to active bubblegum trap!
+	# Balanced elastic spring tug-back: strongly felt, yet ALWAYS weaker than max slowed speed so pulling steadily snaps free!
 	if sticky_timer > 0.0 and is_instance_valid(active_gum_trap):
 		var from_gum := Vector3(position.x - active_gum_trap.position.x, 0.0, position.z - active_gum_trap.position.z)
 		var gdist := from_gum.length()
 		if gdist > STICKY_SNAP_DIST:
-			# Snapped free by straining hard!
+			# Snapped free! Reward player with immediate speed relief!
 			active_gum_trap = null
-		elif gdist > 0.35:
-			var tug_strength := clampf((gdist - 0.35) * 1.55, 0.0, 3.1)
+			sticky_timer = minf(sticky_timer, 0.25)
+			AudioManager.play_sfx("pop_small", 1.35)
+		elif gdist > 0.45:
+			var max_tug := speed * 0.42
+			var tug_strength := clampf((gdist - 0.45) * 0.68, 0.0, max_tug)
 			target_vel -= (from_gum / gdist) * tug_strength
 
 	_velocity = _velocity.lerp(target_vel, minf(delta * 13.5, 1.0))

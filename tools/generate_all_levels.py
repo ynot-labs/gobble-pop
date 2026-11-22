@@ -515,7 +515,7 @@ def build_all():
          {"w2_arcade": 8, "w2_unicorn": 5}, it,
          [{"kind": "ice", "pos": [-3.0, -3.0]}, {"kind": "magnet", "pos": [3.0, 3.0]}], traps, streak_hint=25)
 
-    # Lv.26 — Rubber Band S-Slalom (Introduces Elastic Rubber Band Walls!)
+    # Lv.26 — Rubber Band S-Slalom (Wide navigable S-curve doorways >= 6.0m!)
     it = []
     add_items(it, "w2_block", pt_grid(0, 8.5, 9, 3, 1.8, 1.3) + pt_grid(0, 0, 9, 2, 1.8, 1.4) + pt_grid(0, -8.5, 9, 2, 1.8, 1.4), 4, [0, 8.5])
     add_items(it, "w2_duck", pt_line(-8.2, 4.2, 8.2, 4.2, 10) + pt_line(-8.2, -4.2, 8.2, -4.2, 10), 1)
@@ -524,78 +524,78 @@ def build_all():
     add_items(it, "w2_unicorn", [[-7.2, -9.8], [0, -10.0], [7.2, -9.8], [0, 2.5]], 1)
     add_items(it, "w2_golden_gacha", [[0, -10.8]], 1)
     walls = [
-        {"pos": [-3.8, 4.2], "rot_deg": 0.0},
-        {"pos": [3.8, -0.5], "rot_deg": 0.0},
-        {"pos": [-3.8, -5.2], "rot_deg": 0.0},
+        {"pos": [-4.2, 4.2], "rot_deg": 0.0},
+        {"pos": [4.2, -0.5], "rot_deg": 0.0},
+        {"pos": [-4.2, -5.2], "rot_deg": 0.0},
     ]
-    traps = [{"pos": [6.2, 4.2]}, {"pos": [-6.2, -0.5]}, {"pos": [6.2, -5.2]}]
+    traps = [{"pos": [6.5, 4.2]}, {"pos": [-6.5, -0.5]}, {"pos": [6.5, -5.2]}]
     emit(26, 2, "Rubber S-Slalom", "NORMAL", 42, 22, 26, [0, 9.5],
          {"w2_arcade": 7, "w2_unicorn": 3, "w2_golden_gacha": 1}, it,
          [{"kind": "magnet", "pos": [5.5, 7.0]}, {"kind": "ice", "pos": [-5.5, -2.5]}], traps, walls)
 
-    # Lv.27 — Twin Toy Vaults
+    # Lv.27 — Twin Toy Vaults (Generous 7.2m center gate + 5.2m outer flanks + 6.4m vault foyer!)
     it = []
-    add_items(it, "w2_block", pt_grid(0, 7.5, 10, 3, 1.8, 1.3) + pt_grid(0, 0.5, 6, 3, 1.8, 1.4), 4, [0, 7.5])
-    add_items(it, "w2_duck", pt_ring(-6.0, -5.5, 3.2, 3.4, 10) + pt_ring(6.0, -5.5, 3.2, 3.4, 10), 1)
-    add_items(it, "w2_figurine", pt_line(-8.5, 2.5, 8.5, 2.5, 12), 3)
-    add_items(it, "w2_arcade", [[-6.5, -2.5], [-6.5, -8.5], [6.5, -2.5], [6.5, -8.5], [0, -4.5], [0, -8.5], [-8.5, 0], [8.5, 0]], 1)
-    add_items(it, "w2_unicorn", [[-8.5, -5.5], [8.5, -5.5], [-3.2, -9.5], [3.2, -9.5]], 1)
-    add_items(it, "w2_golden_gacha", [[-6.0, -5.8], [6.0, -5.8]], 1)
+    add_items(it, "w2_block", pt_grid(0, 7.8, 10, 3, 1.9, 1.3) + pt_grid(0, 1.4, 6, 3, 1.9, 1.4), 4, [0, 8.8])
+    add_items(it, "w2_duck", pt_ring(-6.6, -6.4, 3.2, 3.4, 10) + pt_ring(6.6, -6.4, 3.2, 3.4, 10), 1)
+    add_items(it, "w2_figurine", pt_line(-9.0, 3.2, 9.0, 3.2, 12), 3)
+    add_items(it, "w2_arcade", [[-7.2, -3.2], [-7.2, -9.2], [7.2, -3.2], [7.2, -9.2], [-2.8, -5.2], [2.8, -5.2], [-9.0, 0.4], [9.0, 0.4]], 1)
+    add_items(it, "w2_unicorn", [[-9.2, -6.4], [9.2, -6.4], [-3.8, -10.2], [3.8, -10.2]], 1)
+    add_items(it, "w2_golden_gacha", [[-6.6, -6.6], [6.6, -6.6]], 1)
     walls = [
-        {"pos": [-6.0, -1.2], "rot_deg": 0.0},
-        {"pos": [6.0, -1.2], "rot_deg": 0.0},
-        {"pos": [0.0, -5.8], "rot_deg": 90.0},
+        {"pos": [-5.2, -0.6], "rot_deg": 0.0},
+        {"pos": [5.2, -0.6], "rot_deg": 0.0},
+        {"pos": [0.0, -7.8], "rot_deg": 90.0},
     ]
-    traps = [{"pos": [-2.2, -1.2]}, {"pos": [2.2, -1.2]}, {"pos": [-6.0, -9.5]}, {"pos": [6.0, -9.5]}, {"pos": [0, 3.8]}]
-    emit(27, 2, "Twin Toy Vaults", "NORMAL", 42, 22, 26, [0, 9.2],
+    traps = [{"pos": [-2.2, -0.6]}, {"pos": [2.2, -0.6]}, {"pos": [-6.6, -10.2]}, {"pos": [6.6, -10.2]}, {"pos": [0, 4.2]}]
+    emit(27, 2, "Twin Toy Vaults", "NORMAL", 42, 24, 26, [0, 9.4],
          {"w2_arcade": 7, "w2_unicorn": 3, "w2_golden_gacha": 2}, it,
-         [{"kind": "ice", "pos": [0, 0.5]}, {"kind": "magnet", "pos": [-6.0, 5.5]}], traps, walls)
+         [{"kind": "ice", "pos": [0, 1.2]}, {"kind": "magnet", "pos": [-6.4, 5.8]}], traps, walls)
 
-    # Lv.28 — Cross-Wall Pinwheel Maze
+    # Lv.28 — Cross-Wall Pinwheel Maze (Wide 6.8m center & outer gaps!)
     it = []
-    add_items(it, "w2_block", pt_grid(-5.5, -6.0, 4, 4, 1.5, 1.5) + pt_grid(5.5, -6.0, 4, 4, 1.5, 1.5) +
-              pt_grid(-5.5, 6.0, 4, 4, 1.5, 1.5) + pt_grid(5.5, 6.0, 4, 4, 1.5, 1.5), 4)
-    add_items(it, "w2_duck", pt_ring(0, 0, 7.6, 8.6, 18), 1)
+    add_items(it, "w2_block", pt_grid(-5.8, -6.2, 4, 4, 1.5, 1.5) + pt_grid(5.8, -6.2, 4, 4, 1.5, 1.5) +
+              pt_grid(-5.8, 6.2, 4, 4, 1.5, 1.5) + pt_grid(5.8, 6.2, 4, 4, 1.5, 1.5), 4)
+    add_items(it, "w2_duck", pt_ring(0, 0, 7.8, 8.8, 18), 1)
     add_items(it, "w2_figurine", pt_ring(0, 0, 3.2, 3.6, 12), 3)
-    add_items(it, "w2_arcade", [[-7.2, -2.6], [7.2, -2.6], [-7.2, 2.6], [7.2, 2.6], [-2.8, -8.5], [2.8, -8.5], [-2.8, 8.5], [2.8, 8.5]], 1)
-    add_items(it, "w2_unicorn", [[-8.2, -8.8], [8.2, -8.8], [-8.2, 8.8], [8.2, 8.8]], 1)
-    add_items(it, "w2_golden_gacha", [[0, -10.2], [0, 10.2]], 1)
+    add_items(it, "w2_arcade", [[-7.4, -2.8], [7.4, -2.8], [-7.4, 2.8], [7.4, 2.8], [-3.0, -8.6], [3.0, -8.6], [-3.0, 8.6], [3.0, 8.6]], 1)
+    add_items(it, "w2_unicorn", [[-8.6, -9.0], [8.6, -9.0], [-8.6, 9.0], [8.6, 9.0]], 1)
+    add_items(it, "w2_golden_gacha", [[0, -10.4], [0, 10.4]], 1)
     walls = [
-        {"pos": [-4.5, 0.0], "rot_deg": 0.0},
-        {"pos": [4.5, 0.0], "rot_deg": 0.0},
-        {"pos": [0.0, -5.2], "rot_deg": 90.0},
-        {"pos": [0.0, 5.2], "rot_deg": 90.0},
+        {"pos": [-5.2, 0.0], "rot_deg": 0.0},
+        {"pos": [5.2, 0.0], "rot_deg": 0.0},
+        {"pos": [0.0, -6.2], "rot_deg": 90.0},
+        {"pos": [0.0, 6.2], "rot_deg": 90.0},
     ]
-    traps = [{"pos": [-2.2, -2.2]}, {"pos": [2.2, -2.2]}, {"pos": [-2.2, 2.2]}, {"pos": [2.2, 2.2]}, {"pos": [-7.5, 0]}, {"pos": [7.5, 0]}]
-    emit(28, 2, "Cross-Wall Maze", "NORMAL", 42, 22, 26, [0, 0],
+    traps = [{"pos": [-2.4, -2.4]}, {"pos": [2.4, -2.4]}, {"pos": [-2.4, 2.4]}, {"pos": [2.4, 2.4]}, {"pos": [-8.2, 0]}, {"pos": [8.2, 0]}]
+    emit(28, 2, "Cross-Wall Maze", "NORMAL", 42, 24, 26, [0, 0],
          {"w2_arcade": 7, "w2_unicorn": 4, "w2_golden_gacha": 2}, it,
-         [{"kind": "ice", "pos": [0, -2.4]}, {"kind": "magnet", "pos": [0, 2.4]}], traps, walls)
+         [{"kind": "ice", "pos": [0, -2.6]}, {"kind": "magnet", "pos": [0, 2.6]}], traps, walls)
 
-    # Lv.29 — HARD · Golden Runway
+    # Lv.29 — HARD · Golden Runway (Wide navigable corridors >= 6.4m!)
     it = []
-    add_items(it, "w2_block", pt_grid(0, 9.2, 10, 3, 1.8, 1.3) + pt_line(-8.2, 6, -8.2, -8, 14) + pt_line(8.2, 6, 8.2, -8, 14), 4, [0, 9.2])
+    add_items(it, "w2_block", pt_grid(0, 9.2, 10, 3, 1.9, 1.3) + pt_line(-8.8, 6, -8.8, -8, 14) + pt_line(8.8, 6, 8.8, -8, 14), 4, [0, 9.2])
     add_items(it, "w2_duck", pt_line(-4.2, 6.0, -4.2, -6.0, 9) + pt_line(4.2, 6.0, 4.2, -6.0, 9), 1)
     add_items(it, "w2_figurine", pt_line(0, 6.0, 0, -6.0, 11), 3)
-    add_items(it, "w2_arcade", pt_line(-8.0, -3.5, 8.0, -3.5, 7) + [[-6.5, 2.0], [6.5, 2.0], [0, -7.8]], 1)
-    add_items(it, "w2_unicorn", [[-8.2, -9.5], [8.2, -9.5], [-4.0, -8.2], [4.0, -8.2], [0, -2.0]], 1)
-    add_items(it, "w2_golden_gacha", [[-4.8, -10.8], [4.8, -10.8]], 1)
+    add_items(it, "w2_arcade", pt_line(-8.4, -3.5, 8.4, -3.5, 7) + [[-6.8, 2.0], [6.8, 2.0], [0, -8.0]], 1)
+    add_items(it, "w2_unicorn", [[-8.6, -9.5], [8.6, -9.5], [-4.2, -8.4], [4.2, -8.4], [0, -1.8]], 1)
+    add_items(it, "w2_golden_gacha", [[-5.2, -10.8], [5.2, -10.8]], 1)
     walls = [
-        {"pos": [-4.5, 1.5], "rot_deg": 90.0},
-        {"pos": [4.5, 1.5], "rot_deg": 90.0},
-        {"pos": [0.0, -5.2], "rot_deg": 0.0},
+        {"pos": [-5.4, 1.5], "rot_deg": 90.0},
+        {"pos": [5.4, 1.5], "rot_deg": 90.0},
+        {"pos": [0.0, -5.8], "rot_deg": 0.0},
     ]
     traps = [
-        {"pos": [-7.0, 3.0]}, {"pos": [7.0, 3.0]}, {"pos": [0, 3.0]},
-        {"pos": [-7.0, -1.5]}, {"pos": [7.0, -1.5]}, {"pos": [0, -1.5]},
-        {"pos": [-5.2, -6.5]}, {"pos": [5.2, -6.5]},
+        {"pos": [-7.6, 3.0]}, {"pos": [7.6, 3.0]}, {"pos": [0, 3.0]},
+        {"pos": [-7.6, -1.5]}, {"pos": [7.6, -1.5]}, {"pos": [0, -1.5]},
+        {"pos": [-5.6, -6.8]}, {"pos": [5.6, -6.8]},
     ]
-    emit(29, 2, "Golden Runway", "HARD", 38, 22, 26, [0, 9.8],
+    emit(29, 2, "Golden Runway", "HARD", 38, 24, 26, [0, 9.8],
          {"w2_arcade": 8, "w2_unicorn": 4, "w2_golden_gacha": 2}, it,
-         [{"kind": "ice", "pos": [-6.0, 7.0]}, {"kind": "magnet", "pos": [6.0, 7.0]}], traps, walls, streak_hint=149)
+         [{"kind": "ice", "pos": [-6.4, 7.0]}, {"kind": "magnet", "pos": [6.4, 7.0]}], traps, walls, streak_hint=149)
 
-    # Lv.30 — SUPER HARD CLIFF · 199-Streak Gacha Hell! (14 Bubblegum Traps + 4 Rubber Band Walls + 3 Giant Golden Gachas!)
+    # Lv.30 — SUPER HARD CLIFF · 199-Streak Gacha Hell! (Wide 7.0m center lane + 5.1m side lanes — hard but 100% passable!)
     it = []
-    add_items(it, "w2_block", pt_grid(0, 9.6, 11, 3, 1.9, 1.2) + pt_grid(-8.2, 2.2, 3, 6, 1.3, 1.4) + pt_grid(8.2, 2.2, 3, 6, 1.3, 1.4), 4, [0, 9.6])
+    add_items(it, "w2_block", pt_grid(0, 9.6, 11, 3, 1.9, 1.2) + pt_grid(-8.4, 2.2, 3, 6, 1.3, 1.4) + pt_grid(8.4, 2.2, 3, 6, 1.3, 1.4), 4, [0, 9.6])
     add_items(it, "w2_duck", pt_ring(0, 2.0, 5.2, 4.6, 16) + pt_line(-8.5, -5.0, 8.5, -5.0, 10), 1)
     add_items(it, "w2_figurine", pt_ring(0, -1.2, 7.2, 5.5, 16), 3)
     add_items(it, "w2_arcade", pt_ring(0, -2.5, 8.8, 7.2, 10, 0.25), 1)
