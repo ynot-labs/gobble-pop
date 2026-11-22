@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Sweet Pyramid",
   "difficulty_tag": "NORMAL",
-  "duration": 42,
+  "duration": 31,
   "arena": [
     22,
     26
@@ -883,5 +883,6 @@
       ]
     }
   ],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

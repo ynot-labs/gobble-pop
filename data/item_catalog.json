@@ -1,170 +1,109 @@
 {
   "w1_sprinkle": {
-    "id": "W1-02",
-    "name": "Sprinkle",
-    "world": 1,
-    "tier": 1,
-    "xp": 5,
-    "radius": 0.24,
-    "height": 0.18,
-    "shape": "capsule",
-    "colors": ["#FF4D94", "#FFD93D", "#4CC9F0"],
-    "model": "res://assets/models/world1/w1_02_sprinkle.glb"
+    "id": "W1-02", "name": "Sprinkle", "world": 1, "tier": 1, "xp": 5, "radius": 0.24, "height": 0.18,
+    "colors": ["#FF4D94", "#FFD93D", "#4CC9F0"], "model": "res://assets/models/world1/w1_02_sprinkle.glb"
   },
   "w1_strawberry": {
-    "id": "W1-03",
-    "name": "Strawberry",
-    "world": 1,
-    "tier": 1,
-    "xp": 6,
-    "radius": 0.34,
-    "height": 0.44,
-    "shape": "strawberry",
-    "colors": ["#FF2E4C"],
-    "model": "res://assets/models/world1/w1_03_strawberry.glb"
+    "id": "W1-03", "name": "Strawberry", "world": 1, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.44,
+    "colors": ["#FF2E4C"], "model": "res://assets/models/world1/w1_03_strawberry.glb"
   },
   "w1_gummy_bear": {
-    "id": "W1-04",
-    "name": "Gummy Bear",
-    "world": 1,
-    "tier": 1,
-    "xp": 7,
-    "radius": 0.38,
-    "height": 0.58,
-    "shape": "gummy",
-    "colors": ["#FF3355", "#4CD964", "#FFD000"],
-    "model": "res://assets/models/world1/w1_04_gummy_bear.glb"
+    "id": "W1-04", "name": "Gummy Bear", "world": 1, "tier": 1, "xp": 7, "radius": 0.38, "height": 0.58,
+    "colors": ["#FF3355", "#4CD964", "#FFD000"], "model": "res://assets/models/world1/w1_04_gummy_bear.glb"
   },
   "w1_macaron": {
-    "id": "W1-05",
-    "name": "Macaron",
-    "world": 1,
-    "tier": 2,
-    "xp": 14,
-    "radius": 0.56,
-    "height": 0.42,
-    "shape": "macaron",
-    "colors": ["#FF9EC4", "#C7A6FF", "#89E8C6"],
-    "model": "res://assets/models/world1/w1_05_macaron.glb"
+    "id": "W1-05", "name": "Macaron", "world": 1, "tier": 2, "xp": 14, "radius": 0.56, "height": 0.42,
+    "colors": ["#FF9EC4", "#C7A6FF", "#89E8C6"], "model": "res://assets/models/world1/w1_05_macaron.glb"
   },
   "w1_boba_tea": {
-    "id": "W1-06",
-    "name": "Boba Tea",
-    "world": 1,
-    "tier": 2,
-    "xp": 13,
-    "radius": 0.56,
-    "height": 0.90,
-    "shape": "cup",
-    "colors": ["#E5A973"],
-    "model": "res://assets/models/world1/w1_06_boba_tea.glb"
+    "id": "W1-06", "name": "Boba Tea", "world": 1, "tier": 2, "xp": 13, "radius": 0.56, "height": 0.90,
+    "colors": ["#E5A973"], "model": "res://assets/models/world1/w1_06_boba_tea.glb"
   },
   "w1_donut": {
-    "id": "W1-07",
-    "name": "Donut",
-    "world": 1,
-    "tier": 3,
-    "xp": 26,
-    "radius": 0.88,
-    "height": 0.46,
-    "shape": "donut",
-    "colors": ["#FF6FA5", "#4FC3F7"],
-    "model": "res://assets/models/world1/w1_07_donut.glb"
+    "id": "W1-07", "name": "Donut", "world": 1, "tier": 3, "xp": 26, "radius": 0.88, "height": 0.46,
+    "colors": ["#FF6FA5", "#4FC3F7"], "model": "res://assets/models/world1/w1_07_donut.glb"
   },
   "w1_cake": {
-    "id": "W1-08",
-    "name": "Cake",
-    "world": 1,
-    "tier": 4,
-    "xp": 46,
-    "radius": 1.32,
-    "height": 1.60,
-    "shape": "cake",
-    "colors": ["#FFF5F7"],
-    "model": "res://assets/models/world1/w1_08_cake.glb"
+    "id": "W1-08", "name": "Cake", "world": 1, "tier": 4, "xp": 46, "radius": 1.32, "height": 1.60,
+    "colors": ["#FFF5F7"], "model": "res://assets/models/world1/w1_08_cake.glb"
   },
   "w1_grand_cake": {
-    "id": "W1-08B",
-    "name": "Grand Cake",
-    "world": 1,
-    "tier": 5,
-    "xp": 80,
-    "radius": 1.68,
-    "height": 2.05,
-    "shape": "cake",
-    "colors": ["#FFE3EC"],
-    "model": "res://assets/models/world1/w1_08_cake.glb"
+    "id": "W1-08B", "name": "Grand Cake", "world": 1, "tier": 5, "xp": 80, "radius": 1.68, "height": 2.05,
+    "colors": ["#FFE3EC"], "model": "res://assets/models/world1/w1_08_cake.glb"
   },
+
   "w2_block": {
-    "id": "W2-02",
-    "name": "Toy Block",
-    "world": 2,
-    "tier": 1,
-    "xp": 6,
-    "radius": 0.34,
-    "height": 0.34,
-    "shape": "block",
-    "colors": ["#4CC9F0", "#FF6B9D", "#6EE7B7", "#C084FC"],
-    "model": "res://assets/models/world2/w2_02_block.glb"
+    "id": "W2-02", "name": "Toy Block", "world": 2, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.34,
+    "colors": ["#4CC9F0", "#FF6B9D", "#6EE7B7", "#C084FC"], "model": "res://assets/models/world2/w2_02_block.glb"
   },
   "w2_duck": {
-    "id": "W2-03",
-    "name": "Rubber Duck",
-    "world": 2,
-    "tier": 2,
-    "xp": 14,
-    "radius": 0.56,
-    "height": 0.72,
-    "shape": "round",
-    "colors": ["#FF92C2"],
-    "model": "res://assets/models/world2/w2_03_duck.glb"
+    "id": "W2-03", "name": "Rubber Duck", "world": 2, "tier": 2, "xp": 14, "radius": 0.56, "height": 0.72,
+    "colors": ["#FF92C2"], "model": "res://assets/models/world2/w2_03_duck.glb"
   },
   "w2_figurine": {
-    "id": "W2-04",
-    "name": "Figurine",
-    "world": 2,
-    "tier": 2,
-    "xp": 15,
-    "radius": 0.56,
-    "height": 1.10,
-    "shape": "cylinder",
-    "colors": ["#C084FC", "#FF92C2", "#6EE7B7"],
-    "model": "res://assets/models/world2/w2_04_figurine.glb"
+    "id": "W2-04", "name": "Figurine", "world": 2, "tier": 2, "xp": 15, "radius": 0.56, "height": 1.10,
+    "colors": ["#C084FC", "#FF92C2", "#6EE7B7"], "model": "res://assets/models/world2/w2_04_figurine.glb"
   },
   "w2_arcade": {
-    "id": "W2-05",
-    "name": "Mini Arcade",
-    "world": 2,
-    "tier": 3,
-    "xp": 28,
-    "radius": 0.86,
-    "height": 1.20,
-    "shape": "block",
-    "colors": ["#38BDF8"],
-    "model": "res://assets/models/world2/w2_05_arcade.glb"
+    "id": "W2-05", "name": "Mini Arcade", "world": 2, "tier": 3, "xp": 28, "radius": 0.86, "height": 1.20,
+    "colors": ["#38BDF8"], "model": "res://assets/models/world2/w2_05_arcade.glb"
   },
   "w2_unicorn": {
-    "id": "W2-06",
-    "name": "Unicorn Toy",
-    "world": 2,
-    "tier": 4,
-    "xp": 46,
-    "radius": 1.24,
-    "height": 1.65,
-    "shape": "cylinder",
-    "colors": ["#FDF2F8"],
-    "model": "res://assets/models/world2/w2_06_unicorn.glb"
+    "id": "W2-06", "name": "Unicorn Toy", "world": 2, "tier": 4, "xp": 46, "radius": 1.24, "height": 1.65,
+    "colors": ["#FDF2F8"], "model": "res://assets/models/world2/w2_06_unicorn.glb"
   },
   "w2_golden_gacha": {
-    "id": "W2-07",
-    "name": "Golden Gacha",
-    "world": 2,
-    "tier": 5,
-    "xp": 80,
-    "radius": 1.56,
-    "height": 2.10,
-    "shape": "gacha",
-    "colors": ["#FACC15"],
-    "model": "res://assets/models/world2/w2_07_golden_gacha.glb"
+    "id": "W2-07", "name": "Golden Gacha", "world": 2, "tier": 5, "xp": 80, "radius": 1.56, "height": 2.10,
+    "colors": ["#FACC15"], "model": "res://assets/models/world2/w2_07_golden_gacha.glb"
+  },
+
+  "w3_sushi": {
+    "id": "W3-02", "name": "Salmon Sushi", "world": 3, "tier": 1, "xp": 6, "radius": 0.36, "height": 0.36,
+    "colors": ["#FF6B3D"], "model": "res://assets/models/world3/w3_02_sushi.glb"
+  },
+  "w3_takoyaki": {
+    "id": "W3-03", "name": "Takoyaki", "world": 3, "tier": 1, "xp": 7, "radius": 0.34, "height": 0.62,
+    "colors": ["#B5651D"], "model": "res://assets/models/world3/w3_03_takoyaki.glb"
+  },
+  "w3_ramen": {
+    "id": "W3-04", "name": "Ramen Bowl", "world": 3, "tier": 2, "xp": 15, "radius": 0.68, "height": 0.72,
+    "colors": ["#E11D48"], "model": "res://assets/models/world3/w3_04_ramen.glb"
+  },
+  "w3_big_ramen": {
+    "id": "W3-04B", "name": "King Ramen", "world": 3, "tier": 3, "xp": 28, "radius": 0.94, "height": 0.98,
+    "colors": ["#F59E0B"], "model": "res://assets/models/world3/w3_04_ramen.glb"
+  },
+  "w3_bento": {
+    "id": "W3-05", "name": "Deluxe Bento", "world": 3, "tier": 4, "xp": 48, "radius": 1.32, "height": 0.92,
+    "colors": ["#1E293B"], "model": "res://assets/models/world3/w3_05_bento.glb"
+  },
+  "w3_grand_bento": {
+    "id": "W3-05B", "name": "Royal Bento", "world": 3, "tier": 5, "xp": 80, "radius": 1.66, "height": 1.15,
+    "colors": ["#E11D48"], "model": "res://assets/models/world3/w3_05_bento.glb"
+  },
+
+  "w4_d20": {
+    "id": "W4-02", "name": "Crystal D20", "world": 4, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.64,
+    "colors": ["#8B5CF6", "#38BDF8", "#F472B6"], "model": "res://assets/models/world4/w4_02_d20.glb"
+  },
+  "w4_slime": {
+    "id": "W4-03", "name": "Jelly Slime", "world": 4, "tier": 1, "xp": 7, "radius": 0.40, "height": 0.54,
+    "colors": ["#38BDF8", "#F472B6", "#FACC15"], "model": "res://assets/models/world4/w4_03_slime.glb"
+  },
+  "w4_potion": {
+    "id": "W4-04", "name": "Magic Potion", "world": 4, "tier": 2, "xp": 15, "radius": 0.48, "height": 1.18,
+    "colors": ["#F472B6", "#38BDF8"], "model": "res://assets/models/world4/w4_04_potion.glb"
+  },
+  "w4_spellbook": {
+    "id": "W4-05", "name": "Spellbook", "world": 4, "tier": 3, "xp": 28, "radius": 0.86, "height": 0.54,
+    "colors": ["#8B5CF6"], "model": "res://assets/models/world4/w4_05_spellbook.glb"
+  },
+  "w4_cauldron": {
+    "id": "W4-06", "name": "Cauldron", "world": 4, "tier": 4, "xp": 48, "radius": 1.32, "height": 1.95,
+    "colors": ["#4C1D95"], "model": "res://assets/models/world4/w4_06_cauldron.glb"
+  },
+  "w4_grand_cauldron": {
+    "id": "W4-06B", "name": "Grand Cauldron", "world": 4, "tier": 5, "xp": 80, "radius": 1.66, "height": 2.38,
+    "colors": ["#A855F7"], "model": "res://assets/models/world4/w4_06_cauldron.glb"
   }
 }

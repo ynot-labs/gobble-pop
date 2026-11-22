@@ -47,16 +47,18 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 		var packed: PackedScene = load(model_path)
 		if packed:
 			var inst := packed.instantiate()
-			if item_key == "w1_grand_cake":
+			if item_key in ["w1_grand_cake", "w3_grand_bento", "w4_grand_cauldron"]:
 				inst.scale = Vector3(1.26, 1.26, 1.26)
-			elif item_key in ["w1_sprinkle", "w2_block"]:
+			elif item_key == "w3_big_ramen":
+				inst.scale = Vector3(1.34, 1.34, 1.34)
+			elif item_key in ["w1_sprinkle", "w2_block", "w4_d20"]:
 				inst.rotation.y = randf() * TAU
 				_apply_variant_tint(inst, tint_color)
-			elif item_key in ["w1_gummy_bear", "w1_macaron", "w2_figurine"] and color_idx > 0:
+			elif item_key in ["w1_gummy_bear", "w1_macaron", "w2_figurine", "w4_slime", "w4_potion"] and color_idx > 0:
 				_apply_variant_tint(inst, tint_color)
 			elif item_key == "w1_donut" and color_idx == 1:
 				_apply_variant_tint(inst, Color("#8CE0FF"))
-			elif item_key in ["w2_duck", "w2_arcade", "w2_unicorn"]:
+			elif item_key in ["w2_duck", "w2_arcade", "w2_unicorn", "w3_sushi", "w4_spellbook"]:
 				inst.rotation.y = randf_range(-0.6, 0.6)
 			_visual_root.add_child(inst)
 			return

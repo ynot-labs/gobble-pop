@@ -767,5 +767,6 @@
     }
   ],
   "traps": [],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

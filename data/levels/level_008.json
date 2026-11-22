@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Cake Citadel",
   "difficulty_tag": "NORMAL",
-  "duration": 44,
+  "duration": 28,
   "arena": [
     20,
     24
@@ -695,8 +695,8 @@
     {
       "key": "w1_donut",
       "pos": [
-        -2.4,
-        -2.8
+        -6.8,
+        -7.8
       ],
       "color_idx": 0
     },
@@ -704,22 +704,22 @@
       "key": "w1_donut",
       "pos": [
         0.0,
-        -2.8
+        -7.8
       ],
       "color_idx": 1
     },
     {
       "key": "w1_donut",
       "pos": [
-        2.4,
-        -2.8
+        6.8,
+        -7.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_donut",
       "pos": [
-        2.4,
+        6.8,
         0.0
       ],
       "color_idx": 1
@@ -727,8 +727,8 @@
     {
       "key": "w1_donut",
       "pos": [
-        2.4,
-        2.8
+        6.8,
+        7.8
       ],
       "color_idx": 0
     },
@@ -736,22 +736,22 @@
       "key": "w1_donut",
       "pos": [
         0.0,
-        2.8
+        7.8
       ],
       "color_idx": 1
     },
     {
       "key": "w1_donut",
       "pos": [
-        -2.4,
-        2.8
+        -6.8,
+        7.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_donut",
       "pos": [
-        -2.4,
+        -6.8,
         0.0
       ],
       "color_idx": 1
@@ -759,32 +759,32 @@
     {
       "key": "w1_cake",
       "pos": [
-        -1.6,
-        0
+        -7.6,
+        -9.2
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        1.6,
-        0
+        7.6,
+        -9.2
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        0,
-        -2.0
+        -7.6,
+        9.2
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        0,
-        2.0
+        7.6,
+        9.2
       ],
       "color_idx": 0
     }
@@ -796,15 +796,9 @@
         -5.2,
         0
       ]
-    },
-    {
-      "kind": "magnet",
-      "pos": [
-        5.2,
-        0
-      ]
     }
   ],
   "traps": [],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

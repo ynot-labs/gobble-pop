@@ -1,17 +1,15 @@
 extends Node3D
 
-## Main Stage for Gobble Pop! — World 1 (Sugar Rush Bakery) + World 2 (Gacha Toybox)
-## 30 Distinct Hole-Stars-style Sculptural Formations + Demo-Grade Sticky Gum & Cliff Difficulty!
+## Main Stage for Gobble Pop! — All 4 Worlds (Lv.1 - Lv.50) + 4 Epic MEGA BOSS Stages!
+## World 1: Sugar Rush Bakery (Lv.1-20)   | World 2: Gacha Toybox (Lv.21-30)
+## World 3: Neon Bento Street (Lv.31-40)  | World 4: Cozy Alchemist Desk (Lv.41-50)
 
-const SHOWCASE_TABS := [
-	{"label": "W1 L1 Heart", "lv": 1, "cliff": false},
-	{"label": "W1 L5 Hard",  "lv": 5, "cliff": false},
-	{"label": "W1 L10 CLIFF","lv": 10, "cliff": true},
-	{"label": "W1 L20 CROWN","lv": 20, "cliff": true},
-	{"label": "W2 L21 Toys", "lv": 21, "cliff": false},
-	{"label": "W2 L26 Walls","lv": 26, "cliff": false},
-	{"label": "W2 L30 HELL", "lv": 30, "cliff": true},
-]
+const WORLD_META := {
+	1: {"name": "WORLD 1: SUGAR RUSH BAKERY", "short": "W1 Bakery", "start": 1,  "hard": 5,  "cliff": 10, "mega": 20, "trap_name": "BUBBLEGUM"},
+	2: {"name": "WORLD 2: GACHA TOYBOX",      "short": "W2 Toybox", "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
+	3: {"name": "WORLD 3: NEON BENTO STREET", "short": "W3 Bento",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
+	4: {"name": "WORLD 4: ALCHEMIST DESK",    "short": "W4 Magic",  "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
+}
 
 var _env: Environment
 var _camera: Camera3D
@@ -26,16 +24,19 @@ var _items: Array[SwallowableItem] = []
 var _powerups: Array[PowerupItem] = []
 var _traps: Array[StickyTrap] = []
 var _walls: Array[RubberWall] = []
+var _bombs: Array[BombHazard] = []
 
 var _level_data: Dictionary = {}
 var _level_number: int = 1
 var _world_id: int = 1
+var _is_mega_stage: bool = false
 var _board_half := Vector2(8.0, 10.0)
 var _remaining_targets: Dictionary = {}
 var _target_labels: Dictionary = {}
 
 var _time_left: float = 45.0
 var _ice_freeze_timer: float = 0.0
+var _bomb_flash_timer: float = 0.0
 var _last_tick_sec: int = 6
 var _playing: bool = false
 var _used_rv_this_run: bool = false
@@ -46,7 +47,9 @@ var _target_cam_height: float = 17.5
 # UI References
 var _hud_layer: CanvasLayer
 var _joystick_overlay: JoystickOverlay
-var _tab_buttons: Array[Button] = []
+var _world_buttons: Dictionary = {}
+var _stage_buttons: Dictionary = {}
+var _bomb_flash_rect: ColorRect
 var _timer_label: Label
 var _level_label: Label
 var _streak_label: Label
@@ -61,7 +64,6 @@ var _overlay_title: Label
 var _overlay_desc: Label
 var _btn_primary: Button
 var _btn_secondary: Button
-var _btn_tertiary: Button
 var _btn_mute: Button
 var _buff_label: Label
 
@@ -71,7 +73,7 @@ func _ready() -> void:
 	_build_3d_stage()
 	_joystick_overlay.hole = _hole
 	AdManager.rewarded_ad_completed.connect(_on_rewarded_completed)
-	_load_level(clampi(GameManager.current_level, 1, 30), true)
+	_load_level(clampi(GameManager.current_level, 1, 50), true)
 	PlatformBridge.notify_game_ready()
 
 
@@ -133,7 +135,12 @@ func _build_hud() -> void:
 	_frost_rect.material = _frost_mat
 	_hud_layer.add_child(_frost_rect)
 
-	# Virtual Floating Joystick visual overlay
+	_bomb_flash_rect = ColorRect.new()
+	_bomb_flash_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_bomb_flash_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_bomb_flash_rect.color = Color(1.0, 0.12, 0.18, 0.0)
+	_hud_layer.add_child(_bomb_flash_rect)
+
 	_joystick_overlay = JoystickOverlay.new()
 	_joystick_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_joystick_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -141,60 +148,71 @@ func _build_hud() -> void:
 
 	var top_margin := MarginContainer.new()
 	top_margin.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	top_margin.add_theme_constant_override("margin_left", 16)
-	top_margin.add_theme_constant_override("margin_right", 16)
-	top_margin.add_theme_constant_override("margin_top", 14)
+	top_margin.add_theme_constant_override("margin_left", 14)
+	top_margin.add_theme_constant_override("margin_right", 14)
+	top_margin.add_theme_constant_override("margin_top", 12)
 	_hud_layer.add_child(top_margin)
 
 	var top_vbox := VBoxContainer.new()
-	top_vbox.add_theme_constant_override("separation", 10)
+	top_vbox.add_theme_constant_override("separation", 8)
 	top_margin.add_child(top_vbox)
 
-	# Row 0: Quick World/Showcase Level Switcher Bar (matching gobble-pop-demo!)
-	var tabs_row := HBoxContainer.new()
-	tabs_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	tabs_row.add_theme_constant_override("separation", 6)
-	top_vbox.add_child(tabs_row)
+	# Row 0A: 4-World Selector Bar
+	var world_row := HBoxContainer.new()
+	world_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	world_row.add_theme_constant_override("separation", 6)
+	top_vbox.add_child(world_row)
 
-	var btn_prev := _make_small_tab("<", Color("#334155"))
-	btn_prev.pressed.connect(func(): _load_level(30 if _level_number <= 1 else _level_number - 1, true))
-	tabs_row.add_child(btn_prev)
+	for wid in [1, 2, 3, 4]:
+		var wb := _make_small_tab(str(WORLD_META[wid]["short"]), Color("#1E293B"))
+		var target_w: int = wid
+		wb.pressed.connect(func(): _load_level(int(WORLD_META[target_w]["start"]), true))
+		world_row.add_child(wb)
+		_world_buttons[wid] = wb
 
-	_tab_buttons.clear()
-	for cfg in SHOWCASE_TABS:
-		var col := Color("#E11D48") if bool(cfg["cliff"]) else Color("#1E293B")
-		var tb := _make_small_tab(str(cfg["label"]), col)
-		var target_lv: int = int(cfg["lv"])
-		tb.pressed.connect(func(): _load_level(target_lv, true))
-		tb.set_meta("lv", target_lv)
-		tb.set_meta("cliff", bool(cfg["cliff"]))
-		tabs_row.add_child(tb)
-		_tab_buttons.append(tb)
+	# Row 0B: Active World Key Stage Jumpers (< | Start | Hard | CLIFF | MEGA! | >)
+	var stage_row := HBoxContainer.new()
+	stage_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	stage_row.add_theme_constant_override("separation", 6)
+	top_vbox.add_child(stage_row)
 
-	var btn_next := _make_small_tab(">", Color("#334155"))
-	btn_next.pressed.connect(func(): _load_level((_level_number % 30) + 1, true))
-	tabs_row.add_child(btn_next)
+	var btn_prev := _make_small_tab("< Prev", Color("#334155"))
+	btn_prev.pressed.connect(func(): _load_level(50 if _level_number <= 1 else _level_number - 1, true))
+	stage_row.add_child(btn_prev)
+
+	for kind in ["start", "hard", "cliff", "mega"]:
+		var col := Color("#9F1239") if kind == "mega" else (Color("#BE123C") if kind == "cliff" else Color("#334155"))
+		var txt := "MEGA BOSS" if kind == "mega" else ("CLIFF" if kind == "cliff" else ("HARD" if kind == "hard" else "START"))
+		var sb := _make_small_tab(txt, col)
+		var k: String = kind
+		sb.pressed.connect(func(): _load_level(int(WORLD_META[_world_id][k]), true))
+		stage_row.add_child(sb)
+		_stage_buttons[kind] = sb
+
+	var btn_next := _make_small_tab("Next >", Color("#334155"))
+	btn_next.pressed.connect(func(): _load_level((_level_number % 50) + 1, true))
+	stage_row.add_child(btn_next)
 
 	# Row 1: Level Badge | Timer | Streak + Mute
 	var row1 := HBoxContainer.new()
 	row1.alignment = BoxContainer.ALIGNMENT_CENTER
 	top_vbox.add_child(row1)
 
-	_level_label = _make_pill_label("LV.1", Color("#0EA5E9"), 28)
+	_level_label = _make_pill_label("W1 L1", Color("#0EA5E9"), 24)
 	row1.add_child(_level_label)
 
 	var sp1 := Control.new()
 	sp1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row1.add_child(sp1)
 
-	_timer_label = _make_pill_label("45.0s", Color("#14B8A6"), 38)
+	_timer_label = _make_pill_label("45.0s", Color("#14B8A6"), 36)
 	row1.add_child(_timer_label)
 
 	var sp2 := Control.new()
 	sp2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row1.add_child(sp2)
 
-	_streak_label = _make_pill_label("STREAK 0", Color("#F59E0B"), 26)
+	_streak_label = _make_pill_label("STREAK 0", Color("#F59E0B"), 22)
 	row1.add_child(_streak_label)
 
 	_btn_mute = _make_small_tab("SFX ON", Color("#0284C7"))
@@ -204,7 +222,7 @@ func _build_hud() -> void:
 	# Row 2: Target Checklist
 	_targets_box = HBoxContainer.new()
 	_targets_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	_targets_box.add_theme_constant_override("separation", 12)
+	_targets_box.add_theme_constant_override("separation", 10)
 	top_vbox.add_child(_targets_box)
 
 	# Row 3: Hole Level + Fever Bar
@@ -213,27 +231,27 @@ func _build_hud() -> void:
 	row3.add_theme_constant_override("separation", 12)
 	top_vbox.add_child(row3)
 
-	_hole_lvl_label = _make_pill_label("HOLE LV.1", Color("#10B981"), 24)
+	_hole_lvl_label = _make_pill_label("HOLE LV.1", Color("#10B981"), 22)
 	row3.add_child(_hole_lvl_label)
 
 	_fever_bar = ProgressBar.new()
-	_fever_bar.custom_minimum_size = Vector2(320, 24)
+	_fever_bar.custom_minimum_size = Vector2(300, 22)
 	_fever_bar.max_value = 100.0
 	_fever_bar.value = 0.0
 	_fever_bar.show_percentage = false
 	row3.add_child(_fever_bar)
 
 	_buff_label = Label.new()
-	_buff_label.add_theme_font_size_override("font_size", 28)
+	_buff_label.add_theme_font_size_override("font_size", 26)
 	_buff_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_buff_label.modulate = Color("#BE123C")
 	top_vbox.add_child(_buff_label)
 
-	# Bottom Booster Row (In-level RV Freeze / RV Magnet)
+	# Bottom Booster Row
 	var bot_bar := HBoxContainer.new()
 	bot_bar.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	bot_bar.offset_top = -112
-	bot_bar.offset_bottom = -22
+	bot_bar.offset_top = -108
+	bot_bar.offset_bottom = -20
 	bot_bar.alignment = BoxContainer.ALIGNMENT_CENTER
 	bot_bar.add_theme_constant_override("separation", 16)
 	_hud_layer.add_child(bot_bar)
@@ -274,39 +292,34 @@ func _build_hud() -> void:
 
 	_overlay_title = Label.new()
 	_overlay_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_overlay_title.add_theme_font_size_override("font_size", 48)
+	_overlay_title.add_theme_font_size_override("font_size", 46)
 	_overlay_title.modulate = Color("#0F172A")
 	ov_box.add_child(_overlay_title)
 
 	_overlay_desc = Label.new()
 	_overlay_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_overlay_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_overlay_desc.add_theme_font_size_override("font_size", 28)
+	_overlay_desc.add_theme_font_size_override("font_size", 26)
 	_overlay_desc.modulate = Color("#475569")
 	ov_box.add_child(_overlay_desc)
 
 	_btn_primary = _make_action_button("PLAY!", Color("#10B981"))
-	_btn_primary.custom_minimum_size = Vector2(620, 88)
+	_btn_primary.custom_minimum_size = Vector2(620, 86)
 	ov_box.add_child(_btn_primary)
 
 	_btn_secondary = _make_action_button("[AD] START AT LV.2 + MAGNET", Color("#F59E0B"))
-	_btn_secondary.custom_minimum_size = Vector2(620, 78)
+	_btn_secondary.custom_minimum_size = Vector2(620, 76)
 	ov_box.add_child(_btn_secondary)
-
-	_btn_tertiary = _make_action_button("Retry", Color("#94A3B8"))
-	_btn_tertiary.custom_minimum_size = Vector2(460, 68)
-	_btn_tertiary.visible = false
-	ov_box.add_child(_btn_tertiary)
 
 
 func _make_small_tab(txt: String, bg: Color) -> Button:
 	var b := Button.new()
 	b.text = txt
-	b.add_theme_font_size_override("font_size", 20)
+	b.add_theme_font_size_override("font_size", 19)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
-	sb.set_corner_radius_all(14)
-	sb.set_content_margin_all(8)
+	sb.set_corner_radius_all(12)
+	sb.set_content_margin_all(7)
 	b.add_theme_stylebox_override("normal", sb)
 	b.add_theme_stylebox_override("hover", sb)
 	b.add_theme_stylebox_override("pressed", sb)
@@ -319,8 +332,8 @@ func _make_pill_label(txt: String, bg: Color, font_sz: int) -> Label:
 	lbl.add_theme_font_size_override("font_size", font_sz)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
-	sb.set_corner_radius_all(22)
-	sb.set_content_margin_all(10)
+	sb.set_corner_radius_all(20)
+	sb.set_content_margin_all(9)
 	lbl.add_theme_stylebox_override("normal", sb)
 	lbl.modulate = Color.WHITE
 	return lbl
@@ -329,10 +342,10 @@ func _make_pill_label(txt: String, bg: Color, font_sz: int) -> Label:
 func _make_action_button(txt: String, bg: Color) -> Button:
 	var b := Button.new()
 	b.text = txt
-	b.add_theme_font_size_override("font_size", 28)
+	b.add_theme_font_size_override("font_size", 26)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
-	sb.set_corner_radius_all(22)
+	sb.set_corner_radius_all(20)
 	sb.set_content_margin_all(12)
 	b.add_theme_stylebox_override("normal", sb)
 	b.add_theme_stylebox_override("hover", sb)
@@ -342,28 +355,30 @@ func _make_action_button(txt: String, bg: Color) -> Button:
 
 func _apply_world_theme(world_id: int) -> void:
 	_world_id = world_id
-	if world_id == 2:
-		# World 2: Warm Butter-Yellow Vinyl Playmat + Deep Toybox Purple outer backdrop!
-		_env.background_color = Color("#4C1D95")
-		_table_mat.set_shader_parameter("border_color", Color("#F59E0B"))
-		if ResourceLoader.exists("res://assets/textures/w2_01_playmat_tile.png"):
-			_table_mat.set_shader_parameter("albedo_tex", load("res://assets/textures/w2_01_playmat_tile.png"))
-			_table_mat.set_shader_parameter("use_albedo_tex", true)
-		else:
-			_table_mat.set_shader_parameter("use_albedo_tex", false)
-			_table_mat.set_shader_parameter("color_a", Color("#FDE68A"))
-			_table_mat.set_shader_parameter("color_b", Color("#FEF3C7"))
+	var tex_path := ""
+	match world_id:
+		2:
+			_env.background_color = Color("#4C1D95")
+			_table_mat.set_shader_parameter("border_color", Color("#F59E0B"))
+			tex_path = "res://assets/textures/w2_01_playmat_tile.png"
+		3:
+			_env.background_color = Color("#7C2D12")
+			_table_mat.set_shader_parameter("border_color", Color("#FB7185"))
+			tex_path = "res://assets/textures/w3_01_table_tile.png"
+		4:
+			_env.background_color = Color("#2E1065")
+			_table_mat.set_shader_parameter("border_color", Color("#C084FC"))
+			tex_path = "res://assets/textures/w4_01_desk_tile.png"
+		_:
+			_env.background_color = Color("#A7F3D0")
+			_table_mat.set_shader_parameter("border_color", Color("#6EE7B7"))
+			tex_path = "res://assets/textures/w1_01_marble_tile.png"
+
+	if ResourceLoader.exists(tex_path):
+		_table_mat.set_shader_parameter("albedo_tex", load(tex_path))
+		_table_mat.set_shader_parameter("use_albedo_tex", true)
 	else:
-		# World 1: Mint-Green & Cream Checkered Marble Tabletop!
-		_env.background_color = Color("#A7F3D0")
-		_table_mat.set_shader_parameter("border_color", Color("#6EE7B7"))
-		if ResourceLoader.exists("res://assets/textures/w1_01_marble_tile.png"):
-			_table_mat.set_shader_parameter("albedo_tex", load("res://assets/textures/w1_01_marble_tile.png"))
-			_table_mat.set_shader_parameter("use_albedo_tex", true)
-		else:
-			_table_mat.set_shader_parameter("use_albedo_tex", false)
-			_table_mat.set_shader_parameter("color_a", Color("#D4F8EA"))
-			_table_mat.set_shader_parameter("color_b", Color("#FFFEF7"))
+		_table_mat.set_shader_parameter("use_albedo_tex", false)
 
 
 func _clear_entities() -> void:
@@ -375,15 +390,18 @@ func _clear_entities() -> void:
 	_powerups.clear()
 	_traps.clear()
 	_walls.clear()
+	_bombs.clear()
 
 
 func _load_level(num: int, show_start_modal: bool) -> void:
 	_clear_entities()
-	_level_number = clampi(num, 1, 30)
+	_level_number = clampi(num, 1, 50)
 	_used_rv_this_run = false
 	_attempts_this_level += 1
 	_ice_freeze_timer = 0.0
+	_bomb_flash_timer = 0.0
 	_frost_mat.set_shader_parameter("frost_amount", 0.0)
+	_bomb_flash_rect.color.a = 0.0
 	_buff_label.text = ""
 
 	var path := "res://data/levels/level_%03d.json" % _level_number
@@ -395,8 +413,10 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 
 	var world_id := int(_level_data.get("world", 1))
 	_apply_world_theme(world_id)
+	var tag := str(_level_data.get("difficulty_tag", "NORMAL"))
+	_is_mega_stage = (tag == "MEGA_BOSS")
 
-	# Dynamic arena dimensions per level (scales larger on Hard / SUPER HARD!)
+	# Dynamic arena dimensions (including 30x34 MEGA BOSS STAGES!)
 	var arena_arr: Array = _level_data.get("arena", [18.0, 22.0])
 	var aw := float(arena_arr[0])
 	var ah := float(arena_arr[1])
@@ -408,18 +428,15 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 	_hole.board_bounds = _board_half
 
 	var base_dur := float(_level_data.get("duration", 45.0))
-	var tag := str(_level_data.get("difficulty_tag", "NORMAL"))
 	_time_left = base_dur + DDAController.get_timer_adjustment(_level_number, tag)
 	_last_tick_sec = 6
 
 	var sp_arr: Array = _level_data.get("spawn", [0.0, 0.0])
-	var spawn_vec := Vector3(float(sp_arr[0]), 0.0, float(sp_arr[1]))
-	_hole.reset_for_level(1, spawn_vec)
-	_target_cam_height = 16.8
+	_hole.reset_for_level(1, Vector3(float(sp_arr[0]), 0.0, float(sp_arr[1])))
+	_target_cam_height = 18.5 if _is_mega_stage else 16.8
 
 	var targets: Dictionary = _level_data.get("targets", {})
 
-	# Spawn sculptural formation items
 	for entry in _level_data.get("items", []):
 		var key := str(entry["key"])
 		var def := GameManager.get_item_def(key)
@@ -432,7 +449,6 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		_entities_root.add_child(item)
 		_items.append(item)
 
-	# Spawn powerups
 	for pu in _level_data.get("powerups", []):
 		var p: Array = pu["pos"]
 		var node := PowerupItem.new()
@@ -441,7 +457,6 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		_entities_root.add_child(node)
 		_powerups.append(node)
 
-	# Spawn sticky bubblegum traps
 	for tr in _level_data.get("traps", []):
 		var p: Array = tr["pos"]
 		var trap := StickyTrap.new()
@@ -449,7 +464,6 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		_entities_root.add_child(trap)
 		_traps.append(trap)
 
-	# Spawn World 2 Elastic Rubber Band Barrier Walls
 	for wl in _level_data.get("walls", []):
 		var p: Array = wl["pos"]
 		var wall := RubberWall.new()
@@ -457,7 +471,15 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		_entities_root.add_child(wall)
 		_walls.append(wall)
 
-	# Targets HUD
+	for bm in _level_data.get("bombs", []):
+		var p: Array = bm["pos"]
+		var bomb := BombHazard.new()
+		bomb.setup(Vector3(float(p[0]), 0.0, float(p[1])))
+		bomb.detonated.connect(_on_bomb_detonated)
+		_entities_root.add_child(bomb)
+		_bombs.append(bomb)
+
+	# Rebuild Targets HUD
 	_remaining_targets.clear()
 	_target_labels.clear()
 	for child in _targets_box.get_children():
@@ -469,20 +491,29 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		var def := GameManager.get_item_def(t_key)
 		var label_name := str(def.get("name", t_key))
 		var t_lv := int(def.get("tier", 1))
-		var lbl := _make_pill_label("%s x%d (Lv.%d)" % [label_name, count, t_lv], Color("#7C3AED"), 22)
+		var lbl := _make_pill_label("%s x%d (Lv.%d)" % [label_name, count, t_lv], Color("#7C3AED"), 21)
 		_targets_box.add_child(lbl)
 		_target_labels[t_key] = lbl
 
-	# Update showcase tab highlights
-	for tb in _tab_buttons:
-		var is_active := int(tb.get_meta("lv")) == _level_number
-		var is_cliff := bool(tb.get_meta("cliff"))
-		var bg := Color("#E11D48") if (is_active and is_cliff) else (Color("#0EA5E9") if is_active else (Color("#881337") if is_cliff else Color("#1E293B")))
+	# Highlight active World & Stage pills
+	for wid in _world_buttons:
+		var wb: Button = _world_buttons[wid]
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = bg
-		sb.set_corner_radius_all(14)
-		sb.set_content_margin_all(8)
-		tb.add_theme_stylebox_override("normal", sb)
+		sb.bg_color = Color("#0EA5E9") if wid == world_id else Color("#1E293B")
+		sb.set_corner_radius_all(12)
+		sb.set_content_margin_all(7)
+		wb.add_theme_stylebox_override("normal", sb)
+
+	var wmeta: Dictionary = WORLD_META[world_id]
+	for k in _stage_buttons:
+		var btn: Button = _stage_buttons[k]
+		var lv_target := int(wmeta[k])
+		var active := lv_target == _level_number
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color("#E11D48") if (active and (k == "cliff" or k == "mega")) else (Color("#14B8A6") if active else (Color("#881337") if k == "mega" else Color("#334155")))
+		sb.set_corner_radius_all(12)
+		sb.set_content_margin_all(7)
+		btn.add_theme_stylebox_override("normal", sb)
 
 	var fname := str(_level_data.get("formation_name", "Stage"))
 	_level_label.text = "  W%d L%d: %s  " % [world_id, _level_number, fname]
@@ -500,18 +531,31 @@ func _show_start_overlay(tag: String, fname: String, world_id: int) -> void:
 	_playing = false
 	_hole.is_controllable = false
 	_overlay_panel.visible = true
-	var w_name := "WORLD 2: GACHA TOYBOX" if world_id == 2 else "WORLD 1: SUGAR RUSH BAKERY"
-	_overlay_badge.text = "  %s - %s  " % [w_name, tag]
+	var w_name := str(WORLD_META[world_id]["name"])
+	var trap_nm := str(WORLD_META[world_id]["trap_name"])
+	_overlay_badge.text = "  %s · %s  " % [w_name, tag]
 	_overlay_title.text = "LV.%d · %s" % [_level_number, fname]
 
-	if tag == "SUPER_HARD":
-		_overlay_desc.text = "SUPER HARD CLIFF STAGE!\n%.0fs brutal clock | %d Sticky Bubblegum Traps%s\nGrow to Lv.5 fast or get dragged down!" % [
-			_time_left, _traps.size(), (" | %d Rubber Band Walls" % _walls.size() if _walls.size() > 0 else "")
+	var extras := ""
+	if _walls.size() > 0:
+		extras += " | %d Rubber Walls" % _walls.size()
+	if _bombs.size() > 0:
+		extras += " | %d Time Bombs (-3s)" % _bombs.size()
+
+	if tag == "MEGA_BOSS":
+		_overlay_desc.text = "EPIC MEGA BOSS ARENA (%.0fx%.0f)!\n%.0fs clock | %d %s Traps%s\nTight XP budget — master the grand formation to clear all Bosses!" % [
+			_board_half.x * 2.0, _board_half.y * 2.0, _time_left, _traps.size(), trap_nm, extras
+		]
+	elif tag == "SUPER_HARD":
+		_overlay_desc.text = "SUPER HARD CLIFF STAGE!\nTight %.0fs timer | %d %s Traps%s\nRoute every XP cluster cleanly to unlock Lv.5 in time!" % [
+			_time_left, _traps.size(), trap_nm, extras
 		]
 	elif tag == "HARD":
-		_overlay_desc.text = "HARD PINCH STAGE!\nTight %.0fs timer with %d Bubblegum Traps blocking shortcuts.\nPlan your growth route carefully!" % [_time_left, _traps.size()]
+		_overlay_desc.text = "HARD PINCH STAGE!\nTight %.0fs clock | %d %s Traps%s." % [_time_left, _traps.size(), trap_nm, extras]
 	else:
-		_overlay_desc.text = "Hold & drag (floating joystick) or WASD.\nGobble small items to level up, then swallow all goal targets!"
+		_overlay_desc.text = "Hold & drag (floating joystick) or WASD.\nGobble small items to level up, then swallow all goal targets!%s" % (
+			"\nWatch out for -3s Time Bombs!" if _bombs.size() > 0 else ""
+		)
 
 	_rebind_button(_btn_primary, "PLAY STAGE!", Color("#14B8A6"), func():
 		AudioManager.start_bgm()
@@ -522,7 +566,6 @@ func _show_start_overlay(tag: String, fname: String, world_id: int) -> void:
 		AudioManager.start_bgm()
 		AdManager.show_rewarded("pre_level_boost")
 	)
-	_btn_tertiary.visible = false
 
 
 func _begin_play() -> void:
@@ -536,12 +579,15 @@ func _process(delta: float) -> void:
 	_table_mat.set_shader_parameter("hole_world_pos", _hole.position)
 	_table_mat.set_shader_parameter("hole_radius", _hole.current_radius)
 
-	# Smooth camera follow (tracks hole smoothly across large Hard / Cliff arenas!)
-	var cam_lim_x := maxf(1.5, _board_half.x - 4.2)
-	var cam_lim_z := maxf(1.5, _board_half.y - 4.8)
-	var look_x := clampf(_hole.position.x * 0.78, -cam_lim_x, cam_lim_x)
-	var look_z := clampf(_hole.position.z * 0.78, -cam_lim_z, cam_lim_z)
-	var desired_cam := Vector3(look_x, _target_cam_height, look_z + 9.2)
+	if _bomb_flash_timer > 0.0:
+		_bomb_flash_timer = maxf(_bomb_flash_timer - delta * 2.4, 0.0)
+		_bomb_flash_rect.color.a = _bomb_flash_timer * 0.45
+
+	var cam_lim_x := maxf(1.5, _board_half.x - 4.4)
+	var cam_lim_z := maxf(1.5, _board_half.y - 5.0)
+	var look_x := clampf(_hole.position.x * 0.80, -cam_lim_x, cam_lim_x)
+	var look_z := clampf(_hole.position.z * 0.80, -cam_lim_z, cam_lim_z)
+	var desired_cam := Vector3(look_x, _target_cam_height, look_z + 9.4)
 
 	if _camera_shake > 0.0:
 		_camera_shake = maxf(_camera_shake - delta * 20.0, 0.0)
@@ -554,35 +600,36 @@ func _process(delta: float) -> void:
 	if not _playing:
 		return
 
-	# Rubber band wall bounces
 	for wall in _walls:
 		if is_instance_valid(wall):
 			if wall.step_interaction(_hole, delta):
 				_camera_shake = maxf(_camera_shake, 3.0)
 				_spawn_popup(_hole.position + Vector3(0, 1.0, 0), "BOING!", Color("#A855F7"))
 
-	# Step swallowable items
 	for i in range(_items.size() - 1, -1, -1):
 		if is_instance_valid(_items[i]):
 			_items[i].step_interaction(_hole, delta, _board_half)
 		else:
 			_items.remove_at(i)
 
-	# Step powerups
 	for i in range(_powerups.size() - 1, -1, -1):
 		if is_instance_valid(_powerups[i]):
 			_powerups[i].step_interaction(_hole, delta)
 		else:
 			_powerups.remove_at(i)
 
-	# Step bubblegum traps
 	for i in range(_traps.size() - 1, -1, -1):
 		if is_instance_valid(_traps[i]):
 			_traps[i].step_interaction(_hole, _level_number, delta)
 		else:
 			_traps.remove_at(i)
 
-	# Countdown & Ice Freeze
+	for i in range(_bombs.size() - 1, -1, -1):
+		if is_instance_valid(_bombs[i]):
+			_bombs[i].step_interaction(_hole, delta)
+		else:
+			_bombs.remove_at(i)
+
 	if _ice_freeze_timer > 0.0:
 		_ice_freeze_timer = maxf(_ice_freeze_timer - delta, 0.0)
 		_frost_mat.set_shader_parameter("frost_amount", clampf(_ice_freeze_timer, 0.0, 1.0))
@@ -602,8 +649,8 @@ func _process(delta: float) -> void:
 func _update_timer_ui() -> void:
 	_timer_label.text = "  %.1fs  " % _time_left
 	var sb := StyleBoxFlat.new()
-	sb.set_corner_radius_all(22)
-	sb.set_content_margin_all(10)
+	sb.set_corner_radius_all(20)
+	sb.set_content_margin_all(9)
 	if _ice_freeze_timer > 0.0:
 		sb.bg_color = Color("#0284C7")
 	elif _time_left <= 8.0:
@@ -622,7 +669,7 @@ func _spawn_popup(world_pos: Vector3, text: String, col: Color) -> void:
 	lbl.outline_modulate = Color.WHITE
 	lbl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	lbl.no_depth_test = true
-	lbl.position = world_pos + Vector3(0.0, 1.2, 0.0)
+	lbl.position = world_pos + Vector3(0.0, 1.25, 0.0)
 	_popups_root.add_child(lbl)
 
 	var tw := create_tween()
@@ -632,10 +679,21 @@ func _spawn_popup(world_pos: Vector3, text: String, col: Color) -> void:
 	tw.chain().tween_callback(lbl.queue_free)
 
 
-func _on_sticky_triggered(trap_pos: Vector3) -> void:
+func _on_sticky_triggered(trap_pos: Vector3, trap_col: Color, trap_lbl: String) -> void:
 	_camera_shake = 4.5
-	_spawn_pop_particles(trap_pos + Vector3(0, 0.25, 0), Color("#FF2E93"), 12)
-	_spawn_popup(_hole.position, "STICKY GUM! PULL FREE!", Color("#DB2777"))
+	_spawn_pop_particles(trap_pos + Vector3(0, 0.25, 0), trap_col, 12)
+	_spawn_popup(_hole.position, "%s PULL FREE!" % trap_lbl, trap_col)
+
+
+func _on_bomb_detonated(world_pos: Vector3, penalty: float) -> void:
+	_time_left = maxf(0.1, _time_left - penalty)
+	_bomb_flash_timer = 1.0
+	_camera_shake = 8.5
+	AudioManager.play_sfx("fail", 1.35)
+	PlatformBridge.trigger_haptic(55)
+	_spawn_pop_particles(world_pos + Vector3(0, 0.3, 0), Color("#FF3B30"), 18)
+	_spawn_popup(world_pos, "BOOM! -%.0fs!" % penalty, Color("#FF3B30"))
+	_update_timer_ui()
 
 
 func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, tint: Color) -> void:
@@ -657,8 +715,8 @@ func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, ti
 			lbl.text = "  [OK] %s  " % label_name
 			var sb := StyleBoxFlat.new()
 			sb.bg_color = Color("#16A34A")
-			sb.set_corner_radius_all(22)
-			sb.set_content_margin_all(10)
+			sb.set_corner_radius_all(20)
+			sb.set_content_margin_all(9)
 			lbl.add_theme_stylebox_override("normal", sb)
 			AudioManager.play_sfx("goal_done")
 		else:
@@ -710,7 +768,8 @@ func _on_powerup_collected(kind: String, _pos: Vector3) -> void:
 
 func _on_hole_level_changed(new_level: int, _radius: float) -> void:
 	_hole_lvl_label.text = "  HOLE LV.%d  " % new_level
-	_target_cam_height = 16.8 + float(new_level - 1) * 2.25
+	var base_h := 18.5 if _is_mega_stage else 16.8
+	_target_cam_height = base_h + float(new_level - 1) * (2.5 if _is_mega_stage else 2.2)
 	if _playing:
 		_camera_shake = maxf(_camera_shake, 6.0)
 		_spawn_pop_particles(_hole.position + Vector3(0, 0.2, 0), Color("#2DD4BF"), 20)
@@ -731,7 +790,8 @@ func _on_buff_changed(_buff_name: String, _remaining: float) -> void:
 func _update_buff_banner() -> void:
 	var parts: Array[String] = []
 	if _hole.sticky_timer > 0.0:
-		parts.append("STICKY GUM %.1fs (-55%% SPD)" % _hole.sticky_timer)
+		var tname := str(WORLD_META[_world_id]["trap_name"])
+		parts.append("STICKY %s %.1fs (-55%% SPD)" % [tname, _hole.sticky_timer])
 	if _ice_freeze_timer > 0.0:
 		parts.append("FROZEN %.1fs" % _ice_freeze_timer)
 	if _hole.magnet_timer > 0.0:
@@ -753,20 +813,20 @@ func _check_victory() -> void:
 	DDAController.record_level_win(_level_number, _used_rv_this_run, _attempts_this_level == 1)
 	_attempts_this_level = 0
 	GameManager.win_streak += 1
-	var next_lv := (_level_number % 30) + 1
+	var next_lv := (_level_number % 50) + 1
 	GameManager.current_level = next_lv
-	if _level_number == 20 and GameManager.unlocked_worlds < 2:
-		GameManager.unlocked_worlds = 2
+	if _level_number in [20, 30, 40]:
+		GameManager.unlocked_worlds = maxi(GameManager.unlocked_worlds, _world_id + 1)
 	GameManager.save_progress()
 
 	_overlay_panel.visible = true
-	_overlay_badge.text = "  STAGE CLEARED!  "
-	if _level_number == 20:
-		_overlay_title.text = "WORLD 2 UNLOCKED!"
-		_overlay_desc.text = "Sugar Rush Bakery Mastered!\nTime Left: %.1fs | Next up: World 2 GACHA TOYBOX!" % _time_left
-	elif _level_number == 30:
-		_overlay_title.text = "200-STREAK LEGEND!"
-		_overlay_desc.text = "You conquered 199-Streak Gacha Hell!\nTime Left: %.1fs | Final Hole: Lv.%d" % [_time_left, _hole.hole_level]
+	_overlay_badge.text = "  MEGA BOSS CLEARED!  " if _is_mega_stage else "  STAGE CLEARED!  "
+	if _level_number == 50:
+		_overlay_title.text = "ALL 4 WORLDS MASTERED!"
+		_overlay_desc.text = "Grand Alchemist Finale Conquered!\nTime Left: %.1fs | Final Hole: Lv.%d | Streak: %d" % [_time_left, _hole.hole_level, GameManager.win_streak]
+	elif _level_number in [20, 30, 40]:
+		_overlay_title.text = "WORLD %d UNLOCKED!" % (_world_id + 1)
+		_overlay_desc.text = "MEGA STAGE CLEARED! Time Left: %.1fs\nNext up: %s!" % [_time_left, str(WORLD_META[_world_id + 1]["name"])]
 	else:
 		_overlay_title.text = "POP! LV.%d CLEAR!" % _level_number
 		_overlay_desc.text = "Time Left: %.1fs | Hole Lv.%d | Streak: %d" % [_time_left, _hole.hole_level, GameManager.win_streak]
@@ -779,7 +839,6 @@ func _check_victory() -> void:
 	_rebind_button(_btn_secondary, "Replay This Stage", Color("#64748B"), func():
 		_load_level(_level_number, false)
 	)
-	_btn_tertiary.visible = false
 
 
 func _on_level_timeout() -> void:
@@ -791,19 +850,21 @@ func _on_level_timeout() -> void:
 	var rem_total := 0
 	for k in _remaining_targets:
 		rem_total += maxi(0, int(_remaining_targets[k]))
-	var is_cliff := str(_level_data.get("difficulty_tag", "")) == "SUPER_HARD"
+	var tag := str(_level_data.get("difficulty_tag", ""))
+	var is_high := tag in ["SUPER_HARD", "MEGA_BOSS"]
+	var trap_nm := str(WORLD_META[_world_id]["trap_name"])
 
 	_overlay_panel.visible = true
-	_overlay_badge.text = "  HIGH-STAKES STREAK AT RISK!  " if is_cliff else "  OUT OF TIME!  "
-	_overlay_title.text = "TRAPPED BY BUBBLEGUM?" if is_cliff else "ONLY %d TARGETS LEFT!" % rem_total
-	if is_cliff:
-		_overlay_desc.text = "Only %d goals left (Hole Lv.%d)!\nInstead of a $4.99 paywall, watch 1 free RV to EXPLODE ALL %d GUM TRAPS + +15s + +20%% BIGGER HOLE!" % [
-			rem_total, _hole.hole_level, _traps.size()
+	_overlay_badge.text = "  HIGH-STAKES CLIFF!  " if is_high else "  OUT OF TIME!  "
+	_overlay_title.text = "ONLY %d TARGETS LEFT!" % rem_total
+	if is_high:
+		_overlay_desc.text = "So close (Hole Lv.%d)!\nWatch 1 free RV to EXPLODE ALL %d %s TRAPS%s + +15s + +20%% BIGGER HOLE!" % [
+			_hole.hole_level, _traps.size(), trap_nm, (" & BOMBS" if _bombs.size() > 0 else "")
 		]
 	else:
-		_overlay_desc.text = "So close! Watch 1 free RV for +15s Time + Clear Gum + +20%% Bigger Hole!"
+		_overlay_desc.text = "Almost there! Watch 1 free RV for +15s Time + Clear Traps + +20%% Bigger Hole!"
 
-	_rebind_button(_btn_primary, "[AD] +15s + EXPLODE ALL GUM + GROW 20%!", Color("#22C55E"), func():
+	_rebind_button(_btn_primary, "[AD] +15s + CLEAR ALL TRAPS + GROW 20%!", Color("#22C55E"), func():
 		AdManager.show_rewarded("fail_rescue")
 	)
 	_btn_secondary.visible = true
@@ -813,7 +874,6 @@ func _on_level_timeout() -> void:
 		GameManager.save_progress()
 		_load_level(_level_number, false)
 	)
-	_btn_tertiary.visible = false
 
 
 func _on_rewarded_completed(placement: String, success: bool) -> void:
@@ -826,13 +886,18 @@ func _on_rewarded_completed(placement: String, success: bool) -> void:
 			_last_tick_sec = 6
 			for tr in _traps:
 				if is_instance_valid(tr):
-					_spawn_pop_particles(tr.position + Vector3(0, 0.3, 0), Color("#FF2E93"), 10)
+					_spawn_pop_particles(tr.position + Vector3(0, 0.3, 0), tr.trap_color, 10)
 					tr.pop_and_clear()
 			_traps.clear()
+			for bm in _bombs:
+				if is_instance_valid(bm):
+					_spawn_pop_particles(bm.position + Vector3(0, 0.3, 0), Color("#FACC15"), 10)
+					bm.pop_and_clear()
+			_bombs.clear()
 			_hole.apply_rv_rescue_boost()
 			AudioManager.play_sfx("rv_blast")
 			_camera_shake = 7.0
-			_spawn_popup(_hole.position, "ALL GUM CLEARED! +15s!", Color("#16A34A"))
+			_spawn_popup(_hole.position, "ALL HAZARDS CLEARED! +15s!", Color("#16A34A"))
 			_begin_play()
 		"pre_level_boost":
 			var sp_arr: Array = _level_data.get("spawn", [0.0, 0.0])
@@ -862,7 +927,7 @@ func _rebind_button(btn: Button, txt: String, bg: Color, cb: Callable) -> void:
 	btn.text = txt
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
-	sb.set_corner_radius_all(22)
+	sb.set_corner_radius_all(20)
 	sb.set_content_margin_all(12)
 	btn.add_theme_stylebox_override("normal", sb)
 	btn.add_theme_stylebox_override("hover", sb)

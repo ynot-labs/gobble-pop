@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Smiley Face",
   "difficulty_tag": "NORMAL",
-  "duration": 44,
+  "duration": 24,
   "arena": [
     17,
     21
@@ -16,7 +16,7 @@
   "streak_hint": 0,
   "targets": {
     "w1_macaron": 9,
-    "w1_donut": 5
+    "w1_donut": 6
   },
   "items": [
     {
@@ -439,71 +439,71 @@
       "key": "w1_macaron",
       "pos": [
         -1.5,
-        -2.5
+        -2.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -2.05,
-        -1.55
+        -2.15,
+        -1.67
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -3.15,
-        -1.55
+        -3.45,
+        -1.67
       ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -3.7,
-        -2.5
+        -4.1,
+        -2.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -3.15,
-        -3.45
+        -3.45,
+        -3.93
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        -2.05,
-        -3.45
+        -2.15,
+        -3.93
       ],
       "color_idx": 2
     },
     {
       "key": "w1_macaron",
       "pos": [
-        3.7,
-        -2.5
+        4.1,
+        -2.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        3.15,
-        -1.55
+        3.45,
+        -1.67
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        2.05,
-        -1.55
+        2.15,
+        -1.67
       ],
       "color_idx": 2
     },
@@ -511,23 +511,23 @@
       "key": "w1_macaron",
       "pos": [
         1.5,
-        -2.5
+        -2.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_macaron",
       "pos": [
-        2.05,
-        -3.45
+        2.15,
+        -3.93
       ],
       "color_idx": 1
     },
     {
       "key": "w1_macaron",
       "pos": [
-        3.15,
-        -3.45
+        3.45,
+        -3.93
       ],
       "color_idx": 2
     },
@@ -582,32 +582,32 @@
     {
       "key": "w1_donut",
       "pos": [
-        -4.8,
-        1.4
+        -6.8,
+        -7.6
       ],
       "color_idx": 0
     },
     {
       "key": "w1_donut",
       "pos": [
-        4.8,
-        1.4
+        6.8,
+        -7.6
       ],
       "color_idx": 1
     },
     {
       "key": "w1_donut",
       "pos": [
-        -2.6,
-        -2.5
+        -6.8,
+        7.6
       ],
       "color_idx": 0
     },
     {
       "key": "w1_donut",
       "pos": [
-        2.6,
-        -2.5
+        6.8,
+        7.6
       ],
       "color_idx": 1
     },
@@ -615,7 +615,7 @@
       "key": "w1_donut",
       "pos": [
         0,
-        -5.6
+        -8.4
       ],
       "color_idx": 0
     },
@@ -623,12 +623,13 @@
       "key": "w1_donut",
       "pos": [
         0,
-        5.6
+        8.4
       ],
       "color_idx": 1
     }
   ],
   "powerups": [],
   "traps": [],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

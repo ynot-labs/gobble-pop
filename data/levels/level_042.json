@@ -1,0 +1,752 @@
+{
+  "level": 42,
+  "world": 4,
+  "formation_name": "Potion Flask",
+  "difficulty_tag": "EASY",
+  "duration": 45,
+  "arena": [
+    20,
+    24
+  ],
+  "spawn": [
+    0,
+    -4.2
+  ],
+  "max_target_tier": 4,
+  "streak_hint": 0,
+  "targets": {
+    "w4_potion": 9,
+    "w4_spellbook": 5,
+    "w4_cauldron": 3
+  },
+  "items": [
+    {
+      "key": "w4_d20",
+      "pos": [
+        6.2,
+        2.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        6.06,
+        3.69
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        5.66,
+        4.92
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        5.02,
+        6.04
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.15,
+        7.01
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        3.1,
+        7.77
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        1.92,
+        8.3
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.65,
+        8.57
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -0.65,
+        8.57
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -1.92,
+        8.3
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -3.1,
+        7.77
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.15,
+        7.01
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -5.02,
+        6.04
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -5.66,
+        4.92
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -6.06,
+        3.69
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -6.2,
+        2.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -6.06,
+        1.11
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -5.66,
+        -0.12
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -5.02,
+        -1.24
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.15,
+        -2.21
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -3.1,
+        -2.97
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -1.92,
+        -3.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -0.65,
+        -3.77
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.65,
+        -3.77
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        1.92,
+        -3.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        3.1,
+        -2.97
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.15,
+        -2.21
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        5.02,
+        -1.24
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        5.66,
+        -0.12
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        6.06,
+        1.11
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.2,
+        -3.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.2,
+        -4.56
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.2,
+        -5.52
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.2,
+        -6.48
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.2,
+        -7.44
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.2,
+        -8.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.2,
+        -3.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.2,
+        -4.56
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.2,
+        -5.52
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.2,
+        -6.48
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.2,
+        -7.44
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.2,
+        -8.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        4.2,
+        2.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        3.95,
+        3.84
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        3.22,
+        5.1
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        2.1,
+        6.04
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        0.73,
+        6.54
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -0.73,
+        6.54
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -2.1,
+        6.04
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -3.22,
+        5.1
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -3.95,
+        3.84
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -4.2,
+        2.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -3.95,
+        0.96
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -3.22,
+        -0.3
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -2.1,
+        -1.24
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -0.73,
+        -1.74
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        0.73,
+        -1.74
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        2.1,
+        -1.24
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        3.22,
+        -0.3
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        3.95,
+        0.96
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -3.4,
+        -8.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -2.04,
+        -8.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -0.68,
+        -8.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        0.68,
+        -8.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        2.04,
+        -8.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        3.4,
+        -8.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        2.6,
+        2.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        2.1,
+        3.93
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        0.8,
+        4.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -0.8,
+        4.87
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -2.1,
+        3.93
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -2.6,
+        2.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -2.1,
+        0.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -0.8,
+        -0.07
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        0.8,
+        -0.07
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        2.1,
+        0.87
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        0,
+        -5.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        0,
+        -7.2
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        -6.8,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        6.8,
+        -5.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        -7.2,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        7.2,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        0,
+        8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        0,
+        -2.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        -7.2,
+        -8.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        7.2,
+        -8.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        0,
+        2.4
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        -3.2,
+        2.4
+      ]
+    },
+    {
+      "kind": "magnet",
+      "pos": [
+        3.2,
+        2.4
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        -3.0,
+        -2.2
+      ]
+    },
+    {
+      "pos": [
+        3.0,
+        -2.2
+      ]
+    }
+  ],
+  "walls": [],
+  "bombs": []
+}

@@ -3,7 +3,7 @@
   "world": 2,
   "formation_name": "Arcade Alley",
   "difficulty_tag": "NORMAL",
-  "duration": 44,
+  "duration": 31,
   "arena": [
     20,
     24
@@ -843,5 +843,6 @@
       ]
     }
   ],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

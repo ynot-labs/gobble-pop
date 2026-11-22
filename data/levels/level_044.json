@@ -1,0 +1,961 @@
+{
+  "level": 44,
+  "world": 4,
+  "formation_name": "Pentagram Altar",
+  "difficulty_tag": "NORMAL",
+  "duration": 27,
+  "arena": [
+    20,
+    24
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 4,
+  "streak_hint": 0,
+  "targets": {
+    "w4_spellbook": 8,
+    "w4_cauldron": 5
+  },
+  "items": [
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.0,
+        -8.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.3,
+        -7.62
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.6,
+        -6.83
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.91,
+        -6.05
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        1.21,
+        -5.26
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        1.51,
+        -4.48
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        1.81,
+        -3.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.12,
+        -2.91
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.96,
+        -2.87
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        3.79,
+        -2.82
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.63,
+        -2.78
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        5.47,
+        -2.73
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        6.31,
+        -2.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        7.15,
+        -2.64
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        7.99,
+        -2.6
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        7.34,
+        -2.07
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        6.68,
+        -1.54
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        6.03,
+        -1.01
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        5.38,
+        -0.48
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.73,
+        0.05
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.08,
+        0.58
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        3.42,
+        1.11
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        3.64,
+        1.92
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        3.86,
+        2.74
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.07,
+        3.55
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.29,
+        4.36
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.5,
+        5.17
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.72,
+        5.98
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.94,
+        6.8
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        4.23,
+        6.34
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        3.53,
+        5.88
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.82,
+        5.43
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        2.12,
+        4.97
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        1.41,
+        4.51
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.71,
+        4.06
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        0.0,
+        3.6
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -0.71,
+        4.06
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -1.41,
+        4.51
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.12,
+        4.97
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.82,
+        5.43
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -3.53,
+        5.88
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.23,
+        6.34
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.94,
+        6.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.72,
+        5.98
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.5,
+        5.17
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.29,
+        4.36
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.07,
+        3.55
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -3.86,
+        2.74
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -3.64,
+        1.92
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -3.42,
+        1.11
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.08,
+        0.58
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.73,
+        0.05
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -5.38,
+        -0.48
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -6.03,
+        -1.01
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -6.68,
+        -1.54
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -7.34,
+        -2.07
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -7.99,
+        -2.6
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -7.15,
+        -2.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -6.31,
+        -2.69
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -5.47,
+        -2.73
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -4.63,
+        -2.78
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -3.79,
+        -2.82
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.96,
+        -2.87
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -2.12,
+        -2.91
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -1.81,
+        -3.7
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -1.51,
+        -4.48
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -1.21,
+        -5.26
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -0.91,
+        -6.05
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -0.6,
+        -6.83
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_d20",
+      "pos": [
+        -0.3,
+        -7.62
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        3.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        2.96,
+        1.3
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        2.26,
+        2.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        1.22,
+        3.14
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        0.0,
+        3.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -1.22,
+        3.14
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -2.26,
+        2.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -2.96,
+        1.3
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -3.2,
+        0.0
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -2.96,
+        -1.3
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -2.26,
+        -2.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -1.22,
+        -3.14
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        -0.0,
+        -3.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        1.22,
+        -3.14
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        2.26,
+        -2.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w4_slime",
+      "pos": [
+        2.96,
+        -1.3
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        5.23,
+        1.43
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        3.86,
+        4.05
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        1.46,
+        5.58
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -1.34,
+        5.62
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -3.77,
+        4.15
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -5.2,
+        1.57
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -5.23,
+        -1.43
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -3.86,
+        -4.05
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        -1.46,
+        -5.58
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        1.34,
+        -5.62
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        3.77,
+        -4.15
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_potion",
+      "pos": [
+        5.2,
+        -1.57
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        7.0,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        4.95,
+        5.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        0.0,
+        7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        -4.95,
+        5.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        -7.0,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        -4.95,
+        -5.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        -0.0,
+        -7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_spellbook",
+      "pos": [
+        4.95,
+        -5.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        0.0,
+        -9.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        8.18,
+        -3.03
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        5.05,
+        7.93
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        -5.05,
+        7.93
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w4_cauldron",
+      "pos": [
+        -8.18,
+        -3.03
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        -2.8,
+        0
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        -3.6,
+        -2.4
+      ]
+    },
+    {
+      "pos": [
+        3.6,
+        -2.4
+      ]
+    },
+    {
+      "pos": [
+        0.0,
+        4.2
+      ]
+    }
+  ],
+  "walls": [],
+  "bombs": [
+    {
+      "pos": [
+        -5.8,
+        2.6
+      ]
+    },
+    {
+      "pos": [
+        5.8,
+        2.6
+      ]
+    },
+    {
+      "pos": [
+        0.0,
+        -5.6
+      ]
+    }
+  ]
+}

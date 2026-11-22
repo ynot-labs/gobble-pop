@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Starburst Sun",
   "difficulty_tag": "NORMAL",
-  "duration": 45,
+  "duration": 26,
   "arena": [
     20,
     24
@@ -15,8 +15,8 @@
   "max_target_tier": 4,
   "streak_hint": 0,
   "targets": {
-    "w1_donut": 6,
-    "w1_cake": 3
+    "w1_donut": 7,
+    "w1_cake": 5
   },
   "items": [
     {
@@ -806,7 +806,7 @@
     {
       "key": "w1_donut",
       "pos": [
-        6.2,
+        6.6,
         0.0
       ],
       "color_idx": 0
@@ -814,8 +814,8 @@
     {
       "key": "w1_donut",
       "pos": [
-        4.38,
-        4.81
+        4.67,
+        5.37
       ],
       "color_idx": 1
     },
@@ -823,22 +823,22 @@
       "key": "w1_donut",
       "pos": [
         0.0,
-        6.8
+        7.6
       ],
       "color_idx": 0
     },
     {
       "key": "w1_donut",
       "pos": [
-        -4.38,
-        4.81
+        -4.67,
+        5.37
       ],
       "color_idx": 1
     },
     {
       "key": "w1_donut",
       "pos": [
-        -6.2,
+        -6.6,
         0.0
       ],
       "color_idx": 0
@@ -846,8 +846,8 @@
     {
       "key": "w1_donut",
       "pos": [
-        -4.38,
-        -4.81
+        -4.67,
+        -5.37
       ],
       "color_idx": 1
     },
@@ -855,15 +855,15 @@
       "key": "w1_donut",
       "pos": [
         -0.0,
-        -6.8
+        -7.6
       ],
       "color_idx": 0
     },
     {
       "key": "w1_donut",
       "pos": [
-        4.38,
-        -4.81
+        4.67,
+        -5.37
       ],
       "color_idx": 1
     },
@@ -871,39 +871,39 @@
       "key": "w1_cake",
       "pos": [
         0.0,
-        -8.2
+        -9.8
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        7.23,
-        -2.53
+        7.8,
+        -3.03
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        4.47,
-        6.63
+        4.82,
+        7.93
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        -4.47,
-        6.63
+        -4.82,
+        7.93
       ],
       "color_idx": 0
     },
     {
       "key": "w1_cake",
       "pos": [
-        -7.23,
-        -2.53
+        -7.8,
+        -3.03
       ],
       "color_idx": 0
     }
@@ -915,15 +915,9 @@
         0,
         3.6
       ]
-    },
-    {
-      "kind": "ice",
-      "pos": [
-        0,
-        -3.6
-      ]
     }
   ],
   "traps": [],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

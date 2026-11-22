@@ -1,0 +1,836 @@
+{
+  "level": 33,
+  "world": 3,
+  "formation_name": "Bento Grid",
+  "difficulty_tag": "NORMAL",
+  "duration": 32,
+  "arena": [
+    20,
+    24
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 4,
+  "streak_hint": 0,
+  "targets": {
+    "w3_big_ramen": 6,
+    "w3_bento": 4
+  },
+  "items": [
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.13,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.67,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        -6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        -5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.67,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.13,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        -5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        -6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -6.4,
+        -6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.4,
+        -6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        -5.4,
+        -6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.67,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.13,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        -6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        -5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.13,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.67,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        -5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        -6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.4,
+        -6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        6.4,
+        -6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        5.4,
+        -6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.13,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.67,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        -0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.67,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.13,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        -0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -6.4,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.4,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -5.4,
+        -1.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -5.4,
+        1.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.67,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.13,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        -2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        -0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.13,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.67,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        2.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        -0.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.4,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        6.4,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        5.4,
+        -1.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        5.4,
+        1.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.13,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.67,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.67,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.13,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.6,
+        5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -6.4,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.4,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        -5.4,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.67,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.13,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        7.6,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        6.13,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.67,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        6.87
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        5.53
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.4,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        6.4,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        5.4,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        0,
+        -7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        0,
+        7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        0,
+        -3.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        0,
+        3.4
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "magnet",
+      "pos": [
+        0,
+        2.6
+      ]
+    },
+    {
+      "kind": "ice",
+      "pos": [
+        0,
+        -2.6
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        0,
+        -5.6
+      ]
+    },
+    {
+      "pos": [
+        0,
+        5.6
+      ]
+    }
+  ],
+  "walls": [],
+  "bombs": [
+    {
+      "pos": [
+        -2.8,
+        -3.0
+      ]
+    },
+    {
+      "pos": [
+        2.8,
+        3.0
+      ]
+    }
+  ]
+}

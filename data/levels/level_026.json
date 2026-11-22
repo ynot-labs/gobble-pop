@@ -3,7 +3,7 @@
   "world": 2,
   "formation_name": "Rubber S-Slalom",
   "difficulty_tag": "NORMAL",
-  "duration": 42,
+  "duration": 34,
   "arena": [
     22,
     26
@@ -903,5 +903,6 @@
       ],
       "rot_deg": 0.0
     }
-  ]
+  ],
+  "bombs": []
 }

@@ -3,7 +3,7 @@
   "world": 2,
   "formation_name": "Twin Toy Vaults",
   "difficulty_tag": "NORMAL",
-  "duration": 42,
+  "duration": 32,
   "arena": [
     24,
     26
@@ -811,5 +811,6 @@
       ],
       "rot_deg": 90.0
     }
-  ]
+  ],
+  "bombs": []
 }

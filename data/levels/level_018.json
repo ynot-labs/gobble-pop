@@ -3,7 +3,7 @@
   "world": 1,
   "formation_name": "Infinity Track",
   "difficulty_tag": "NORMAL",
-  "duration": 42,
+  "duration": 36,
   "arena": [
     22,
     26
@@ -929,5 +929,6 @@
       ]
     }
   ],
-  "walls": []
+  "walls": [],
+  "bombs": []
 }

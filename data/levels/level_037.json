@@ -1,0 +1,973 @@
+{
+  "level": 37,
+  "world": 3,
+  "formation_name": "Tempura Star",
+  "difficulty_tag": "NORMAL",
+  "duration": 36,
+  "arena": [
+    22,
+    26
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 5,
+  "streak_hint": 0,
+  "targets": {
+    "w3_big_ramen": 8,
+    "w3_bento": 4,
+    "w3_grand_bento": 2
+  },
+  "items": [
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.0,
+        -8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.42,
+        -7.77
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.84,
+        -6.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        1.26,
+        -5.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        1.68,
+        -4.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.1,
+        -3.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.2,
+        -3.79
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.31,
+        -3.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.41,
+        -4.09
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.52,
+        -4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        7.62,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.94,
+        -3.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.25,
+        -2.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.57,
+        -1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.88,
+        -0.88
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.88,
+        0.88
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.57,
+        1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.25,
+        2.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.94,
+        3.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        7.62,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        6.52,
+        4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        5.41,
+        4.09
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.31,
+        3.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.2,
+        3.79
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.1,
+        3.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        1.68,
+        4.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        1.26,
+        5.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.84,
+        6.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.42,
+        7.77
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.0,
+        8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -0.42,
+        7.77
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -0.84,
+        6.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -1.26,
+        5.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -1.68,
+        4.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.1,
+        3.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        3.79
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.31,
+        3.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.41,
+        4.09
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.52,
+        4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.62,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.94,
+        3.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.25,
+        2.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.57,
+        1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.88,
+        0.88
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.88,
+        -0.88
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.57,
+        -1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.25,
+        -2.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.94,
+        -3.52
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -7.62,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -6.52,
+        -4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -5.41,
+        -4.09
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.31,
+        -3.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.2,
+        -3.79
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.1,
+        -3.64
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -1.68,
+        -4.67
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -1.26,
+        -5.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -0.84,
+        -6.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -0.42,
+        -7.77
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.01,
+        1.16
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.45,
+        2.19
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        1.6,
+        2.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        0.56,
+        3.35
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -0.56,
+        3.35
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -1.6,
+        2.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.45,
+        2.19
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.01,
+        1.16
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.01,
+        -1.16
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.45,
+        -2.19
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -1.6,
+        -2.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -0.56,
+        -3.35
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        0.56,
+        -3.35
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        1.6,
+        -2.94
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.45,
+        -2.19
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.01,
+        -1.16
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        5.4,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.87,
+        2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        3.37,
+        4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        1.2,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -1.2,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -3.37,
+        4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.87,
+        2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -5.4,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -4.87,
+        -2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -3.37,
+        -4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        -1.2,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        1.2,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        3.37,
+        -4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.87,
+        -2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        6.78,
+        1.93
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        4.47,
+        6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        0.45,
+        7.78
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -3.74,
+        6.59
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -6.51,
+        2.88
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -6.78,
+        -1.93
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -4.47,
+        -6.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -0.45,
+        -7.78
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        3.74,
+        -6.59
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        6.51,
+        -2.88
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        8.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        4.4,
+        8.31
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        -4.4,
+        8.31
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        -8.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        -4.4,
+        -8.31
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        4.4,
+        -8.31
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_grand_bento",
+      "pos": [
+        0,
+        -10.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w3_grand_bento",
+      "pos": [
+        0,
+        10.8
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        -2.8,
+        0
+      ]
+    },
+    {
+      "kind": "magnet",
+      "pos": [
+        2.8,
+        0
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        -4.2,
+        -3.2
+      ]
+    },
+    {
+      "pos": [
+        4.2,
+        -3.2
+      ]
+    },
+    {
+      "pos": [
+        -4.2,
+        3.2
+      ]
+    },
+    {
+      "pos": [
+        4.2,
+        3.2
+      ]
+    },
+    {
+      "pos": [
+        0,
+        -7.2
+      ]
+    }
+  ],
+  "walls": [],
+  "bombs": [
+    {
+      "pos": [
+        -6.8,
+        0.0
+      ]
+    },
+    {
+      "pos": [
+        6.8,
+        0.0
+      ]
+    },
+    {
+      "pos": [
+        0.0,
+        7.2
+      ]
+    }
+  ]
+}
