@@ -1,12 +1,71 @@
 extends Object
 class_name CandyUI
 
-## Commercial-Grade 3D Beveled Candy Toy UI Builder (Option 2: High-Energy Bright Candy Pop)
-## Produces chunky glossy pills, 3D extruded arcade buttons with top glass specular highlight,
-## crisp outlined typography, and soft drop shadows matching Royal Match / Hole Stars polish.
+## Commercial-Grade Icon-First 3D Beveled Candy UI Library (Option 2: High-Energy Bright Candy Pop)
+## Designed for shippable App Store / YouTube Playables polish: minimal text, rich 3D icons,
+## chunky extruded 3D buttons, crisp outlines, and zero demo feel.
+
+const ICON_DIR := "res://assets/ui/icons/"
+
+static var _icon_cache: Dictionary = {}
+
+const ITEM_ICON_MAP := {
+	"w1_sprinkle": "item_w1_strawberry",
+	"w1_strawberry": "item_w1_strawberry",
+	"w1_gummy_bear": "item_w1_strawberry",
+	"w1_macaron": "item_w1_macaron",
+	"w1_boba_tea": "item_w1_boba_tea",
+	"w1_donut": "item_w1_donut",
+	"w1_cake": "item_w1_cake",
+	"w1_grand_cake": "item_w1_cake",
+	"w2_block": "item_w2_duck",
+	"w2_duck": "item_w2_duck",
+	"w2_figurine": "item_w2_figurine",
+	"w2_arcade": "item_w2_arcade",
+	"w2_unicorn": "item_w2_unicorn",
+	"w2_golden_gacha": "item_w2_golden_gacha",
+	"w3_sushi": "item_w3_bento",
+	"w3_takoyaki": "item_w3_ramen",
+	"w3_ramen": "item_w3_ramen",
+	"w3_big_ramen": "item_w3_ramen",
+	"w3_bento": "item_w3_bento",
+	"w3_grand_bento": "item_w3_bento",
+	"w4_d20": "item_w4_potion",
+	"w4_slime": "item_w4_potion",
+	"w4_potion": "item_w4_potion",
+	"w4_spellbook": "item_w4_spellbook",
+	"w4_cauldron": "item_w4_cauldron",
+	"w4_grand_cauldron": "item_w4_cauldron",
+}
 
 
-static func make_pill_style(bg: Color, bottom_bevel: Color, top_rim: Color = Color(1, 1, 1, 0.72), radius: int = 24, pad_h: int = 16, pad_v: int = 8) -> StyleBoxFlat:
+static func get_icon(icon_name: String) -> Texture2D:
+	if _icon_cache.has(icon_name):
+		return _icon_cache[icon_name]
+	var path := ICON_DIR + icon_name + ".png"
+	if ResourceLoader.exists(path):
+		var tex: Texture2D = load(path)
+		_icon_cache[icon_name] = tex
+		return tex
+	return null
+
+
+static func get_item_icon(item_key: String) -> Texture2D:
+	var mapped := str(ITEM_ICON_MAP.get(item_key, "item_w1_donut"))
+	return get_icon(mapped)
+
+
+static func make_icon_rect(tex: Texture2D, sz: int) -> TextureRect:
+	var tr := TextureRect.new()
+	tr.texture = tex
+	tr.custom_minimum_size = Vector2(sz, sz)
+	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return tr
+
+
+static func make_pill_style(bg: Color, bottom_bevel: Color, radius: int = 24, pad_h: int = 14, pad_v: int = 6) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
 	sb.border_color = bottom_bevel
@@ -19,20 +78,17 @@ static func make_pill_style(bg: Color, bottom_bevel: Color, top_rim: Color = Col
 	sb.content_margin_right = pad_h
 	sb.content_margin_top = pad_v
 	sb.content_margin_bottom = pad_v + 2
-	sb.shadow_color = Color(0.06, 0.14, 0.22, 0.24)
+	sb.shadow_color = Color(0.06, 0.14, 0.24, 0.25)
 	sb.shadow_size = 7
 	sb.shadow_offset = Vector2(0, 4)
-	# Subtle crisp inner top sheen via anti-aliased edge
 	sb.anti_aliasing = true
 	sb.anti_aliasing_size = 1.5
-	if top_rim.a > 0.0:
-		sb.border_blend = false
 	return sb
 
 
-static func make_button_style(bg: Color, bevel: Color, pressed: bool = false, radius: int = 26, pad_h: int = 20, pad_v: int = 12) -> StyleBoxFlat:
+static func make_button_style(bg: Color, bevel: Color, pressed: bool = false, radius: int = 26, pad_h: int = 18, pad_v: int = 10) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = bg.lightened(0.06) if not pressed else bg.darkened(0.06)
+	sb.bg_color = bg.lightened(0.05) if not pressed else bg.darkened(0.06)
 	sb.border_color = bevel
 	sb.border_width_left = 4
 	sb.border_width_right = 4
@@ -43,27 +99,38 @@ static func make_button_style(bg: Color, bevel: Color, pressed: bool = false, ra
 	sb.content_margin_right = pad_h
 	sb.content_margin_top = pad_v + (5 if pressed else 0)
 	sb.content_margin_bottom = pad_v + (0 if pressed else 4)
-	sb.shadow_color = Color(0.05, 0.10, 0.20, 0.22 if pressed else 0.30)
-	sb.shadow_size = 5 if pressed else 10
+	sb.shadow_color = Color(0.05, 0.10, 0.22, 0.22 if pressed else 0.32)
+	sb.shadow_size = 5 if pressed else 11
 	sb.shadow_offset = Vector2(0, 2 if pressed else 6)
 	sb.anti_aliasing = true
 	sb.anti_aliasing_size = 1.5
 	return sb
 
 
-static func apply_outlined_label(lbl: Label, font_sz: int, text_col: Color = Color.WHITE, outline_col: Color = Color("#16324F"), outline_sz: int = 6) -> void:
+static func apply_outlined_label(lbl: Label, font_sz: int, text_col: Color = Color.WHITE, outline_col: Color = Color("#16324F"), outline_sz: int = 5) -> void:
 	lbl.add_theme_font_size_override("font_size", font_sz)
 	lbl.add_theme_color_override("font_color", text_col)
 	lbl.add_theme_color_override("font_outline_color", outline_col)
 	lbl.add_theme_constant_override("outline_size", outline_sz)
-	lbl.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.28))
+	lbl.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.26))
 	lbl.add_theme_constant_override("shadow_offset_y", 2)
 
 
-static func create_candy_pill(txt: String, bg: Color, bevel: Color, font_sz: int = 24, outline_col: Color = Color("#13304A")) -> PanelContainer:
+static func create_icon_pill(icon_name: String, txt: String, bg: Color, bevel: Color, font_sz: int = 24, icon_sz: int = 34, outline_col: Color = Color("#13304A")) -> PanelContainer:
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, Color(1, 1, 1, 0.7), 24, 16, 7))
-	panel.clip_contents = false
+	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 26, 12, 5))
+
+	var hb := HBoxContainer.new()
+	hb.name = "Box"
+	hb.alignment = BoxContainer.ALIGNMENT_CENTER
+	hb.add_theme_constant_override("separation", 6)
+	panel.add_child(hb)
+
+	var tex := get_icon(icon_name)
+	if tex:
+		var tr := make_icon_rect(tex, icon_sz)
+		tr.name = "Icon"
+		hb.add_child(tr)
 
 	var lbl := Label.new()
 	lbl.name = "Text"
@@ -71,40 +138,130 @@ static func create_candy_pill(txt: String, bg: Color, bevel: Color, font_sz: int
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	apply_outlined_label(lbl, font_sz, Color.WHITE, outline_col, 4 if font_sz <= 22 else 5)
-	panel.add_child(lbl)
+	hb.add_child(lbl)
 	return panel
 
 
-static func update_candy_pill(panel: PanelContainer, txt: String, bg: Color, bevel: Color, outline_col: Color = Color("#13304A")) -> void:
-	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, Color(1, 1, 1, 0.7), 24, 16, 7))
-	var lbl := panel.get_node_or_null("Text") as Label
-	if lbl:
-		lbl.text = txt
-		lbl.add_theme_color_override("font_outline_color", outline_col)
+static func create_target_chip(item_key: String, count: int, tier: int, bg: Color, bevel: Color, outline_col: Color) -> PanelContainer:
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 24, 12, 4))
+
+	var hb := HBoxContainer.new()
+	hb.name = "Box"
+	hb.alignment = BoxContainer.ALIGNMENT_CENTER
+	hb.add_theme_constant_override("separation", 6)
+	panel.add_child(hb)
+
+	var tr := make_icon_rect(get_item_icon(item_key), 42)
+	tr.name = "Icon"
+	hb.add_child(tr)
+
+	var lbl := Label.new()
+	lbl.name = "Count"
+	lbl.text = str(count)
+	apply_outlined_label(lbl, 26, Color.WHITE, outline_col, 5)
+	hb.add_child(lbl)
+
+	if tier >= 2:
+		var lv_lbl := Label.new()
+		lv_lbl.name = "TierTag"
+		lv_lbl.text = "Lv.%d" % tier
+		apply_outlined_label(lv_lbl, 15, Color("#FFF3A1"), outline_col, 3)
+		hb.add_child(lv_lbl)
+
+	var chk := make_icon_rect(get_icon("icon_check"), 32)
+	chk.name = "Check"
+	chk.visible = false
+	hb.add_child(chk)
+	return panel
 
 
-static func create_candy_button(txt: String, bg: Color, bevel: Color, font_sz: int = 25, outline_col: Color = Color("#16324A"), min_sz: Vector2 = Vector2(0, 68)) -> Button:
+static func update_icon_pill(panel: PanelContainer, txt: String, bg: Color, bevel: Color, outline_col: Color = Color("#13304A"), new_icon_name: String = "") -> void:
+	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 26, 12, 5))
+	var hb := panel.get_node_or_null("Box")
+	if hb:
+		var lbl := hb.get_node_or_null("Text") as Label
+		if lbl:
+			lbl.text = txt
+			lbl.add_theme_color_override("font_outline_color", outline_col)
+		if new_icon_name != "":
+			var tr := hb.get_node_or_null("Icon") as TextureRect
+			if tr:
+				tr.texture = get_icon(new_icon_name)
+
+
+static func create_square_icon_button(icon_name: String, badge_txt: String, show_ad: bool, bg: Color, bevel: Color, outline_col: Color, btn_size: int = 104, icon_sz: int = 58) -> Button:
 	var b := Button.new()
-	b.text = txt
-	if min_sz.x > 0.0 or min_sz.y > 0.0:
-		b.custom_minimum_size = min_sz
-	b.add_theme_font_size_override("font_size", font_sz)
-	b.add_theme_color_override("font_color", Color.WHITE)
-	b.add_theme_color_override("font_hover_color", Color("#FFFDF0"))
-	b.add_theme_color_override("font_pressed_color", Color("#FFF4CC"))
-	b.add_theme_color_override("font_outline_color", outline_col)
-	b.add_theme_constant_override("outline_size", 6)
-	b.add_theme_stylebox_override("normal", make_button_style(bg, bevel, false))
-	b.add_theme_stylebox_override("hover", make_button_style(bg.lightened(0.05), bevel, false))
-	b.add_theme_stylebox_override("pressed", make_button_style(bg, bevel, true))
+	b.custom_minimum_size = Vector2(btn_size, btn_size)
+	b.add_theme_stylebox_override("normal", make_button_style(bg, bevel, false, 28, 6, 6))
+	b.add_theme_stylebox_override("hover", make_button_style(bg.lightened(0.05), bevel, false, 28, 6, 6))
+	b.add_theme_stylebox_override("pressed", make_button_style(bg, bevel, true, 28, 6, 6))
 	b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 
-	# Glossy curved top candy sheen bar inside the button
+	# Top curved candy specular highlight
 	var gloss := Panel.new()
 	gloss.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	gloss.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	gloss.offset_left = 14
-	gloss.offset_right = -14
+	gloss.offset_left = 12
+	gloss.offset_right = -12
+	gloss.offset_top = 6
+	gloss.offset_bottom = 18
+	var gsb := StyleBoxFlat.new()
+	gsb.bg_color = Color(1.0, 1.0, 1.0, 0.34)
+	gsb.set_corner_radius_all(8)
+	gloss.add_theme_stylebox_override("panel", gsb)
+	b.add_child(gloss)
+
+	# Centered 3D glossy icon
+	var center := CenterContainer.new()
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.offset_bottom = -14 if badge_txt != "" else -4
+	b.add_child(center)
+
+	var tr := make_icon_rect(get_icon(icon_name), icon_sz)
+	tr.name = "MainIcon"
+	center.add_child(tr)
+
+	# Optional crisp tiny bottom counter (e.g. "7s" or "+6s")
+	if badge_txt != "":
+		var lbl := Label.new()
+		lbl.name = "SubLabel"
+		lbl.text = badge_txt
+		lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		lbl.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		lbl.offset_top = -34
+		lbl.offset_bottom = -8
+		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		apply_outlined_label(lbl, 20, Color.WHITE, outline_col, 4)
+		b.add_child(lbl)
+
+	# Optional compact golden video-ad icon badge in top-right corner
+	if show_ad:
+		var ad_icon := make_icon_rect(get_icon("icon_ad"), 30)
+		ad_icon.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+		ad_icon.offset_left = -30
+		ad_icon.offset_right = 2
+		ad_icon.offset_top = -6
+		ad_icon.offset_bottom = 24
+		b.add_child(ad_icon)
+
+	return b
+
+
+static func create_cta_button(icon_name: String, txt: String, bg: Color, bevel: Color, outline_col: Color, min_sz: Vector2 = Vector2(540, 88), font_sz: int = 30, extra_icon: String = "") -> Button:
+	var b := Button.new()
+	b.custom_minimum_size = min_sz
+	b.add_theme_stylebox_override("normal", make_button_style(bg, bevel, false, 28, 18, 10))
+	b.add_theme_stylebox_override("hover", make_button_style(bg.lightened(0.05), bevel, false, 28, 18, 10))
+	b.add_theme_stylebox_override("pressed", make_button_style(bg, bevel, true, 28, 18, 10))
+	b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+
+	var gloss := Panel.new()
+	gloss.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	gloss.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	gloss.offset_left = 16
+	gloss.offset_right = -16
 	gloss.offset_top = 6
 	gloss.offset_bottom = 18
 	var gsb := StyleBoxFlat.new()
@@ -112,21 +269,56 @@ static func create_candy_button(txt: String, bg: Color, bevel: Color, font_sz: i
 	gsb.set_corner_radius_all(9)
 	gloss.add_theme_stylebox_override("panel", gsb)
 	b.add_child(gloss)
+
+	var hb := HBoxContainer.new()
+	hb.name = "Content"
+	hb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hb.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	hb.offset_bottom = -6
+	hb.alignment = BoxContainer.ALIGNMENT_CENTER
+	hb.add_theme_constant_override("separation", 12)
+	b.add_child(hb)
+
+	if icon_name != "":
+		var ic := make_icon_rect(get_icon(icon_name), 44)
+		ic.name = "Icon1"
+		hb.add_child(ic)
+
+	if extra_icon != "":
+		var ic2 := make_icon_rect(get_icon(extra_icon), 42)
+		ic2.name = "Icon2"
+		hb.add_child(ic2)
+
+	var lbl := Label.new()
+	lbl.name = "Label"
+	lbl.text = txt
+	apply_outlined_label(lbl, font_sz, Color.WHITE, outline_col, 5)
+	hb.add_child(lbl)
 	return b
 
 
-static func style_candy_button(b: Button, txt: String, bg: Color, bevel: Color, outline_col: Color = Color("#16324A")) -> void:
-	b.text = txt
-	b.add_theme_color_override("font_outline_color", outline_col)
-	b.add_theme_stylebox_override("normal", make_button_style(bg, bevel, false))
-	b.add_theme_stylebox_override("hover", make_button_style(bg.lightened(0.05), bevel, false))
-	b.add_theme_stylebox_override("pressed", make_button_style(bg, bevel, true))
+static func update_cta_button(b: Button, icon_name: String, txt: String, bg: Color, bevel: Color, outline_col: Color, extra_icon: String = "") -> void:
+	b.add_theme_stylebox_override("normal", make_button_style(bg, bevel, false, 28, 18, 10))
+	b.add_theme_stylebox_override("hover", make_button_style(bg.lightened(0.05), bevel, false, 28, 18, 10))
+	b.add_theme_stylebox_override("pressed", make_button_style(bg, bevel, true, 28, 18, 10))
+	var hb := b.get_node_or_null("Content")
+	if hb:
+		for c in hb.get_children():
+			c.queue_free()
+		if icon_name != "":
+			hb.add_child(make_icon_rect(get_icon(icon_name), 44))
+		if extra_icon != "":
+			hb.add_child(make_icon_rect(get_icon(extra_icon), 42))
+		var lbl := Label.new()
+		lbl.text = txt
+		apply_outlined_label(lbl, 28, Color.WHITE, outline_col, 5)
+		hb.add_child(lbl)
 
 
 static func create_beta_chip(txt: String, bg: Color, text_col: Color = Color.WHITE) -> Button:
 	var b := Button.new()
 	b.text = txt
-	b.add_theme_font_size_override("font_size", 16)
+	b.add_theme_font_size_override("font_size", 15)
 	b.add_theme_color_override("font_color", text_col)
 	b.add_theme_color_override("font_hover_color", Color.WHITE)
 	b.add_theme_color_override("font_pressed_color", Color.WHITE)
@@ -135,10 +327,10 @@ static func create_beta_chip(txt: String, bg: Color, text_col: Color = Color.WHI
 	sb.border_color = Color(1, 1, 1, 0.25)
 	sb.set_border_width_all(1)
 	sb.set_corner_radius_all(10)
-	sb.content_margin_left = 10
-	sb.content_margin_right = 10
-	sb.content_margin_top = 5
-	sb.content_margin_bottom = 5
+	sb.content_margin_left = 9
+	sb.content_margin_right = 9
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
 	b.add_theme_stylebox_override("normal", sb)
 	b.add_theme_stylebox_override("hover", sb)
 	b.add_theme_stylebox_override("pressed", sb)
@@ -155,7 +347,7 @@ static func create_candy_card_style(border_col: Color = Color("#28B9E8"), border
 	sb.border_width_top = 7
 	sb.border_width_bottom = 14
 	sb.set_corner_radius_all(36)
-	sb.set_content_margin_all(32)
+	sb.set_content_margin_all(30)
 	sb.shadow_color = Color(border_bevel.r * 0.4, border_bevel.g * 0.4, border_bevel.b * 0.4, 0.38)
 	sb.shadow_size = 20
 	sb.shadow_offset = Vector2(0, 10)

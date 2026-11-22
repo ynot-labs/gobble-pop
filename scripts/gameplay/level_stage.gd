@@ -1,14 +1,14 @@
 extends Node3D
 
 ## Main Stage for Gobble Pop! — All 4 Worlds (Lv.1 - Lv.50) + 4 Epic MEGA BOSS Stages!
-## Option 2 Art Direction: High-Energy Bright Candy Pop + Commercial 3D Candy Arcade UI
-## Supports strict Beta (level-skip QA bar) vs Release (sequential unlock only) via GameManager.is_beta_build().
+## Option 2 Art Direction: High-Energy Bright Candy Pop + Commercial Icon-First 3D Arcade UI
+## Strict Beta (top QA bar) vs Release (sequential unlock only) via GameManager.is_beta_build().
 
 const WORLD_META := {
-	1: {"name": "WORLD 1: SUGAR RUSH BAKERY", "short": "W1 Bakery", "start": 1,  "hard": 5,  "cliff": 10, "mega": 20, "trap_name": "BUBBLEGUM"},
-	2: {"name": "WORLD 2: GACHA TOYBOX",      "short": "W2 Toybox", "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
-	3: {"name": "WORLD 3: NEON BENTO STREET", "short": "W3 Bento",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
-	4: {"name": "WORLD 4: ALCHEMIST DESK",    "short": "W4 Magic",  "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
+	1: {"name": "SUGAR RUSH BAKERY", "short": "W1 Bakery", "start": 1,  "hard": 5,  "cliff": 10, "mega": 20, "trap_name": "BUBBLEGUM"},
+	2: {"name": "GACHA TOYBOX",      "short": "W2 Toybox", "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
+	3: {"name": "NEON BENTO STREET", "short": "W3 Bento",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
+	4: {"name": "ALCHEMIST DESK",    "short": "W4 Magic",  "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
 }
 
 const TARGET_PILL_THEMES := [
@@ -67,6 +67,7 @@ var _frost_mat: ShaderMaterial
 var _overlay_panel: PanelContainer
 var _overlay_badge: PanelContainer
 var _overlay_title: Label
+var _modal_targets_box: HBoxContainer
 var _overlay_desc: Label
 var _btn_primary: Button
 var _btn_secondary: Button
@@ -98,7 +99,6 @@ func _build_3d_stage() -> void:
 	_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	_env.ambient_light_color = Color("#FFF9F0")
 	_env.ambient_light_energy = 0.25
-	# Disable BG IBL wash so WebGL2 gl_compatibility stays crisp, glossy, and never clips white!
 	_env.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
 	_env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	_env.tonemap_exposure = 1.02
@@ -119,7 +119,6 @@ func _build_3d_stage() -> void:
 	sun.directional_shadow_max_distance = 56.0
 	add_child(sun)
 
-	# Cool sky fill light for luminous glossy rim contrast on candy desserts & toys
 	var fill := DirectionalLight3D.new()
 	fill.rotation_degrees = Vector3(-34, -135, 0)
 	fill.light_color = Color("#DCF0FF")
@@ -184,13 +183,13 @@ func _build_hud() -> void:
 	top_margin.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	top_margin.add_theme_constant_override("margin_left", 16)
 	top_margin.add_theme_constant_override("margin_right", 16)
-	top_margin.add_theme_constant_override("margin_top", 12)
+	top_margin.add_theme_constant_override("margin_top", 14)
 
 	var top_vbox := VBoxContainer.new()
-	top_vbox.add_theme_constant_override("separation", 10)
+	top_vbox.add_theme_constant_override("separation", 9)
 	top_margin.add_child(top_vbox)
 
-	# === BETA-ONLY QA BAR (Completely absent in Release builds!) ===
+	# === BETA-ONLY QA BAR (Zero pixels rendered in Release!) ===
 	if GameManager.is_beta_build():
 		var beta_card := PanelContainer.new()
 		var bsb := StyleBoxFlat.new()
@@ -198,13 +197,13 @@ func _build_hud() -> void:
 		bsb.border_color = Color(1.0, 0.82, 0.25, 0.65)
 		bsb.set_border_width_all(2)
 		bsb.set_corner_radius_all(14)
-		bsb.set_content_margin_all(6)
+		bsb.set_content_margin_all(5)
 		beta_card.add_theme_stylebox_override("panel", bsb)
 		beta_card.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		top_vbox.add_child(beta_card)
 
 		var beta_v := VBoxContainer.new()
-		beta_v.add_theme_constant_override("separation", 5)
+		beta_v.add_theme_constant_override("separation", 4)
 		beta_card.add_child(beta_v)
 
 		var world_row := HBoxContainer.new()
@@ -214,7 +213,7 @@ func _build_hud() -> void:
 
 		var b_tag := Label.new()
 		b_tag.text = " BETA "
-		CandyUI.apply_outlined_label(b_tag, 15, Color("#FDE047"), Color("#0F172A"), 4)
+		CandyUI.apply_outlined_label(b_tag, 14, Color("#FDE047"), Color("#0F172A"), 4)
 		world_row.add_child(b_tag)
 
 		for wid in [1, 2, 3, 4]:
@@ -245,42 +244,48 @@ func _build_hud() -> void:
 		btn_next.pressed.connect(func(): _load_level((_level_number % 50) + 1, true))
 		stage_row.add_child(btn_next)
 
-	# === ROW 1: Option 2 Commercial 3D Glossy Top HUD (Timer | Level | Streak | Sound) ===
+	# === ROW 1: Commercial Icon-First Top HUD ([Timer] | [Targets Icons] | [Flame] | [Sound]) ===
 	var row1 := HBoxContainer.new()
 	row1.alignment = BoxContainer.ALIGNMENT_CENTER
-	row1.add_theme_constant_override("separation", 12)
+	row1.add_theme_constant_override("separation", 10)
 	top_vbox.add_child(row1)
 
-	_timer_pill = CandyUI.create_candy_pill("45.0s", Color("#22B8EE"), Color("#0B78A8"), 30, Color("#0A4266"))
+	_timer_pill = CandyUI.create_icon_pill("icon_timer", "0:45", Color("#22B8EE"), Color("#0B78A8"), 28, 36, Color("#0A4266"))
 	row1.add_child(_timer_pill)
 
-	_level_pill = CandyUI.create_candy_pill("LV.1", Color("#F7AD26"), Color("#B86D0A"), 22, Color("#663804"))
-	row1.add_child(_level_pill)
+	_targets_box = HBoxContainer.new()
+	_targets_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	_targets_box.add_theme_constant_override("separation", 8)
+	row1.add_child(_targets_box)
 
-	_streak_pill = CandyUI.create_candy_pill("STREAK 0", Color("#FB7185"), Color("#BE123C"), 20, Color("#6E0B26"))
+	_streak_pill = CandyUI.create_icon_pill("icon_flame", "0", Color("#FF8A2B"), Color("#C2410C"), 24, 34, Color("#662004"))
 	row1.add_child(_streak_pill)
 
-	_btn_mute = CandyUI.create_candy_button("SFX", Color("#38BDF8"), Color("#0284C7"), 18, Color("#0A4266"), Vector2(82, 52))
+	_btn_mute = CandyUI.create_square_icon_button("icon_sound_on", "", false, Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), 60, 34)
 	_btn_mute.pressed.connect(_on_mute_pressed)
 	row1.add_child(_btn_mute)
 
-	# === ROW 2: Glossy Pink/Indigo Candy Target Checklist Pills ===
-	_targets_box = HBoxContainer.new()
-	_targets_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	_targets_box.add_theme_constant_override("separation", 10)
-	top_vbox.add_child(_targets_box)
+	# === ROW 2: Sleek Hole Level + Level Badge + Golden Lightning Fever Bar ===
+	var row2 := HBoxContainer.new()
+	row2.alignment = BoxContainer.ALIGNMENT_CENTER
+	row2.add_theme_constant_override("separation", 10)
+	top_vbox.add_child(row2)
 
-	# === ROW 3: Hole Level Pill + Glossy Golden Fever Meter ===
-	var row3 := HBoxContainer.new()
-	row3.alignment = BoxContainer.ALIGNMENT_CENTER
-	row3.add_theme_constant_override("separation", 12)
-	top_vbox.add_child(row3)
+	_level_pill = CandyUI.create_icon_pill("icon_crown", "LV.1", Color("#F7AD26"), Color("#B86D0A"), 20, 28, Color("#663804"))
+	row2.add_child(_level_pill)
 
-	_hole_lvl_pill = CandyUI.create_candy_pill("HOLE LV.1", Color("#24C964"), Color("#12823D"), 20, Color("#094A22"))
-	row3.add_child(_hole_lvl_pill)
+	_hole_lvl_pill = CandyUI.create_icon_pill("icon_hole", "Lv.1", Color("#24C964"), Color("#12823D"), 21, 30, Color("#094A22"))
+	row2.add_child(_hole_lvl_pill)
+
+	var fever_wrap := HBoxContainer.new()
+	fever_wrap.alignment = BoxContainer.ALIGNMENT_CENTER
+	fever_wrap.add_theme_constant_override("separation", 6)
+	row2.add_child(fever_wrap)
+
+	fever_wrap.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_fever"), 30))
 
 	_fever_bar = ProgressBar.new()
-	_fever_bar.custom_minimum_size = Vector2(280, 26)
+	_fever_bar.custom_minimum_size = Vector2(210, 24)
 	_fever_bar.max_value = 100.0
 	_fever_bar.value = 0.0
 	_fever_bar.show_percentage = false
@@ -291,76 +296,86 @@ func _build_hud() -> void:
 	fb_bg.border_width_right = 3
 	fb_bg.border_width_top = 3
 	fb_bg.border_width_bottom = 6
-	fb_bg.set_corner_radius_all(13)
+	fb_bg.set_corner_radius_all(12)
 	fb_bg.shadow_color = Color(0.1, 0.1, 0.2, 0.22)
 	fb_bg.shadow_size = 5
 	fb_bg.shadow_offset = Vector2(0, 3)
 	var fb_fill := StyleBoxFlat.new()
 	fb_fill.bg_color = Color("#FFBE2E")
-	fb_fill.set_corner_radius_all(10)
+	fb_fill.set_corner_radius_all(9)
 	_fever_bar.add_theme_stylebox_override("background", fb_bg)
 	_fever_bar.add_theme_stylebox_override("fill", fb_fill)
-	row3.add_child(_fever_bar)
+	fever_wrap.add_child(_fever_bar)
 
 	_buff_label = Label.new()
 	_buff_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	CandyUI.apply_outlined_label(_buff_label, 24, Color("#FFF4B8"), Color("#881337"), 6)
+	CandyUI.apply_outlined_label(_buff_label, 24, Color("#FFF4B8"), Color("#881337"), 5)
 	top_vbox.add_child(_buff_label)
 
-	# === BOTTOM BAR: Option 2 Chunky 3D Glossy Arcade Powerup Buttons ===
+	# === BOTTOM BAR: Exact OPTION 2 Chunky Square 3D Arcade Icon Buttons (Magnet | Freeze | Retry) ===
 	var bot_bar := HBoxContainer.new()
 	_hud_layer.add_child(bot_bar)
 	bot_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	bot_bar.offset_top = -126
-	bot_bar.offset_bottom = -26
+	bot_bar.offset_top = -140
+	bot_bar.offset_bottom = -24
 	bot_bar.alignment = BoxContainer.ALIGNMENT_CENTER
-	bot_bar.add_theme_constant_override("separation", 20)
+	bot_bar.add_theme_constant_override("separation", 28)
 
-	var btn_rv_mag := CandyUI.create_candy_button("[AD] MAGNET 7s", Color("#EC36A0"), Color("#9B1464"), 24, Color("#5E093C"), Vector2(270, 86))
+	var btn_rv_mag := CandyUI.create_square_icon_button("icon_magnet", "7s", true, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 108, 60)
 	btn_rv_mag.pressed.connect(func(): AdManager.show_rewarded("in_level_magnet"))
 	bot_bar.add_child(btn_rv_mag)
 
-	var btn_rv_ice := CandyUI.create_candy_button("[AD] FREEZE +6s", Color("#25CF65"), Color("#12853E"), 24, Color("#0A4C22"), Vector2(270, 86))
+	var btn_rv_ice := CandyUI.create_square_icon_button("icon_ice", "+6s", true, Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), 108, 60)
 	btn_rv_ice.pressed.connect(func(): AdManager.show_rewarded("in_level_ice"))
 	bot_bar.add_child(btn_rv_ice)
 
-	# === MODAL CARD: Glossy 3D Candy Pop Card ===
+	var btn_retry := CandyUI.create_square_icon_button("icon_restart", "", false, Color("#24B4F5"), Color("#0B70B8"), Color("#083B66"), 108, 56)
+	btn_retry.pressed.connect(func(): _load_level(_level_number, false))
+	bot_bar.add_child(btn_retry)
+
+	# === MODAL CARD: Icon-Rich Commercial Candy Pop Card ===
 	_overlay_panel = PanelContainer.new()
 	_hud_layer.add_child(_overlay_panel)
 	_overlay_panel.set_anchors_preset(Control.PRESET_CENTER)
-	_overlay_panel.custom_minimum_size = Vector2(820, 620)
-	_overlay_panel.offset_left = -410
-	_overlay_panel.offset_right = 410
-	_overlay_panel.offset_top = -310
-	_overlay_panel.offset_bottom = 310
+	_overlay_panel.custom_minimum_size = Vector2(760, 560)
+	_overlay_panel.offset_left = -380
+	_overlay_panel.offset_right = 380
+	_overlay_panel.offset_top = -280
+	_overlay_panel.offset_bottom = 280
 	_overlay_panel.add_theme_stylebox_override("panel", CandyUI.create_candy_card_style(Color("#28B9E8"), Color("#0F769E")))
 
 	var ov_box := VBoxContainer.new()
 	ov_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	ov_box.add_theme_constant_override("separation", 20)
+	ov_box.add_theme_constant_override("separation", 18)
 	_overlay_panel.add_child(ov_box)
 
-	_overlay_badge = CandyUI.create_candy_pill("WORLD 1 · TUTORIAL", Color("#F24C9B"), Color("#B01C65"), 23, Color("#630B38"))
+	_overlay_badge = CandyUI.create_icon_pill("icon_crown", "LV.1", Color("#F24C9B"), Color("#B01C65"), 24, 34, Color("#630B38"))
 	_overlay_badge.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	ov_box.add_child(_overlay_badge)
 
 	_overlay_title = Label.new()
 	_overlay_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	CandyUI.apply_outlined_label(_overlay_title, 48, Color("#FF75B5"), Color("#2E1042"), 7)
+	CandyUI.apply_outlined_label(_overlay_title, 48, Color("#FF6EB3"), Color("#2E1042"), 7)
 	ov_box.add_child(_overlay_title)
+
+	# Visual 3D Target Icons row right inside the modal!
+	_modal_targets_box = HBoxContainer.new()
+	_modal_targets_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	_modal_targets_box.add_theme_constant_override("separation", 14)
+	ov_box.add_child(_modal_targets_box)
 
 	_overlay_desc = Label.new()
 	_overlay_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_overlay_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_overlay_desc.add_theme_font_size_override("font_size", 25)
-	_overlay_desc.add_theme_color_override("font_color", Color("#3E4B5E"))
+	_overlay_desc.add_theme_font_size_override("font_size", 24)
+	_overlay_desc.add_theme_color_override("font_color", Color("#4B5563"))
 	ov_box.add_child(_overlay_desc)
 
-	_btn_primary = CandyUI.create_candy_button("PLAY!", Color("#25CF65"), Color("#12853E"), 30, Color("#0A4C22"), Vector2(600, 92))
+	_btn_primary = CandyUI.create_cta_button("icon_play", "PLAY", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(540, 92), 32)
 	_btn_primary.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	ov_box.add_child(_btn_primary)
 
-	_btn_secondary = CandyUI.create_candy_button("[AD] START AT LV.2 + MAGNET", Color("#F7A526"), Color("#B8670A"), 25, Color("#663404"), Vector2(600, 82))
+	_btn_secondary = CandyUI.create_cta_button("icon_ad", "LV.2 + 7s", Color("#F7A526"), Color("#B8670A"), Color("#663404"), Vector2(540, 82), 28, "icon_magnet")
 	_btn_secondary.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	ov_box.add_child(_btn_secondary)
 
@@ -490,7 +505,7 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		_entities_root.add_child(bomb)
 		_bombs.append(bomb)
 
-	# Rebuild Option 2 Glossy Candy Target Pills
+	# Rebuild Icon-First Target Chips in Top Row 1 (NO verbose item name strings!)
 	_remaining_targets.clear()
 	_target_pills.clear()
 	for child in _targets_box.get_children():
@@ -501,15 +516,11 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		var count := int(targets[t_key])
 		_remaining_targets[t_key] = count
 		var def := GameManager.get_item_def(t_key)
-		var label_name := str(def.get("name", t_key))
 		var t_lv := int(def.get("tier", 1))
 		var th: Dictionary = TARGET_PILL_THEMES[t_idx % TARGET_PILL_THEMES.size()]
-		var pill := CandyUI.create_candy_pill(
-			"%s x%d (Lv.%d)" % [label_name, count, t_lv],
-			th["bg"], th["bevel"], 20, th["outline"]
-		)
-		_targets_box.add_child(pill)
-		_target_pills[t_key] = pill
+		var chip := CandyUI.create_target_chip(t_key, count, t_lv, th["bg"], th["bevel"], th["outline"])
+		_targets_box.add_child(chip)
+		_target_pills[t_key] = chip
 		t_idx += 1
 
 	# Highlight Beta bar tabs (only exists in Beta build)
@@ -522,10 +533,10 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 			sb.border_color = Color("#7DD3FC") if is_cur else Color(1, 1, 1, 0.22)
 			sb.set_border_width_all(1)
 			sb.set_corner_radius_all(10)
-			sb.content_margin_left = 10
-			sb.content_margin_right = 10
-			sb.content_margin_top = 5
-			sb.content_margin_bottom = 5
+			sb.content_margin_left = 9
+			sb.content_margin_right = 9
+			sb.content_margin_top = 4
+			sb.content_margin_bottom = 4
 			wb.add_theme_stylebox_override("normal", sb)
 			wb.add_theme_stylebox_override("hover", sb)
 			wb.add_theme_stylebox_override("pressed", sb)
@@ -540,69 +551,73 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 			sb.border_color = Color(1, 1, 1, 0.45 if active else 0.20)
 			sb.set_border_width_all(1)
 			sb.set_corner_radius_all(10)
-			sb.content_margin_left = 10
-			sb.content_margin_right = 10
-			sb.content_margin_top = 5
-			sb.content_margin_bottom = 5
+			sb.content_margin_left = 9
+			sb.content_margin_right = 9
+			sb.content_margin_top = 4
+			sb.content_margin_bottom = 4
 			btn.add_theme_stylebox_override("normal", sb)
 			btn.add_theme_stylebox_override("hover", sb)
 			btn.add_theme_stylebox_override("pressed", sb)
 
 	var fname := str(_level_data.get("formation_name", "Stage"))
-	CandyUI.update_candy_pill(_level_pill, "W%d · LV.%d" % [world_id, _level_number], Color("#F7AD26"), Color("#B86D0A"), Color("#663804"))
+	var lv_icon := "icon_crown" if tag in ["SUPER_HARD", "MEGA_BOSS"] else "icon_hole"
+	CandyUI.update_icon_pill(_level_pill, "LV.%d" % _level_number, Color("#F7AD26"), Color("#B86D0A"), Color("#663804"), lv_icon)
 	var shown_streak := maxi(GameManager.win_streak, int(_level_data.get("streak_hint", 0)))
-	CandyUI.update_candy_pill(_streak_pill, "STREAK %d" % shown_streak, Color("#FB7185"), Color("#BE123C"), Color("#6E0B26"))
+	CandyUI.update_icon_pill(_streak_pill, str(shown_streak), Color("#FF8A2B"), Color("#C2410C"), Color("#662004"))
 	_update_timer_ui()
 
 	if show_start_modal:
-		_show_start_overlay(tag, fname, world_id)
+		_show_start_overlay(tag, fname, world_id, targets)
 	else:
 		_begin_play()
 
 
-func _show_start_overlay(tag: String, fname: String, world_id: int) -> void:
+func _populate_modal_targets(targets: Dictionary) -> void:
+	for c in _modal_targets_box.get_children():
+		c.queue_free()
+	var idx := 0
+	for t_key in targets:
+		var count := int(targets[t_key])
+		var def := GameManager.get_item_def(t_key)
+		var t_lv := int(def.get("tier", 1))
+		var th: Dictionary = TARGET_PILL_THEMES[idx % TARGET_PILL_THEMES.size()]
+		var chip := CandyUI.create_target_chip(t_key, count, t_lv, th["bg"], th["bevel"], th["outline"])
+		_modal_targets_box.add_child(chip)
+		idx += 1
+
+
+func _show_start_overlay(tag: String, fname: String, world_id: int, targets: Dictionary) -> void:
 	_playing = false
 	_hole.is_controllable = false
 	_overlay_panel.visible = true
-	var w_name := str(WORLD_META[world_id]["name"])
-	var trap_nm := str(WORLD_META[world_id]["trap_name"])
 	var is_hard_tier := tag in ["HARD", "SUPER_HARD", "MEGA_BOSS"]
-	CandyUI.update_candy_pill(
-		_overlay_badge,
-		"%s · %s" % [w_name, tag],
+	var badge_icon := "icon_crown" if tag in ["SUPER_HARD", "MEGA_BOSS"] else "icon_hole"
+	var badge_txt := "W%d · %s" % [world_id, tag.replace("_", " ")]
+	CandyUI.update_icon_pill(
+		_overlay_badge, badge_txt,
 		Color("#EC36A0") if is_hard_tier else Color("#22B8EE"),
 		Color("#9B1464") if is_hard_tier else Color("#0B78A8"),
-		Color("#5E093C") if is_hard_tier else Color("#0A4266")
+		Color("#5E093C") if is_hard_tier else Color("#0A4266"),
+		badge_icon
 	)
 	_overlay_title.text = "LV.%d · %s" % [_level_number, fname]
+	_modal_targets_box.visible = true
+	_populate_modal_targets(targets)
 
-	var extras := ""
-	if _walls.size() > 0:
-		extras += " | %d Rubber Walls" % _walls.size()
-	if _bombs.size() > 0:
-		extras += " | %d Time Bombs (-3s)" % _bombs.size()
-
+	# Ultra-concise 1-line subtitle (no walls of text!)
 	if tag == "MEGA_BOSS":
-		_overlay_desc.text = "EPIC MEGA BOSS ARENA (%.0fx%.0f)!\n%.0fs clock | %d %s Traps%s\nMaster the grand formation to swallow all Bosses!" % [
-			_board_half.x * 2.0, _board_half.y * 2.0, _time_left, _traps.size(), trap_nm, extras
-		]
-	elif tag == "SUPER_HARD":
-		_overlay_desc.text = "SUPER HARD CLIFF STAGE!\nTight %.0fs timer | %d %s Traps%s\nSweep every XP cluster cleanly to hit Lv.5 in time!" % [
-			_time_left, _traps.size(), trap_nm, extras
-		]
-	elif tag == "HARD":
-		_overlay_desc.text = "HARD PINCH STAGE!\nTight %.0fs clock | %d %s Traps%s." % [_time_left, _traps.size(), trap_nm, extras]
+		_overlay_desc.text = "MEGA %.0fx%.0f  ·  %.0fs" % [_board_half.x * 2.0, _board_half.y * 2.0, _time_left]
+	elif _bombs.size() > 0:
+		_overlay_desc.text = "%.0fs  ·  Avoid -3s Bombs!" % _time_left
 	else:
-		_overlay_desc.text = "Hold & drag (floating joystick) or WASD.\nGobble small treats to grow bigger, then clear all targets!%s" % (
-			"\nWatch out for -3s Time Bombs!" if _bombs.size() > 0 else ""
-		)
+		_overlay_desc.text = "%.0fs  ·  Drag to Gobble!" % _time_left
 
-	_rebind_button(_btn_primary, "PLAY STAGE!", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), func():
+	_rebind_button(_btn_primary, "icon_play", "PLAY", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), "", func():
 		AudioManager.start_bgm()
 		_begin_play()
 	)
 	_btn_secondary.visible = true
-	_rebind_button(_btn_secondary, "[AD] START AT LV.2 + MAGNET 7s", Color("#F7A526"), Color("#B8670A"), Color("#663404"), func():
+	_rebind_button(_btn_secondary, "icon_ad", "LV.2 + 7s", Color("#F7A526"), Color("#B8670A"), Color("#663404"), "icon_magnet", func():
 		AudioManager.start_bgm()
 		AdManager.show_rewarded("pre_level_boost")
 	)
@@ -686,14 +701,21 @@ func _process(delta: float) -> void:
 			_on_level_timeout()
 
 
+func _format_clock(sec: float) -> String:
+	if sec < 10.0:
+		return "%.1f" % sec
+	var total := int(ceil(sec))
+	return "%d:%02d" % [total / 60, total % 60]
+
+
 func _update_timer_ui() -> void:
-	var txt := "%.1fs" % _time_left
+	var txt := _format_clock(_time_left)
 	if _ice_freeze_timer > 0.0:
-		CandyUI.update_candy_pill(_timer_pill, "ICE " + txt, Color("#38BDF8"), Color("#0284C7"), Color("#083344"))
+		CandyUI.update_icon_pill(_timer_pill, txt, Color("#38BDF8"), Color("#0284C7"), Color("#083344"), "icon_ice")
 	elif _time_left <= 8.0:
-		CandyUI.update_candy_pill(_timer_pill, txt, Color("#F43F5E"), Color("#9F1239"), Color("#580A20"))
+		CandyUI.update_icon_pill(_timer_pill, txt, Color("#F43F5E"), Color("#9F1239"), Color("#580A20"), "icon_timer")
 	else:
-		CandyUI.update_candy_pill(_timer_pill, txt, Color("#22B8EE"), Color("#0B78A8"), Color("#0A4266"))
+		CandyUI.update_icon_pill(_timer_pill, txt, Color("#22B8EE"), Color("#0B78A8"), Color("#0A4266"), "icon_timer")
 
 
 func _spawn_popup(world_pos: Vector3, text: String, col: Color) -> void:
@@ -718,7 +740,7 @@ func _spawn_popup(world_pos: Vector3, text: String, col: Color) -> void:
 func _on_sticky_triggered(trap_pos: Vector3, trap_col: Color, trap_lbl: String) -> void:
 	_camera_shake = 4.5
 	_spawn_pop_particles(trap_pos + Vector3(0, 0.25, 0), trap_col, 14)
-	_spawn_popup(_hole.position, "%s PULL FREE!" % trap_lbl, trap_col)
+	_spawn_popup(_hole.position, "%s PULL!" % trap_lbl, trap_col)
 
 
 func _on_bomb_detonated(world_pos: Vector3, penalty: float) -> void:
@@ -728,7 +750,7 @@ func _on_bomb_detonated(world_pos: Vector3, penalty: float) -> void:
 	AudioManager.play_sfx("fail", 1.35)
 	PlatformBridge.trigger_haptic(55)
 	_spawn_pop_particles(world_pos + Vector3(0, 0.3, 0), Color("#F43F5E"), 20)
-	_spawn_popup(world_pos, "BOOM! -%.0fs!" % penalty, Color("#F43F5E"))
+	_spawn_popup(world_pos, "-%.0fs!" % penalty, Color("#F43F5E"))
 	_update_timer_ui()
 
 
@@ -743,17 +765,22 @@ func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, ti
 	if _remaining_targets.has(item_key) and _remaining_targets[item_key] > 0:
 		_remaining_targets[item_key] -= 1
 		var left: int = _remaining_targets[item_key]
-		var pill: PanelContainer = _target_pills[item_key]
-		var def := GameManager.get_item_def(item_key)
-		var label_name := str(def.get("name", item_key))
-		var t_lv := int(def.get("tier", 1))
+		var chip: PanelContainer = _target_pills[item_key]
+		var box := chip.get_node_or_null("Box")
 		if left <= 0:
-			CandyUI.update_candy_pill(pill, "[OK] %s" % label_name, Color("#24C964"), Color("#12823D"), Color("#094A22"))
+			chip.add_theme_stylebox_override("panel", CandyUI.make_pill_style(Color("#24C964"), Color("#12823D"), 24, 12, 4))
+			if box:
+				var c_lbl := box.get_node_or_null("Count") as Label
+				var t_lbl := box.get_node_or_null("TierTag") as Label
+				var chk := box.get_node_or_null("Check") as TextureRect
+				if c_lbl: c_lbl.visible = false
+				if t_lbl: t_lbl.visible = false
+				if chk: chk.visible = true
 			AudioManager.play_sfx("goal_done")
-		else:
-			var lbl := pill.get_node_or_null("Text") as Label
-			if lbl:
-				lbl.text = "%s x%d (Lv.%d)" % [label_name, left, t_lv]
+		elif box:
+			var c_lbl := box.get_node_or_null("Count") as Label
+			if c_lbl:
+				c_lbl.text = str(left)
 		_check_victory()
 
 
@@ -791,28 +818,28 @@ func _on_powerup_collected(kind: String, _pos: Vector3) -> void:
 		_ice_freeze_timer = maxf(_ice_freeze_timer, 5.0)
 		_frost_mat.set_shader_parameter("frost_amount", 1.0)
 		AudioManager.play_sfx("ice")
-		_spawn_popup(_hole.position, "ICE FREEZE 5s!", Color("#0EA5E9"))
+		_spawn_popup(_hole.position, "+5s FREEZE!", Color("#0EA5E9"))
 		_update_buff_banner()
 	elif kind == "magnet":
 		_hole.activate_magnet(5.5)
-		_spawn_popup(_hole.position, "SUPER MAGNET 5.5s!", Color("#EC36A0"))
+		_spawn_popup(_hole.position, "MAGNET!", Color("#EC36A0"))
 		_update_buff_banner()
 
 
 func _on_hole_level_changed(new_level: int, _radius: float) -> void:
-	CandyUI.update_candy_pill(_hole_lvl_pill, "HOLE LV.%d" % new_level, Color("#24C964"), Color("#12823D"), Color("#094A22"))
+	CandyUI.update_icon_pill(_hole_lvl_pill, "Lv.%d" % new_level, Color("#24C964"), Color("#12823D"), Color("#094A22"))
 	var base_h := 18.5 if _is_mega_stage else 16.8
 	_target_cam_height = base_h + float(new_level - 1) * (2.5 if _is_mega_stage else 2.2)
 	if _playing:
 		_camera_shake = maxf(_camera_shake, 6.0)
 		_spawn_pop_particles(_hole.position + Vector3(0, 0.2, 0), Color("#FFD23F"), 22)
-		_spawn_popup(_hole.position, "POP! LEVEL UP LV.%d!" % new_level, Color("#F59E0B"))
+		_spawn_popup(_hole.position, "LV.%d!" % new_level, Color("#F59E0B"))
 
 
 func _on_fever_changed(ratio: float, active: bool) -> void:
 	_fever_bar.value = ratio * 100.0
 	if active and _playing and ratio > 0.96:
-		_spawn_popup(_hole.position, "FEVER MODE! +24% SPEED!", Color("#EC36A0"))
+		_spawn_popup(_hole.position, "FEVER!", Color("#EC36A0"))
 	_update_buff_banner()
 
 
@@ -823,15 +850,14 @@ func _on_buff_changed(_buff_name: String, _remaining: float) -> void:
 func _update_buff_banner() -> void:
 	var parts: Array[String] = []
 	if _hole.sticky_timer > 0.0:
-		var tname := str(WORLD_META[_world_id]["trap_name"])
-		parts.append("STICKY %s %.1fs (-55%% SPD)" % [tname, _hole.sticky_timer])
+		parts.append("STICKY %.1fs" % _hole.sticky_timer)
 	if _ice_freeze_timer > 0.0:
-		parts.append("FROZEN %.1fs" % _ice_freeze_timer)
+		parts.append("ICE %.1fs" % _ice_freeze_timer)
 	if _hole.magnet_timer > 0.0:
 		parts.append("MAGNET %.1fs" % _hole.magnet_timer)
 	if _hole.is_fever_active():
 		parts.append("FEVER %.1fs" % _hole.fever_timer)
-	_buff_label.text = "  |  ".join(parts)
+	_buff_label.text = "  ·  ".join(parts)
 
 
 func _check_victory() -> void:
@@ -853,27 +879,27 @@ func _check_victory() -> void:
 	GameManager.save_progress()
 
 	_overlay_panel.visible = true
-	CandyUI.update_candy_pill(
+	_modal_targets_box.visible = false
+	CandyUI.update_icon_pill(
 		_overlay_badge,
-		"MEGA BOSS CLEARED!" if _is_mega_stage else "STAGE CLEARED!",
-		Color("#25CF65"), Color("#12853E"), Color("#0A4C22")
+		"MEGA CLEAR!" if _is_mega_stage else "CLEAR!",
+		Color("#25CF65"), Color("#12853E"), Color("#0A4C22"),
+		"icon_crown" if _is_mega_stage else "icon_check"
 	)
 	if _level_number == 50:
-		_overlay_title.text = "ALL 4 WORLDS MASTERED!"
-		_overlay_desc.text = "Grand Alchemist Finale Conquered!\nTime Left: %.1fs | Final Hole: Lv.%d | Streak: %d" % [_time_left, _hole.hole_level, GameManager.win_streak]
+		_overlay_title.text = "ALL 4 WORLDS!"
 	elif _level_number in [20, 30, 40]:
 		_overlay_title.text = "WORLD %d UNLOCKED!" % (_world_id + 1)
-		_overlay_desc.text = "MEGA STAGE CLEARED! Time Left: %.1fs\nNext up: %s!" % [_time_left, str(WORLD_META[_world_id + 1]["name"])]
 	else:
-		_overlay_title.text = "POP! LV.%d CLEAR!" % _level_number
-		_overlay_desc.text = "Time Left: %.1fs | Hole Lv.%d | Streak: %d" % [_time_left, _hole.hole_level, GameManager.win_streak]
+		_overlay_title.text = "LV.%d CLEAR!" % _level_number
+	_overlay_desc.text = "%.1fs left  ·  Lv.%d  ·  Streak %d" % [_time_left, _hole.hole_level, GameManager.win_streak]
 
-	_rebind_button(_btn_primary, "NEXT STAGE (LV.%d) >" % next_lv, Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), func():
+	_rebind_button(_btn_primary, "icon_play", "NEXT  LV.%d" % next_lv, Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), "", func():
 		AdManager.show_interstitial("level_complete", _level_number)
 		_load_level(next_lv, true)
 	)
 	_btn_secondary.visible = true
-	_rebind_button(_btn_secondary, "Replay This Stage", Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), func():
+	_rebind_button(_btn_secondary, "icon_restart", "REPLAY", Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), "", func():
 		_load_level(_level_number, false)
 	)
 
@@ -887,29 +913,19 @@ func _on_level_timeout() -> void:
 	var rem_total := 0
 	for k in _remaining_targets:
 		rem_total += maxi(0, int(_remaining_targets[k]))
-	var tag := str(_level_data.get("difficulty_tag", ""))
-	var is_high := tag in ["SUPER_HARD", "MEGA_BOSS"]
-	var trap_nm := str(WORLD_META[_world_id]["trap_name"])
 
 	_overlay_panel.visible = true
-	CandyUI.update_candy_pill(
-		_overlay_badge,
-		"HIGH-STAKES CLIFF!" if is_high else "OUT OF TIME!",
-		Color("#F43F5E"), Color("#9F1239"), Color("#580A20")
-	)
-	_overlay_title.text = "ONLY %d TARGETS LEFT!" % rem_total
-	if is_high:
-		_overlay_desc.text = "So close (Hole Lv.%d)!\nWatch 1 free RV to EXPLODE ALL %d %s TRAPS%s + +15s + +20%% BIGGER HOLE!" % [
-			_hole.hole_level, _traps.size(), trap_nm, (" & BOMBS" if _bombs.size() > 0 else "")
-		]
-	else:
-		_overlay_desc.text = "Almost there! Watch 1 free RV for +15s Time + Clear Traps + +20%% Bigger Hole!"
+	_modal_targets_box.visible = true
+	_populate_modal_targets(_remaining_targets)
+	CandyUI.update_icon_pill(_overlay_badge, "TIME UP!", Color("#F43F5E"), Color("#9F1239"), Color("#580A20"), "icon_timer")
+	_overlay_title.text = "%d LEFT!" % rem_total
+	_overlay_desc.text = "+15s  ·  Clear Hazards  ·  +20% Size"
 
-	_rebind_button(_btn_primary, "[AD] +15s + CLEAR TRAPS + GROW!", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), func():
+	_rebind_button(_btn_primary, "icon_ad", "+15s RESCUE!", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), "icon_timer", func():
 		AdManager.show_rewarded("fail_rescue")
 	)
 	_btn_secondary.visible = true
-	_rebind_button(_btn_secondary, "Give Up & Retry Stage", Color("#94A3B8"), Color("#475569"), Color("#1E293B"), func():
+	_rebind_button(_btn_secondary, "icon_restart", "RETRY", Color("#94A3B8"), Color("#475569"), Color("#1E293B"), "", func():
 		DDAController.record_level_fail(_level_number, _used_rv_this_run)
 		GameManager.win_streak = 0
 		GameManager.save_progress()
@@ -938,34 +954,36 @@ func _on_rewarded_completed(placement: String, success: bool) -> void:
 			_hole.apply_rv_rescue_boost()
 			AudioManager.play_sfx("rv_blast")
 			_camera_shake = 7.0
-			_spawn_popup(_hole.position, "ALL HAZARDS CLEARED! +15s!", Color("#25CF65"))
+			_spawn_popup(_hole.position, "+15s!", Color("#25CF65"))
 			_begin_play()
 		"pre_level_boost":
 			var sp_arr: Array = _level_data.get("spawn", [0.0, 0.0])
 			_hole.reset_for_level(2, Vector3(float(sp_arr[0]), 0.0, float(sp_arr[1])))
 			_hole.activate_magnet(7.0)
 			AudioManager.play_sfx("level_up")
-			_spawn_popup(_hole.position, "LV.2 HOLE + MAGNET 7s!", Color("#25CF65"))
+			_spawn_popup(_hole.position, "LV.2 + MAGNET!", Color("#25CF65"))
 			_begin_play()
 		"in_level_ice":
 			_ice_freeze_timer = maxf(_ice_freeze_timer, 6.0)
 			_frost_mat.set_shader_parameter("frost_amount", 1.0)
 			AudioManager.play_sfx("ice")
-			_spawn_popup(_hole.position, "ICE FREEZE +6s!", Color("#0EA5E9"))
+			_spawn_popup(_hole.position, "+6s FREEZE!", Color("#0EA5E9"))
 			_update_buff_banner()
 		"in_level_magnet":
 			_hole.activate_magnet(7.0)
-			_spawn_popup(_hole.position, "SUPER MAGNET 7s!", Color("#EC36A0"))
+			_spawn_popup(_hole.position, "MAGNET 7s!", Color("#EC36A0"))
 			_update_buff_banner()
 
 
 func _on_mute_pressed() -> void:
 	var muted := AudioManager.toggle_user_mute()
-	_btn_mute.text = "MUTE" if muted else "SFX"
+	var ic := _btn_mute.find_child("MainIcon", true, false) as TextureRect
+	if ic:
+		ic.texture = CandyUI.get_icon("icon_sound_off" if muted else "icon_sound_on")
 
 
-func _rebind_button(btn: Button, txt: String, bg: Color, bevel: Color, outline: Color, cb: Callable) -> void:
-	CandyUI.style_candy_button(btn, txt, bg, bevel, outline)
+func _rebind_button(btn: Button, icon_name: String, txt: String, bg: Color, bevel: Color, outline: Color, extra_icon: String, cb: Callable) -> void:
+	CandyUI.update_cta_button(btn, icon_name, txt, bg, bevel, outline, extra_icon)
 	for conn in btn.pressed.get_connections():
 		btn.pressed.disconnect(conn["callable"])
 	btn.pressed.connect(cb)

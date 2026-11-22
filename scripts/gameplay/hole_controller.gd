@@ -75,20 +75,10 @@ func _build_vortex_visual() -> void:
 	_vortex_mesh.material_override = _vortex_mat
 	add_child(_vortex_mesh)
 
-	if ResourceLoader.exists("res://assets/models/core/core_01_base_hole.glb"):
-		var p1: PackedScene = load("res://assets/models/core/core_01_base_hole.glb")
-		if p1:
-			_rim_base_model = p1.instantiate()
-			_rim_base_model.position.y = -0.04
-			_apply_gold_rim_finish(_rim_base_model)
-			add_child(_rim_base_model)
-	if ResourceLoader.exists("res://assets/models/core/core_02_fever_hole.glb"):
-		var p2: PackedScene = load("res://assets/models/core/core_02_fever_hole.glb")
-		if p2:
-			_rim_fever_model = p2.instantiate()
-			_rim_fever_model.position.y = -0.04
-			_rim_fever_model.visible = false
-			add_child(_rim_fever_model)
+	# Keep the hole sleek and flush-embedded using the directional brushed-gold shader bezel
+	# (eliminates the chunky flat-yellow plastic 3D ring!).
+	_rim_base_model = null
+	_rim_fever_model = null
 
 	# Luminous candy magenta magnet aura ring
 	_magnet_ring = MeshInstance3D.new()
