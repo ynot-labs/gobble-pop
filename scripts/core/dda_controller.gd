@@ -44,5 +44,5 @@ func get_timer_adjustment(level_number: int, difficulty_tag: String) -> float:
 
 func get_sticky_slow_duration(level_number: int) -> float:
 	if is_pity_active(level_number):
-		return 1.5
-	return 2.5
+		return 1.35
+	return 2.15

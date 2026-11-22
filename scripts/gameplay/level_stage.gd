@@ -633,9 +633,9 @@ func _spawn_popup(world_pos: Vector3, text: String, col: Color) -> void:
 
 
 func _on_sticky_triggered(trap_pos: Vector3) -> void:
-	_camera_shake = 5.5
+	_camera_shake = 4.5
 	_spawn_pop_particles(trap_pos + Vector3(0, 0.25, 0), Color("#FF2E93"), 12)
-	_spawn_popup(_hole.position, "STICKY GUM! -62% SPEED", Color("#DB2777"))
+	_spawn_popup(_hole.position, "STICKY GUM! PULL FREE!", Color("#DB2777"))
 
 
 func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, tint: Color) -> void:
@@ -731,7 +731,7 @@ func _on_buff_changed(_buff_name: String, _remaining: float) -> void:
 func _update_buff_banner() -> void:
 	var parts: Array[String] = []
 	if _hole.sticky_timer > 0.0:
-		parts.append("STICKY GUM %.1fs (-62%% SPD)" % _hole.sticky_timer)
+		parts.append("STICKY GUM %.1fs (-55%% SPD)" % _hole.sticky_timer)
 	if _ice_freeze_timer > 0.0:
 		parts.append("FROZEN %.1fs" % _ice_freeze_timer)
 	if _hole.magnet_timer > 0.0:

@@ -3,8 +3,8 @@ class_name RubberWall
 
 ## World 2 Elastic Rubber Band Barrier Wall: blocks hole shortcuts with juicy spring recoil + twang!
 
-var half_length: float = 1.95
-var thickness: float = 0.28
+var half_length: float = 1.65
+var thickness: float = 0.24
 var _visual: Node3D
 var _twang_amp: float = 0.0
 var _twang_phase: float = 0.0
@@ -20,7 +20,9 @@ func setup(spawn_pos: Vector3, rot_deg: float) -> void:
 	if ResourceLoader.exists("res://assets/models/world2/w2_08_rubber_wall.glb"):
 		var p: PackedScene = load("res://assets/models/world2/w2_08_rubber_wall.glb")
 		if p:
-			_visual.add_child(p.instantiate())
+			var inst := p.instantiate()
+			inst.scale = Vector3(0.85, 1.0, 1.0)
+			_visual.add_child(inst)
 			return
 
 	var mi := MeshInstance3D.new()
@@ -58,7 +60,8 @@ func step_interaction(hole: HoleController, delta: float) -> bool:
 	var dx := lx - cx
 	var dz := lz
 	var dist := sqrt(dx * dx + dz * dz)
-	var min_dist := hole.current_radius * 0.88 + thickness
+	# Cap effective collision radius so giant Lv.4-5 holes still navigate doorways cleanly without soft-locking!
+	var min_dist := minf(hole.current_radius * 0.62, 1.48) + thickness
 
 	if dist < min_dist:
 		var nx := 0.0
