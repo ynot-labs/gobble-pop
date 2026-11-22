@@ -1,0 +1,11 @@
+# Godot 4 cache & local editor metadata
+.godot/
+*.tmp
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+
+# Blender backup files
+*.blend1
+*.blend2
