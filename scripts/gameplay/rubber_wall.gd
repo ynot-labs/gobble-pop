@@ -30,8 +30,8 @@ func setup(spawn_pos: Vector3, rot_deg: float) -> void:
 	bm.size = Vector3(half_length * 2.0, 0.55, thickness)
 	mi.mesh = bm
 	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color("#A855F7")
-	mat.roughness = 0.2
+	mat.albedo_color = Color("#8A6FB8")
+	mat.roughness = 0.38
 	mi.material_override = mat
 	mi.position.y = 0.28
 	_visual.add_child(mi)

@@ -57,9 +57,10 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 			elif item_key in ["w1_gummy_bear", "w1_macaron", "w2_figurine", "w4_slime", "w4_potion"] and color_idx > 0:
 				_apply_variant_tint(inst, tint_color)
 			elif item_key == "w1_donut" and color_idx == 1:
-				_apply_variant_tint(inst, Color("#8CE0FF"))
+				_apply_variant_tint(inst, Color("#76B6D4"))
 			elif item_key in ["w2_duck", "w2_arcade", "w2_unicorn", "w3_sushi", "w4_spellbook"]:
 				inst.rotation.y = randf_range(-0.6, 0.6)
+			_soften_material_recursive(inst)
 			_visual_root.add_child(inst)
 			return
 
@@ -69,12 +70,12 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 func _build_target_ring() -> void:
 	_target_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
-	tor.outer_radius = item_radius * 1.18 + 0.14
-	tor.inner_radius = item_radius * 1.18 + 0.04
+	tor.outer_radius = item_radius * 1.15 + 0.085
+	tor.inner_radius = item_radius * 1.15 + 0.025
 	_target_ring.mesh = tor
-	_target_ring.position.y = 0.035
+	_target_ring.position.y = 0.032
 	_target_ring_mat = StandardMaterial3D.new()
-	_target_ring_mat.albedo_color = Color(1.0, 1.0, 1.0, 0.85)
+	_target_ring_mat.albedo_color = Color(0.98, 0.96, 0.92, 0.56)
 	_target_ring_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_target_ring_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_target_ring.material_override = _target_ring_mat
@@ -84,13 +85,13 @@ func _build_target_ring() -> void:
 func _build_lock_badge() -> void:
 	_lock_label = Label3D.new()
 	_lock_label.text = "Lv.%d" % tier
-	_lock_label.font_size = 56
-	_lock_label.outline_size = 16
-	_lock_label.modulate = Color("#FDE047")
-	_lock_label.outline_modulate = Color("#0F172A")
+	_lock_label.font_size = 46
+	_lock_label.outline_size = 13
+	_lock_label.modulate = Color("#FFFBF4")
+	_lock_label.outline_modulate = Color("#4A3F38")
 	_lock_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	_lock_label.no_depth_test = true
-	_lock_label.position = Vector3(0.0, item_height + 0.55, 0.0)
+	_lock_label.position = Vector3(0.0, item_height + 0.48, 0.0)
 	add_child(_lock_label)
 
 
@@ -104,6 +105,23 @@ func _apply_variant_tint(node: Node, col: Color) -> void:
 			mi.set_surface_override_material(0, dup)
 	for child in node.get_children():
 		_apply_variant_tint(child, col)
+
+
+func _soften_material_recursive(node: Node) -> void:
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		var src_mat := mi.get_active_material(0)
+		if src_mat is BaseMaterial3D:
+			var dup := src_mat.duplicate() as BaseMaterial3D
+			# Cozy matte ceramic/vinyl finish: soften harsh specular glare & neon sheen
+			dup.roughness = maxf(dup.roughness, 0.40)
+			dup.metallic = minf(dup.metallic, 0.08)
+			dup.albedo_color = dup.albedo_color.lerp(Color("#EDE6DC"), 0.10)
+			if dup.emission_enabled:
+				dup.emission_energy_multiplier = minf(dup.emission_energy_multiplier, 0.03)
+			mi.set_surface_override_material(0, dup)
+	for child in node.get_children():
+		_soften_material_recursive(child)
 
 
 func _build_fallback_mesh() -> void:
@@ -126,7 +144,7 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 
 	var can_eat := tier <= hole.hole_level
 	if _target_ring and state == State.IDLE:
-		_target_ring_mat.albedo_color = Color("#16A34A") if can_eat else Color(1.0, 1.0, 1.0, 0.80)
+		_target_ring_mat.albedo_color = Color(0.18, 0.62, 0.40, 0.82) if can_eat else Color(0.98, 0.96, 0.92, 0.56)
 	if _lock_label:
 		_lock_label.visible = (not can_eat) and (state == State.IDLE)
 

@@ -21,15 +21,15 @@ func setup(spawn_pos: Vector3) -> void:
 	_visual = Node3D.new()
 	add_child(_visual)
 
-	# Crisp red pulsing warning ring on tabletop
+	# Soft coral warning ring on tabletop (gentle breathing, zero harsh strobe)
 	_warn_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
-	tor.outer_radius = 0.62
+	tor.outer_radius = 0.58
 	tor.inner_radius = 0.50
 	_warn_ring.mesh = tor
-	_warn_ring.position.y = 0.04
+	_warn_ring.position.y = 0.036
 	var rmat := StandardMaterial3D.new()
-	rmat.albedo_color = Color(1.0, 0.22, 0.22, 0.85)
+	rmat.albedo_color = Color(0.84, 0.28, 0.28, 0.65)
 	rmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	rmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_warn_ring.material_override = rmat
@@ -37,13 +37,13 @@ func setup(spawn_pos: Vector3) -> void:
 
 	var lbl := Label3D.new()
 	lbl.text = "-3s"
-	lbl.font_size = 52
-	lbl.outline_size = 14
-	lbl.modulate = Color("#FF3B30")
-	lbl.outline_modulate = Color.WHITE
+	lbl.font_size = 44
+	lbl.outline_size = 12
+	lbl.modulate = Color("#D64545")
+	lbl.outline_modulate = Color("#FAF7F2")
 	lbl.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	lbl.no_depth_test = true
-	lbl.position = Vector3(0.0, 1.32, 0.0)
+	lbl.position = Vector3(0.0, 1.24, 0.0)
 	add_child(lbl)
 
 	if ResourceLoader.exists("res://assets/models/core/core_05_bomb.glb"):
@@ -67,10 +67,10 @@ func setup(spawn_pos: Vector3) -> void:
 func step_interaction(hole: HoleController, delta: float) -> void:
 	if _triggered:
 		return
-	_phase += delta * 5.2
-	var pulse := 1.0 + sin(_phase) * 0.08
+	_phase += delta * 2.6
+	var pulse := 1.0 + sin(_phase) * 0.05
 	_visual.scale = Vector3.ONE * pulse
-	_warn_ring.scale = Vector3(1.0 + sin(_phase * 1.3) * 0.12, 1.0, 1.0 + sin(_phase * 1.3) * 0.12)
+	_warn_ring.scale = Vector3(1.0 + sin(_phase * 1.1) * 0.08, 1.0, 1.0 + sin(_phase * 1.1) * 0.08)
 
 	var d := Vector2(hole.position.x - position.x, hole.position.z - position.z).length()
 	if d < maxf(0.45, hole.current_radius * 0.72):
