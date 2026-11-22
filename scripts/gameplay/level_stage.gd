@@ -73,7 +73,11 @@ func _ready() -> void:
 	_build_3d_stage()
 	_joystick_overlay.hole = _hole
 	AdManager.rewarded_ad_completed.connect(_on_rewarded_completed)
-	_load_level(clampi(GameManager.current_level, 1, 50), true)
+	var start_lv := clampi(GameManager.current_level, 1, 50)
+	var qa_env := OS.get_environment("QA_START_LEVEL")
+	if qa_env.is_valid_int():
+		start_lv = clampi(int(qa_env), 1, 50)
+	_load_level(start_lv, qa_env == "")
 	PlatformBridge.notify_game_ready()
 
 
@@ -81,30 +85,38 @@ func _build_3d_stage() -> void:
 	var env_node := WorldEnvironment.new()
 	_env = Environment.new()
 	_env.background_mode = Environment.BG_COLOR
-	_env.background_color = Color("#BFD4C8")
+	_env.background_color = Color("#7F9A8E")
 	_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	_env.ambient_light_color = Color("#EFEAE2")
-	_env.ambient_light_energy = 0.56
-	# Cozy Filmic tonemapping + eye-friendly saturation & contrast softening
+	_env.ambient_light_color = Color("#EDE6DC")
+	_env.ambient_light_energy = 0.22
+	# Disable BG IBL reflection wash so WebGL2 gl_compatibility NEVER blows out pastel props or white cream!
+	_env.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
 	_env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	_env.tonemap_exposure = 0.96
-	_env.tonemap_white = 1.18
 	_env.adjustment_enabled = true
-	_env.adjustment_saturation = 0.84
-	_env.adjustment_contrast = 0.96
+	_env.adjustment_saturation = 0.90
+	_env.adjustment_contrast = 1.03
 	_env.adjustment_brightness = 0.98
 	env_node.environment = _env
 	add_child(env_node)
 
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-56, 30, 0)
-	sun.light_color = Color("#FFF6E8")
-	sun.light_energy = 0.86
+	sun.light_color = Color("#FFF4E4")
+	sun.light_energy = 0.50
 	sun.shadow_enabled = true
 	sun.shadow_opacity = 0.34
 	sun.shadow_blur = 2.0
 	sun.directional_shadow_max_distance = 56.0
 	add_child(sun)
+
+	# Subtle cool sky fill light from opposite side for soft 3D form shading on cream/white props
+	var fill := DirectionalLight3D.new()
+	fill.rotation_degrees = Vector3(-35, -135, 0)
+	fill.light_color = Color("#D8E6F2")
+	fill.light_energy = 0.14
+	fill.shadow_enabled = false
+	add_child(fill)
 
 	_camera = Camera3D.new()
 	_camera.fov = 45.0
@@ -159,11 +171,11 @@ func _build_hud() -> void:
 	_hud_layer.add_child(_joystick_overlay)
 
 	var top_margin := MarginContainer.new()
-	top_margin.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	top_margin.add_theme_constant_override("margin_left", 14)
-	top_margin.add_theme_constant_override("margin_right", 14)
-	top_margin.add_theme_constant_override("margin_top", 12)
 	_hud_layer.add_child(top_margin)
+	top_margin.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	top_margin.add_theme_constant_override("margin_left", 16)
+	top_margin.add_theme_constant_override("margin_right", 16)
+	top_margin.add_theme_constant_override("margin_top", 14)
 
 	var top_vbox := VBoxContainer.new()
 	top_vbox.add_theme_constant_override("separation", 8)
@@ -204,26 +216,19 @@ func _build_hud() -> void:
 	btn_next.pressed.connect(func(): _load_level((_level_number % 50) + 1, true))
 	stage_row.add_child(btn_next)
 
-	# Row 1: Level Badge | Timer | Streak + Mute (Unified Frosted Cream Cards!)
+	# Row 1: Level Badge | Timer | Streak + Mute (Centered compact row, never clips on any viewport!)
 	var row1 := HBoxContainer.new()
 	row1.alignment = BoxContainer.ALIGNMENT_CENTER
+	row1.add_theme_constant_override("separation", 12)
 	top_vbox.add_child(row1)
 
-	_level_label = _make_pill_label("W1 L1", Color(0.98, 0.97, 0.94, 0.92), 23, Color("#2E3742"))
+	_level_label = _make_pill_label("W1 · LV.1", Color(0.98, 0.97, 0.94, 0.92), 20, Color("#2E3742"))
 	row1.add_child(_level_label)
 
-	var sp1 := Control.new()
-	sp1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row1.add_child(sp1)
-
-	_timer_label = _make_pill_label("45.0s", Color(0.98, 0.97, 0.94, 0.95), 34, Color("#2A7B6D"))
+	_timer_label = _make_pill_label("45.0s", Color(0.98, 0.97, 0.94, 0.95), 30, Color("#2A7B6D"))
 	row1.add_child(_timer_label)
 
-	var sp2 := Control.new()
-	sp2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row1.add_child(sp2)
-
-	_streak_label = _make_pill_label("STREAK 0", Color(0.98, 0.97, 0.94, 0.92), 21, Color("#B46B22"))
+	_streak_label = _make_pill_label("STREAK 0", Color(0.98, 0.97, 0.94, 0.92), 19, Color("#B46B22"))
 	row1.add_child(_streak_label)
 
 	_btn_mute = _make_small_tab("SFX ON", Color(0.98, 0.97, 0.94, 0.90), Color("#3A424E"))
@@ -392,20 +397,20 @@ func _apply_world_theme(world_id: int) -> void:
 	var tex_path := ""
 	match world_id:
 		2:
-			_env.background_color = Color("#C7CEDB")
-			_table_mat.set_shader_parameter("border_color", Color("#A8B3C6"))
+			_env.background_color = Color("#948772")
+			_table_mat.set_shader_parameter("border_color", Color("#A69880"))
 			tex_path = "res://assets/textures/w2_01_playmat_tile.png"
 		3:
-			_env.background_color = Color("#B89F8D")
-			_table_mat.set_shader_parameter("border_color", Color("#9E8270"))
+			_env.background_color = Color("#80664B")
+			_table_mat.set_shader_parameter("border_color", Color("#96795B"))
 			tex_path = "res://assets/textures/w3_01_table_tile.png"
 		4:
-			_env.background_color = Color("#9D94B2")
-			_table_mat.set_shader_parameter("border_color", Color("#83789C"))
+			_env.background_color = Color("#726C87")
+			_table_mat.set_shader_parameter("border_color", Color("#857F9A"))
 			tex_path = "res://assets/textures/w4_01_desk_tile.png"
 		_:
-			_env.background_color = Color("#BFD4C8")
-			_table_mat.set_shader_parameter("border_color", Color("#9EB9AA"))
+			_env.background_color = Color("#7F9A8E")
+			_table_mat.set_shader_parameter("border_color", Color("#8DA89C"))
 			tex_path = "res://assets/textures/w1_01_marble_tile.png"
 
 	if ResourceLoader.exists(tex_path):
@@ -572,9 +577,9 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		btn.add_theme_stylebox_override("pressed", sb)
 
 	var fname := str(_level_data.get("formation_name", "Stage"))
-	_level_label.text = "  W%d L%d: %s  " % [world_id, _level_number, fname]
+	_level_label.text = " W%d · LV.%d " % [world_id, _level_number]
 	var shown_streak := maxi(GameManager.win_streak, int(_level_data.get("streak_hint", 0)))
-	_streak_label.text = "  STREAK %d  " % shown_streak
+	_streak_label.text = " STREAK %d " % shown_streak
 	_update_timer_ui()
 
 	if show_start_modal:

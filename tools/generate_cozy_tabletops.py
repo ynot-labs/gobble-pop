@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Gobble Pop! — Cozy Eye-Friendly Creamy Tabletop Texture Generator (Zero External Deps)
-Generates ultra-soft, low-contrast (<= 4% luminance delta) Animal-Crossing / Hole-Stars-style
-matte tabletop tiles for all 4 Worlds to eliminate checkerboard pattern glare & eye fatigue.
+Gobble Pop! — Grounded Mid-Light Morandi Tabletop Texture Generator
+Uses mid-light restful tones (L ~ 70%-78%) with gentle 5-6% tile contrast and subtle organic texture
+so that under lit WebGL2 shading (total diffuse ~ 0.90), textures NEVER blow out to white and
+light-colored props (whipped cream, sushi rice, white unicorn, target rings) pop clearly with zero glare.
 """
 import math
 import os
@@ -54,37 +55,37 @@ def gen_tabletop(path, col_a_hex, col_b_hex, style="marble", size=256):
             dx = abs(fx - 0.5) * 2.0
 
             if style == "hinoki":
-                # Soft horizontal Japanese hinoki wood planks (eliminates square checkerboard flicker!)
-                plank = int(y * 6.0) % 2
-                grain = math.sin(y * tau * 18.0 + math.sin(x * tau * 2.0) * 0.65) * 0.010
-                grain += math.sin(x * tau * 4.0 + y * tau * 6.0) * 0.005
-                py_seam = abs(((y * 6.0) % 1.0) - 0.5) * 2.0
-                seam = max(0.0, (py_seam - 0.94) / 0.06) * 0.032
+                # Warm Japanese hinoki wood planks (gentle grain + plank seam, zero square flicker!)
+                plank = int(y * 4.0) % 2
+                grain = math.sin(y * tau * 14.0 + math.sin(x * tau * 2.0) * 0.7) * 0.016
+                grain += math.sin(x * tau * 3.0 + y * tau * 5.0) * 0.008
+                py_seam = abs(((y * 4.0) % 1.0) - 0.5) * 2.0
+                seam = max(0.0, (py_seam - 0.94) / 0.06) * 0.055
                 t = float(plank)
                 mod = grain - seam
             elif style == "playmat":
-                # Warm almond cork playmat with ultra-subtle tile shift & tiny center emboss
+                # Warm oatmeal cork playmat with subtle tile shift & soft center dimple
                 t = float((cx + cy) % 2)
                 dist2 = (fx - 0.5) ** 2 + (fy - 0.5) ** 2
-                dot = -0.022 if dist2 < (0.065 ** 2) else 0.0
+                dot = -0.032 if dist2 < (0.068 ** 2) else 0.0
                 edge = max(dx, dy)
-                seam = max(0.0, (edge - 0.955) / 0.045) * 0.028
-                speck = math.sin(x * tau * 16.0 + y * tau * 12.0) * 0.004
+                seam = max(0.0, (edge - 0.95) / 0.05) * 0.045
+                speck = math.sin(x * tau * 14.0 + y * tau * 11.0) * 0.007
                 mod = dot - seam + speck
             elif style == "linen":
-                # Misty lavender woven parchment desk mat
-                t = float((cx + cy) % 2) * 0.85
-                weave = (math.sin((x + y) * tau * 20.0) + math.cos((x - y) * tau * 20.0)) * 0.006
+                # Misty slate-lavender woven alchemist desk mat
+                t = float((cx + cy) % 2)
+                weave = (math.sin((x + y) * tau * 18.0) + math.cos((x - y) * tau * 18.0)) * 0.010
                 edge = max(dx, dy)
-                seam = max(0.0, (edge - 0.96) / 0.04) * 0.024
+                seam = max(0.0, (edge - 0.95) / 0.05) * 0.042
                 mod = weave - seam
             else:
-                # Oatmeal cream bakery marble with gentle warm veining
+                # Soft sage-mint bakery ceramic tiles with delicate warm stone vein
                 t = float((cx + cy) % 2)
-                vein = math.sin(x * tau * 2.0 + math.sin(y * tau * 2.0) * 1.1) * 0.009
-                vein += math.cos(y * tau * 3.0 - x * tau * 1.0) * 0.006
+                vein = math.sin(x * tau * 2.0 + math.sin(y * tau * 2.0) * 1.1) * 0.014
+                vein += math.cos(y * tau * 3.0 - x * tau * 1.0) * 0.009
                 edge = max(dx, dy)
-                seam = max(0.0, (edge - 0.96) / 0.04) * 0.024
+                seam = max(0.0, (edge - 0.95) / 0.05) * 0.042
                 mod = vein - seam
 
             r = a[0] * (1.0 - t) + b[0] * t + mod
@@ -103,10 +104,10 @@ def gen_tabletop(path, col_a_hex, col_b_hex, style="marble", size=256):
 
 
 def main():
-    gen_tabletop(os.path.join(TEX_DIR, "w1_01_marble_tile.png"), "#EFE9DE", "#E6DFD2", style="marble")
-    gen_tabletop(os.path.join(TEX_DIR, "w2_01_playmat_tile.png"), "#EDE4CF", "#E5DAC2", style="playmat")
-    gen_tabletop(os.path.join(TEX_DIR, "w3_01_table_tile.png"), "#E8DCCB", "#DFD1BD", style="hinoki")
-    gen_tabletop(os.path.join(TEX_DIR, "w4_01_desk_tile.png"), "#DDD8E6", "#D4CEE0", style="linen")
+    gen_tabletop(os.path.join(TEX_DIR, "w1_01_marble_tile.png"), "#C6DBD1", "#B7CFC4", style="marble")
+    gen_tabletop(os.path.join(TEX_DIR, "w2_01_playmat_tile.png"), "#D9CEB8", "#CCC0A8", style="playmat")
+    gen_tabletop(os.path.join(TEX_DIR, "w3_01_table_tile.png"), "#CFAF8B", "#C2A07B", style="hinoki")
+    gen_tabletop(os.path.join(TEX_DIR, "w4_01_desk_tile.png"), "#B8B3CA", "#AAA4BE", style="linen")
 
 
 if __name__ == "__main__":

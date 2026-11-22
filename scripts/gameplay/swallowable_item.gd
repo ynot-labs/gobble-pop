@@ -17,10 +17,13 @@ var state: State = State.IDLE
 var _fall_vel := Vector3.ZERO
 var _tilt_axis := Vector3.RIGHT
 var _visual_root: Node3D
+var _contact_shadow: MeshInstance3D
 var _target_ring: MeshInstance3D
 var _target_ring_mat: StandardMaterial3D
 var _lock_label: Label3D
 var _bounce: float = 0.0
+
+static var _shared_shadow_mat: ShaderMaterial = null
 
 
 func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0, p_is_objective: bool = false) -> void:
@@ -30,13 +33,14 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 	item_radius = float(def.get("radius", 0.3))
 	item_height = float(def.get("height", 0.4))
 	is_objective = p_is_objective
-	var colors: Array = def.get("colors", ["#FF6FA5"])
+	var colors: Array = def.get("colors", ["#DF85A5"])
 	tint_color = Color(str(colors[color_idx % colors.size()]))
 	position = spawn_pos
 
 	_visual_root = Node3D.new()
 	add_child(_visual_root)
 
+	_build_contact_shadow()
 	if is_objective:
 		_build_target_ring()
 	if tier >= 3:
@@ -53,29 +57,45 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 				inst.scale = Vector3(1.34, 1.34, 1.34)
 			elif item_key in ["w1_sprinkle", "w2_block", "w4_d20"]:
 				inst.rotation.y = randf() * TAU
-				_apply_variant_tint(inst, tint_color)
-			elif item_key in ["w1_gummy_bear", "w1_macaron", "w2_figurine", "w4_slime", "w4_potion"] and color_idx > 0:
-				_apply_variant_tint(inst, tint_color)
-			elif item_key == "w1_donut" and color_idx == 1:
-				_apply_variant_tint(inst, Color("#76B6D4"))
+				# Pure single-color props: clear palette texture so variant colors NEVER multiply into muddy purple!
+				_apply_solid_variant_color(inst, tint_color)
+			elif item_key == "w1_gummy_bear":
+				inst.rotation.y = randf_range(-0.8, 0.8)
+				_apply_solid_variant_color(inst, tint_color)
 			elif item_key in ["w2_duck", "w2_arcade", "w2_unicorn", "w3_sushi", "w4_spellbook"]:
 				inst.rotation.y = randf_range(-0.6, 0.6)
-			_soften_material_recursive(inst)
+			# Multi-color hero models (donuts, boba, macarons, cakes, sushi, bento, potions, cauldrons)
+			# keep their authentic Blender palette atlas intact with a soft matte ceramic/vinyl finish!
+			_soften_material_recursive(inst, item_key in ["w1_sprinkle", "w2_block", "w4_d20", "w1_gummy_bear"])
 			_visual_root.add_child(inst)
 			return
 
 	_build_fallback_mesh()
 
 
+func _build_contact_shadow() -> void:
+	if _shared_shadow_mat == null:
+		_shared_shadow_mat = ShaderMaterial.new()
+		_shared_shadow_mat.shader = load("res://shaders/contact_shadow.gdshader")
+	_contact_shadow = MeshInstance3D.new()
+	var quad := PlaneMesh.new()
+	var sz := maxf(0.55, item_radius * 2.55)
+	quad.size = Vector2(sz, sz)
+	_contact_shadow.mesh = quad
+	_contact_shadow.material_override = _shared_shadow_mat
+	_contact_shadow.position.y = 0.014
+	add_child(_contact_shadow)
+
+
 func _build_target_ring() -> void:
 	_target_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
-	tor.outer_radius = item_radius * 1.15 + 0.085
-	tor.inner_radius = item_radius * 1.15 + 0.025
+	tor.outer_radius = item_radius * 1.16 + 0.095
+	tor.inner_radius = item_radius * 1.16 + 0.025
 	_target_ring.mesh = tor
 	_target_ring.position.y = 0.032
 	_target_ring_mat = StandardMaterial3D.new()
-	_target_ring_mat.albedo_color = Color(0.98, 0.96, 0.92, 0.56)
+	_target_ring_mat.albedo_color = Color(0.99, 0.97, 0.92, 0.78)
 	_target_ring_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_target_ring_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_target_ring.material_override = _target_ring_mat
@@ -95,33 +115,35 @@ func _build_lock_badge() -> void:
 	add_child(_lock_label)
 
 
-func _apply_variant_tint(node: Node, col: Color) -> void:
+func _apply_solid_variant_color(node: Node, col: Color) -> void:
 	if node is MeshInstance3D:
 		var mi := node as MeshInstance3D
 		var src_mat := mi.get_active_material(0)
-		if src_mat is BaseMaterial3D:
-			var dup := src_mat.duplicate() as BaseMaterial3D
+		if src_mat is StandardMaterial3D:
+			var dup := src_mat.duplicate() as StandardMaterial3D
+			dup.albedo_texture = null
 			dup.albedo_color = col
 			mi.set_surface_override_material(0, dup)
 	for child in node.get_children():
-		_apply_variant_tint(child, col)
+		_apply_solid_variant_color(child, col)
 
 
-func _soften_material_recursive(node: Node) -> void:
+func _soften_material_recursive(node: Node, is_solid_variant: bool = false) -> void:
 	if node is MeshInstance3D:
 		var mi := node as MeshInstance3D
 		var src_mat := mi.get_active_material(0)
 		if src_mat is BaseMaterial3D:
 			var dup := src_mat.duplicate() as BaseMaterial3D
-			# Cozy matte ceramic/vinyl finish: soften harsh specular glare & neon sheen
-			dup.roughness = maxf(dup.roughness, 0.40)
-			dup.metallic = minf(dup.metallic, 0.08)
-			dup.albedo_color = dup.albedo_color.lerp(Color("#EDE6DC"), 0.10)
+			# Cozy matte ceramic/vinyl finish: grounded, clean, zero harsh specular blowout
+			dup.roughness = maxf(dup.roughness, 0.42)
+			dup.metallic = minf(dup.metallic, 0.06)
+			if not is_solid_variant:
+				dup.albedo_color = Color(0.95, 0.94, 0.92)
 			if dup.emission_enabled:
-				dup.emission_energy_multiplier = minf(dup.emission_energy_multiplier, 0.03)
+				dup.emission_energy_multiplier = minf(dup.emission_energy_multiplier, 0.02)
 			mi.set_surface_override_material(0, dup)
 	for child in node.get_children():
-		_soften_material_recursive(child)
+		_soften_material_recursive(child, is_solid_variant)
 
 
 func _build_fallback_mesh() -> void:
@@ -169,6 +191,8 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 		var suction_r := maxf(0.48, hole.get_suction_radius() - item_radius * 0.24)
 		if can_eat and dist < suction_r:
 			state = State.PULLING
+			if _contact_shadow:
+				_contact_shadow.visible = false
 			if _target_ring:
 				_target_ring.visible = false
 			if _lock_label:
