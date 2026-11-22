@@ -1,0 +1,850 @@
+{
+  "level": 22,
+  "world": 2,
+  "formation_name": "Duck Pond Ring",
+  "difficulty_tag": "EASY",
+  "duration": 45,
+  "arena": [
+    20,
+    24
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 4,
+  "streak_hint": 0,
+  "targets": {
+    "w2_figurine": 8,
+    "w2_arcade": 6,
+    "w2_unicorn": 3
+  },
+  "items": [
+    {
+      "key": "w2_block",
+      "pos": [
+        7.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        7.09,
+        1.42
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.77,
+        2.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.24,
+        4.1
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.52,
+        5.27
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.63,
+        6.28
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.6,
+        7.1
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.46,
+        7.71
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.25,
+        8.08
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        8.2
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.25,
+        8.08
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.46,
+        7.71
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.6,
+        7.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.63,
+        6.28
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.52,
+        5.27
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.24,
+        4.1
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.77,
+        2.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -7.09,
+        1.42
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -7.2,
+        0.0
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -7.09,
+        -1.42
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.77,
+        -2.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.24,
+        -4.1
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.52,
+        -5.27
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.63,
+        -6.28
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.6,
+        -7.1
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.46,
+        -7.71
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.25,
+        -8.08
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.0,
+        -8.2
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.25,
+        -8.08
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.46,
+        -7.71
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.6,
+        -7.1
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.63,
+        -6.28
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.52,
+        -5.27
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.24,
+        -4.1
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.77,
+        -2.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        7.09,
+        -1.42
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.6,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.46,
+        1.42
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.05,
+        2.78
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.38,
+        3.99
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.49,
+        5.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.43,
+        5.77
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.25,
+        6.24
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        6.4
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.25,
+        6.24
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.43,
+        5.77
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.49,
+        5.0
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.38,
+        3.99
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.05,
+        2.78
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.46,
+        1.42
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.6,
+        0.0
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.46,
+        -1.42
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.05,
+        -2.78
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.38,
+        -3.99
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.49,
+        -5.0
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.43,
+        -5.77
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.25,
+        -6.24
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.0,
+        -6.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.25,
+        -6.24
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.43,
+        -5.77
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.49,
+        -5.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.38,
+        -3.99
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.05,
+        -2.78
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.46,
+        -1.42
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        4.0,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.7,
+        1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        2.83,
+        3.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        1.53,
+        4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        0.0,
+        4.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -1.53,
+        4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -2.83,
+        3.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.7,
+        1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -4.0,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.7,
+        -1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -2.83,
+        -3.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -1.53,
+        -4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -0.0,
+        -4.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        1.53,
+        -4.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        2.83,
+        -3.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.7,
+        -1.76
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        2.4,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        1.94,
+        1.65
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        0.74,
+        2.66
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -0.74,
+        2.66
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -1.94,
+        1.65
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -2.4,
+        0.0
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -1.94,
+        -1.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -0.74,
+        -2.66
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        0.74,
+        -2.66
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        1.94,
+        -1.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        6.08,
+        2.96
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        2.48,
+        7.04
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -2.57,
+        7.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -6.12,
+        2.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -6.08,
+        -2.96
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -2.48,
+        -7.04
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        2.57,
+        -7.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        6.12,
+        -2.86
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_unicorn",
+      "pos": [
+        -7.0,
+        -8.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_unicorn",
+      "pos": [
+        7.0,
+        -8.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_unicorn",
+      "pos": [
+        0,
+        8.5
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        -3.0,
+        0
+      ]
+    },
+    {
+      "kind": "magnet",
+      "pos": [
+        3.0,
+        0
+      ]
+    }
+  ],
+  "traps": [],
+  "walls": []
+}

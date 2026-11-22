@@ -1,0 +1,799 @@
+{
+  "level": 27,
+  "world": 2,
+  "formation_name": "Twin Toy Vaults",
+  "difficulty_tag": "NORMAL",
+  "duration": 42,
+  "arena": [
+    22,
+    26
+  ],
+  "spawn": [
+    0,
+    9.2
+  ],
+  "max_target_tier": 5,
+  "streak_hint": 0,
+  "targets": {
+    "w2_arcade": 7,
+    "w2_unicorn": 3,
+    "w2_golden_gacha": 2
+  },
+  "items": [
+    {
+      "key": "w2_block",
+      "pos": [
+        -8.1,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.3,
+        6.2
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.5,
+        6.2
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.7,
+        6.2
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.7,
+        6.2
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.5,
+        6.2
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.3,
+        6.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        8.1,
+        6.2
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -8.1,
+        7.5
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.3,
+        7.5
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.5,
+        7.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.7,
+        7.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.7,
+        7.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.5,
+        7.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.3,
+        7.5
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        8.1,
+        7.5
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -8.1,
+        8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.3,
+        8.8
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.5,
+        8.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.7,
+        8.8
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.7,
+        8.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.5,
+        8.8
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.3,
+        8.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        8.1,
+        8.8
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.5,
+        -0.9
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.7,
+        -0.9
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.9,
+        -0.9
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.9,
+        -0.9
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.7,
+        -0.9
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.5,
+        -0.9
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.5,
+        0.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.7,
+        0.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.9,
+        0.5
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.9,
+        0.5
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.7,
+        0.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.5,
+        0.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.5,
+        1.9
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.7,
+        1.9
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.9,
+        1.9
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.9,
+        1.9
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.7,
+        1.9
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.5,
+        1.9
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -2.8,
+        -5.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.41,
+        -3.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.01,
+        -2.27
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -6.99,
+        -2.27
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -8.59,
+        -3.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -9.2,
+        -5.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -8.59,
+        -7.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -6.99,
+        -8.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.01,
+        -8.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.41,
+        -7.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        9.2,
+        -5.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        8.59,
+        -3.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        6.99,
+        -2.27
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        5.01,
+        -2.27
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.41,
+        -3.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        2.8,
+        -5.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.41,
+        -7.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        5.01,
+        -8.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        6.99,
+        -8.73
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        8.59,
+        -7.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -8.5,
+        2.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -6.95,
+        2.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -5.41,
+        2.5
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -3.86,
+        2.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -2.32,
+        2.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -0.77,
+        2.5
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        0.77,
+        2.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        2.32,
+        2.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        3.86,
+        2.5
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        5.41,
+        2.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        6.95,
+        2.5
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        8.5,
+        2.5
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -6.5,
+        -2.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -6.5,
+        -8.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        6.5,
+        -2.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        6.5,
+        -8.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        0,
+        -4.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        0,
+        -8.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -8.5,
+        0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        8.5,
+        0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_unicorn",
+      "pos": [
+        -8.5,
+        -5.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_unicorn",
+      "pos": [
+        8.5,
+        -5.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_unicorn",
+      "pos": [
+        -3.2,
+        -9.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_unicorn",
+      "pos": [
+        3.2,
+        -9.5
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_golden_gacha",
+      "pos": [
+        -6.0,
+        -5.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_golden_gacha",
+      "pos": [
+        6.0,
+        -5.8
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        0,
+        0.5
+      ]
+    },
+    {
+      "kind": "magnet",
+      "pos": [
+        -6.0,
+        5.5
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        -2.2,
+        -1.2
+      ]
+    },
+    {
+      "pos": [
+        2.2,
+        -1.2
+      ]
+    },
+    {
+      "pos": [
+        -6.0,
+        -9.5
+      ]
+    },
+    {
+      "pos": [
+        6.0,
+        -9.5
+      ]
+    },
+    {
+      "pos": [
+        0,
+        3.8
+      ]
+    }
+  ],
+  "walls": [
+    {
+      "pos": [
+        -6.0,
+        -1.2
+      ],
+      "rot_deg": 0.0
+    },
+    {
+      "pos": [
+        6.0,
+        -1.2
+      ],
+      "rot_deg": 0.0
+    },
+    {
+      "pos": [
+        0.0,
+        -5.8
+      ],
+      "rot_deg": 90.0
+    }
+  ]
+}

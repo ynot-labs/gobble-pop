@@ -1,0 +1,722 @@
+{
+  "level": 21,
+  "world": 2,
+  "formation_name": "Toybox Mosaic",
+  "difficulty_tag": "EASY",
+  "duration": 45,
+  "arena": [
+    18,
+    22
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 3,
+  "streak_hint": 0,
+  "targets": {
+    "w2_duck": 10,
+    "w2_arcade": 5
+  },
+  "items": [
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.8,
+        -5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.1,
+        -5.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.4,
+        -5.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.7,
+        -5.4
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.7,
+        -5.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.4,
+        -5.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.1,
+        -5.4
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.8,
+        -5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.8,
+        -3.6
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.1,
+        -3.6
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.4,
+        -3.6
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.7,
+        -3.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -3.6
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.7,
+        -3.6
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.4,
+        -3.6
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.1,
+        -3.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.8,
+        -3.6
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.8,
+        -1.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.1,
+        -1.8
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.4,
+        -1.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.7,
+        -1.8
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.7,
+        -1.8
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.4,
+        -1.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.1,
+        -1.8
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.8,
+        -1.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.8,
+        0.0
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.1,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.4,
+        0.0
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.4,
+        0.0
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.1,
+        0.0
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.8,
+        0.0
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.8,
+        1.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.1,
+        1.8
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.4,
+        1.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.7,
+        1.8
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.7,
+        1.8
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.4,
+        1.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.1,
+        1.8
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.8,
+        1.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.8,
+        3.6
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.1,
+        3.6
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.4,
+        3.6
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.7,
+        3.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        3.6
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.7,
+        3.6
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.4,
+        3.6
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.1,
+        3.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.8,
+        3.6
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -6.8,
+        5.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.1,
+        5.4
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.4,
+        5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.7,
+        5.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        5.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.7,
+        5.4
+      ],
+      "color_idx": 3
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.4,
+        5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.1,
+        5.4
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        6.8,
+        5.4
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        5.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        4.69,
+        2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.24,
+        4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        1.16,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -1.16,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.24,
+        4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -4.69,
+        2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -4.69,
+        -2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.24,
+        -4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -1.16,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        1.16,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.24,
+        -4.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        4.69,
+        -2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        3.2,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        2.26,
+        2.69
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        0.0,
+        3.8
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -2.26,
+        2.69
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -3.2,
+        0.0
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -2.26,
+        -2.69
+      ],
+      "color_idx": 2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -0.0,
+        -3.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        2.26,
+        -2.69
+      ],
+      "color_idx": 1
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -6.5,
+        -7.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        6.5,
+        -7.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -6.5,
+        7.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        6.5,
+        7.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        0,
+        -7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        0,
+        7.8
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "magnet",
+      "pos": [
+        0,
+        3.2
+      ]
+    }
+  ],
+  "traps": [],
+  "walls": []
+}
