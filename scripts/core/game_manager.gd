@@ -133,7 +133,41 @@ var item_catalog: Dictionary = {}
 func _ready() -> void:
 	_load_build_config()
 	_load_item_catalog()
-	load_progress()
+	if _check_web_reset_query():
+		reset_all_progress()
+	else:
+		load_progress()
+
+
+func _check_web_reset_query() -> bool:
+	if not OS.has_feature("web"):
+		return false
+	var should_reset = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('reset') === '1'", true)
+	if bool(should_reset):
+		JavaScriptBridge.eval("try { const u = new URL(window.location.href); u.searchParams.delete('reset'); window.history.replaceState({}, '', u.toString()); } catch(e) {}", true)
+		return true
+	return false
+
+
+func reset_all_progress() -> void:
+	current_level = 1
+	max_unlocked_level = 1
+	win_streak = 0
+	streak_chest_progress = 0
+	coins = 150
+	skin_shards = 2
+	unlocked_worlds = 1
+	inv_magnet = 2
+	inv_ice = 2
+	level_stars = {}
+	owned_skins = ["classic"]
+	equipped_skin = "classic"
+	seen_tutorials = {}
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+	save_progress()
+	economy_changed.emit()
+	skin_equipped.emit("classic")
 
 
 func _load_build_config() -> void:

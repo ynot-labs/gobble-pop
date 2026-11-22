@@ -274,11 +274,18 @@ func _build_hud() -> void:
 	top_vbox.add_theme_constant_override("separation", 9)
 	top_margin.add_child(top_vbox)
 
-	# === ROW 1: Commercial Icon-First Top HUD ([Timer] | [Targets Icons] | [Flame] | [Pause]) ===
+	# === ROW 1: Commercial Icon-First Top HUD ([Home Exit] | [Timer] | [Targets Icons] | [Flame] | [Pause]) ===
 	var row1 := HBoxContainer.new()
 	row1.alignment = BoxContainer.ALIGNMENT_CENTER
-	row1.add_theme_constant_override("separation", 10)
+	row1.add_theme_constant_override("separation", 8)
 	top_vbox.add_child(row1)
+
+	var btn_exit_home := CandyUI.create_square_icon_button("icon_home", "", false, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 60, 34)
+	btn_exit_home.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		_show_home_lobby()
+	)
+	row1.add_child(btn_exit_home)
 
 	_timer_pill = CandyUI.create_icon_pill("icon_timer", "0:45", Color("#22B8EE"), Color("#0B78A8"), 28, 36, Color("#0A4266"))
 	row1.add_child(_timer_pill)
@@ -512,6 +519,16 @@ func _build_beta_bar() -> void:
 	var btn_b_home := CandyUI.create_beta_chip("HOME", Color("#0284C7"))
 	btn_b_home.pressed.connect(func(): _show_home_lobby())
 	world_row.add_child(btn_b_home)
+
+	var btn_b_reset := CandyUI.create_beta_chip("RESET", Color("#DC2626"))
+	btn_b_reset.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		GameManager.reset_all_progress()
+		_attempts_this_level = 0
+		_load_level(1, false, true)
+		_show_home_lobby()
+	)
+	world_row.add_child(btn_b_reset)
 
 	for wid in [1, 2, 3, 4]:
 		var wb := CandyUI.create_beta_chip(str(WORLD_META[wid]["short"]), Color("#1E293B"))
