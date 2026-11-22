@@ -2,7 +2,7 @@ extends Node3D
 class_name StickyTrap
 
 var trap_radius: float = 0.94
-var trap_color: Color = Color("#FF2E93")
+var trap_color: Color = Color("#D85B88")
 var trap_label: String = "STICKY GUM!"
 var _mat: ShaderMaterial
 var _cleared: bool = false
@@ -19,20 +19,22 @@ func setup(spawn_pos: Vector3, world_id: int = 1) -> void:
 	var model_path := "res://assets/models/world1/w1_09_bubblegum.glb"
 
 	if world_id == 3:
-		trap_color = Color("#FFC107")
+		trap_color = Color("#D99B26")
 		trap_label = "MELTED CHEESE!"
-		_mat.set_shader_parameter("gum_color", Color("#FFC107"))
-		_mat.set_shader_parameter("highlight_color", Color("#FFF3B0"))
+		_mat.set_shader_parameter("gum_color", Color("#D99B26"))
+		_mat.set_shader_parameter("highlight_color", Color("#F8E7B8"))
 		model_path = "res://assets/models/world3/w3_06_cheese.glb"
 	elif world_id == 4:
-		trap_color = Color("#39FF14")
+		trap_color = Color("#4CAF6E")
 		trap_label = "STICKY SLIME!"
-		_mat.set_shader_parameter("gum_color", Color("#39FF14"))
-		_mat.set_shader_parameter("highlight_color", Color("#C8FFBE"))
+		_mat.set_shader_parameter("gum_color", Color("#4CAF6E"))
+		_mat.set_shader_parameter("highlight_color", Color("#D6F0DD"))
 		model_path = "res://assets/models/world4/w4_07_slime_trap.glb"
 	else:
-		trap_color = Color("#FF2E93")
+		trap_color = Color("#D85B88")
 		trap_label = "STICKY GUM!"
+		_mat.set_shader_parameter("gum_color", Color("#D85B88"))
+		_mat.set_shader_parameter("highlight_color", Color("#F8DCE6"))
 
 	if ResourceLoader.exists(model_path):
 		var packed: PackedScene = load(model_path)

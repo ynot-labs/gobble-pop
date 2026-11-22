@@ -81,17 +81,29 @@ func _build_3d_stage() -> void:
 	var env_node := WorldEnvironment.new()
 	_env = Environment.new()
 	_env.background_mode = Environment.BG_COLOR
-	_env.background_color = Color("#B7F4DD")
+	_env.background_color = Color("#BFD4C8")
 	_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	_env.ambient_light_color = Color(1.0, 0.99, 0.97)
-	_env.ambient_light_energy = 0.88
+	_env.ambient_light_color = Color("#EFEAE2")
+	_env.ambient_light_energy = 0.56
+	# Cozy Filmic tonemapping + eye-friendly saturation & contrast softening
+	_env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	_env.tonemap_exposure = 0.96
+	_env.tonemap_white = 1.18
+	_env.adjustment_enabled = true
+	_env.adjustment_saturation = 0.84
+	_env.adjustment_contrast = 0.96
+	_env.adjustment_brightness = 0.98
 	env_node.environment = _env
 	add_child(env_node)
 
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-56, 30, 0)
-	sun.light_energy = 1.18
+	sun.light_color = Color("#FFF6E8")
+	sun.light_energy = 0.86
 	sun.shadow_enabled = true
+	sun.shadow_opacity = 0.34
+	sun.shadow_blur = 2.0
+	sun.directional_shadow_max_distance = 56.0
 	add_child(sun)
 
 	_camera = Camera3D.new()
@@ -138,7 +150,7 @@ func _build_hud() -> void:
 	_bomb_flash_rect = ColorRect.new()
 	_bomb_flash_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_bomb_flash_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_bomb_flash_rect.color = Color(1.0, 0.12, 0.18, 0.0)
+	_bomb_flash_rect.color = Color(0.84, 0.28, 0.28, 0.0)
 	_hud_layer.add_child(_bomb_flash_rect)
 
 	_joystick_overlay = JoystickOverlay.new()
@@ -157,14 +169,14 @@ func _build_hud() -> void:
 	top_vbox.add_theme_constant_override("separation", 8)
 	top_margin.add_child(top_vbox)
 
-	# Row 0A: 4-World Selector Bar
+	# Row 0A: 4-World Selector Bar (Frosted Cream Cozy Tabs)
 	var world_row := HBoxContainer.new()
 	world_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	world_row.add_theme_constant_override("separation", 6)
 	top_vbox.add_child(world_row)
 
 	for wid in [1, 2, 3, 4]:
-		var wb := _make_small_tab(str(WORLD_META[wid]["short"]), Color("#1E293B"))
+		var wb := _make_small_tab(str(WORLD_META[wid]["short"]), Color(0.98, 0.97, 0.94, 0.90), Color("#3A424E"))
 		var target_w: int = wid
 		wb.pressed.connect(func(): _load_level(int(WORLD_META[target_w]["start"]), true))
 		world_row.add_child(wb)
@@ -176,46 +188,45 @@ func _build_hud() -> void:
 	stage_row.add_theme_constant_override("separation", 6)
 	top_vbox.add_child(stage_row)
 
-	var btn_prev := _make_small_tab("< Prev", Color("#334155"))
+	var btn_prev := _make_small_tab("< Prev", Color(0.98, 0.97, 0.94, 0.88), Color("#4A5360"))
 	btn_prev.pressed.connect(func(): _load_level(50 if _level_number <= 1 else _level_number - 1, true))
 	stage_row.add_child(btn_prev)
 
 	for kind in ["start", "hard", "cliff", "mega"]:
-		var col := Color("#9F1239") if kind == "mega" else (Color("#BE123C") if kind == "cliff" else Color("#334155"))
 		var txt := "MEGA BOSS" if kind == "mega" else ("CLIFF" if kind == "cliff" else ("HARD" if kind == "hard" else "START"))
-		var sb := _make_small_tab(txt, col)
+		var sb := _make_small_tab(txt, Color(0.98, 0.97, 0.94, 0.88), Color("#4A5360"))
 		var k: String = kind
 		sb.pressed.connect(func(): _load_level(int(WORLD_META[_world_id][k]), true))
 		stage_row.add_child(sb)
 		_stage_buttons[kind] = sb
 
-	var btn_next := _make_small_tab("Next >", Color("#334155"))
+	var btn_next := _make_small_tab("Next >", Color(0.98, 0.97, 0.94, 0.88), Color("#4A5360"))
 	btn_next.pressed.connect(func(): _load_level((_level_number % 50) + 1, true))
 	stage_row.add_child(btn_next)
 
-	# Row 1: Level Badge | Timer | Streak + Mute
+	# Row 1: Level Badge | Timer | Streak + Mute (Unified Frosted Cream Cards!)
 	var row1 := HBoxContainer.new()
 	row1.alignment = BoxContainer.ALIGNMENT_CENTER
 	top_vbox.add_child(row1)
 
-	_level_label = _make_pill_label("W1 L1", Color("#0EA5E9"), 24)
+	_level_label = _make_pill_label("W1 L1", Color(0.98, 0.97, 0.94, 0.92), 23, Color("#2E3742"))
 	row1.add_child(_level_label)
 
 	var sp1 := Control.new()
 	sp1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row1.add_child(sp1)
 
-	_timer_label = _make_pill_label("45.0s", Color("#14B8A6"), 36)
+	_timer_label = _make_pill_label("45.0s", Color(0.98, 0.97, 0.94, 0.95), 34, Color("#2A7B6D"))
 	row1.add_child(_timer_label)
 
 	var sp2 := Control.new()
 	sp2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row1.add_child(sp2)
 
-	_streak_label = _make_pill_label("STREAK 0", Color("#F59E0B"), 22)
+	_streak_label = _make_pill_label("STREAK 0", Color(0.98, 0.97, 0.94, 0.92), 21, Color("#B46B22"))
 	row1.add_child(_streak_label)
 
-	_btn_mute = _make_small_tab("SFX ON", Color("#0284C7"))
+	_btn_mute = _make_small_tab("SFX ON", Color(0.98, 0.97, 0.94, 0.90), Color("#3A424E"))
 	_btn_mute.pressed.connect(_on_mute_pressed)
 	row1.add_child(_btn_mute)
 
@@ -231,40 +242,50 @@ func _build_hud() -> void:
 	row3.add_theme_constant_override("separation", 12)
 	top_vbox.add_child(row3)
 
-	_hole_lvl_label = _make_pill_label("HOLE LV.1", Color("#10B981"), 22)
+	_hole_lvl_label = _make_pill_label("HOLE LV.1", Color(0.98, 0.97, 0.94, 0.92), 21, Color("#2E7D67"))
 	row3.add_child(_hole_lvl_label)
 
 	_fever_bar = ProgressBar.new()
-	_fever_bar.custom_minimum_size = Vector2(300, 22)
+	_fever_bar.custom_minimum_size = Vector2(280, 20)
 	_fever_bar.max_value = 100.0
 	_fever_bar.value = 0.0
 	_fever_bar.show_percentage = false
+	var fb_bg := StyleBoxFlat.new()
+	fb_bg.bg_color = Color(0.96, 0.94, 0.90, 0.88)
+	fb_bg.border_color = Color("#D5CCC0")
+	fb_bg.set_border_width_all(2)
+	fb_bg.set_corner_radius_all(10)
+	var fb_fill := StyleBoxFlat.new()
+	fb_fill.bg_color = Color("#DFA35A")
+	fb_fill.set_corner_radius_all(8)
+	_fever_bar.add_theme_stylebox_override("background", fb_bg)
+	_fever_bar.add_theme_stylebox_override("fill", fb_fill)
 	row3.add_child(_fever_bar)
 
 	_buff_label = Label.new()
-	_buff_label.add_theme_font_size_override("font_size", 26)
+	_buff_label.add_theme_font_size_override("font_size", 24)
 	_buff_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_buff_label.modulate = Color("#BE123C")
+	_buff_label.modulate = Color("#B54B5D")
 	top_vbox.add_child(_buff_label)
 
-	# Bottom Booster Row
+	# Bottom Booster Row (Soft Frosted Cream + Muted Accent Border)
 	var bot_bar := HBoxContainer.new()
 	bot_bar.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	bot_bar.offset_top = -108
+	bot_bar.offset_top = -104
 	bot_bar.offset_bottom = -20
 	bot_bar.alignment = BoxContainer.ALIGNMENT_CENTER
 	bot_bar.add_theme_constant_override("separation", 16)
 	_hud_layer.add_child(bot_bar)
 
-	var btn_rv_ice := _make_action_button("[AD] FREEZE +6s", Color("#0EA5E9"))
+	var btn_rv_ice := _make_action_button("[AD] FREEZE +6s", Color(0.98, 0.97, 0.94, 0.93), Color("#2D7A9C"), Color("#82B8CF"))
 	btn_rv_ice.pressed.connect(func(): AdManager.show_rewarded("in_level_ice"))
 	bot_bar.add_child(btn_rv_ice)
 
-	var btn_rv_mag := _make_action_button("[AD] MAGNET 7s", Color("#9333EA"))
+	var btn_rv_mag := _make_action_button("[AD] MAGNET 7s", Color(0.98, 0.97, 0.94, 0.93), Color("#735399"), Color("#B49CD0"))
 	btn_rv_mag.pressed.connect(func(): AdManager.show_rewarded("in_level_magnet"))
 	bot_bar.add_child(btn_rv_mag)
 
-	# Modal Overlay
+	# Modal Overlay (Warm Cream Storybook Card)
 	_overlay_panel = PanelContainer.new()
 	_overlay_panel.set_anchors_preset(Control.PRESET_CENTER)
 	_overlay_panel.custom_minimum_size = Vector2(820, 620)
@@ -273,10 +294,10 @@ func _build_hud() -> void:
 	_overlay_panel.offset_top = -310
 	_overlay_panel.offset_bottom = 310
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(1.0, 0.99, 0.97, 0.97)
-	style.border_color = Color("#14B8A6")
-	style.set_border_width_all(6)
-	style.set_corner_radius_all(34)
+	style.bg_color = Color(0.985, 0.973, 0.949, 0.97)
+	style.border_color = Color("#B8C9BE")
+	style.set_border_width_all(5)
+	style.set_corner_radius_all(32)
 	style.set_content_margin_all(34)
 	_overlay_panel.add_theme_stylebox_override("panel", style)
 	_hud_layer.add_child(_overlay_panel)
@@ -286,38 +307,43 @@ func _build_hud() -> void:
 	ov_box.add_theme_constant_override("separation", 18)
 	_overlay_panel.add_child(ov_box)
 
-	_overlay_badge = _make_pill_label("WORLD 1", Color("#0F766E"), 24)
+	_overlay_badge = _make_pill_label("WORLD 1", Color("#E9F2EE"), 23, Color("#2E6F62"), Color("#BDD6CB"))
 	_overlay_badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ov_box.add_child(_overlay_badge)
 
 	_overlay_title = Label.new()
 	_overlay_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_overlay_title.add_theme_font_size_override("font_size", 46)
-	_overlay_title.modulate = Color("#0F172A")
+	_overlay_title.add_theme_font_size_override("font_size", 44)
+	_overlay_title.modulate = Color("#2C3440")
 	ov_box.add_child(_overlay_title)
 
 	_overlay_desc = Label.new()
 	_overlay_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_overlay_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_overlay_desc.add_theme_font_size_override("font_size", 26)
-	_overlay_desc.modulate = Color("#475569")
+	_overlay_desc.add_theme_font_size_override("font_size", 25)
+	_overlay_desc.modulate = Color("#5C6573")
 	ov_box.add_child(_overlay_desc)
 
-	_btn_primary = _make_action_button("PLAY!", Color("#10B981"))
-	_btn_primary.custom_minimum_size = Vector2(620, 86)
+	_btn_primary = _make_action_button("PLAY!", Color("#3E9B84"))
+	_btn_primary.custom_minimum_size = Vector2(620, 84)
 	ov_box.add_child(_btn_primary)
 
-	_btn_secondary = _make_action_button("[AD] START AT LV.2 + MAGNET", Color("#F59E0B"))
-	_btn_secondary.custom_minimum_size = Vector2(620, 76)
+	_btn_secondary = _make_action_button("[AD] START AT LV.2 + MAGNET", Color("#D69145"))
+	_btn_secondary.custom_minimum_size = Vector2(620, 74)
 	ov_box.add_child(_btn_secondary)
 
 
-func _make_small_tab(txt: String, bg: Color) -> Button:
+func _make_small_tab(txt: String, bg: Color, text_col: Color = Color.WHITE, border_col: Color = Color("#D6CEC2")) -> Button:
 	var b := Button.new()
 	b.text = txt
-	b.add_theme_font_size_override("font_size", 19)
+	b.add_theme_font_size_override("font_size", 18)
+	b.add_theme_color_override("font_color", text_col)
+	b.add_theme_color_override("font_hover_color", text_col)
+	b.add_theme_color_override("font_pressed_color", text_col)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
+	sb.border_color = border_col
+	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(12)
 	sb.set_content_margin_all(7)
 	b.add_theme_stylebox_override("normal", sb)
@@ -326,25 +352,33 @@ func _make_small_tab(txt: String, bg: Color) -> Button:
 	return b
 
 
-func _make_pill_label(txt: String, bg: Color, font_sz: int) -> Label:
+func _make_pill_label(txt: String, bg: Color, font_sz: int, text_col: Color = Color.WHITE, border_col: Color = Color("#D6CEC2")) -> Label:
 	var lbl := Label.new()
 	lbl.text = "  %s  " % txt
 	lbl.add_theme_font_size_override("font_size", font_sz)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
-	sb.set_corner_radius_all(20)
-	sb.set_content_margin_all(9)
+	sb.border_color = border_col
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(18)
+	sb.set_content_margin_all(8)
 	lbl.add_theme_stylebox_override("normal", sb)
-	lbl.modulate = Color.WHITE
+	lbl.add_theme_color_override("font_color", text_col)
 	return lbl
 
 
-func _make_action_button(txt: String, bg: Color) -> Button:
+func _make_action_button(txt: String, bg: Color, text_col: Color = Color.WHITE, border_col: Color = Color(0, 0, 0, 0)) -> Button:
 	var b := Button.new()
 	b.text = txt
-	b.add_theme_font_size_override("font_size", 26)
+	b.add_theme_font_size_override("font_size", 25)
+	b.add_theme_color_override("font_color", text_col)
+	b.add_theme_color_override("font_hover_color", text_col)
+	b.add_theme_color_override("font_pressed_color", text_col)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
+	if border_col.a > 0.01:
+		sb.border_color = border_col
+		sb.set_border_width_all(3)
 	sb.set_corner_radius_all(20)
 	sb.set_content_margin_all(12)
 	b.add_theme_stylebox_override("normal", sb)
@@ -358,20 +392,20 @@ func _apply_world_theme(world_id: int) -> void:
 	var tex_path := ""
 	match world_id:
 		2:
-			_env.background_color = Color("#4C1D95")
-			_table_mat.set_shader_parameter("border_color", Color("#F59E0B"))
+			_env.background_color = Color("#C7CEDB")
+			_table_mat.set_shader_parameter("border_color", Color("#A8B3C6"))
 			tex_path = "res://assets/textures/w2_01_playmat_tile.png"
 		3:
-			_env.background_color = Color("#7C2D12")
-			_table_mat.set_shader_parameter("border_color", Color("#FB7185"))
+			_env.background_color = Color("#B89F8D")
+			_table_mat.set_shader_parameter("border_color", Color("#9E8270"))
 			tex_path = "res://assets/textures/w3_01_table_tile.png"
 		4:
-			_env.background_color = Color("#2E1065")
-			_table_mat.set_shader_parameter("border_color", Color("#C084FC"))
+			_env.background_color = Color("#9D94B2")
+			_table_mat.set_shader_parameter("border_color", Color("#83789C"))
 			tex_path = "res://assets/textures/w4_01_desk_tile.png"
 		_:
-			_env.background_color = Color("#A7F3D0")
-			_table_mat.set_shader_parameter("border_color", Color("#6EE7B7"))
+			_env.background_color = Color("#BFD4C8")
+			_table_mat.set_shader_parameter("border_color", Color("#9EB9AA"))
 			tex_path = "res://assets/textures/w1_01_marble_tile.png"
 
 	if ResourceLoader.exists(tex_path):
@@ -491,29 +525,51 @@ func _load_level(num: int, show_start_modal: bool) -> void:
 		var def := GameManager.get_item_def(t_key)
 		var label_name := str(def.get("name", t_key))
 		var t_lv := int(def.get("tier", 1))
-		var lbl := _make_pill_label("%s x%d (Lv.%d)" % [label_name, count, t_lv], Color("#7C3AED"), 21)
+		var lbl := _make_pill_label("%s x%d (Lv.%d)" % [label_name, count, t_lv], Color(0.98, 0.97, 0.94, 0.93), 20, Color("#3B4252"), Color("#C8BFA8"))
 		_targets_box.add_child(lbl)
 		_target_labels[t_key] = lbl
 
-	# Highlight active World & Stage pills
+	# Highlight active World & Stage pills (Cozy Cream Inactive / Muted Sage or Dusty Rose Active)
 	for wid in _world_buttons:
 		var wb: Button = _world_buttons[wid]
+		var is_cur: bool = (wid == world_id)
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color("#0EA5E9") if wid == world_id else Color("#1E293B")
+		sb.bg_color = Color("#3E8E7E") if is_cur else Color(0.98, 0.97, 0.94, 0.90)
+		sb.border_color = Color("#2D7063") if is_cur else Color("#D6CEC2")
+		sb.set_border_width_all(2)
 		sb.set_corner_radius_all(12)
 		sb.set_content_margin_all(7)
+		var tc := Color.WHITE if is_cur else Color("#3A424E")
+		wb.add_theme_color_override("font_color", tc)
+		wb.add_theme_color_override("font_hover_color", tc)
+		wb.add_theme_color_override("font_pressed_color", tc)
 		wb.add_theme_stylebox_override("normal", sb)
+		wb.add_theme_stylebox_override("hover", sb)
+		wb.add_theme_stylebox_override("pressed", sb)
 
 	var wmeta: Dictionary = WORLD_META[world_id]
 	for k in _stage_buttons:
 		var btn: Button = _stage_buttons[k]
 		var lv_target := int(wmeta[k])
 		var active := lv_target == _level_number
+		var is_boss_tab: bool = (k == "cliff" or k == "mega")
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color("#E11D48") if (active and (k == "cliff" or k == "mega")) else (Color("#14B8A6") if active else (Color("#881337") if k == "mega" else Color("#334155")))
+		if active:
+			sb.bg_color = Color("#C95B6B") if is_boss_tab else Color("#3E8E7E")
+			sb.border_color = Color("#A84554") if is_boss_tab else Color("#2D7063")
+		else:
+			sb.bg_color = Color(0.98, 0.95, 0.95, 0.90) if is_boss_tab else Color(0.98, 0.97, 0.94, 0.88)
+			sb.border_color = Color("#DEC2C6") if is_boss_tab else Color("#D6CEC2")
+		sb.set_border_width_all(2)
 		sb.set_corner_radius_all(12)
 		sb.set_content_margin_all(7)
+		var tc := Color.WHITE if active else (Color("#9E4251") if is_boss_tab else Color("#4A5360"))
+		btn.add_theme_color_override("font_color", tc)
+		btn.add_theme_color_override("font_hover_color", tc)
+		btn.add_theme_color_override("font_pressed_color", tc)
 		btn.add_theme_stylebox_override("normal", sb)
+		btn.add_theme_stylebox_override("hover", sb)
+		btn.add_theme_stylebox_override("pressed", sb)
 
 	var fname := str(_level_data.get("formation_name", "Stage"))
 	_level_label.text = "  W%d L%d: %s  " % [world_id, _level_number, fname]
@@ -557,12 +613,12 @@ func _show_start_overlay(tag: String, fname: String, world_id: int) -> void:
 			"\nWatch out for -3s Time Bombs!" if _bombs.size() > 0 else ""
 		)
 
-	_rebind_button(_btn_primary, "PLAY STAGE!", Color("#14B8A6"), func():
+	_rebind_button(_btn_primary, "PLAY STAGE!", Color("#3E9B84"), func():
 		AudioManager.start_bgm()
 		_begin_play()
 	)
 	_btn_secondary.visible = true
-	_rebind_button(_btn_secondary, "[AD] START AT LV.2 + MAGNET 7s", Color("#22C55E"), func():
+	_rebind_button(_btn_secondary, "[AD] START AT LV.2 + MAGNET 7s", Color("#D69145"), func():
 		AudioManager.start_bgm()
 		AdManager.show_rewarded("pre_level_boost")
 	)
@@ -581,7 +637,7 @@ func _process(delta: float) -> void:
 
 	if _bomb_flash_timer > 0.0:
 		_bomb_flash_timer = maxf(_bomb_flash_timer - delta * 2.4, 0.0)
-		_bomb_flash_rect.color.a = _bomb_flash_timer * 0.45
+		_bomb_flash_rect.color.a = _bomb_flash_timer * 0.24
 
 	var cam_lim_x := maxf(1.5, _board_half.x - 4.4)
 	var cam_lim_z := maxf(1.5, _board_half.y - 5.0)
@@ -604,7 +660,7 @@ func _process(delta: float) -> void:
 		if is_instance_valid(wall):
 			if wall.step_interaction(_hole, delta):
 				_camera_shake = maxf(_camera_shake, 3.0)
-				_spawn_popup(_hole.position + Vector3(0, 1.0, 0), "BOING!", Color("#A855F7"))
+				_spawn_popup(_hole.position + Vector3(0, 1.0, 0), "BOING!", Color("#8A6FB8"))
 
 	for i in range(_items.size() - 1, -1, -1):
 		if is_instance_valid(_items[i]):
@@ -649,14 +705,21 @@ func _process(delta: float) -> void:
 func _update_timer_ui() -> void:
 	_timer_label.text = "  %.1fs  " % _time_left
 	var sb := StyleBoxFlat.new()
-	sb.set_corner_radius_all(20)
-	sb.set_content_margin_all(9)
+	sb.set_corner_radius_all(18)
+	sb.set_content_margin_all(8)
+	sb.set_border_width_all(2)
 	if _ice_freeze_timer > 0.0:
-		sb.bg_color = Color("#0284C7")
+		sb.bg_color = Color("#E7F3F8")
+		sb.border_color = Color("#7FB5CC")
+		_timer_label.add_theme_color_override("font_color", Color("#2B6E8C"))
 	elif _time_left <= 8.0:
-		sb.bg_color = Color("#E11D48")
+		sb.bg_color = Color("#D6505A")
+		sb.border_color = Color("#B53D47")
+		_timer_label.add_theme_color_override("font_color", Color.WHITE)
 	else:
-		sb.bg_color = Color("#14B8A6")
+		sb.bg_color = Color(0.98, 0.97, 0.94, 0.95)
+		sb.border_color = Color("#C4D6CE")
+		_timer_label.add_theme_color_override("font_color", Color("#2A7B6D"))
 	_timer_label.add_theme_stylebox_override("normal", sb)
 
 
@@ -691,8 +754,8 @@ func _on_bomb_detonated(world_pos: Vector3, penalty: float) -> void:
 	_camera_shake = 8.5
 	AudioManager.play_sfx("fail", 1.35)
 	PlatformBridge.trigger_haptic(55)
-	_spawn_pop_particles(world_pos + Vector3(0, 0.3, 0), Color("#FF3B30"), 18)
-	_spawn_popup(world_pos, "BOOM! -%.0fs!" % penalty, Color("#FF3B30"))
+	_spawn_pop_particles(world_pos + Vector3(0, 0.3, 0), Color("#D64545"), 18)
+	_spawn_popup(world_pos, "BOOM! -%.0fs!" % penalty, Color("#D64545"))
 	_update_timer_ui()
 
 
@@ -714,10 +777,13 @@ func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, ti
 		if left <= 0:
 			lbl.text = "  [OK] %s  " % label_name
 			var sb := StyleBoxFlat.new()
-			sb.bg_color = Color("#16A34A")
-			sb.set_corner_radius_all(20)
-			sb.set_content_margin_all(9)
+			sb.bg_color = Color("#E3F3EA")
+			sb.border_color = Color("#7EC29E")
+			sb.set_border_width_all(2)
+			sb.set_corner_radius_all(18)
+			sb.set_content_margin_all(8)
 			lbl.add_theme_stylebox_override("normal", sb)
+			lbl.add_theme_color_override("font_color", Color("#287854"))
 			AudioManager.play_sfx("goal_done")
 		else:
 			lbl.text = "  %s x%d (Lv.%d)  " % [label_name, left, t_lv]
@@ -758,11 +824,11 @@ func _on_powerup_collected(kind: String, _pos: Vector3) -> void:
 		_ice_freeze_timer = maxf(_ice_freeze_timer, 5.0)
 		_frost_mat.set_shader_parameter("frost_amount", 1.0)
 		AudioManager.play_sfx("ice")
-		_spawn_popup(_hole.position, "ICE FREEZE 5s!", Color("#0284C7"))
+		_spawn_popup(_hole.position, "ICE FREEZE 5s!", Color("#3E85A6"))
 		_update_buff_banner()
 	elif kind == "magnet":
 		_hole.activate_magnet(5.5)
-		_spawn_popup(_hole.position, "SUPER MAGNET 5.5s!", Color("#9333EA"))
+		_spawn_popup(_hole.position, "SUPER MAGNET 5.5s!", Color("#7E62A8"))
 		_update_buff_banner()
 
 
@@ -772,14 +838,14 @@ func _on_hole_level_changed(new_level: int, _radius: float) -> void:
 	_target_cam_height = base_h + float(new_level - 1) * (2.5 if _is_mega_stage else 2.2)
 	if _playing:
 		_camera_shake = maxf(_camera_shake, 6.0)
-		_spawn_pop_particles(_hole.position + Vector3(0, 0.2, 0), Color("#2DD4BF"), 20)
-		_spawn_popup(_hole.position, "POP! LEVEL UP LV.%d!" % new_level, Color("#0284C7"))
+		_spawn_pop_particles(_hole.position + Vector3(0, 0.2, 0), Color("#5DB09F"), 20)
+		_spawn_popup(_hole.position, "POP! LEVEL UP LV.%d!" % new_level, Color("#2E8575"))
 
 
 func _on_fever_changed(ratio: float, active: bool) -> void:
 	_fever_bar.value = ratio * 100.0
 	if active and _playing and ratio > 0.96:
-		_spawn_popup(_hole.position, "FEVER MODE! +24% SPEED!", Color("#EC4899"))
+		_spawn_popup(_hole.position, "FEVER MODE! +24% SPEED!", Color("#D46A8E"))
 	_update_buff_banner()
 
 
@@ -831,12 +897,12 @@ func _check_victory() -> void:
 		_overlay_title.text = "POP! LV.%d CLEAR!" % _level_number
 		_overlay_desc.text = "Time Left: %.1fs | Hole Lv.%d | Streak: %d" % [_time_left, _hole.hole_level, GameManager.win_streak]
 
-	_rebind_button(_btn_primary, "NEXT STAGE (LV.%d) >" % next_lv, Color("#14B8A6"), func():
+	_rebind_button(_btn_primary, "NEXT STAGE (LV.%d) >" % next_lv, Color("#3E9B84"), func():
 		AdManager.show_interstitial("level_complete", _level_number)
 		_load_level(next_lv, true)
 	)
 	_btn_secondary.visible = true
-	_rebind_button(_btn_secondary, "Replay This Stage", Color("#64748B"), func():
+	_rebind_button(_btn_secondary, "Replay This Stage", Color("#8C96A4"), func():
 		_load_level(_level_number, false)
 	)
 
@@ -864,11 +930,11 @@ func _on_level_timeout() -> void:
 	else:
 		_overlay_desc.text = "Almost there! Watch 1 free RV for +15s Time + Clear Traps + +20%% Bigger Hole!"
 
-	_rebind_button(_btn_primary, "[AD] +15s + CLEAR ALL TRAPS + GROW 20%!", Color("#22C55E"), func():
+	_rebind_button(_btn_primary, "[AD] +15s + CLEAR ALL TRAPS + GROW 20%!", Color("#3E9B84"), func():
 		AdManager.show_rewarded("fail_rescue")
 	)
 	_btn_secondary.visible = true
-	_rebind_button(_btn_secondary, "Give Up & Retry Stage", Color("#94A3B8"), func():
+	_rebind_button(_btn_secondary, "Give Up & Retry Stage", Color("#98A1AE"), func():
 		DDAController.record_level_fail(_level_number, _used_rv_this_run)
 		GameManager.win_streak = 0
 		GameManager.save_progress()

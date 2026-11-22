@@ -89,35 +89,35 @@ func _build_vortex_visual() -> void:
 			_rim_fever_model.visible = false
 			add_child(_rim_fever_model)
 
-	# Purple magnet aura ring
+	# Soft lavender magnet aura ring
 	_magnet_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
 	tor.outer_radius = 1.0
-	tor.inner_radius = 0.94
+	tor.inner_radius = 0.95
 	_magnet_ring.mesh = tor
 	var mmat := StandardMaterial3D.new()
-	mmat.albedo_color = Color(0.68, 0.34, 0.98, 0.55)
+	mmat.albedo_color = Color(0.58, 0.46, 0.78, 0.42)
 	mmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_magnet_ring.material_override = mmat
-	_magnet_ring.position.y = 0.06
+	_magnet_ring.position.y = 0.055
 	_magnet_ring.visible = false
 	add_child(_magnet_ring)
 
 
 func _build_sticky_strands_and_goo() -> void:
-	# Glossy sticky glob visibly stuck on the hole rim when trapped (adapts to W1-W4 trap color!)
+	# Soft sticky glob visibly stuck on the hole rim when trapped (adapts to W1-W4 trap color!)
 	_rim_goo_blob = MeshInstance3D.new()
 	var sp := SphereMesh.new()
 	sp.radius = 0.36
 	sp.height = 0.42
 	_rim_goo_blob.mesh = sp
 	_rim_goo_mat = StandardMaterial3D.new()
-	_rim_goo_mat.albedo_color = Color("#FF2E93")
-	_rim_goo_mat.roughness = 0.14
+	_rim_goo_mat.albedo_color = Color("#D85B88")
+	_rim_goo_mat.roughness = 0.32
 	_rim_goo_mat.emission_enabled = true
-	_rim_goo_mat.emission = Color("#FF2E93")
-	_rim_goo_mat.emission_energy_multiplier = 0.25
+	_rim_goo_mat.emission = Color("#D85B88")
+	_rim_goo_mat.emission_energy_multiplier = 0.08
 	_rim_goo_blob.material_override = _rim_goo_mat
 	_rim_goo_blob.visible = false
 	add_child(_rim_goo_blob)
@@ -128,7 +128,7 @@ func _build_sticky_strands_and_goo() -> void:
 	_strand_mesh_inst.mesh = _strand_mesh
 	_strand_mesh_inst.top_level = true
 	_strand_mat = StandardMaterial3D.new()
-	_strand_mat.albedo_color = Color("#FF2E93")
+	_strand_mat.albedo_color = Color("#D85B88")
 	_strand_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_strand_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	_strand_mesh_inst.material_override = _strand_mat
