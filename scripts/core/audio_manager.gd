@@ -7,6 +7,7 @@ const PENTATONIC_SEMITONES: Array[float] = [0.0, 2.0, 4.0, 7.0, 9.0, 12.0, 14.0,
 var user_muted: bool = false
 var ad_muted: bool = false
 var bg_muted: bool = false
+var host_muted: bool = false
 
 var _combo_step: int = 0
 var _combo_reset_timer: float = 0.0
@@ -29,6 +30,8 @@ func _ready() -> void:
 		_sfx_pool.append(p)
 
 	PlatformBridge.visibility_changed.connect(_on_visibility_changed)
+	PlatformBridge.host_audio_changed.connect(_on_host_audio_changed)
+	host_muted = not PlatformBridge.host_audio_enabled
 	_preload_audio_assets()
 	call_deferred("_sync_from_game_manager")
 
@@ -157,8 +160,13 @@ func _on_visibility_changed(is_visible: bool) -> void:
 	_apply_mute_state()
 
 
+func _on_host_audio_changed(enabled: bool) -> void:
+	host_muted = not enabled
+	_apply_mute_state()
+
+
 func _is_silenced() -> bool:
-	return user_muted or ad_muted or bg_muted
+	return user_muted or ad_muted or bg_muted or host_muted
 
 
 func _apply_mute_state() -> void:

@@ -1,12 +1,24 @@
 extends Node
 
+## Unified 3-Platform Bridge (YouTube Playables / CrazyGames SDK v3 / Standalone Web / iOS / Android)
+## Handles certification lifecycle hooks, host audio sync, cloud saves, haptics, and Notch Safe Area.
+
 signal visibility_changed(is_visible: bool)
+signal host_audio_changed(enabled: bool)
+signal cloud_data_loaded(json_str: String)
+signal safe_area_changed(margins: Dictionary)
 
 enum PlatformType { DESKTOP, WEB_STANDALONE, WEB_YOUTUBE, WEB_CRAZYGAMES, MOBILE_IOS, MOBILE_ANDROID }
 
 var current_platform: PlatformType = PlatformType.DESKTOP
 var is_web: bool = false
 var is_mobile: bool = false
+var host_audio_enabled: bool = true
+
+var _js_yt_audio_cb = null
+var _js_yt_pause_cb = null
+var _js_yt_resume_cb = null
+var _js_cloud_load_cb = null
 
 
 func _ready() -> void:
@@ -22,6 +34,19 @@ func _ready() -> void:
 		current_platform = PlatformType.MOBILE_ANDROID
 	else:
 		current_platform = PlatformType.DESKTOP
+
+	if get_viewport():
+		get_viewport().size_changed.connect(func(): safe_area_changed.emit(get_safe_margins()))
+
+
+func get_platform_name() -> String:
+	match current_platform:
+		PlatformType.WEB_YOUTUBE: return "youtube_playables"
+		PlatformType.WEB_CRAZYGAMES: return "crazygames"
+		PlatformType.WEB_STANDALONE: return "web_standalone"
+		PlatformType.MOBILE_IOS: return "ios"
+		PlatformType.MOBILE_ANDROID: return "android"
+		_: return "desktop"
 
 
 func _detect_web_platform() -> PlatformType:
@@ -39,25 +64,193 @@ func _detect_web_platform() -> PlatformType:
 func _setup_web_lifecycle() -> void:
 	if not is_web:
 		return
+	var win = JavaScriptBridge.get_interface("window")
+	if win:
+		_js_yt_audio_cb = JavaScriptBridge.create_callback(_on_js_host_audio)
+		_js_yt_pause_cb = JavaScriptBridge.create_callback(_on_js_host_pause)
+		_js_yt_resume_cb = JavaScriptBridge.create_callback(_on_js_host_resume)
+		_js_cloud_load_cb = JavaScriptBridge.create_callback(_on_js_cloud_loaded)
+		win.gobblePopOnHostAudio = _js_yt_audio_cb
+		win.gobblePopOnHostPause = _js_yt_pause_cb
+		win.gobblePopOnHostResume = _js_yt_resume_cb
+		win.gobblePopOnCloudLoaded = _js_cloud_load_cb
+
+	# Standard Web tab-visibility listener (guarantees auto-pause on tab switch across ALL browsers!)
+	JavaScriptBridge.eval("""
+		if (!window._gpVisBound) {
+			window._gpVisBound = true;
+			document.addEventListener('visibilitychange', () => {
+				if (document.hidden) {
+					if (window.gobblePopOnHostPause) window.gobblePopOnHostPause();
+				} else {
+					if (window.gobblePopOnHostResume) window.gobblePopOnHostResume();
+				}
+			});
+		}
+	""", true)
+
 	if current_platform == PlatformType.WEB_YOUTUBE:
-		JavaScriptBridge.eval("if (window.ytgame && ytgame.game) { ytgame.game.firstFrameReady(); }", true)
+		JavaScriptBridge.eval("""
+			try {
+				if (window.ytgame && ytgame.game) {
+					ytgame.game.firstFrameReady();
+				}
+				if (window.ytgame && ytgame.system) {
+					if (typeof ytgame.system.isAudioEnabled === 'function') {
+						window.gobblePopOnHostAudio(!!ytgame.system.isAudioEnabled());
+					}
+					if (typeof ytgame.system.onAudioEnabledChange === 'function') {
+						ytgame.system.onAudioEnabledChange((enabled) => {
+							if (window.gobblePopOnHostAudio) window.gobblePopOnHostAudio(!!enabled);
+						});
+					}
+					if (typeof ytgame.system.onPause === 'function') {
+						ytgame.system.onPause(() => {
+							if (window.gobblePopOnHostPause) window.gobblePopOnHostPause();
+						});
+					}
+					if (typeof ytgame.system.onResume === 'function') {
+						ytgame.system.onResume(() => {
+							if (window.gobblePopOnHostResume) window.gobblePopOnHostResume();
+						});
+					}
+				}
+			} catch (e) {}
+		""", true)
+	elif current_platform == PlatformType.WEB_CRAZYGAMES:
+		JavaScriptBridge.eval("""
+			try {
+				if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) {
+					if (typeof CrazyGames.SDK.game.loadingStart === 'function') {
+						CrazyGames.SDK.game.loadingStart();
+					}
+				}
+			} catch (e) {}
+		""", true)
 
 
 func notify_game_ready() -> void:
 	if current_platform == PlatformType.WEB_YOUTUBE:
-		JavaScriptBridge.eval("if (window.ytgame && ytgame.game) { ytgame.game.gameReady(); }", true)
+		JavaScriptBridge.eval("try { if (window.ytgame && ytgame.game) { ytgame.game.gameReady(); } } catch(e) {}", true)
 	elif current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.loadingStop(); }", true)
+		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.loadingStop(); } } catch(e) {}", true)
 
 
 func notify_gameplay_start() -> void:
 	if current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.gameplayStart(); }", true)
+		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.gameplayStart(); } } catch(e) {}", true)
 
 
 func notify_gameplay_stop() -> void:
 	if current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.gameplayStop(); }", true)
+		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.gameplayStop(); } } catch(e) {}", true)
+
+
+func notify_happytime() -> void:
+	if current_platform == PlatformType.WEB_CRAZYGAMES:
+		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.happytime(); } } catch(e) {}", true)
+
+
+func submit_score(score_val: int) -> void:
+	if current_platform == PlatformType.WEB_YOUTUBE:
+		JavaScriptBridge.eval("try { if (window.ytgame && ytgame.engagement && ytgame.engagement.sendScore) { ytgame.engagement.sendScore({ value: %d }); } } catch(e) {}" % score_val, true)
+
+
+func save_cloud_data(json_str: String) -> void:
+	if not is_web:
+		return
+	var escaped := json_str.replace("\\", "\\\\").replace("'", "\\'")
+	if current_platform == PlatformType.WEB_YOUTUBE:
+		JavaScriptBridge.eval("try { if (window.ytgame && ytgame.game && ytgame.game.saveData) { ytgame.game.saveData('%s'); } } catch(e) {}" % escaped, true)
+	elif current_platform == PlatformType.WEB_CRAZYGAMES:
+		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.data) { CrazyGames.SDK.data.setItem('gobble_pop_save', '%s'); } } catch(e) {}" % escaped, true)
+
+
+func request_cloud_load() -> void:
+	if not is_web:
+		return
+	if current_platform == PlatformType.WEB_YOUTUBE:
+		JavaScriptBridge.eval("""
+			try {
+				if (window.ytgame && ytgame.game && ytgame.game.loadData) {
+					ytgame.game.loadData().then((data) => {
+						if (data && window.gobblePopOnCloudLoaded) window.gobblePopOnCloudLoaded(String(data));
+					}).catch(() => {});
+				}
+			} catch(e) {}
+		""", true)
+	elif current_platform == PlatformType.WEB_CRAZYGAMES:
+		JavaScriptBridge.eval("""
+			try {
+				if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.data) {
+					const d = CrazyGames.SDK.data.getItem('gobble_pop_save');
+					if (d && window.gobblePopOnCloudLoaded) window.gobblePopOnCloudLoaded(String(d));
+				}
+			} catch(e) {}
+		""", true)
+
+
+func get_safe_margins() -> Dictionary:
+	# Automated QA override for testing Dynamic Island / notch & Home Indicator layout!
+	if OS.get_environment("QA_SIMULATE_NOTCH") == "1":
+		return {"top": 108.0, "bottom": 58.0, "left": 0.0, "right": 0.0}
+
+	var vp_size := Vector2(1080.0, 1920.0)
+	if get_viewport():
+		vp_size = get_viewport().get_visible_rect().size
+		if vp_size.x <= 1.0 or vp_size.y <= 1.0:
+			vp_size = Vector2(1080.0, 1920.0)
+
+	if is_web:
+		var raw = JavaScriptBridge.eval("window.gobblePopGetSafeInsets ? window.gobblePopGetSafeInsets() : ''", true)
+		if raw is String and raw != "":
+			var parsed = JSON.parse_string(raw)
+			if parsed is Dictionary:
+				var vh := maxf(float(parsed.get("vh", 1.0)), 1.0)
+				var vw := maxf(float(parsed.get("vw", 1.0)), 1.0)
+				var scale_y := vp_size.y / vh
+				var scale_x := vp_size.x / vw
+				return {
+					"top": clampf(float(parsed.get("top", 0.0)) * scale_y, 0.0, 180.0),
+					"bottom": clampf(float(parsed.get("bottom", 0.0)) * scale_y, 0.0, 140.0),
+					"left": clampf(float(parsed.get("left", 0.0)) * scale_x, 0.0, 140.0),
+					"right": clampf(float(parsed.get("right", 0.0)) * scale_x, 0.0, 140.0),
+				}
+		return {"top": 0.0, "bottom": 0.0, "left": 0.0, "right": 0.0}
+
+	if is_mobile:
+		var win_sz := DisplayServer.window_get_size()
+		if win_sz.x > 0 and win_sz.y > 0:
+			var safe := DisplayServer.get_display_safe_area()
+			var sx := vp_size.x / float(win_sz.x)
+			var sy := vp_size.y / float(win_sz.y)
+			return {
+				"top": clampf(float(safe.position.y) * sy, 0.0, 180.0),
+				"bottom": clampf(float(maxi(0, win_sz.y - safe.end.y)) * sy, 0.0, 140.0),
+				"left": clampf(float(safe.position.x) * sx, 0.0, 140.0),
+				"right": clampf(float(maxi(0, win_sz.x - safe.end.x)) * sx, 0.0, 140.0),
+			}
+
+	return {"top": 0.0, "bottom": 0.0, "left": 0.0, "right": 0.0}
+
+
+func _on_js_host_audio(args: Array) -> void:
+	var enabled := bool(args[0]) if args.size() > 0 else true
+	host_audio_enabled = enabled
+	host_audio_changed.emit(enabled)
+
+
+func _on_js_host_pause(_args: Array) -> void:
+	visibility_changed.emit(false)
+
+
+func _on_js_host_resume(_args: Array) -> void:
+	visibility_changed.emit(true)
+
+
+func _on_js_cloud_loaded(args: Array) -> void:
+	if args.size() > 0 and args[0] is String and String(args[0]) != "":
+		cloud_data_loaded.emit(String(args[0]))
 
 
 func _notification(what: int) -> void:

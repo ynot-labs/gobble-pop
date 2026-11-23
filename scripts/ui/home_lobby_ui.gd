@@ -17,6 +17,8 @@ const WORLD_THEMES := {
 }
 
 var _home_root: Control
+var _home_top_margin: MarginContainer
+var _home_bot_margin: MarginContainer
 var _star_pill: PanelContainer
 var _coin_pill: PanelContainer
 var _shard_pill: PanelContainer
@@ -107,6 +109,16 @@ func close_all() -> void:
 	_shop_overlay.visible = false
 
 
+func apply_safe_margins(margins: Dictionary) -> void:
+	var st := int(round(float(margins.get("top", 0.0))))
+	var sb := int(round(float(margins.get("bottom", 0.0))))
+	if _home_top_margin:
+		var base_top := 120 if GameManager.is_beta_build() else 28
+		_home_top_margin.add_theme_constant_override("margin_top", base_top + st)
+	if _home_bot_margin:
+		_home_bot_margin.add_theme_constant_override("margin_bottom", 34 + sb)
+
+
 func refresh_all() -> void:
 	if not _star_pill:
 		return
@@ -194,16 +206,16 @@ func _build_home_view() -> void:
 	_home_root.add_child(bot_veil)
 
 	# === TOP CURRENCY & SETTINGS BAR ===
-	var top_margin := MarginContainer.new()
-	top_margin.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	top_margin.add_theme_constant_override("margin_left", 20)
-	top_margin.add_theme_constant_override("margin_right", 20)
-	top_margin.add_theme_constant_override("margin_top", 120 if GameManager.is_beta_build() else 28)
-	_home_root.add_child(top_margin)
+	_home_top_margin = MarginContainer.new()
+	_home_top_margin.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	_home_top_margin.add_theme_constant_override("margin_left", 20)
+	_home_top_margin.add_theme_constant_override("margin_right", 20)
+	_home_top_margin.add_theme_constant_override("margin_top", 120 if GameManager.is_beta_build() else 28)
+	_home_root.add_child(_home_top_margin)
 
 	var top_v := VBoxContainer.new()
 	top_v.add_theme_constant_override("separation", 18)
-	top_margin.add_child(top_v)
+	_home_top_margin.add_child(top_v)
 
 	var res_row := HBoxContainer.new()
 	res_row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -243,18 +255,18 @@ func _build_home_view() -> void:
 	logo_box.add_child(_world_badge)
 
 	# === BOTTOM HERO CTA + STREAK CHEST + DOCK ===
-	var bot_margin := MarginContainer.new()
-	bot_margin.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	bot_margin.offset_top = -500
-	bot_margin.add_theme_constant_override("margin_left", 28)
-	bot_margin.add_theme_constant_override("margin_right", 28)
-	bot_margin.add_theme_constant_override("margin_bottom", 34)
-	_home_root.add_child(bot_margin)
+	_home_bot_margin = MarginContainer.new()
+	_home_bot_margin.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	_home_bot_margin.offset_top = -540
+	_home_bot_margin.add_theme_constant_override("margin_left", 28)
+	_home_bot_margin.add_theme_constant_override("margin_right", 28)
+	_home_bot_margin.add_theme_constant_override("margin_bottom", 34)
+	_home_root.add_child(_home_bot_margin)
 
 	var bot_v := VBoxContainer.new()
 	bot_v.alignment = BoxContainer.ALIGNMENT_END
 	bot_v.add_theme_constant_override("separation", 20)
-	bot_margin.add_child(bot_v)
+	_home_bot_margin.add_child(bot_v)
 
 	# Win-Streak Milestone Chest Strip
 	var chest_card := PanelContainer.new()

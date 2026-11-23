@@ -105,6 +105,8 @@ func start_ftue_drag_guide() -> void:
 	_ftue_dragged_time = 0.0
 	_ftue_root.visible = true
 	_ftue_root.modulate.a = 1.0
+	if is_instance_valid(AnalyticsManager):
+		AnalyticsManager.track("ftue_step", {"step": "drag_start"})
 
 
 func stop_ftue_drag_guide() -> void:
@@ -116,6 +118,8 @@ func show_mechanic_tip(tip_key: String, icon_name: String, text: String, bg: Col
 	if not force and GameManager.has_seen_tutorial(tip_key):
 		return
 	GameManager.mark_tutorial_seen(tip_key)
+	if is_instance_valid(AnalyticsManager):
+		AnalyticsManager.track("ftue_step", {"step": tip_key + "_tip"})
 	CandyUI.update_icon_pill(_tip_pill, text, bg, bevel, outline, icon_name)
 	_tip_pill.visible = true
 	_tip_pill.modulate.a = 1.0
@@ -197,6 +201,8 @@ func step_helpers(delta: float, playing: bool, camera: Camera3D, hole: HoleContr
 			_ftue_dragged_time += delta
 			if _ftue_dragged_time > 0.35:
 				GameManager.mark_tutorial_seen("drag")
+				if is_instance_valid(AnalyticsManager):
+					AnalyticsManager.track("ftue_step", {"step": "drag_complete"})
 				_ftue_active = false
 				var tw := create_tween()
 				tw.tween_property(_ftue_root, "modulate:a", 0.0, 0.25)
