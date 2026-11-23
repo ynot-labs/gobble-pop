@@ -106,6 +106,16 @@ func _update_counters(event_name: String, params: Dictionary) -> void:
 
 
 func _dispatch_to_platform_bridge(event_name: String, payload: Dictionary) -> void:
+	if PlatformBridge.is_mobile:
+		for s_name in ["GodotFirebase", "Firebase", "GameAnalytics"]:
+			if Engine.has_singleton(s_name):
+				var s := Engine.get_singleton(s_name)
+				if s.has_method("log_event"):
+					s.call("log_event", event_name, payload)
+				elif s.has_method("addDesignEvent"):
+					s.call("addDesignEvent", event_name)
+				break
+		return
 	if not PlatformBridge.is_web:
 		return
 	# Forward cleanly ONLY to host-provided analytics sinks (Zero external network calls!)

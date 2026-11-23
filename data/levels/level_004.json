@@ -642,6 +642,60 @@
         7.8
       ],
       "color_idx": 1
+    },
+    {
+      "key": "w1_macaron",
+      "pos": [
+        -6.0,
+        -7.2
+      ],
+      "y": 0.48,
+      "color_idx": 78
+    },
+    {
+      "key": "w1_macaron",
+      "pos": [
+        6.0,
+        -7.2
+      ],
+      "y": 0.48,
+      "color_idx": 79
+    },
+    {
+      "key": "w1_macaron",
+      "pos": [
+        -6.0,
+        7.2
+      ],
+      "y": 0.48,
+      "color_idx": 80
+    },
+    {
+      "key": "w1_macaron",
+      "pos": [
+        6.0,
+        7.2
+      ],
+      "y": 0.48,
+      "color_idx": 81
+    },
+    {
+      "key": "w1_macaron",
+      "pos": [
+        0,
+        -7.8
+      ],
+      "y": 0.48,
+      "color_idx": 82
+    },
+    {
+      "key": "w1_macaron",
+      "pos": [
+        0,
+        7.8
+      ],
+      "y": 0.48,
+      "color_idx": 83
     }
   ],
   "powerups": [

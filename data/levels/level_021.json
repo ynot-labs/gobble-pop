@@ -706,6 +706,78 @@
         7.8
       ],
       "color_idx": 0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        5.2,
+        0.0
+      ],
+      "y": 0.62,
+      "color_idx": 86
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.69,
+        2.6
+      ],
+      "y": 0.62,
+      "color_idx": 87
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.24,
+        4.69
+      ],
+      "y": 0.62,
+      "color_idx": 88
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        1.16,
+        5.85
+      ],
+      "y": 0.62,
+      "color_idx": 89
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -1.16,
+        5.85
+      ],
+      "y": 0.62,
+      "color_idx": 90
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.24,
+        4.69
+      ],
+      "y": 0.62,
+      "color_idx": 91
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.69,
+        2.6
+      ],
+      "y": 0.62,
+      "color_idx": 92
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -5.2,
+        0.0
+      ],
+      "y": 0.62,
+      "color_idx": 93
     }
   ],
   "powerups": [

@@ -231,44 +231,51 @@ func _rebuild_actions() -> void:
 		)
 		row.add_child(btn_home)
 	else:
-		# Commercial IAP Row: Remove Forced Ads + Restore Purchases
-		var iap_row := HBoxContainer.new()
-		iap_row.alignment = BoxContainer.ALIGNMENT_CENTER
-		iap_row.add_theme_constant_override("separation", 18)
-		_actions_box.add_child(iap_row)
+		# Commercial IAP Row: Remove Forced Ads + Restore Purchases (Mobile / Standalone only;
+		# prohibited on YouTube Playables & CrazyGames per off-platform IAP rules)
+		var is_portal_web := PlatformBridge.current_platform in [
+			PlatformBridge.PlatformType.WEB_YOUTUBE,
+			PlatformBridge.PlatformType.WEB_CRAZYGAMES,
+		]
+		if not is_portal_web:
+			var iap_row := HBoxContainer.new()
+			iap_row.alignment = BoxContainer.ALIGNMENT_CENTER
+			iap_row.add_theme_constant_override("separation", 18)
+			_actions_box.add_child(iap_row)
 
-		var no_ads := GameManager.no_forced_ads
-		var btn_noads := CandyUI.create_cta_button(
-			"icon_check" if no_ads else "icon_crown",
-			"NO ADS ACTIVE" if no_ads else "NO ADS · $2.99",
-			Color("#25CF65") if no_ads else Color("#F7A526"),
-			Color("#12853E") if no_ads else Color("#B8670A"),
-			Color("#0A4C22") if no_ads else Color("#663404"),
-			Vector2(360, 86), 24
-		)
-		btn_noads.pressed.connect(func():
-			AudioManager.play_sfx("ui_click")
-			AdManager.purchase_no_ads()
-			_rebuild_actions()
-		)
-		iap_row.add_child(btn_noads)
+			var no_ads := GameManager.no_forced_ads
+			var btn_noads := CandyUI.create_cta_button(
+				"icon_check" if no_ads else "icon_crown",
+				"NO ADS ACTIVE" if no_ads else "NO ADS · $2.99",
+				Color("#25CF65") if no_ads else Color("#F7A526"),
+				Color("#12853E") if no_ads else Color("#B8670A"),
+				Color("#0A4C22") if no_ads else Color("#663404"),
+				Vector2(360, 86), 24
+			)
+			btn_noads.pressed.connect(func():
+				AudioManager.play_sfx("ui_click")
+				AdManager.purchase_no_ads()
+				_rebuild_actions()
+			)
+			iap_row.add_child(btn_noads)
 
-		var btn_restore := CandyUI.create_cta_button("icon_restart", "RESTORE", Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), Vector2(230, 86), 22)
-		btn_restore.pressed.connect(func():
-			AudioManager.play_sfx("ui_click")
-			AdManager.restore_purchases()
-		)
-		iap_row.add_child(btn_restore)
+			var btn_restore := CandyUI.create_cta_button("icon_restart", "RESTORE", Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), Vector2(230, 86), 22)
+			btn_restore.pressed.connect(func():
+				AudioManager.play_sfx("ui_click")
+				AdManager.restore_purchases()
+			)
+			iap_row.add_child(btn_restore)
 
-		# Compliance Row: Privacy Policy / GDPR Consent Manager
-		var btn_privacy := CandyUI.create_cta_button("icon_gear", "PRIVACY & TERMS", Color("#64748B"), Color("#334155"), Color("#0F172A"), Vector2(540, 78), 24)
-		btn_privacy.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		btn_privacy.pressed.connect(func():
-			AudioManager.play_sfx("ui_click")
-			visible = false
-			privacy_requested.emit()
-		)
-		_actions_box.add_child(btn_privacy)
+		# Compliance Row: Privacy Policy / GDPR Consent Manager (hidden on YouTube Playables per Design §6.3 "No additional user agreements")
+		if PlatformBridge.current_platform != PlatformBridge.PlatformType.WEB_YOUTUBE:
+			var btn_privacy := CandyUI.create_cta_button("icon_gear", "PRIVACY & TERMS", Color("#64748B"), Color("#334155"), Color("#0F172A"), Vector2(540, 78), 24)
+			btn_privacy.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+			btn_privacy.pressed.connect(func():
+				AudioManager.play_sfx("ui_click")
+				visible = false
+				privacy_requested.emit()
+			)
+			_actions_box.add_child(btn_privacy)
 
 		var btn_done := CandyUI.create_cta_button("icon_check", "DONE", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(540, 96), 34)
 		btn_done.size_flags_horizontal = Control.SIZE_SHRINK_CENTER

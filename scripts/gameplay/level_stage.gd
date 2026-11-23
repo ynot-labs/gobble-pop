@@ -7,11 +7,11 @@ extends Node3D
 ## Strict Beta (top QA bar) vs Release (sequential unlock only) via GameManager.is_beta_build().
 
 const WORLD_META := {
-	1: {"name": "SUGAR RUSH BAKERY", "short": "W1 Bakery", "start": 1,  "hard": 5,  "cliff": 10, "mega": 20, "trap_name": "BUBBLEGUM"},
-	2: {"name": "GACHA TOYBOX",      "short": "W2 Toybox", "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
-	3: {"name": "NEON BENTO STREET", "short": "W3 Bento",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
-	4: {"name": "ALCHEMIST DESK",    "short": "W4 Magic",  "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
-	5: {"name": "PIXEL ARCADE",      "short": "W5 Game",   "start": 51, "hard": 55, "cliff": 59, "mega": 60, "trap_name": "GLITCH GOO"},
+	1: {"name": "SWEET BAKERY",      "short": "W1 Bakery",  "start": 1,  "hard": 5,  "cliff": 10, "mega": 20, "trap_name": "BUBBLEGUM"},
+	2: {"name": "CUBE PETS TOYBOX",  "short": "W2 Pets",    "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
+	3: {"name": "STREET FOOD BENTO", "short": "W3 Street",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
+	4: {"name": "MINI DUNGEON",      "short": "W4 Dungeon", "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
+	5: {"name": "ARCADE HALL",       "short": "W5 Arcade",  "start": 51, "hard": 55, "cliff": 59, "mega": 60, "trap_name": "GLITCH GOO"},
 }
 
 const TARGET_PILL_THEMES := [
@@ -21,6 +21,8 @@ const TARGET_PILL_THEMES := [
 ]
 
 var _env: Environment
+var _sky_mat: ProceduralSkyMaterial
+var _island_builder: FloatingIslandBuilder
 var _camera: Camera3D
 var _table_mesh: MeshInstance3D
 var _table_mat: ShaderMaterial
@@ -28,6 +30,8 @@ var _hole: HoleController
 var _entities_root: Node3D
 var _particles_root: Node3D
 var _popups_root: Node3D
+var _ab_mode: String = "" # "", "a", or "b" for Option A vs Option B visual showcase
+var _fov_punch: float = 0.0
 
 var _items: Array[SwallowableItem] = []
 var _powerups: Array[PowerupItem] = []
@@ -65,6 +69,9 @@ var _gameplay_bot_bar: HBoxContainer
 var _beta_bar_container: MarginContainer
 var _joystick_overlay: JoystickOverlay
 var _helpers_ui: GameplayHelpersUI
+var _combo_ui: ComboJuiceUI
+var _ab_switcher_bar: HBoxContainer
+var _pc_hint_label: Label
 var _home_lobby_ui: HomeLobbyUI
 var _pause_settings_ui: PauseSettingsUI
 var _consent_ui: ConsentLegalUI
@@ -85,6 +92,8 @@ var _frost_mat: ShaderMaterial
 var _btn_pause: Button
 var _btn_rv_mag: Button
 var _btn_rv_ice: Button
+var _btn_retry_hud: Button
+var _keycap_badges: Array[PanelContainer] = []
 var _buff_label: Label
 
 # Modal Card References (Pre-level / Victory / Fail)
@@ -102,6 +111,12 @@ var _btn_tertiary_home: Button
 
 
 func _ready() -> void:
+	var qa_vp := OS.get_environment("QA_VIEWPORT")
+	if qa_vp != "" and qa_vp.contains("x"):
+		var parts := qa_vp.split("x")
+		if parts.size() == 2 and parts[0].is_valid_int() and parts[1].is_valid_int():
+			get_window().size = Vector2i(int(parts[0]), int(parts[1]))
+
 	_build_hud()
 	_build_3d_stage()
 	_joystick_overlay.hole = _hole
@@ -109,15 +124,20 @@ func _ready() -> void:
 	PlatformBridge.visibility_changed.connect(_on_app_visibility_changed)
 	PlatformBridge.safe_area_changed.connect(_apply_safe_area_margins)
 	GameManager.economy_changed.connect(_refresh_booster_buttons)
+	get_viewport().size_changed.connect(_update_responsive_layout)
 	_apply_safe_area_margins(PlatformBridge.get_safe_margins())
+	_update_responsive_layout()
 
 	var start_lv := clampi(GameManager.current_level, 1, GameManager.MAX_LEVEL)
 	var qa_env := OS.get_environment("QA_START_LEVEL")
 	var qa_screen := OS.get_environment("QA_SCREEN")
+	var web_style := _get_web_style_query()
 
 	if qa_screen != "":
 		var lv := clampi(int(qa_env), 1, GameManager.MAX_LEVEL) if qa_env.is_valid_int() else start_lv
 		_run_qa_screen(qa_screen, lv)
+	elif web_style in ["a", "b"]:
+		_open_ab_showcase(web_style)
 	elif qa_env.is_valid_int():
 		start_lv = clampi(int(qa_env), 1, GameManager.MAX_LEVEL)
 		var show_modal := (OS.get_environment("QA_SHOW_MODAL") == "1")
@@ -126,13 +146,91 @@ func _ready() -> void:
 		_gameplay_hud_root.visible = true
 		_load_level(start_lv, show_modal)
 	else:
-		# Default Commercial Boot Flow: Load current stage live in background + open Home Lobby!
-		_load_level(start_lv, false, true)
-		_show_home_lobby()
-		if not GameManager.consent_accepted:
-			_consent_ui.open_consent()
+		if PlatformBridge.current_platform in [PlatformBridge.PlatformType.WEB_CRAZYGAMES, PlatformBridge.PlatformType.WEB_YOUTUBE]:
+			# CrazyGames & YouTube Playables handle platform consent natively and prohibit additional blocking user agreements
+			if not GameManager.consent_accepted:
+				GameManager.set_consent(true, true)
+		# V2.0 Instant Play: Brand-new players drop straight into Lv.1 on the 3D Floating Island (0 modal walls!)
+		var is_first_session := (GameManager.max_unlocked_level == 1 and GameManager.level_stars.is_empty() and not GameManager.is_beta_build())
+		if is_first_session and GameManager.consent_accepted:
+			_in_lobby = false
+			_home_lobby_ui.close_all()
+			_gameplay_hud_root.visible = true
+			_load_level(1, false)
+		else:
+			_load_level(start_lv, false, true)
+			_show_home_lobby()
+			if not GameManager.consent_accepted:
+				_consent_ui.open_consent()
 
 	PlatformBridge.notify_game_ready()
+
+
+func _get_web_style_query() -> String:
+	if not OS.has_feature("web"):
+		return ""
+	var res = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('style') || ''", true)
+	return str(res).to_lower()
+
+
+func _is_landscape_desktop() -> bool:
+	var sz := get_viewport().get_visible_rect().size
+	return sz.x > sz.y * 1.15
+
+
+func _update_responsive_layout() -> void:
+	var is_land := _is_landscape_desktop()
+	if _camera:
+		_camera.fov = 38.0 if is_land else 45.0
+	if _gameplay_bot_bar:
+		# Never scale top-left-anchored HBoxContainer (shifts off-center); cleanly adjust button sizes instead!
+		var b_sz := Vector2(106, 106) if is_land else Vector2(138, 138)
+		for b in [_btn_rv_mag, _btn_rv_ice, _btn_retry_hud]:
+			if b:
+				b.custom_minimum_size = b_sz
+		_gameplay_bot_bar.offset_top = (-146 if is_land else -176)
+		_gameplay_bot_bar.offset_bottom = (-34 if is_land else -26)
+		_gameplay_bot_bar.add_theme_constant_override("separation", 24 if is_land else 34)
+	for cap in _keycap_badges:
+		if is_instance_valid(cap):
+			cap.visible = is_land
+	if _pc_hint_label:
+		_pc_hint_label.visible = is_land and _playing and not _in_lobby and not _paused
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not (event is InputEventKey) or not event.pressed or event.echo:
+		return
+	var kc := (event as InputEventKey).keycode
+	if _playing and not _paused and not _in_lobby:
+		if kc == KEY_Q:
+			_on_magnet_booster_pressed()
+		elif kc == KEY_E:
+			_on_ice_booster_pressed()
+		elif kc == KEY_R:
+			AudioManager.play_sfx("ui_click")
+			if _ab_mode != "":
+				_open_ab_showcase(_ab_mode)
+			else:
+				_load_level(_level_number, false)
+		elif kc == KEY_ESCAPE or kc == KEY_P:
+			_pause_gameplay()
+	elif _paused and (kc == KEY_ESCAPE or kc == KEY_P):
+		_pause_settings_ui.close_modal()
+		_resume_gameplay()
+
+
+func _open_ab_showcase(style: String) -> void:
+	_ab_mode = "b" if style == "b" else "a"
+	_in_lobby = false
+	_paused = false
+	_hole.is_paused = false
+	_home_lobby_ui.close_all()
+	_gameplay_hud_root.visible = true
+	if _ab_switcher_bar:
+		_ab_switcher_bar.visible = true
+		_refresh_ab_switcher_styles()
+	_load_level(1 if _ab_mode == "a" else 2, false, false, "res://data/levels/level_ab_option_%s.json" % _ab_mode)
 
 
 func _run_qa_screen(screen: String, lv: int) -> void:
@@ -199,6 +297,10 @@ func _run_qa_screen(screen: String, lv: int) -> void:
 			_gameplay_hud_root.visible = true
 			_load_level(lv, false)
 			_ad_overlay_ui.show_qa_notice("AD UNAVAILABLE · TRY AGAIN", true)
+		"ab_a":
+			_open_ab_showcase("a")
+		"ab_b":
+			_open_ab_showcase("b")
 		_:
 			_load_level(lv, false, true)
 			_show_home_lobby()
@@ -207,42 +309,61 @@ func _run_qa_screen(screen: String, lv: int) -> void:
 func _build_3d_stage() -> void:
 	var env_node := WorldEnvironment.new()
 	_env = Environment.new()
-	_env.background_mode = Environment.BG_COLOR
-	_env.background_color = Color("#55BEA6")
+	_env.background_mode = Environment.BG_SKY
+	var sky := Sky.new()
+	_sky_mat = ProceduralSkyMaterial.new()
+	_sky_mat.sky_top_color = Color("#5EC8F8")
+	_sky_mat.sky_horizon_color = Color("#FFF7DC")
+	_sky_mat.ground_horizon_color = Color("#FFF4D2")
+	_sky_mat.ground_bottom_color = Color("#FFE3D6")
+	_sky_mat.sky_curve = 0.22
+	_sky_mat.ground_curve = 0.18
+	sky.sky_material = _sky_mat
+	_env.sky = sky
 	_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	_env.ambient_light_color = Color("#FFF9F0")
-	_env.ambient_light_energy = 0.25
+	_env.ambient_light_color = Color("#FFF7EB")
+	_env.ambient_light_energy = 0.28
 	_env.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
 	_env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	_env.tonemap_exposure = 1.02
+	_env.tonemap_exposure = 0.96
 	_env.adjustment_enabled = true
-	_env.adjustment_saturation = 1.12
+	_env.adjustment_saturation = 1.15
 	_env.adjustment_contrast = 1.05
-	_env.adjustment_brightness = 1.01
+	_env.adjustment_brightness = 1.00
 	env_node.environment = _env
 	add_child(env_node)
 
 	var sun := DirectionalLight3D.new()
-	sun.rotation_degrees = Vector3(-56, 30, 0)
-	sun.light_color = Color("#FFF8EC")
-	sun.light_energy = 0.62
+	sun.rotation_degrees = Vector3(-52, 34, 0)
+	sun.light_color = Color("#FFF4E2")
+	sun.light_energy = 0.68
 	sun.shadow_enabled = true
-	sun.shadow_opacity = 0.32
-	sun.shadow_blur = 2.0
-	sun.directional_shadow_max_distance = 56.0
+	sun.shadow_opacity = 0.30
+	sun.shadow_blur = 2.4
+	sun.directional_shadow_max_distance = 62.0
 	add_child(sun)
 
 	var fill := DirectionalLight3D.new()
-	fill.rotation_degrees = Vector3(-34, -135, 0)
-	fill.light_color = Color("#DCF0FF")
-	fill.light_energy = 0.18
+	fill.rotation_degrees = Vector3(-28, -142, 0)
+	fill.light_color = Color("#CFEAFF")
+	fill.light_energy = 0.16
 	fill.shadow_enabled = false
 	add_child(fill)
 
+	var rim := DirectionalLight3D.new()
+	rim.rotation_degrees = Vector3(-20, 165, 0)
+	rim.light_color = Color("#FFD6EC")
+	rim.light_energy = 0.10
+	rim.shadow_enabled = false
+	add_child(rim)
+
 	_camera = Camera3D.new()
-	_camera.fov = 45.0
+	_camera.fov = 38.0 if _is_landscape_desktop() else 45.0
 	add_child(_camera)
 	_camera.look_at_from_position(Vector3(0.0, 17.5, 9.8), Vector3.ZERO, Vector3.UP)
+
+	_island_builder = FloatingIslandBuilder.new()
+	add_child(_island_builder)
 
 	_table_mesh = MeshInstance3D.new()
 	var plane := PlaneMesh.new()
@@ -251,6 +372,7 @@ func _build_3d_stage() -> void:
 	_table_mat = ShaderMaterial.new()
 	_table_mat.shader = load("res://shaders/tabletop_cutout.gdshader")
 	_table_mesh.material_override = _table_mat
+	_table_mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(_table_mesh)
 
 	_hole = HoleController.new()
@@ -396,24 +518,70 @@ func _build_hud() -> void:
 	_gameplay_bot_bar.alignment = BoxContainer.ALIGNMENT_CENTER
 	_gameplay_bot_bar.add_theme_constant_override("separation", 34)
 
-	_btn_rv_mag = CandyUI.create_square_icon_button("icon_magnet", "7s", true, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 138, 74)
+	_btn_rv_mag = CandyUI.create_square_icon_button("icon_magnet", "7s", true, Color("#F45D94"), Color("#B83264"), Color("#5C1430"), 138, 70)
 	_btn_rv_mag.pressed.connect(_on_magnet_booster_pressed)
+	_keycap_badges.append(CandyUI.add_keycap_badge(_btn_rv_mag, "Q"))
 	_gameplay_bot_bar.add_child(_btn_rv_mag)
 
-	_btn_rv_ice = CandyUI.create_square_icon_button("icon_ice", "+6s", true, Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), 138, 74)
+	_btn_rv_ice = CandyUI.create_square_icon_button("icon_ice", "+6s", true, Color("#24C97A"), Color("#12854E"), Color("#094A2A"), 138, 70)
 	_btn_rv_ice.pressed.connect(_on_ice_booster_pressed)
+	_keycap_badges.append(CandyUI.add_keycap_badge(_btn_rv_ice, "E"))
 	_gameplay_bot_bar.add_child(_btn_rv_ice)
 
-	var btn_retry := CandyUI.create_square_icon_button("icon_restart", "", false, Color("#24B4F5"), Color("#0B70B8"), Color("#083B66"), 138, 70)
-	btn_retry.pressed.connect(func():
+	_btn_retry_hud = CandyUI.create_square_icon_button("icon_restart", "", false, Color("#22B8E8"), Color("#0B78A8"), Color("#0A4266"), 138, 66)
+	_btn_retry_hud.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
-		_load_level(_level_number, false)
+		if _ab_mode != "":
+			_open_ab_showcase(_ab_mode)
+		else:
+			_load_level(_level_number, false)
 	)
-	_gameplay_bot_bar.add_child(btn_retry)
+	_keycap_badges.append(CandyUI.add_keycap_badge(_btn_retry_hud, "R"))
+	_gameplay_bot_bar.add_child(_btn_retry_hud)
 
 	# === IN-GAME POLISH HELPERS LAYER (Radar Arrows, FTUE Drag Hand, Mechanic Tips, Confetti) ===
 	_helpers_ui = GameplayHelpersUI.new()
 	_hud_layer.add_child(_helpers_ui)
+
+	_combo_ui = ComboJuiceUI.new()
+	_hud_layer.add_child(_combo_ui)
+
+	# PC Desktop subtle control hint strip (hidden on mobile!)
+	_pc_hint_label = Label.new()
+	_pc_hint_label.text = "MOVE MOUSE or WASD  ·  [Q] MAGNET  ·  [E] FREEZE  ·  [R] RESTART"
+	_pc_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_pc_hint_label.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	_pc_hint_label.offset_top = -28
+	_pc_hint_label.offset_bottom = -4
+	_pc_hint_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	CandyUI.apply_outlined_label(_pc_hint_label, 18, Color(1.0, 0.99, 0.94, 0.92), Color(0.08, 0.16, 0.28, 0.85), 4)
+	_gameplay_hud_root.add_child(_pc_hint_label)
+
+	# Option A vs Option B Live Visual Comparison Toggle Bar (centered cleanly right above bottom dock!)
+	_ab_switcher_bar = HBoxContainer.new()
+	_ab_switcher_bar.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	_ab_switcher_bar.offset_top = -246
+	_ab_switcher_bar.offset_bottom = -182
+	_ab_switcher_bar.alignment = BoxContainer.ALIGNMENT_CENTER
+	_ab_switcher_bar.add_theme_constant_override("separation", 14)
+	_ab_switcher_bar.visible = false
+	_hud_layer.add_child(_ab_switcher_bar)
+
+	var btn_a := CandyUI.create_cta_button("icon_crown", "OPTION A · SCULPTED", Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), Vector2(252, 60), 18)
+	btn_a.name = "BtnA"
+	btn_a.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		_open_ab_showcase("a")
+	)
+	_ab_switcher_bar.add_child(btn_a)
+
+	var btn_b := CandyUI.create_cta_button("icon_star", "OPTION B · CC0 KENNEY", Color("#22B8EE"), Color("#0B78A8"), Color("#0A4266"), Vector2(264, 60), 18)
+	btn_b.name = "BtnB"
+	btn_b.pressed.connect(func():
+		AudioManager.play_sfx("ui_click")
+		_open_ab_showcase("b")
+	)
+	_ab_switcher_bar.add_child(btn_b)
 
 	# === STAGE MODAL CARD (Start / 3-Star Victory / Time-Up Rescue) ===
 	_overlay_dimmer = ColorRect.new()
@@ -499,6 +667,11 @@ func _build_hud() -> void:
 	_home_lobby_ui.settings_requested.connect(func(): _pause_settings_ui.open_settings())
 	_home_lobby_ui.world_preview_requested.connect(func(wid: int): _load_level(int(WORLD_META[wid]["start"]), false, true))
 	_home_lobby_ui.confetti_requested.connect(func(cnt: int): _helpers_ui.spawn_confetti(cnt))
+	_home_lobby_ui.upgrade_purchased.connect(func(_k: String):
+		if _hole:
+			_hole.reset_for_level(1, _hole.position)
+			_hole.apply_skin(GameManager.equipped_skin)
+	)
 	_hud_layer.add_child(_home_lobby_ui)
 
 	# === PAUSE / SETTINGS / EXIT MODAL (topmost over lobby & gameplay) ===
@@ -686,6 +859,8 @@ func _resume_gameplay() -> void:
 
 
 func _on_app_visibility_changed(is_visible: bool) -> void:
+	if OS.get_environment("QA_SCREEN") != "":
+		return
 	if not is_visible and _playing and not _paused and not _in_lobby:
 		_pause_gameplay()
 
@@ -721,6 +896,18 @@ func _on_magnet_booster_pressed() -> void:
 		_update_buff_banner()
 		_refresh_booster_buttons()
 		AnalyticsManager.track("booster_use", {"kind": "magnet", "source": "inventory", "level": _level_number})
+	elif not AdManager.reward_ads_available:
+		if GameManager.coins >= 50:
+			GameManager.coins -= 50
+			GameManager.save_progress()
+			GameManager.economy_changed.emit()
+			_hole.activate_magnet(7.0)
+			_spawn_popup(_hole.position, "MAGNET 7s! (-50c)", Color("#EC36A0"))
+			_update_buff_banner()
+			_refresh_booster_buttons()
+			AnalyticsManager.track("booster_use", {"kind": "magnet", "source": "coins", "level": _level_number})
+		else:
+			AdManager.ad_notice.emit("NEED 50 COINS FOR MAGNET", true)
 	else:
 		AdManager.note_rv_offer("in_level_magnet", _level_number)
 		AdManager.show_rewarded("in_level_magnet", _level_number)
@@ -737,9 +924,34 @@ func _on_ice_booster_pressed() -> void:
 		_update_buff_banner()
 		_refresh_booster_buttons()
 		AnalyticsManager.track("booster_use", {"kind": "ice", "source": "inventory", "level": _level_number})
+	elif not AdManager.reward_ads_available:
+		if GameManager.coins >= 50:
+			GameManager.coins -= 50
+			GameManager.save_progress()
+			GameManager.economy_changed.emit()
+			_ice_freeze_timer = maxf(_ice_freeze_timer, 6.0)
+			_frost_mat.set_shader_parameter("frost_amount", 1.0)
+			AudioManager.play_sfx("ice")
+			_spawn_popup(_hole.position, "+6s FREEZE! (-50c)", Color("#0EA5E9"))
+			_update_buff_banner()
+			_refresh_booster_buttons()
+			AnalyticsManager.track("booster_use", {"kind": "ice", "source": "coins", "level": _level_number})
+		else:
+			AdManager.ad_notice.emit("NEED 50 COINS FOR FREEZE", true)
 	else:
 		AdManager.note_rv_offer("in_level_ice", _level_number)
 		AdManager.show_rewarded("in_level_ice", _level_number)
+
+
+func _refresh_ab_switcher_styles() -> void:
+	if not _ab_switcher_bar:
+		return
+	var ba := _ab_switcher_bar.get_node_or_null("BtnA") as Button
+	var bb := _ab_switcher_bar.get_node_or_null("BtnB") as Button
+	if ba:
+		ba.modulate = Color.WHITE if _ab_mode == "a" else Color(0.76, 0.80, 0.88, 0.88)
+	if bb:
+		bb.modulate = Color.WHITE if _ab_mode == "b" else Color(0.76, 0.80, 0.88, 0.88)
 
 
 func _apply_world_theme(world_id: int) -> void:
@@ -747,24 +959,39 @@ func _apply_world_theme(world_id: int) -> void:
 	var tex_path := ""
 	match world_id:
 		2:
-			_env.background_color = Color("#D69E36")
+			_sky_mat.sky_top_color = Color("#5EC6FA")
+			_sky_mat.sky_horizon_color = Color("#FFF4C2")
+			_sky_mat.ground_horizon_color = Color("#FFE6A8")
+			_sky_mat.ground_bottom_color = Color("#F5C26B")
 			_table_mat.set_shader_parameter("border_color", Color("#EBBF58"))
 			tex_path = "res://assets/textures/w2_01_playmat_tile.png"
 		3:
-			_env.background_color = Color("#C47F4C")
+			_sky_mat.sky_top_color = Color("#FF9A76")
+			_sky_mat.sky_horizon_color = Color("#FFE6B8")
+			_sky_mat.ground_horizon_color = Color("#FFD4A8")
+			_sky_mat.ground_bottom_color = Color("#E59866")
 			_table_mat.set_shader_parameter("border_color", Color("#DF9F6C"))
 			tex_path = "res://assets/textures/w3_01_table_tile.png"
 		4:
-			_env.background_color = Color("#8A74D6")
+			_sky_mat.sky_top_color = Color("#6352C8")
+			_sky_mat.sky_horizon_color = Color("#E0D2FF")
+			_sky_mat.ground_horizon_color = Color("#C9B6FA")
+			_sky_mat.ground_bottom_color = Color("#9A84E0")
 			_table_mat.set_shader_parameter("border_color", Color("#AC98EC"))
 			tex_path = "res://assets/textures/w4_01_desk_tile.png"
 		5:
-			_env.background_color = Color("#48A8E8")
+			_sky_mat.sky_top_color = Color("#2F88E8")
+			_sky_mat.sky_horizon_color = Color("#C6F0FF")
+			_sky_mat.ground_horizon_color = Color("#A8E6FF")
+			_sky_mat.ground_bottom_color = Color("#6BC4F8")
 			_table_mat.set_shader_parameter("border_color", Color("#7AD0FA"))
 			tex_path = "res://assets/textures/w5_01_arcade_tile.png"
 		_:
-			_env.background_color = Color("#55BEA6")
-			_table_mat.set_shader_parameter("border_color", Color("#76D7BE"))
+			_sky_mat.sky_top_color = Color("#46B8F5")
+			_sky_mat.sky_horizon_color = Color("#9BE2FF")
+			_sky_mat.ground_horizon_color = Color("#9BE2FF")
+			_sky_mat.ground_bottom_color = Color("#CBEFFF")
+			_table_mat.set_shader_parameter("border_color", Color("#64D4B8"))
 			tex_path = "res://assets/textures/w1_01_marble_tile.png"
 
 	if ResourceLoader.exists(tex_path):
@@ -786,9 +1013,13 @@ func _clear_entities() -> void:
 	_bombs.clear()
 
 
-func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false) -> void:
+func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false, custom_path: String = "") -> void:
 	_clear_entities()
 	_level_number = clampi(num, 1, GameManager.MAX_LEVEL)
+	if custom_path == "":
+		_ab_mode = ""
+		if _ab_switcher_bar:
+			_ab_switcher_bar.visible = false
 	_used_rv_this_run = false
 	if not lobby_backdrop:
 		_attempts_this_level += 1
@@ -801,8 +1032,10 @@ func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false)
 	_buff_label.text = ""
 	_helpers_ui.stop_ftue_drag_guide()
 	_helpers_ui.hide_radars()
+	if _combo_ui:
+		_combo_ui.reset_combo()
 
-	var path := "res://data/levels/level_%03d.json" % _level_number
+	var path := custom_path if custom_path != "" else ("res://data/levels/level_%03d.json" % _level_number)
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not (parsed is Dictionary):
 		push_error("Failed to load level: " + path)
@@ -822,16 +1055,19 @@ func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false)
 	plane.size = Vector2(aw, ah)
 	_table_mesh.mesh = plane
 	_table_mat.set_shader_parameter("board_half_size", _board_half)
+	_table_mat.set_shader_parameter("corner_radius", 1.65)
 	_hole.board_bounds = _board_half
+	if _island_builder:
+		_island_builder.rebuild(_board_half, world_id, 1.65)
 
 	_base_duration = float(_level_data.get("duration", 45.0))
-	_time_left = _base_duration + DDAController.get_timer_adjustment(_level_number, tag)
+	_time_left = _base_duration + GameManager.get_upgrade_bonus_time() + DDAController.get_timer_adjustment(_level_number, tag)
 	_last_tick_sec = 6
 
 	var sp_arr: Array = _level_data.get("spawn", [0.0, 0.0])
 	_hole.reset_for_level(1, Vector3(float(sp_arr[0]), 0.0, float(sp_arr[1])))
 	_hole.apply_skin(GameManager.equipped_skin)
-	_target_cam_height = 18.5 if _is_mega_stage else 16.8
+	_target_cam_height = 18.5 if _is_mega_stage else (15.4 if _is_landscape_desktop() else 16.8)
 
 	var targets: Dictionary = _level_data.get("targets", {})
 
@@ -841,8 +1077,9 @@ func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false)
 		if def.is_empty():
 			continue
 		var p: Array = entry["pos"]
+		var sy := float(entry.get("y", 0.0))
 		var item := SwallowableItem.new()
-		item.setup(key, def, Vector3(float(p[0]), 0.0, float(p[1])), int(entry.get("color_idx", 0)), targets.has(key))
+		item.setup(key, def, Vector3(float(p[0]), sy, float(p[1])), int(entry.get("color_idx", 0)), targets.has(key))
 		item.swallowed.connect(_on_item_swallowed)
 		_entities_root.add_child(item)
 		_items.append(item)
@@ -1048,20 +1285,28 @@ func _process(delta: float) -> void:
 		_bomb_flash_timer = maxf(_bomb_flash_timer - delta * 2.4, 0.0)
 		_bomb_flash_rect.color.a = _bomb_flash_timer * 0.28
 
-	# Gentle scenic camera sway in Home Lobby; tight responsive follow in Gameplay
+	# Gentle scenic camera sway in Home Lobby; tight responsive follow in Gameplay (adaptive PC 16:9 vs Mobile 9:16!)
+	var is_land := _is_landscape_desktop()
+	var base_fov := 38.0 if is_land else 45.0
+	if _fov_punch > 0.0:
+		_fov_punch = maxf(_fov_punch - delta * 6.5, 0.0)
+	_camera.fov = lerpf(_camera.fov, base_fov + _fov_punch, minf(delta * 10.0, 1.0))
+
 	if _in_lobby:
 		_lobby_orbit_time += delta
-		var lx := sin(_lobby_orbit_time * 0.45) * 1.6
-		var lz := cos(_lobby_orbit_time * 0.35) * 1.1
-		var lobby_cam := Vector3(lx, 15.8, lz + 9.2)
+		var lx := sin(_lobby_orbit_time * 0.45) * 2.4
+		var lz := cos(_lobby_orbit_time * 0.35) * 1.4
+		var lobby_cam := Vector3(lx, 17.5 if is_land else 19.2, lz + (18.5 if is_land else 12.8))
 		_camera.position = _camera.position.lerp(lobby_cam, minf(delta * 3.5, 1.0))
-		_camera.look_at(Vector3(0.0, 0.0, 0.0), Vector3.UP)
+		_camera.look_at(Vector3(0.0, -0.6, 0.0), Vector3.UP)
 	else:
-		var cam_lim_x := maxf(1.5, _board_half.x - 4.4)
-		var cam_lim_z := maxf(1.5, _board_half.y - 5.0)
-		var look_x := clampf(_hole.position.x * 0.80, -cam_lim_x, cam_lim_x)
-		var look_z := clampf(_hole.position.z * 0.80, -cam_lim_z, cam_lim_z)
-		var desired_cam := Vector3(look_x, _target_cam_height, look_z + 9.4)
+		var cam_lim_x := maxf(1.5, _board_half.x - (6.8 if is_land else 4.4))
+		var cam_lim_z := maxf(1.5, _board_half.y - (4.2 if is_land else 5.0))
+		var look_x := clampf(_hole.position.x * (0.42 if is_land else 0.78), -cam_lim_x, cam_lim_x)
+		var look_z := clampf(_hole.position.z * (0.48 if is_land else 0.78), -cam_lim_z, cam_lim_z)
+		var z_off := 18.2 if is_land else 11.4
+		var cam_h := (_target_cam_height * 1.06) if is_land else (_target_cam_height * 1.05)
+		var desired_cam := Vector3(look_x, cam_h, look_z + z_off)
 
 		if _camera_shake > 0.0:
 			_camera_shake = maxf(_camera_shake - delta * 20.0, 0.0)
@@ -1069,7 +1314,10 @@ func _process(delta: float) -> void:
 			desired_cam.z += randf_range(-0.12, 0.12) * _camera_shake
 
 		_camera.position = _camera.position.lerp(desired_cam, minf(delta * 6.5, 1.0))
-		_camera.look_at(Vector3(look_x, 0.0, look_z), Vector3.UP)
+		_camera.look_at(Vector3(look_x, -0.55 if is_land else -0.2, look_z), Vector3.UP)
+
+	if _pc_hint_label:
+		_pc_hint_label.visible = is_land and _playing and not _in_lobby and not _paused
 
 	# Always step helpers (keeps confetti fluttering during Victory modal & radar active in play!)
 	var active_play := _playing and not _paused and not AdManager.is_ad_playing
@@ -1182,9 +1430,24 @@ func _on_bomb_detonated(world_pos: Vector3, penalty: float) -> void:
 func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, tint: Color) -> void:
 	AudioManager.play_swallow(tier)
 	_hole.add_xp(xp)
-	_spawn_pop_particles(pos, tint, clampi(8 + tier * 3, 8, 24))
+	_spawn_pop_particles(pos, tint, clampi(10 + tier * 4, 10, 26))
+
+	# Trigger cascade tumble for any stacked tower items perched above the swallowed base!
+	for other in _items:
+		if is_instance_valid(other) and other.state == SwallowableItem.State.IDLE and other.position.y > 0.06:
+			var dxz := Vector2(other.position.x - pos.x, other.position.z - pos.z)
+			if dxz.length() < 1.35:
+				var imp := Vector3(pos.x - other.position.x, 0.0, pos.z - other.position.z)
+				other.trigger_stack_collapse(imp.normalized() if imp.length() > 0.05 else Vector3.FORWARD)
+
+	if _combo_ui:
+		var combo := _combo_ui.register_swallow(tier)
+		if combo >= 5:
+			_fov_punch = minf(_fov_punch + 0.65, 2.8)
+
 	if tier >= 3:
 		_camera_shake = maxf(_camera_shake, float(tier) * 1.6)
+		_fov_punch = maxf(_fov_punch, 1.8)
 		PlatformBridge.trigger_haptic(35)
 
 	if _remaining_targets.has(item_key) and _remaining_targets[item_key] > 0:
@@ -1444,7 +1707,35 @@ func _on_level_timeout() -> void:
 
 
 func _on_rewarded_completed(placement: String, success: bool) -> void:
+	_refresh_booster_buttons()
 	if not success:
+		# CrazyGames Basic Launch / AdBlock compliance: never leave a Rewarded Ad button clickable without effect!
+		# Switch modal ad buttons immediately to Coin alternative or hide if insufficient coins.
+		if placement == "pre_level_boost" and _overlay_panel and _overlay_panel.visible:
+			if GameManager.coins >= 50:
+				_rebind_button(_btn_secondary, "icon_coin", "50 · LV.2 + 7s", Color("#F7A526"), Color("#B8670A"), Color("#663404"), "icon_magnet", func():
+					if GameManager.coins >= 50:
+						GameManager.coins -= 50
+						GameManager.save_progress()
+						GameManager.economy_changed.emit()
+						AudioManager.start_bgm()
+						AudioManager.play_sfx("ui_click")
+						_on_rewarded_completed("pre_level_boost", true)
+				)
+			else:
+				_btn_secondary.visible = false
+		elif placement == "fail_rescue" and _overlay_panel and _overlay_panel.visible:
+			if GameManager.coins >= 60:
+				_rebind_button(_btn_primary, "icon_coin", "60 · +15s RESCUE!", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), "icon_timer", func():
+					if GameManager.coins >= 60:
+						GameManager.coins -= 60
+						GameManager.save_progress()
+						GameManager.economy_changed.emit()
+						AudioManager.play_sfx("ui_click")
+						_on_rewarded_completed("fail_rescue", true)
+				)
+			else:
+				_btn_primary.visible = false
 		return
 	_used_rv_this_run = true
 	match placement:

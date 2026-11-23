@@ -8,13 +8,14 @@ signal play_level_requested(level_num: int)
 signal settings_requested()
 signal world_preview_requested(world_id: int)
 signal confetti_requested(count: int)
+signal upgrade_purchased(kind: String)
 
 const WORLD_THEMES := {
-	1: {"title": "SUGAR RUSH BAKERY", "short": "W1", "icon": "item_w1_donut",   "range": [1, 20],  "bg": Color("#FF6EB3"), "bevel": Color("#B01C65"), "out": Color("#630B38")},
-	2: {"title": "GACHA TOYBOX",      "short": "W2", "icon": "item_w2_duck",    "range": [21, 30], "bg": Color("#F7AD26"), "bevel": Color("#B86D0A"), "out": Color("#663804")},
-	3: {"title": "NEON BENTO STREET", "short": "W3", "icon": "item_w3_bento",   "range": [31, 40], "bg": Color("#22B8EE"), "bevel": Color("#0B78A8"), "out": Color("#0A4266")},
-	4: {"title": "ALCHEMIST DESK",    "short": "W4", "icon": "item_w4_potion",  "range": [41, 50], "bg": Color("#A855F7"), "bevel": Color("#6B21A8"), "out": Color("#3B0764")},
-	5: {"title": "PIXEL ARCADE",      "short": "W5", "icon": "item_w5_gamepad", "range": [51, 60], "bg": Color("#3B82F6"), "bevel": Color("#1D4ED8"), "out": Color("#172554")},
+	1: {"title": "SWEET BAKERY",      "short": "W1", "icon": "item_w1_donut",   "range": [1, 20],  "bg": Color("#F45D94"), "bevel": Color("#B83264"), "out": Color("#5C1430")},
+	2: {"title": "CUBE PETS TOYBOX",  "short": "W2", "icon": "item_w2_duck",    "range": [21, 30], "bg": Color("#F5A623"), "bevel": Color("#B86E0A"), "out": Color("#5C3504")},
+	3: {"title": "STREET FOOD BENTO", "short": "W3", "icon": "item_w3_bento",   "range": [31, 40], "bg": Color("#22B8CF"), "bevel": Color("#0C7A8C"), "out": Color("#083D47")},
+	4: {"title": "MINI DUNGEON",      "short": "W4", "icon": "item_w4_cauldron","range": [41, 50], "bg": Color("#8B5CF6"), "bevel": Color("#5B21B6"), "out": Color("#2E1065")},
+	5: {"title": "ARCADE HALL",       "short": "W5", "icon": "item_w5_arcade_boss", "range": [51, 60], "bg": Color("#3B82F6"), "bevel": Color("#1D4ED8"), "out": Color("#172554")},
 }
 
 var _home_root: Control
@@ -33,6 +34,7 @@ var _stash_ice_lbl: Label
 var _shop_dot: Panel
 var _toast_pill: PanelContainer
 var _toast_tween: Tween
+var _upg_buttons: Dictionary = {}
 
 var _map_overlay: Control
 var _map_world_tabs: Dictionary = {}
@@ -154,6 +156,7 @@ func refresh_all() -> void:
 	_stash_mag_lbl.text = "x%d" % GameManager.inv_magnet
 	_stash_ice_lbl.text = "x%d" % GameManager.inv_ice
 	_shop_dot.visible = GameManager.has_affordable_unowned_skin()
+	_refresh_upgrade_buttons()
 
 	if _map_overlay.visible:
 		_refresh_map()
@@ -167,6 +170,36 @@ func _world_for_level(lv: int) -> int:
 	if lv <= 40: return 3
 	if lv <= 50: return 4
 	return 5
+
+
+func _refresh_upgrade_buttons() -> void:
+	for kind in _upg_buttons:
+		var entry: Dictionary = _upg_buttons[kind]
+		var btn: Button = entry["btn"]
+		var ud: Dictionary = entry["def"]
+		var lv := GameManager.get_upgrade_level(kind)
+		var cost := GameManager.get_upgrade_cost(kind)
+		if lv >= GameManager.MAX_UPGRADE_LEVEL:
+			CandyUI.update_cta_button(btn, ud["icon"], "%s MAX" % ud["title"], Color("#94A3B8"), Color("#64748B"), Color("#334155"))
+		else:
+			var can_buy := GameManager.coins >= cost
+			var bg: Color = ud["bg"] if can_buy else Color("#64748B")
+			var bv: Color = ud["bevel"] if can_buy else Color("#475569")
+			var ol: Color = ud["out"] if can_buy else Color("#1E293B")
+			CandyUI.update_cta_button(btn, ud["icon"], "%s L%d · %d" % [ud["title"], lv, cost], bg, bv, ol)
+
+
+func _on_upgrade_pressed(kind: String) -> void:
+	if GameManager.buy_upgrade(kind):
+		AudioManager.play_sfx("level_up")
+		confetti_requested.emit(16)
+		upgrade_purchased.emit(kind)
+		_show_toast("icon_star", "%s LV.%d!" % [kind.to_upper(), GameManager.get_upgrade_level(kind)], Color("#24C964"), Color("#12823D"), Color("#094A22"))
+	else:
+		AudioManager.play_sfx("ui_click", 0.75)
+		var cost := GameManager.get_upgrade_cost(kind)
+		if cost > 0:
+			_show_toast("icon_coin", "NEED %d COINS" % cost, Color("#F43F5E"), Color("#9F1239"), Color("#580A20"))
 
 
 func _build_home_view() -> void:
@@ -259,7 +292,7 @@ func _build_home_view() -> void:
 	# === BOTTOM HERO CTA + STREAK CHEST + DOCK ===
 	_home_bot_margin = MarginContainer.new()
 	_home_bot_margin.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	_home_bot_margin.offset_top = -540
+	_home_bot_margin.offset_top = -635
 	_home_bot_margin.add_theme_constant_override("margin_left", 28)
 	_home_bot_margin.add_theme_constant_override("margin_right", 28)
 	_home_bot_margin.add_theme_constant_override("margin_bottom", 34)
@@ -313,6 +346,24 @@ func _build_home_view() -> void:
 	_chest_btn = CandyUI.create_square_icon_button("icon_chest", "", false, Color("#F7AD26"), Color("#B86D0A"), Color("#663804"), 92, 60)
 	_chest_btn.pressed.connect(_on_claim_chest_pressed)
 	ch_row.add_child(_chest_btn)
+
+	# V2.0 Persistent Coin Upgrades Strip (SIZE | SPEED | TIME)
+	var upg_row := HBoxContainer.new()
+	upg_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	upg_row.add_theme_constant_override("separation", 14)
+	bot_v.add_child(upg_row)
+
+	var upg_defs := [
+		{"kind": "size", "icon": "icon_hole", "title": "SIZE", "bg": Color("#24C964"), "bevel": Color("#12823D"), "out": Color("#094A22")},
+		{"kind": "speed", "icon": "icon_fever", "title": "SPD", "bg": Color("#FF8A2B"), "bevel": Color("#C2410C"), "out": Color("#662004")},
+		{"kind": "time", "icon": "icon_timer", "title": "TIME", "bg": Color("#22B8EE"), "bevel": Color("#0B78A8"), "out": Color("#0A4266")},
+	]
+	for ud in upg_defs:
+		var kind: String = ud["kind"]
+		var btn := CandyUI.create_cta_button(ud["icon"], "%s L1 · 60" % ud["title"], ud["bg"], ud["bevel"], ud["out"], Vector2(226, 80), 17)
+		btn.pressed.connect(func(): _on_upgrade_pressed(kind))
+		upg_row.add_child(btn)
+		_upg_buttons[kind] = {"btn": btn, "def": ud}
 
 	# Massive Glossy Green PLAY LV.X Hero Button (Mobile-sized!)
 	_play_btn = CandyUI.create_cta_button("icon_play", "PLAY  LV.1", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(660, 128), 44)

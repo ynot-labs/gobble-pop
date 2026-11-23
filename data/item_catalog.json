@@ -1,134 +1,134 @@
 {
   "w1_sprinkle": {
-    "id": "W1-02", "name": "Sprinkle", "world": 1, "tier": 1, "xp": 5, "radius": 0.24, "height": 0.18,
-    "colors": ["#FF5DA2", "#FFD93D", "#38C9F5"], "model": "res://assets/models/world1/w1_02_sprinkle.glb"
+    "id": "W1-02", "name": "Choco Cookie", "world": 1, "tier": 1, "xp": 5, "radius": 0.34, "height": 0.22,
+    "colors": ["#D9884E"], "model": "res://assets/models/kenney_v2/food/cookie-chocolate.glb", "auto_fit": true
   },
   "w1_strawberry": {
     "id": "W1-03", "name": "Strawberry", "world": 1, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.44,
-    "colors": ["#FF3B5C"], "model": "res://assets/models/world1/w1_03_strawberry.glb"
+    "colors": ["#FF3B5C"], "model": "res://assets/models/kenney_v2/food/strawberry.glb", "auto_fit": true
   },
   "w1_gummy_bear": {
-    "id": "W1-04", "name": "Gummy Bear", "world": 1, "tier": 1, "xp": 7, "radius": 0.38, "height": 0.58,
-    "colors": ["#FF577F", "#4EE075", "#FFD43B"], "model": "res://assets/models/world1/w1_04_gummy_bear.glb"
+    "id": "W1-04", "name": "Muffin", "world": 1, "tier": 1, "xp": 7, "radius": 0.40, "height": 0.56,
+    "colors": ["#F2B263"], "model": "res://assets/models/kenney_v2/food/muffin.glb", "auto_fit": true
   },
   "w1_macaron": {
-    "id": "W1-05", "name": "Macaron", "world": 1, "tier": 2, "xp": 14, "radius": 0.56, "height": 0.42,
-    "colors": ["#FF94C2", "#C09CFF", "#7AEBC4"], "model": "res://assets/models/world1/w1_05_macaron.glb"
+    "id": "W1-05", "name": "Cupcake", "world": 1, "tier": 2, "xp": 14, "radius": 0.56, "height": 0.80,
+    "colors": ["#FF85BC"], "model": "res://assets/models/kenney_v2/food/cupcake.glb", "auto_fit": true
   },
   "w1_boba_tea": {
-    "id": "W1-06", "name": "Boba Tea", "world": 1, "tier": 2, "xp": 13, "radius": 0.56, "height": 0.90,
-    "colors": ["#E5A062"], "model": "res://assets/models/world1/w1_06_boba_tea.glb"
+    "id": "W1-06", "name": "Ice Cream", "world": 1, "tier": 2, "xp": 13, "radius": 0.54, "height": 0.94,
+    "colors": ["#6EE7C8"], "model": "res://assets/models/kenney_v2/food/ice-cream.glb", "auto_fit": true
   },
   "w1_donut": {
     "id": "W1-07", "name": "Donut", "world": 1, "tier": 3, "xp": 26, "radius": 0.88, "height": 0.46,
-    "colors": ["#FF6CA8", "#4CC9F0"], "model": "res://assets/models/world1/w1_07_donut.glb"
+    "colors": ["#FF6CA8"], "model": "res://assets/models/kenney_v2/food/donut-sprinkles.glb", "auto_fit": true
   },
   "w1_cake": {
-    "id": "W1-08", "name": "Cake", "world": 1, "tier": 4, "xp": 46, "radius": 1.32, "height": 1.60,
-    "colors": ["#FFF2F6"], "model": "res://assets/models/world1/w1_08_cake.glb"
+    "id": "W1-08", "name": "Pancake Stack", "world": 1, "tier": 4, "xp": 46, "radius": 1.24, "height": 1.05,
+    "colors": ["#F59E0B"], "model": "res://assets/models/kenney_v2/food/pancakes.glb", "auto_fit": true
   },
   "w1_grand_cake": {
-    "id": "W1-08B", "name": "Grand Cake", "world": 1, "tier": 5, "xp": 80, "radius": 1.68, "height": 2.05,
-    "colors": ["#FFE0EC"], "model": "res://assets/models/world1/w1_08_cake.glb"
+    "id": "W1-08B", "name": "Birthday Cake", "world": 1, "tier": 5, "xp": 80, "radius": 1.62, "height": 1.55,
+    "colors": ["#FFB3D9"], "model": "res://assets/models/kenney_v2/food/cake-birthday.glb", "auto_fit": true
   },
 
   "w2_block": {
-    "id": "W2-02", "name": "Toy Block", "world": 2, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.34,
-    "colors": ["#38BDF8", "#FF66A3", "#4ADE80", "#B47CFF"], "model": "res://assets/models/world2/w2_02_block.glb"
+    "id": "W2-02", "name": "Mystery Box", "world": 2, "tier": 1, "xp": 6, "radius": 0.36, "height": 0.42,
+    "colors": ["#FACC15"], "model": "res://assets/models/kenney_v2/toy-car/item-box.glb", "auto_fit": true
   },
   "w2_duck": {
-    "id": "W2-03", "name": "Rubber Duck", "world": 2, "tier": 2, "xp": 14, "radius": 0.56, "height": 0.72,
-    "colors": ["#FF85BC"], "model": "res://assets/models/world2/w2_03_duck.glb"
+    "id": "W2-03", "name": "Chick Pet", "world": 2, "tier": 2, "xp": 14, "radius": 0.56, "height": 0.72,
+    "colors": ["#FFE047"], "model": "res://assets/models/kenney_v2/cube-pets/animal-chick.glb", "auto_fit": true
   },
   "w2_figurine": {
-    "id": "W2-04", "name": "Figurine", "world": 2, "tier": 2, "xp": 15, "radius": 0.56, "height": 1.10,
-    "colors": ["#B882FF", "#FF85BC", "#5EEAD4"], "model": "res://assets/models/world2/w2_04_figurine.glb"
+    "id": "W2-04", "name": "Bunny Pet", "world": 2, "tier": 2, "xp": 15, "radius": 0.56, "height": 0.92,
+    "colors": ["#FF94C2"], "model": "res://assets/models/kenney_v2/cube-pets/animal-bunny.glb", "auto_fit": true
   },
   "w2_arcade": {
-    "id": "W2-05", "name": "Mini Arcade", "world": 2, "tier": 3, "xp": 28, "radius": 0.86, "height": 1.20,
-    "colors": ["#38BDF8"], "model": "res://assets/models/world2/w2_05_arcade.glb"
+    "id": "W2-05", "name": "Fox Pet", "world": 2, "tier": 3, "xp": 28, "radius": 0.86, "height": 1.05,
+    "colors": ["#FB923C"], "model": "res://assets/models/kenney_v2/cube-pets/animal-fox.glb", "auto_fit": true
   },
   "w2_unicorn": {
-    "id": "W2-06", "name": "Unicorn Toy", "world": 2, "tier": 4, "xp": 46, "radius": 1.24, "height": 1.65,
-    "colors": ["#FFF0F8"], "model": "res://assets/models/world2/w2_06_unicorn.glb"
+    "id": "W2-06", "name": "Giraffe Pet", "world": 2, "tier": 4, "xp": 46, "radius": 1.20, "height": 1.65,
+    "colors": ["#FACC15"], "model": "res://assets/models/kenney_v2/cube-pets/animal-giraffe.glb", "auto_fit": true
   },
   "w2_golden_gacha": {
-    "id": "W2-07", "name": "Golden Gacha", "world": 2, "tier": 5, "xp": 80, "radius": 1.56, "height": 2.10,
-    "colors": ["#FACC15"], "model": "res://assets/models/world2/w2_07_golden_gacha.glb"
+    "id": "W2-07", "name": "King Lion", "world": 2, "tier": 5, "xp": 80, "radius": 1.52, "height": 1.85,
+    "colors": ["#F59E0B"], "model": "res://assets/models/kenney_v2/cube-pets/animal-lion.glb", "auto_fit": true
   },
 
   "w3_sushi": {
-    "id": "W3-02", "name": "Salmon Sushi", "world": 3, "tier": 1, "xp": 6, "radius": 0.36, "height": 0.36,
-    "colors": ["#FF6E42"], "model": "res://assets/models/world3/w3_02_sushi.glb"
+    "id": "W3-02", "name": "Salmon Sushi", "world": 3, "tier": 1, "xp": 6, "radius": 0.38, "height": 0.34,
+    "colors": ["#FF6E42"], "model": "res://assets/models/kenney_v2/food/sushi-salmon.glb", "auto_fit": true
   },
   "w3_takoyaki": {
-    "id": "W3-03", "name": "Takoyaki", "world": 3, "tier": 1, "xp": 7, "radius": 0.34, "height": 0.62,
-    "colors": ["#C46D24"], "model": "res://assets/models/world3/w3_03_takoyaki.glb"
+    "id": "W3-03", "name": "Onigiri", "world": 3, "tier": 1, "xp": 7, "radius": 0.38, "height": 0.48,
+    "colors": ["#F8FAFC"], "model": "res://assets/models/kenney_v2/food/rice-ball.glb", "auto_fit": true
   },
   "w3_ramen": {
-    "id": "W3-04", "name": "Ramen Bowl", "world": 3, "tier": 2, "xp": 15, "radius": 0.68, "height": 0.72,
-    "colors": ["#EC2B57"], "model": "res://assets/models/world3/w3_04_ramen.glb"
+    "id": "W3-04", "name": "Ramen Bowl", "world": 3, "tier": 2, "xp": 15, "radius": 0.66, "height": 0.56,
+    "colors": ["#EC2B57"], "model": "res://assets/models/kenney_v2/food/bowl-soup.glb", "auto_fit": true
   },
   "w3_big_ramen": {
-    "id": "W3-04B", "name": "King Ramen", "world": 3, "tier": 3, "xp": 28, "radius": 0.94, "height": 0.98,
-    "colors": ["#F59E0B"], "model": "res://assets/models/world3/w3_04_ramen.glb"
+    "id": "W3-04B", "name": "Double Burger", "world": 3, "tier": 3, "xp": 28, "radius": 0.90, "height": 0.86,
+    "colors": ["#F59E0B"], "model": "res://assets/models/kenney_v2/food/burger-cheese-double.glb", "auto_fit": true
   },
   "w3_bento": {
-    "id": "W3-05", "name": "Deluxe Bento", "world": 3, "tier": 4, "xp": 48, "radius": 1.32, "height": 0.92,
-    "colors": ["#1E293B"], "model": "res://assets/models/world3/w3_05_bento.glb"
+    "id": "W3-05", "name": "Hot Pizza", "world": 3, "tier": 4, "xp": 48, "radius": 1.30, "height": 0.45,
+    "colors": ["#EF4444"], "model": "res://assets/models/kenney_v2/food/pizza.glb", "auto_fit": true
   },
   "w3_grand_bento": {
-    "id": "W3-05B", "name": "Royal Bento", "world": 3, "tier": 5, "xp": 80, "radius": 1.66, "height": 1.15,
-    "colors": ["#E11D48"], "model": "res://assets/models/world3/w3_05_bento.glb"
+    "id": "W3-05B", "name": "Pizza Box Feast", "world": 3, "tier": 5, "xp": 80, "radius": 1.62, "height": 0.72,
+    "colors": ["#E11D48"], "model": "res://assets/models/kenney_v2/food/pizza-box.glb", "auto_fit": true
   },
 
   "w4_d20": {
-    "id": "W4-02", "name": "Crystal D20", "world": 4, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.64,
-    "colors": ["#9B6BFF", "#38BDF8", "#F472B6"], "model": "res://assets/models/world4/w4_02_d20.glb"
+    "id": "W4-02", "name": "Magic Jewel", "world": 4, "tier": 1, "xp": 6, "radius": 0.36, "height": 0.56,
+    "colors": ["#38BDF8"], "model": "res://assets/models/kenney_v2/platformer/jewel.glb", "auto_fit": true
   },
   "w4_slime": {
-    "id": "W4-03", "name": "Jelly Slime", "world": 4, "tier": 1, "xp": 7, "radius": 0.40, "height": 0.54,
-    "colors": ["#38BDF8", "#F472B6", "#FACC15"], "model": "res://assets/models/world4/w4_03_slime.glb"
+    "id": "W4-03", "name": "Dungeon Coin", "world": 4, "tier": 1, "xp": 7, "radius": 0.38, "height": 0.46,
+    "colors": ["#FACC15"], "model": "res://assets/models/kenney_v2/platformer/star.glb", "auto_fit": true
   },
   "w4_potion": {
-    "id": "W4-04", "name": "Magic Potion", "world": 4, "tier": 2, "xp": 15, "radius": 0.48, "height": 1.18,
-    "colors": ["#F472B6", "#38BDF8"], "model": "res://assets/models/world4/w4_04_potion.glb"
+    "id": "W4-04", "name": "Oak Barrel", "world": 4, "tier": 2, "xp": 15, "radius": 0.54, "height": 0.78,
+    "colors": ["#D97706"], "model": "res://assets/models/kenney_v2/mini-dungeon/barrel.glb", "auto_fit": true
   },
   "w4_spellbook": {
-    "id": "W4-05", "name": "Spellbook", "world": 4, "tier": 3, "xp": 28, "radius": 0.86, "height": 0.54,
-    "colors": ["#8B5CF6"], "model": "res://assets/models/world4/w4_05_spellbook.glb"
+    "id": "W4-05", "name": "Knight Shield", "world": 4, "tier": 3, "xp": 28, "radius": 0.84, "height": 0.72,
+    "colors": ["#8B5CF6"], "model": "res://assets/models/kenney_v2/mini-dungeon/shield-round.glb", "auto_fit": true
   },
   "w4_cauldron": {
-    "id": "W4-06", "name": "Cauldron", "world": 4, "tier": 4, "xp": 48, "radius": 1.32, "height": 1.95,
-    "colors": ["#5B21B6"], "model": "res://assets/models/world4/w4_06_cauldron.glb"
+    "id": "W4-06", "name": "Treasure Chest", "world": 4, "tier": 4, "xp": 48, "radius": 1.24, "height": 1.15,
+    "colors": ["#F59E0B"], "model": "res://assets/models/kenney_v2/mini-dungeon/chest.glb", "auto_fit": true
   },
   "w4_grand_cauldron": {
-    "id": "W4-06B", "name": "Grand Cauldron", "world": 4, "tier": 5, "xp": 80, "radius": 1.66, "height": 2.38,
-    "colors": ["#9333EA"], "model": "res://assets/models/world4/w4_06_cauldron.glb"
+    "id": "W4-06B", "name": "Royal Chest", "world": 4, "tier": 5, "xp": 80, "radius": 1.58, "height": 1.48,
+    "colors": ["#A855F7"], "model": "res://assets/models/kenney_v2/platformer/chest.glb", "auto_fit": true
   },
 
   "w5_pixel_coin": {
-    "id": "W5-02", "name": "Pixel Coin", "world": 5, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.56,
-    "colors": ["#FFD53D"], "model": "res://assets/models/world5/w5_02_pixel_coin.glb"
+    "id": "W5-02", "name": "Arcade Coin", "world": 5, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.46,
+    "colors": ["#FFD53D"], "model": "res://assets/models/kenney_v2/platformer/coin-gold.glb", "auto_fit": true
   },
   "w5_cartridge": {
-    "id": "W5-03", "name": "Game Cartridge", "world": 5, "tier": 1, "xp": 7, "radius": 0.40, "height": 0.58,
-    "colors": ["#FF477E"], "model": "res://assets/models/world5/w5_03_cartridge.glb"
+    "id": "W5-03", "name": "Prize Plush", "world": 5, "tier": 1, "xp": 7, "radius": 0.42, "height": 0.54,
+    "colors": ["#FF477E"], "model": "res://assets/models/kenney_v2/mini-arcade/prizes.glb", "auto_fit": true
   },
   "w5_gamepad": {
-    "id": "W5-04", "name": "Gamepad", "world": 5, "tier": 2, "xp": 15, "radius": 0.62, "height": 0.46,
-    "colors": ["#38BDF8"], "model": "res://assets/models/world5/w5_04_gamepad.glb"
+    "id": "W5-04", "name": "Ticket Kiosk", "world": 5, "tier": 2, "xp": 15, "radius": 0.60, "height": 0.92,
+    "colors": ["#38BDF8"], "model": "res://assets/models/kenney_v2/mini-arcade/ticket-machine.glb", "auto_fit": true
   },
   "w5_handheld": {
-    "id": "W5-05", "name": "Handheld", "world": 5, "tier": 3, "xp": 28, "radius": 0.88, "height": 0.48,
-    "colors": ["#22D3EE"], "model": "res://assets/models/world5/w5_05_handheld.glb"
+    "id": "W5-05", "name": "Air Hockey", "world": 5, "tier": 3, "xp": 28, "radius": 0.90, "height": 0.80,
+    "colors": ["#22D3EE"], "model": "res://assets/models/kenney_v2/mini-arcade/air-hockey.glb", "auto_fit": true
   },
   "w5_vr_headset": {
-    "id": "W5-06", "name": "VR Headset", "world": 5, "tier": 4, "xp": 48, "radius": 1.24, "height": 0.96,
-    "colors": ["#A855F7"], "model": "res://assets/models/world5/w5_06_vr_headset.glb"
+    "id": "W5-06", "name": "Claw Machine", "world": 5, "tier": 4, "xp": 48, "radius": 1.18, "height": 1.65,
+    "colors": ["#A855F7"], "model": "res://assets/models/kenney_v2/mini-arcade/claw-machine.glb", "auto_fit": true
   },
   "w5_arcade_boss": {
-    "id": "W5-07", "name": "Arcade Boss", "world": 5, "tier": 5, "xp": 80, "radius": 1.56, "height": 2.40,
-    "colors": ["#7C3AED"], "model": "res://assets/models/world5/w5_07_arcade_boss.glb"
+    "id": "W5-07", "name": "Dance Machine", "world": 5, "tier": 5, "xp": 80, "radius": 1.56, "height": 2.05,
+    "colors": ["#7C3AED"], "model": "res://assets/models/kenney_v2/mini-arcade/dance-machine.glb", "auto_fit": true
   }
 }

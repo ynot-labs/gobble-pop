@@ -626,6 +626,60 @@
         8.4
       ],
       "color_idx": 1
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -1.5,
+        -2.8
+      ],
+      "y": 0.62,
+      "color_idx": 76
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.15,
+        -1.67
+      ],
+      "y": 0.62,
+      "color_idx": 77
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -3.45,
+        -1.67
+      ],
+      "y": 0.62,
+      "color_idx": 78
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -4.1,
+        -2.8
+      ],
+      "y": 0.62,
+      "color_idx": 79
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -3.45,
+        -3.93
+      ],
+      "y": 0.62,
+      "color_idx": 80
+    },
+    {
+      "key": "w1_sprinkle",
+      "pos": [
+        -2.15,
+        -3.93
+      ],
+      "y": 0.62,
+      "color_idx": 81
     }
   ],
   "powerups": [],

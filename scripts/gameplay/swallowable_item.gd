@@ -3,7 +3,7 @@ class_name SwallowableItem
 
 signal swallowed(item_key: String, tier: int, xp: float, world_pos: Vector3, tint: Color)
 
-enum State { IDLE, PULLING, SWALLOWED }
+enum State { IDLE, FALLING_STACK, PULLING, SWALLOWED }
 
 var item_key: String = ""
 var tier: int = 1
@@ -25,8 +25,12 @@ var _target_outer_mat: StandardMaterial3D
 var _lock_label: Label3D
 var _bounce: float = 0.0
 var _shimmer_phase: float = 0.0
+var _wobble_time: float = 0.0
+var _stacked_base_y: float = 0.0
+var _toy_mats: Array[ShaderMaterial] = []
 
 static var _shared_shadow_mat: ShaderMaterial = null
+static var _shared_toy_shader: Shader = null
 
 
 func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0, p_is_objective: bool = false) -> void:
@@ -39,13 +43,21 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 	var colors: Array = def.get("colors", ["#DF85A5"])
 	tint_color = Color(str(colors[color_idx % colors.size()]))
 	position = spawn_pos
+	_stacked_base_y = spawn_pos.y
+	_wobble_time = randf() * TAU
 
 	_visual_root = Node3D.new()
 	add_child(_visual_root)
 
 	_build_contact_shadow()
+	if _stacked_base_y > 0.06 and _contact_shadow:
+		_contact_shadow.visible = false
 	if is_objective:
 		_build_target_ring()
+		if _stacked_base_y > 0.06:
+			_target_ring.position.y = -_stacked_base_y + 0.032
+			if _target_outer_ring:
+				_target_outer_ring.position.y = -_stacked_base_y + 0.026
 	if tier >= 3:
 		_build_lock_badge()
 
@@ -54,26 +66,127 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 		var packed: PackedScene = load(model_path)
 		if packed:
 			var inst := packed.instantiate()
-			if item_key in ["w1_grand_cake", "w3_grand_bento", "w4_grand_cauldron"]:
-				inst.scale = Vector3(1.26, 1.26, 1.26)
-			elif item_key == "w3_big_ramen":
-				inst.scale = Vector3(1.34, 1.34, 1.34)
-			elif item_key in ["w1_sprinkle", "w2_block", "w4_d20"]:
-				inst.rotation.y = randf() * TAU
-				# Pure single-color props: clear palette texture so variant colors NEVER multiply into muddy purple!
-				_apply_solid_variant_color(inst, tint_color)
-			elif item_key == "w1_gummy_bear":
-				inst.rotation.y = randf_range(-0.8, 0.8)
-				_apply_solid_variant_color(inst, tint_color)
-			elif item_key in ["w2_duck", "w2_arcade", "w2_unicorn", "w3_sushi", "w4_spellbook"]:
-				inst.rotation.y = randf_range(-0.6, 0.6)
-			# Multi-color hero models (donuts, boba, macarons, cakes, sushi, bento, potions, cauldrons)
-			# keep their authentic Blender palette atlas intact with a soft matte ceramic/vinyl finish!
-			_soften_material_recursive(inst, item_key in ["w1_sprinkle", "w2_block", "w4_d20", "w1_gummy_bear"])
+			var auto_fit := bool(def.get("auto_fit", false))
+			var use_vcol := bool(def.get("use_vertex_color", false))
+			var solid_tint := bool(def.get("solid_tint", false))
+
+			if auto_fit:
+				_auto_normalize_model(inst, item_radius, item_height)
+				if item_key in ["w1_sprinkle", "w2_block", "w4_d20", "w4_slime", "w5_pixel_coin"]:
+					inst.rotation.y = randf() * TAU
+				else:
+					inst.rotation.y = randf_range(-0.55, 0.55)
+			else:
+				if item_key in ["w1_grand_cake", "w3_grand_bento", "w4_grand_cauldron"]:
+					inst.scale = Vector3(1.26, 1.26, 1.26)
+				elif item_key == "w3_big_ramen":
+					inst.scale = Vector3(1.34, 1.34, 1.34)
+				elif item_key in ["w1_sprinkle", "w2_block", "w4_d20"]:
+					inst.rotation.y = randf() * TAU
+				elif item_key == "w1_gummy_bear":
+					inst.rotation.y = randf_range(-0.8, 0.8)
+				elif item_key in ["w2_duck", "w2_arcade", "w2_unicorn", "w3_sushi", "w4_spellbook"]:
+					inst.rotation.y = randf_range(-0.6, 0.6)
+
+			_apply_toy_gloss_recursive(inst, solid_tint, use_vcol)
 			_visual_root.add_child(inst)
 			return
 
 	_build_fallback_mesh()
+
+
+func _auto_normalize_model(root: Node3D, target_radius: float, target_height: float) -> void:
+	var bounds := _compute_merged_aabb(root, Transform3D.IDENTITY)
+	if not bounds["valid"]:
+		return
+	var aabb: AABB = bounds["aabb"]
+	var horiz_max := maxf(aabb.size.x, aabb.size.z)
+	if horiz_max < 0.001:
+		return
+	var s := (target_radius * 2.02) / horiz_max
+	# Guard against overly tall thin models clipping sky-high
+	if aabb.size.y * s > target_height * 1.45 and target_height > 0.1:
+		s = (target_height * 1.35) / maxf(aabb.size.y, 0.001)
+	root.scale = Vector3(s, s, s)
+	var center_x := (aabb.position.x + aabb.size.x * 0.5) * s
+	var center_z := (aabb.position.z + aabb.size.z * 0.5) * s
+	var min_y := aabb.position.y * s
+	root.position = Vector3(-center_x, -min_y, -center_z)
+
+
+func _compute_merged_aabb(node: Node, parent_xform: Transform3D) -> Dictionary:
+	var xform := parent_xform
+	if node is Node3D:
+		xform = parent_xform * (node as Node3D).transform
+	var res := {"valid": false, "aabb": AABB()}
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		if mi.mesh:
+			var local_bb := mi.mesh.get_aabb()
+			var corners := [
+				Vector3(local_bb.position.x, local_bb.position.y, local_bb.position.z),
+				Vector3(local_bb.end.x, local_bb.position.y, local_bb.position.z),
+				Vector3(local_bb.position.x, local_bb.end.y, local_bb.position.z),
+				Vector3(local_bb.position.x, local_bb.position.y, local_bb.end.z),
+				Vector3(local_bb.end.x, local_bb.end.y, local_bb.position.z),
+				Vector3(local_bb.end.x, local_bb.position.y, local_bb.end.z),
+				Vector3(local_bb.position.x, local_bb.end.y, local_bb.end.z),
+				Vector3(local_bb.end.x, local_bb.end.y, local_bb.end.z),
+			]
+			var wb := AABB(xform * corners[0], Vector3.ZERO)
+			for c in corners:
+				wb = wb.expand(xform * c)
+			res["valid"] = true
+			res["aabb"] = wb
+	for child in node.get_children():
+		var cb := _compute_merged_aabb(child, xform)
+		if cb["valid"]:
+			if not res["valid"]:
+				res["valid"] = true
+				res["aabb"] = cb["aabb"]
+			else:
+				res["aabb"] = (res["aabb"] as AABB).merge(cb["aabb"] as AABB)
+	return res
+
+
+func _apply_toy_gloss_recursive(node: Node, solid_tint: bool, use_vcol: bool) -> void:
+	if _shared_toy_shader == null:
+		_shared_toy_shader = load("res://shaders/toy_gloss.gdshader")
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+		var surf_cnt := mi.mesh.get_surface_count() if mi.mesh else 1
+		for s_idx in range(surf_cnt):
+			var src_mat := mi.get_active_material(s_idx)
+			var sm := ShaderMaterial.new()
+			sm.shader = _shared_toy_shader
+			var has_tex := false
+			if not solid_tint and src_mat is StandardMaterial3D:
+				var std := src_mat as StandardMaterial3D
+				if std.albedo_texture != null:
+					sm.set_shader_parameter("albedo_tex", std.albedo_texture)
+					sm.set_shader_parameter("use_albedo_tex", true)
+					has_tex = true
+				sm.set_shader_parameter("albedo_tint", std.albedo_color if not use_vcol else Color.WHITE)
+			elif solid_tint:
+				sm.set_shader_parameter("use_albedo_tex", false)
+				sm.set_shader_parameter("albedo_tint", tint_color)
+			else:
+				sm.set_shader_parameter("use_albedo_tex", false)
+				sm.set_shader_parameter("albedo_tint", Color.WHITE)
+
+			if use_vcol and not has_tex and not solid_tint:
+				sm.set_shader_parameter("use_vertex_color", true)
+				sm.set_shader_parameter("albedo_tint", Color.WHITE)
+			else:
+				sm.set_shader_parameter("use_vertex_color", false)
+
+			sm.set_shader_parameter("roughness_val", 0.20)
+			sm.set_shader_parameter("rim_strength", 0.38)
+			mi.set_surface_override_material(s_idx, sm)
+			_toy_mats.append(sm)
+	for child in node.get_children():
+		_apply_toy_gloss_recursive(child, solid_tint, use_vcol)
 
 
 func _build_contact_shadow() -> void:
@@ -92,7 +205,6 @@ func _build_contact_shadow() -> void:
 
 func _build_target_ring() -> void:
 	_shimmer_phase = randf() * TAU
-	# Option 2 Signature Double Golden Shimmer Ring (crisp inner gold band + luminous outer aura!)
 	_target_ring = MeshInstance3D.new()
 	var tor := TorusMesh.new()
 	tor.outer_radius = item_radius * 1.15 + 0.095
@@ -133,35 +245,6 @@ func _build_lock_badge() -> void:
 	add_child(_lock_label)
 
 
-func _apply_solid_variant_color(node: Node, col: Color) -> void:
-	if node is MeshInstance3D:
-		var mi := node as MeshInstance3D
-		var src_mat := mi.get_active_material(0)
-		if src_mat is StandardMaterial3D:
-			var dup := src_mat.duplicate() as StandardMaterial3D
-			dup.albedo_texture = null
-			dup.albedo_color = col
-			mi.set_surface_override_material(0, dup)
-	for child in node.get_children():
-		_apply_solid_variant_color(child, col)
-
-
-func _soften_material_recursive(node: Node, is_solid_variant: bool = false) -> void:
-	if node is MeshInstance3D:
-		var mi := node as MeshInstance3D
-		var src_mat := mi.get_active_material(0)
-		if src_mat is BaseMaterial3D:
-			var dup := src_mat.duplicate() as BaseMaterial3D
-			# Option 2 Glossy Candy Toy finish: crisp appetizing specular highlights!
-			dup.roughness = clampf(dup.roughness, 0.14, 0.24)
-			dup.metallic = minf(dup.metallic, 0.06)
-			if not is_solid_variant:
-				dup.albedo_color = Color.WHITE
-			mi.set_surface_override_material(0, dup)
-	for child in node.get_children():
-		_soften_material_recursive(child, is_solid_variant)
-
-
 func _build_fallback_mesh() -> void:
 	var m := MeshInstance3D.new()
 	var sph := SphereMesh.new()
@@ -176,12 +259,21 @@ func _build_fallback_mesh() -> void:
 	_visual_root.add_child(m)
 
 
+func trigger_stack_collapse(impulse_dir: Vector3) -> void:
+	if state != State.IDLE or position.y <= 0.04:
+		return
+	state = State.FALLING_STACK
+	_fall_vel = Vector3(impulse_dir.x * randf_range(0.6, 1.8), randf_range(0.8, 1.9), impulse_dir.z * randf_range(0.6, 1.8))
+	var perp := Vector3(-impulse_dir.z, 0.0, impulse_dir.x)
+	_tilt_axis = perp.normalized() if perp.length() > 0.05 else Vector3.RIGHT
+
+
 func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2) -> void:
 	if state == State.SWALLOWED:
 		return
 
 	var can_eat := tier <= hole.hole_level
-	if _target_ring and state == State.IDLE:
+	if _target_ring and (state == State.IDLE or state == State.FALLING_STACK):
 		_shimmer_phase += delta * (4.2 if can_eat else 2.2)
 		var pulse := 1.0 + sin(_shimmer_phase) * (0.06 if can_eat else 0.025)
 		_target_ring.scale = Vector3(pulse, 1.0, pulse)
@@ -196,60 +288,111 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 				_target_outer_ring.scale = Vector3(pulse, 1.0, pulse)
 				_target_outer_mat.albedo_color = Color(1.0, 0.90, 0.42, 0.40)
 	if _lock_label:
-		_lock_label.visible = (not can_eat) and (state == State.IDLE)
-
-	if _bounce > 0.0:
-		_bounce = maxf(_bounce - delta * 5.0, 0.0)
-		if state == State.IDLE:
-			var s := 1.0 + sin(_bounce * PI) * 0.14
-			_visual_root.scale = Vector3(s, 1.0 / s, s)
-	elif state == State.IDLE:
-		_visual_root.scale = Vector3.ONE
+		_lock_label.visible = (not can_eat) and (state == State.IDLE or state == State.FALLING_STACK)
 
 	var to_hole := Vector3(hole.position.x - position.x, 0.0, hole.position.z - position.z)
 	var dist := to_hole.length()
 
+	# Cute anticipation wobble when hole approaches near rim!
+	var suction_r := maxf(0.48, hole.get_suction_radius() - item_radius * 0.24)
+	if state == State.IDLE and dist < suction_r + 1.35:
+		_wobble_time += delta
+		var amp := clampf(1.0 - (dist - suction_r) / 1.35, 0.0, 1.0) * (0.08 if can_eat else 0.045)
+		for sm in _toy_mats:
+			sm.set_shader_parameter("wobble_time", _wobble_time)
+			sm.set_shader_parameter("wobble_amp", amp)
+	elif state == State.IDLE and _toy_mats.size() > 0:
+		for sm in _toy_mats:
+			sm.set_shader_parameter("wobble_amp", 0.0)
+
+	if _bounce > 0.0:
+		_bounce = maxf(_bounce - delta * 5.0, 0.0)
+		if state == State.IDLE:
+			var s := 1.0 + sin(_bounce * PI) * 0.16
+			_visual_root.scale = Vector3(s, 1.0 / s, s)
+	elif state == State.IDLE:
+		_visual_root.scale = Vector3.ONE
+
+	# Handle stacked tower cascade collapse!
+	if state == State.FALLING_STACK:
+		_fall_vel.y -= 24.0 * delta
+		position += _fall_vel * delta
+		_visual_root.rotate(_tilt_axis, delta * 5.2)
+		if _target_ring:
+			_target_ring.position.y = -position.y + 0.032
+		if _target_outer_ring:
+			_target_outer_ring.position.y = -position.y + 0.026
+		# If edible and already over the hole, seamlessly suck right in mid-cascade!
+		if can_eat and dist < suction_r * 1.15 and position.y < 1.35:
+			_enter_pulling(to_hole, dist)
+			return
+		if position.y <= 0.0:
+			position.y = 0.0
+			_stacked_base_y = 0.0
+			_visual_root.rotation = Vector3.ZERO
+			_bounce = 1.0
+			if _contact_shadow:
+				_contact_shadow.visible = true
+			if _target_ring:
+				_target_ring.position.y = 0.032
+			if _target_outer_ring:
+				_target_outer_ring.position.y = 0.026
+			state = State.IDLE
+		return
+
 	if state == State.IDLE:
+		# If stacked high up and hole undercuts underneath, collapse immediately!
+		if position.y > 0.06 and dist < hole.get_suction_radius() + item_radius * 0.85:
+			var push_dir := (to_hole / maxf(dist, 0.01))
+			trigger_stack_collapse(push_dir)
+			return
+
 		var magnet_r := hole.get_magnet_radius()
 		if can_eat and magnet_r > 0.0 and dist < magnet_r and dist > 0.05:
 			var pull_dir := to_hole / dist
-			position += pull_dir * 7.6 * delta
+			position += pull_dir * 7.8 * delta
 
-		# Calibrated eat threshold matching gobble-pop-demo: (hole_r * 1.05 - item_r * 0.25) * pullFactor
-		var suction_r := maxf(0.48, hole.get_suction_radius() - item_radius * 0.24)
 		if can_eat and dist < suction_r:
-			state = State.PULLING
-			if _contact_shadow:
-				_contact_shadow.visible = false
-			if _target_ring:
-				_target_ring.visible = false
-			if _target_outer_ring:
-				_target_outer_ring.visible = false
-			if _lock_label:
-				_lock_label.visible = false
-			_tilt_axis = Vector3(-to_hole.z, 0.0, to_hole.x).normalized()
-			if _tilt_axis.length_squared() < 0.01:
-				_tilt_axis = Vector3.RIGHT
-		elif (not can_eat) and dist < (hole.current_radius + item_radius * 0.85) and dist > 0.02:
-			# Solid oversized bump pushback (just like demo & Hole Stars!)
-			var push := (hole.current_radius + item_radius * 0.85 - dist) * 0.26
-			position.x -= (to_hole.x / dist) * push
-			position.z -= (to_hole.z / dist) * push
-			position.x = clampf(position.x, -board_bounds.x + item_radius, board_bounds.x - item_radius)
-			position.z = clampf(position.z, -board_bounds.y + item_radius, board_bounds.y - item_radius)
+			_enter_pulling(to_hole, dist)
+		elif (not can_eat) and dist < (hole.current_radius + item_radius * 0.65) and dist > 0.01:
+			var push := -to_hole / dist
+			position += push * 4.2 * delta
+			position.x = clampf(position.x, -board_bounds.x + 0.6, board_bounds.x - 0.6)
+			position.z = clampf(position.z, -board_bounds.y + 0.6, board_bounds.y - 0.6)
 			_bounce = 1.0
+
 	elif state == State.PULLING:
-		var pull_dir := to_hole.normalized() if dist > 0.01 else Vector3.ZERO
-		_fall_vel.x = lerpf(_fall_vel.x, pull_dir.x * 11.5, minf(delta * 13.0, 1.0))
-		_fall_vel.z = lerpf(_fall_vel.z, pull_dir.z * 11.5, minf(delta * 13.0, 1.0))
-		_fall_vel.y -= 29.0 * delta
-		position += _fall_vel * delta
+		var pull_vec := Vector3(hole.position.x - position.x, 0.0, hole.position.z - position.z)
+		position.x += pull_vec.x * minf(delta * 10.5, 1.0)
+		position.z += pull_vec.z * minf(delta * 10.5, 1.0)
 
-		_visual_root.rotate(_tilt_axis, delta * 8.2)
-		var shrink := clampf(1.0 + position.y * 0.44, 0.18, 1.0)
-		_visual_root.scale = Vector3.ONE * shrink
+		_fall_vel.y -= 26.0 * delta
+		position.y += _fall_vel.y * delta
+		_visual_root.rotate(_tilt_axis, delta * 9.5)
 
-		if position.y < -1.15:
+		# Juicy stretch vertically as it gets sucked into the vortex!
+		var depth_t := clampf(-position.y / 2.2, 0.0, 1.0)
+		var sx := lerpf(1.0, 0.12, depth_t)
+		var sy := lerpf(1.18, 0.25, depth_t)
+		_visual_root.scale = Vector3(sx, sy, sx)
+
+		if position.y < -1.85:
 			state = State.SWALLOWED
-			swallowed.emit(item_key, tier, xp_value, Vector3(hole.position.x, 0.16, hole.position.z), tint_color)
+			swallowed.emit(item_key, tier, xp_value, Vector3(hole.position.x, 0.15, hole.position.z), tint_color)
 			queue_free()
+
+
+func _enter_pulling(to_hole: Vector3, dist: float) -> void:
+	state = State.PULLING
+	_fall_vel = Vector3(0.0, 0.85, 0.0)
+	if dist > 0.01:
+		var dir := to_hole / dist
+		_tilt_axis = Vector3(-dir.z, 0.0, dir.x).normalized()
+	if _contact_shadow:
+		_contact_shadow.visible = false
+	if _target_ring:
+		_target_ring.visible = false
+	if _target_outer_ring:
+		_target_outer_ring.visible = false
+	if _lock_label:
+		_lock_label.visible = false

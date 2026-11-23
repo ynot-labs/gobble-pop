@@ -18,6 +18,11 @@
 			background: radial-gradient(circle at 50% 25%, #d1fae5 0%, #fef3c7 52%, #fbcfe8 100%);
 			font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Segoe UI", Roboto, sans-serif;
 			touch-action: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-webkit-touch-callout: none;
 		}
 		#canvas { display: block; }
 		#canvas:focus { outline: none; }
@@ -109,6 +114,7 @@
 			100% { background-position: 200% 50%; }
 		}
 	</style>
+	<!-- $PLATFORM_SDK_HEAD_INJECT -->
 	<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -131,10 +137,66 @@
 
 	<script src="index.js"></script>
 	<script>
-		const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":3305532,"index.wasm":37685705},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+		const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":4200628,"index.wasm":37685705},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 		const GODOT_THREADS_ENABLED = false;
 		// Automatic byte-exact cache buster so browser/CDN NEVER serves stale index.pck after an update!
 		(function () {
+			// Prevent outer iframe page scroll on arrow keys, spacebar, and mouse wheel (CrazyGames / YouTube QA requirement)
+			window.addEventListener('keydown', function (e) {
+				if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(e.code) !== -1) {
+					e.preventDefault();
+				}
+			}, { passive: false });
+			window.addEventListener('wheel', function (e) {
+				e.preventDefault();
+			}, { passive: false });
+
+			// CrazyGames SDK v3 async init queue (guarantees SDK.init() completes before any game/ad/data call)
+			window._gpCgExec = function (cb) {
+				try {
+					if (!window.CrazyGames || !window.CrazyGames.SDK) return false;
+					if (!window._gpCgInitPromise) {
+						const initRes = (typeof window.CrazyGames.SDK.init === 'function')
+							? window.CrazyGames.SDK.init()
+							: Promise.resolve();
+						window._gpCgInitPromise = Promise.resolve(initRes).then(function () {
+							window._gpCgReady = true;
+							try {
+								if (window.CrazyGames.SDK.game && typeof window.CrazyGames.SDK.game.loadingStart === 'function') {
+									window.CrazyGames.SDK.game.loadingStart();
+								}
+								if (window.CrazyGames.SDK.game && typeof window.CrazyGames.SDK.game.addSettingsChangeListener === 'function') {
+									window.CrazyGames.SDK.game.addSettingsChangeListener(function (settings) {
+										if (settings && typeof settings.muteAudio === 'boolean' && window.gobblePopOnHostAudio) {
+											window.gobblePopOnHostAudio(!settings.muteAudio);
+										}
+									});
+								}
+								if (window.CrazyGames.SDK.game && window.CrazyGames.SDK.game.settings && typeof window.CrazyGames.SDK.game.settings.muteAudio === 'boolean' && window.gobblePopOnHostAudio) {
+									window.gobblePopOnHostAudio(!window.CrazyGames.SDK.game.settings.muteAudio);
+								}
+							} catch (e) {}
+						}).catch(function (err) {
+							console.warn('[GobblePop] CrazyGames SDK init warning:', err);
+						});
+					}
+					if (window._gpCgReady) {
+						cb(window.CrazyGames.SDK);
+					} else {
+						window._gpCgInitPromise.then(function () {
+							try { cb(window.CrazyGames.SDK); } catch (e) {}
+						});
+					}
+					return true;
+				} catch (e) {
+					return false;
+				}
+			};
+			// Eagerly trigger CrazyGames SDK init + loadingStart if SDK script is present
+			if (typeof window.CrazyGames !== 'undefined') {
+				window._gpCgExec(function () {});
+			}
+
 			// Helper exposed to Godot PlatformBridge for live CSS safe-area insets (notch / Dynamic Island / home bar)
 			window.gobblePopGetSafeInsets = function () {
 				try {
@@ -152,11 +214,36 @@
 					return '{"top":0,"bottom":0,"left":0,"right":0,"vh":1,"vw":1}';
 				}
 			};
+			// YouTube Playables SDK v1: fire firstFrameReady() immediately when loading splash screen is rendered
+			try {
+				if (window.ytgame && ytgame.game && typeof ytgame.game.firstFrameReady === 'function' && !window._gpYtFirstFrameSent) {
+					window._gpYtFirstFrameSent = true;
+					ytgame.game.firstFrameReady();
+				}
+			} catch (e) {}
+
 			const pckVer = (GODOT_CONFIG && GODOT_CONFIG.fileSizes && GODOT_CONFIG.fileSizes['index.pck'])
 				? String(GODOT_CONFIG.fileSizes['index.pck'])
 				: String(Date.now());
 			const origFetch = window.fetch.bind(window);
 			window.fetch = function (input, init) {
+				if (window._gpSplitWasm && typeof input === 'string' && /(^|\/)index\.wasm(\?|$)/i.test(input)) {
+					return Promise.all([
+						origFetch('index.wasm.part1', init),
+						origFetch('index.wasm.part2', init)
+					]).then(function (resps) {
+						if (!resps[0].ok || !resps[1].ok) {
+							throw new Error('Failed loading split index.wasm parts');
+						}
+						return Promise.all([resps[0].arrayBuffer(), resps[1].arrayBuffer()]);
+					}).then(function (bufs) {
+						return new Response(new Blob(bufs, { type: 'application/wasm' }), {
+							status: 200,
+							statusText: 'OK',
+							headers: { 'Content-Type': 'application/wasm' }
+						});
+					});
+				}
 				if (typeof input === 'string' && /\.pck(\?|$)/i.test(input) && !input.includes('pckv=')) {
 					input += (input.includes('?') ? '&' : '?') + 'pckv=' + pckVer;
 				}

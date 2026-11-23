@@ -578,6 +578,78 @@
         8.2
       ],
       "color_idx": 0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.8,
+        0.0
+      ],
+      "y": 0.52,
+      "color_idx": 70
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.16,
+        3.1
+      ],
+      "y": 0.52,
+      "color_idx": 71
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.4,
+        5.37
+      ],
+      "y": 0.52,
+      "color_idx": 72
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        0.0,
+        6.2
+      ],
+      "y": 0.52,
+      "color_idx": 73
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.4,
+        5.37
+      ],
+      "y": 0.52,
+      "color_idx": 74
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.16,
+        3.1
+      ],
+      "y": 0.52,
+      "color_idx": 75
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.8,
+        0.0
+      ],
+      "y": 0.52,
+      "color_idx": 76
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.16,
+        -3.1
+      ],
+      "y": 0.52,
+      "color_idx": 77
     }
   ],
   "powerups": [

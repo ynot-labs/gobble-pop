@@ -546,6 +546,60 @@
         -3.75
       ],
       "color_idx": 1
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        4.12,
+        1.03
+      ],
+      "y": 0.68,
+      "color_idx": 66
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        2.84,
+        3.83
+      ],
+      "y": 0.68,
+      "color_idx": 67
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        0.48,
+        5.17
+      ],
+      "y": 0.68,
+      "color_idx": 68
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -2.07,
+        4.53
+      ],
+      "y": 0.68,
+      "color_idx": 69
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -3.82,
+        2.16
+      ],
+      "y": 0.68,
+      "color_idx": 70
+    },
+    {
+      "key": "w1_strawberry",
+      "pos": [
+        -4.12,
+        -1.03
+      ],
+      "y": 0.68,
+      "color_idx": 71
     }
   ],
   "powerups": [

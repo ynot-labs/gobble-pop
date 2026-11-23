@@ -142,6 +142,13 @@ var seen_tutorials: Dictionary = {}
 var bgm_enabled: bool = true
 var sfx_enabled: bool = true
 var haptics_enabled: bool = true
+var mouse_follow_enabled: bool = true
+
+# V2.0 Persistent Hole Upgrades (Lv.1 .. Lv.10, bought with Coins!)
+const MAX_UPGRADE_LEVEL: int = 10
+var upg_size: int = 1
+var upg_speed: int = 1
+var upg_time: int = 1
 
 # Phase 2 Commercial & Compliance state
 var no_forced_ads: bool = false
@@ -195,6 +202,10 @@ func reset_all_progress() -> void:
 	consent_analytics = true
 	consent_personalized_ads = true
 	total_score = 0
+	upg_size = 1
+	upg_speed = 1
+	upg_time = 1
+	mouse_follow_enabled = true
 	if is_instance_valid(AdManager):
 		AdManager.no_forced_ads_purchased = false
 	if FileAccess.file_exists(SAVE_PATH):
@@ -250,6 +261,11 @@ func _on_cloud_data_loaded(json_str: String) -> void:
 	if c_score > total_score:
 		total_score = c_score
 		dirty = true
+	for uk in ["upg_size", "upg_speed", "upg_time"]:
+		var cv := clampi(int(parsed.get(uk, 1)), 1, MAX_UPGRADE_LEVEL)
+		if cv > int(get(uk)):
+			set(uk, cv)
+			dirty = true
 	if bool(parsed.get("no_forced_ads", false)) and not no_forced_ads:
 		no_forced_ads = true
 		if is_instance_valid(AdManager):
@@ -527,10 +543,62 @@ func set_haptics_enabled(enabled: bool) -> void:
 	settings_changed.emit()
 
 
+func set_mouse_follow_enabled(enabled: bool) -> void:
+	mouse_follow_enabled = enabled
+	save_progress()
+	settings_changed.emit()
+
+
+func get_upgrade_level(kind: String) -> int:
+	match kind:
+		"size": return upg_size
+		"speed": return upg_speed
+		"time": return upg_time
+		_: return 1
+
+
+func get_upgrade_cost(kind: String) -> int:
+	var lv := get_upgrade_level(kind)
+	if lv >= MAX_UPGRADE_LEVEL:
+		return 0
+	return 60 + (lv - 1) * 55 + (lv - 1) * (lv - 1) * 15
+
+
+func buy_upgrade(kind: String) -> bool:
+	var lv := get_upgrade_level(kind)
+	if lv >= MAX_UPGRADE_LEVEL:
+		return false
+	var cost := get_upgrade_cost(kind)
+	if coins < cost:
+		return false
+	coins -= cost
+	match kind:
+		"size": upg_size += 1
+		"speed": upg_speed += 1
+		"time": upg_time += 1
+	save_progress()
+	economy_changed.emit()
+	if is_instance_valid(AnalyticsManager):
+		AnalyticsManager.track("upgrade_bought", {"kind": kind, "new_level": lv + 1, "cost": cost})
+	return true
+
+
+func get_upgrade_radius_mult() -> float:
+	return 1.0 + float(upg_size - 1) * 0.04
+
+
+func get_upgrade_speed_mult() -> float:
+	return 1.0 + float(upg_speed - 1) * 0.035
+
+
+func get_upgrade_bonus_time() -> float:
+	return float(upg_time - 1) * 2.0
+
+
 func save_progress() -> void:
 	max_unlocked_level = maxi(max_unlocked_level, current_level)
 	var data := {
-		"save_version": 3,
+		"save_version": 4,
 		"current_level": current_level,
 		"max_unlocked_level": max_unlocked_level,
 		"win_streak": win_streak,
@@ -547,6 +615,10 @@ func save_progress() -> void:
 		"bgm_enabled": bgm_enabled,
 		"sfx_enabled": sfx_enabled,
 		"haptics_enabled": haptics_enabled,
+		"mouse_follow_enabled": mouse_follow_enabled,
+		"upg_size": upg_size,
+		"upg_speed": upg_speed,
+		"upg_time": upg_time,
 		"no_forced_ads": no_forced_ads,
 		"consent_accepted": consent_accepted,
 		"consent_analytics": consent_analytics,
@@ -589,6 +661,10 @@ func load_progress() -> void:
 		bgm_enabled = bool(parsed.get("bgm_enabled", true))
 		sfx_enabled = bool(parsed.get("sfx_enabled", true))
 		haptics_enabled = bool(parsed.get("haptics_enabled", true))
+		mouse_follow_enabled = bool(parsed.get("mouse_follow_enabled", true))
+		upg_size = clampi(int(parsed.get("upg_size", 1)), 1, MAX_UPGRADE_LEVEL)
+		upg_speed = clampi(int(parsed.get("upg_speed", 1)), 1, MAX_UPGRADE_LEVEL)
+		upg_time = clampi(int(parsed.get("upg_time", 1)), 1, MAX_UPGRADE_LEVEL)
 		no_forced_ads = bool(parsed.get("no_forced_ads", false))
 		consent_accepted = bool(parsed.get("consent_accepted", false))
 		consent_analytics = bool(parsed.get("consent_analytics", true))

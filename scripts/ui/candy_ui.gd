@@ -16,7 +16,7 @@ const ITEM_ICON_MAP := {
 	"w1_macaron": "item_w1_macaron",
 	"w1_boba_tea": "item_w1_boba_tea",
 	"w1_donut": "item_w1_donut",
-	"w1_cake": "item_w1_cake",
+	"w1_cake": "item_w1_pancakes",
 	"w1_grand_cake": "item_w1_cake",
 	"w2_block": "item_w2_duck",
 	"w2_duck": "item_w2_duck",
@@ -24,14 +24,14 @@ const ITEM_ICON_MAP := {
 	"w2_arcade": "item_w2_arcade",
 	"w2_unicorn": "item_w2_unicorn",
 	"w2_golden_gacha": "item_w2_golden_gacha",
-	"w3_sushi": "item_w3_bento",
-	"w3_takoyaki": "item_w3_ramen",
+	"w3_sushi": "item_w3_sushi",
+	"w3_takoyaki": "item_w3_sushi",
 	"w3_ramen": "item_w3_ramen",
-	"w3_big_ramen": "item_w3_ramen",
+	"w3_big_ramen": "item_w3_burger",
 	"w3_bento": "item_w3_bento",
 	"w3_grand_bento": "item_w3_bento",
-	"w4_d20": "item_w4_potion",
-	"w4_slime": "item_w4_potion",
+	"w4_d20": "item_w4_jewel",
+	"w4_slime": "item_w4_jewel",
 	"w4_potion": "item_w4_potion",
 	"w4_spellbook": "item_w4_spellbook",
 	"w4_cauldron": "item_w4_cauldron",
@@ -71,60 +71,60 @@ static func make_icon_rect(tex: Texture2D, sz: int) -> TextureRect:
 	return tr
 
 
-static func make_pill_style(bg: Color, bottom_bevel: Color, radius: int = 24, pad_h: int = 14, pad_v: int = 6) -> StyleBoxFlat:
+static func make_pill_style(bg: Color, bottom_bevel: Color, radius: int = 20, pad_h: int = 14, pad_v: int = 6) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
 	sb.border_color = bottom_bevel
-	sb.border_width_left = 3
-	sb.border_width_right = 3
-	sb.border_width_top = 3
-	sb.border_width_bottom = 7
+	sb.border_width_left = 2
+	sb.border_width_right = 2
+	sb.border_width_top = 2
+	sb.border_width_bottom = 6
 	sb.set_corner_radius_all(radius)
 	sb.content_margin_left = pad_h
 	sb.content_margin_right = pad_h
 	sb.content_margin_top = pad_v
 	sb.content_margin_bottom = pad_v + 2
-	sb.shadow_color = Color(0.06, 0.14, 0.24, 0.25)
-	sb.shadow_size = 7
+	sb.shadow_color = Color(0.10, 0.14, 0.24, 0.20)
+	sb.shadow_size = 8
 	sb.shadow_offset = Vector2(0, 4)
 	sb.anti_aliasing = true
 	sb.anti_aliasing_size = 1.5
 	return sb
 
 
-static func make_button_style(bg: Color, bevel: Color, pressed: bool = false, radius: int = 26, pad_h: int = 18, pad_v: int = 10) -> StyleBoxFlat:
+static func make_button_style(bg: Color, bevel: Color, pressed: bool = false, radius: int = 22, pad_h: int = 18, pad_v: int = 10) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = bg.lightened(0.05) if not pressed else bg.darkened(0.06)
+	sb.bg_color = bg.lightened(0.04) if not pressed else bg.darkened(0.06)
 	sb.border_color = bevel
-	sb.border_width_left = 4
-	sb.border_width_right = 4
-	sb.border_width_top = 4
-	sb.border_width_bottom = 4 if pressed else 10
+	sb.border_width_left = 3
+	sb.border_width_right = 3
+	sb.border_width_top = 3
+	sb.border_width_bottom = 3 if pressed else 8
 	sb.set_corner_radius_all(radius)
 	sb.content_margin_left = pad_h
 	sb.content_margin_right = pad_h
-	sb.content_margin_top = pad_v + (5 if pressed else 0)
+	sb.content_margin_top = pad_v + (4 if pressed else 0)
 	sb.content_margin_bottom = pad_v + (0 if pressed else 4)
-	sb.shadow_color = Color(0.05, 0.10, 0.22, 0.22 if pressed else 0.32)
-	sb.shadow_size = 5 if pressed else 11
-	sb.shadow_offset = Vector2(0, 2 if pressed else 6)
+	sb.shadow_color = Color(0.09, 0.13, 0.22, 0.18 if pressed else 0.26)
+	sb.shadow_size = 5 if pressed else 10
+	sb.shadow_offset = Vector2(0, 2 if pressed else 5)
 	sb.anti_aliasing = true
 	sb.anti_aliasing_size = 1.5
 	return sb
 
 
-static func apply_outlined_label(lbl: Label, font_sz: int, text_col: Color = Color.WHITE, outline_col: Color = Color("#16324F"), outline_sz: int = 5) -> void:
+static func apply_outlined_label(lbl: Label, font_sz: int, text_col: Color = Color.WHITE, outline_col: Color = Color("#1D2D44"), outline_sz: int = 4) -> void:
 	lbl.add_theme_font_size_override("font_size", font_sz)
 	lbl.add_theme_color_override("font_color", text_col)
 	lbl.add_theme_color_override("font_outline_color", outline_col)
 	lbl.add_theme_constant_override("outline_size", outline_sz)
-	lbl.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 0.26))
+	lbl.add_theme_color_override("font_shadow_color", Color(0.06, 0.10, 0.18, 0.22))
 	lbl.add_theme_constant_override("shadow_offset_y", 2)
 
 
-static func create_icon_pill(icon_name: String, txt: String, bg: Color, bevel: Color, font_sz: int = 24, icon_sz: int = 34, outline_col: Color = Color("#13304A")) -> PanelContainer:
+static func create_icon_pill(icon_name: String, txt: String, bg: Color, bevel: Color, font_sz: int = 24, icon_sz: int = 34, outline_col: Color = Color("#1D2D44")) -> PanelContainer:
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 26, 12, 5))
+	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 20, 13, 5))
 
 	var hb := HBoxContainer.new()
 	hb.name = "Box"
@@ -143,14 +143,15 @@ static func create_icon_pill(icon_name: String, txt: String, bg: Color, bevel: C
 	lbl.text = txt
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	apply_outlined_label(lbl, font_sz, Color.WHITE, outline_col, 4 if font_sz <= 22 else 5)
+	apply_outlined_label(lbl, font_sz, Color.WHITE, outline_col, 3 if font_sz <= 22 else 4)
 	hb.add_child(lbl)
 	return panel
 
 
 static func create_target_chip(item_key: String, count: int, tier: int, bg: Color, bevel: Color, outline_col: Color) -> PanelContainer:
+	# V2.0 Cozy Toybox Craft Target Card: warm ivory surface with crisp colored maple-bevel border!
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 28, 14, 6))
+	panel.add_theme_stylebox_override("panel", make_pill_style(Color("#FFFDF7"), bg, 22, 13, 5))
 
 	var hb := HBoxContainer.new()
 	hb.name = "Box"
@@ -158,21 +159,21 @@ static func create_target_chip(item_key: String, count: int, tier: int, bg: Colo
 	hb.add_theme_constant_override("separation", 7)
 	panel.add_child(hb)
 
-	var tr := make_icon_rect(get_item_icon(item_key), 50)
+	var tr := make_icon_rect(get_item_icon(item_key), 52)
 	tr.name = "Icon"
 	hb.add_child(tr)
 
 	var lbl := Label.new()
 	lbl.name = "Count"
 	lbl.text = str(count)
-	apply_outlined_label(lbl, 30, Color.WHITE, outline_col, 5)
+	apply_outlined_label(lbl, 30, Color("#1E293B"), Color.WHITE, 4)
 	hb.add_child(lbl)
 
 	if tier >= 2:
 		var lv_lbl := Label.new()
 		lv_lbl.name = "TierTag"
 		lv_lbl.text = "Lv.%d" % tier
-		apply_outlined_label(lv_lbl, 17, Color("#FFF3A1"), outline_col, 3)
+		apply_outlined_label(lv_lbl, 16, bg.darkened(0.18), Color.WHITE, 3)
 		hb.add_child(lv_lbl)
 
 	var chk := make_icon_rect(get_icon("icon_check"), 38)
@@ -180,6 +181,37 @@ static func create_target_chip(item_key: String, count: int, tier: int, bg: Colo
 	chk.visible = false
 	hb.add_child(chk)
 	return panel
+
+
+static func add_keycap_badge(btn: Button, key_txt: String) -> PanelContainer:
+	var cap := PanelContainer.new()
+	cap.name = "KeycapBadge"
+	cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	cap.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	cap.offset_left = -8
+	cap.offset_top = -8
+	cap.offset_right = 30
+	cap.offset_bottom = 26
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("#FFFDF7")
+	sb.border_color = Color("#94A3B8")
+	sb.border_width_left = 2
+	sb.border_width_right = 2
+	sb.border_width_top = 2
+	sb.border_width_bottom = 4
+	sb.set_corner_radius_all(8)
+	sb.content_margin_left = 4
+	sb.content_margin_right = 4
+	cap.add_theme_stylebox_override("panel", sb)
+	var lbl := Label.new()
+	lbl.text = key_txt
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	lbl.add_theme_font_size_override("font_size", 16)
+	lbl.add_theme_color_override("font_color", Color("#1E293B"))
+	cap.add_child(lbl)
+	btn.add_child(cap)
+	return cap
 
 
 static func update_icon_pill(panel: PanelContainer, txt: String, bg: Color, bevel: Color, outline_col: Color = Color("#13304A"), new_icon_name: String = "") -> void:
@@ -278,13 +310,22 @@ static func create_square_icon_button(icon_name: String, badge_txt: String, show
 
 static func set_booster_button_stock(b: Button, stock_count: int) -> void:
 	var ad_icon := b.get_node_or_null("AdBadge") as Control
-	var cnt_pill := b.get_node_or_null("CountBadge") as Control
+	var cnt_pill := b.get_node_or_null("CountBadge") as PanelContainer
 	if stock_count > 0:
 		if ad_icon: ad_icon.visible = false
 		if cnt_pill:
 			cnt_pill.visible = true
+			cnt_pill.add_theme_stylebox_override("panel", make_pill_style(Color("#25CF65"), Color("#12853E"), 16, 8, 2))
 			var lbl := cnt_pill.get_node_or_null("CountText") as Label
 			if lbl: lbl.text = "x%d" % stock_count
+	elif is_instance_valid(AdManager) and not AdManager.reward_ads_available:
+		# Coin fallback badge when ads are disabled (Basic Launch / AdBlock)
+		if ad_icon: ad_icon.visible = false
+		if cnt_pill:
+			cnt_pill.visible = true
+			cnt_pill.add_theme_stylebox_override("panel", make_pill_style(Color("#F7A526"), Color("#B8670A"), 16, 8, 2))
+			var lbl := cnt_pill.get_node_or_null("CountText") as Label
+			if lbl: lbl.text = "50c"
 	else:
 		if ad_icon: ad_icon.visible = true
 		if cnt_pill: cnt_pill.visible = false

@@ -9,3 +9,10 @@ __pycache__/
 # Blender backup files
 *.blend1
 *.blend2
+
+# Local distribution archives & large promo video renders (kept locally on disk)
+build/releases/
+build/promo/*.mp4
+build/store_assets/video/*.mp4
+build/android/
+build/ios/

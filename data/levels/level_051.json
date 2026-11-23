@@ -530,6 +530,78 @@
         8.2
       ],
       "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        5.04,
+        1.43
+      ],
+      "y": 0.78,
+      "color_idx": 64
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.32,
+        4.46
+      ],
+      "y": 0.78,
+      "color_idx": 65
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.33,
+        5.79
+      ],
+      "y": 0.78,
+      "color_idx": 66
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        4.9
+      ],
+      "y": 0.78,
+      "color_idx": 67
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.83,
+        2.14
+      ],
+      "y": 0.78,
+      "color_idx": 68
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -5.04,
+        -1.43
+      ],
+      "y": 0.78,
+      "color_idx": 69
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.32,
+        -4.46
+      ],
+      "y": 0.78,
+      "color_idx": 70
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.33,
+        -5.79
+      ],
+      "y": 0.78,
+      "color_idx": 71
     }
   ],
   "powerups": [

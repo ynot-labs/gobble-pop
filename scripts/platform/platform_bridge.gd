@@ -75,25 +75,41 @@ func _setup_web_lifecycle() -> void:
 		win.gobblePopOnHostResume = _js_yt_resume_cb
 		win.gobblePopOnCloudLoaded = _js_cloud_load_cb
 
-	# Standard Web tab-visibility listener (guarantees auto-pause on tab switch across ALL browsers!)
-	JavaScriptBridge.eval("""
-		if (!window._gpVisBound) {
-			window._gpVisBound = true;
-			document.addEventListener('visibilitychange', () => {
-				if (document.hidden) {
-					if (window.gobblePopOnHostPause) window.gobblePopOnHostPause();
-				} else {
-					if (window.gobblePopOnHostResume) window.gobblePopOnHostResume();
-				}
-			});
-		}
-	""", true)
+	# Standard Web tab-visibility listener (skipped on YouTube Playables per YT integration rule §6:
+	# "Game MUST NOT use the web Page Visibility API and MUST only use Playables SDK onPause and onResume")
+	if current_platform != PlatformType.WEB_YOUTUBE:
+		JavaScriptBridge.eval("""
+			if (!window._gpVisBound) {
+				window._gpVisBound = true;
+				document.addEventListener('visibilitychange', () => {
+					if (document.hidden) {
+						if (window.gobblePopOnHostPause) window.gobblePopOnHostPause();
+					} else {
+						if (window.gobblePopOnHostResume) window.gobblePopOnHostResume();
+					}
+				});
+			}
+		""", true)
 
 	if current_platform == PlatformType.WEB_YOUTUBE:
 		JavaScriptBridge.eval("""
 			try {
-				if (window.ytgame && ytgame.game) {
+				if (window.ytgame && ytgame.game && !window._gpYtFirstFrameSent) {
+					window._gpYtFirstFrameSent = true;
 					ytgame.game.firstFrameReady();
+				}
+				if (window.ytgame && ytgame.game && typeof ytgame.game.loadData === 'function' && !window._gpYtLoadPromise) {
+					window._gpYtLoadPromise = ytgame.game.loadData().then((data) => {
+						window._gpYtLoadCompleted = true;
+						if (data && window.gobblePopOnCloudLoaded) window.gobblePopOnCloudLoaded(String(data));
+						return data;
+					}).catch(() => {
+						window._gpYtLoadCompleted = true;
+						return '';
+					});
+				} else {
+					window._gpYtLoadPromise = Promise.resolve('');
+					window._gpYtLoadCompleted = true;
 				}
 				if (window.ytgame && ytgame.system) {
 					if (typeof ytgame.system.isAudioEnabled === 'function') {
@@ -120,35 +136,65 @@ func _setup_web_lifecycle() -> void:
 	elif current_platform == PlatformType.WEB_CRAZYGAMES:
 		JavaScriptBridge.eval("""
 			try {
-				if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) {
-					if (typeof CrazyGames.SDK.game.loadingStart === 'function') {
-						CrazyGames.SDK.game.loadingStart();
-					}
+				if (typeof window._gpCgExec !== 'function') {
+					window._gpCgExec = function (cb) {
+						if (!window.CrazyGames || !window.CrazyGames.SDK) return false;
+						if (!window._gpCgInitPromise) {
+							const initRes = (typeof window.CrazyGames.SDK.init === 'function')
+								? window.CrazyGames.SDK.init()
+								: Promise.resolve();
+							window._gpCgInitPromise = Promise.resolve(initRes).then(() => {
+								window._gpCgReady = true;
+								try {
+									if (window.CrazyGames.SDK.game && typeof window.CrazyGames.SDK.game.loadingStart === 'function') {
+										window.CrazyGames.SDK.game.loadingStart();
+									}
+								} catch (e) {}
+							}).catch(() => {});
+						}
+						if (window._gpCgReady) {
+							cb(window.CrazyGames.SDK);
+						} else {
+							window._gpCgInitPromise.then(() => { try { cb(window.CrazyGames.SDK); } catch (e) {} });
+						}
+						return true;
+					};
 				}
+				window._gpCgExec(() => {});
 			} catch (e) {}
 		""", true)
 
 
 func notify_game_ready() -> void:
 	if current_platform == PlatformType.WEB_YOUTUBE:
-		JavaScriptBridge.eval("try { if (window.ytgame && ytgame.game) { ytgame.game.gameReady(); } } catch(e) {}", true)
+		# Per YT Integration §2: Hide splash screen completely BEFORE calling ytgame.game.gameReady()!
+		JavaScriptBridge.eval("""
+			try {
+				const sp = document.getElementById('splash-screen');
+				if (sp) { sp.classList.add('hidden'); sp.style.display = 'none'; }
+				if (window.ytgame && ytgame.game && !window._gpYtGameReadySent) {
+					window._gpYtGameReadySent = true;
+					ytgame.game.gameReady();
+				}
+			} catch(e) {}
+		""", true)
 	elif current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.loadingStop(); } } catch(e) {}", true)
+		JavaScriptBridge.eval("try { if (window._gpCgExec && !window._gpCgLoadingStopped) { window._gpCgLoadingStopped = true; window._gpCgExec((sdk) => { if (sdk.game && typeof sdk.game.loadingStop === 'function') sdk.game.loadingStop(); }); } } catch(e) {}", true)
 
 
 func notify_gameplay_start() -> void:
 	if current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.gameplayStart(); } } catch(e) {}", true)
+		JavaScriptBridge.eval("try { if (window._gpCgExec) { window._gpCgExec((sdk) => { if (sdk.game && typeof sdk.game.gameplayStart === 'function') sdk.game.gameplayStart(); }); } } catch(e) {}", true)
 
 
 func notify_gameplay_stop() -> void:
 	if current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.gameplayStop(); } } catch(e) {}", true)
+		JavaScriptBridge.eval("try { if (window._gpCgExec) { window._gpCgExec((sdk) => { if (sdk.game && typeof sdk.game.gameplayStop === 'function') sdk.game.gameplayStop(); }); } } catch(e) {}", true)
 
 
 func notify_happytime() -> void:
 	if current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) { CrazyGames.SDK.game.happytime(); } } catch(e) {}", true)
+		JavaScriptBridge.eval("try { if (window._gpCgExec) { window._gpCgExec((sdk) => { if (sdk.game && typeof sdk.game.happytime === 'function') sdk.game.happytime(); }); } } catch(e) {}", true)
 
 
 func submit_score(score_val: int) -> void:
@@ -161,9 +207,25 @@ func save_cloud_data(json_str: String) -> void:
 		return
 	var escaped := json_str.replace("\\", "\\\\").replace("'", "\\'")
 	if current_platform == PlatformType.WEB_YOUTUBE:
-		JavaScriptBridge.eval("try { if (window.ytgame && ytgame.game && ytgame.game.saveData) { ytgame.game.saveData('%s'); } } catch(e) {}" % escaped, true)
+		# Per YT Integration §4: Game MUST await loadData before calling saveData!
+		JavaScriptBridge.eval("""
+			try {
+				const doSave = () => {
+					if (window.ytgame && ytgame.game && typeof ytgame.game.saveData === 'function') {
+						ytgame.game.saveData('%s').catch(() => {});
+					}
+				};
+				if (window._gpYtLoadCompleted) {
+					doSave();
+				} else if (window._gpYtLoadPromise) {
+					window._gpYtLoadPromise.then(doSave).catch(doSave);
+				} else {
+					doSave();
+				}
+			} catch(e) {}
+		""" % escaped, true)
 	elif current_platform == PlatformType.WEB_CRAZYGAMES:
-		JavaScriptBridge.eval("try { if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.data) { CrazyGames.SDK.data.setItem('gobble_pop_save', '%s'); } } catch(e) {}" % escaped, true)
+		JavaScriptBridge.eval("try { if (window._gpCgExec) { window._gpCgExec((sdk) => { if (sdk.data && typeof sdk.data.setItem === 'function') sdk.data.setItem('gobble_pop_save', '%s'); }); } } catch(e) {}" % escaped, true)
 
 
 func request_cloud_load() -> void:
@@ -172,19 +234,29 @@ func request_cloud_load() -> void:
 	if current_platform == PlatformType.WEB_YOUTUBE:
 		JavaScriptBridge.eval("""
 			try {
-				if (window.ytgame && ytgame.game && ytgame.game.loadData) {
-					ytgame.game.loadData().then((data) => {
+				if (window._gpYtLoadPromise) {
+					window._gpYtLoadPromise.then((data) => {
 						if (data && window.gobblePopOnCloudLoaded) window.gobblePopOnCloudLoaded(String(data));
 					}).catch(() => {});
+				} else if (window.ytgame && ytgame.game && ytgame.game.loadData) {
+					window._gpYtLoadPromise = ytgame.game.loadData().then((data) => {
+						window._gpYtLoadCompleted = true;
+						if (data && window.gobblePopOnCloudLoaded) window.gobblePopOnCloudLoaded(String(data));
+						return data;
+					}).catch(() => { window._gpYtLoadCompleted = true; return ''; });
 				}
 			} catch(e) {}
 		""", true)
 	elif current_platform == PlatformType.WEB_CRAZYGAMES:
 		JavaScriptBridge.eval("""
 			try {
-				if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.data) {
-					const d = CrazyGames.SDK.data.getItem('gobble_pop_save');
-					if (d && window.gobblePopOnCloudLoaded) window.gobblePopOnCloudLoaded(String(d));
+				if (window._gpCgExec) {
+					window._gpCgExec((sdk) => {
+						if (sdk.data && typeof sdk.data.getItem === 'function') {
+							const d = sdk.data.getItem('gobble_pop_save');
+							if (d && window.gobblePopOnCloudLoaded) window.gobblePopOnCloudLoaded(String(d));
+						}
+					});
 				}
 			} catch(e) {}
 		""", true)
@@ -241,6 +313,8 @@ func _on_js_host_audio(args: Array) -> void:
 
 
 func _on_js_host_pause(_args: Array) -> void:
+	if is_instance_valid(GameManager):
+		GameManager.save_progress()
 	visibility_changed.emit(false)
 
 
