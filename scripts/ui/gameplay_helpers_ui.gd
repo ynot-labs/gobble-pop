@@ -216,9 +216,10 @@ func step_helpers(delta: float, playing: bool, camera: Camera3D, hole: HoleContr
 		return
 
 	var vp_size := get_viewport_rect().size
-	var pad_x := 64.0
-	var pad_top := 240.0
-	var pad_bot := 185.0
+	var safe_m := PlatformBridge.get_safe_margins()
+	var pad_x := 66.0
+	var pad_top := (360.0 if GameManager.is_beta_build() else 285.0) + float(safe_m.get("top", 0.0))
+	var pad_bot := 215.0 + float(safe_m.get("bottom", 0.0))
 	var offscreen: Array[Dictionary] = []
 
 	for it in items:

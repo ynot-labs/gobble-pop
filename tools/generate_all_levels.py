@@ -311,28 +311,33 @@ def build_all():
          {"w1_donut": 8, "w1_cake": 5}, it,
          [{"kind": "ice", "pos": [0, 2.6]}], traps, streak_hint=9)
 
-    # Lv.10 — SUPER HARD CLIFF · Gum Gauntlet! (Scheme A: XP ~955/810 = 1.18x, strict spatial split!)
+    # Lv.10 — SUPER HARD CLIFF · Bakery Plaza!
+    # Large 30x34 ASMR decompression showcase: tightly packed, razor-neat regional candy blocks!
+    # Screen 1 immediately showcases the dense 8x4 Sprinkle Carpet + Twin 3x3 Strawberry/Gummy blocks + Magnet!
+    # Outer wings: 3x3 Macaron (W), 3x3 Rainbow-Cream Boba (E), 4x2 Donut Plaza (C), 3-Cake Terrace, 4-Grand-Cake Row!
+    # Scheme A XP below Tier 5: 32*5 + 18*6 + 18*7 + 9*14 + 9*13 + 8*26 + 3*46 = 983 / 810 = 1.21x!
     it = []
-    # South growth yard (Lv.1 -> Lv.2)
-    add_items(it, "w1_sprinkle", pt_grid(0, 9.2, 8, 2, 2.2, 1.4), 3, [0, 9.8])
-    add_items(it, "w1_strawberry", pt_line(-8.2, 6.8, 8.2, 6.8, 10), 1)
-    add_items(it, "w1_gummy_bear", pt_line(-7.2, 4.4, 7.2, 4.4, 9), 3)
-    # Mid-field lanes (Lv.2 -> Lv.3 -> Lv.4)
-    add_items(it, "w1_macaron", pt_line(-8.4, 2.0, -8.4, -5.5, 5) + pt_line(8.4, 2.0, 8.4, -5.5, 5), 3)
-    add_items(it, "w1_boba_tea", pt_line(-4.2, 0.8, 4.2, 0.8, 5) + pt_line(-4.2, -3.2, 4.2, -3.2, 5), 1)
-    add_items(it, "w1_donut", [[-8.6, -2.5], [8.6, -2.5], [-4.5, -5.8], [4.5, -5.8], [0, -5.8], [-8.6, 5.2], [8.6, 5.2], [0, -8.5]], 2)
-    add_items(it, "w1_cake", [[-9.2, -8.8], [9.2, -8.8], [-4.4, -9.2], [4.4, -9.2], [0, -1.4]], 1)
-    # Far-north Lv.5 Grand Cake Boss Vault!
-    add_items(it, "w1_grand_cake", [[-8.2, -11.8], [0.0, -12.0], [8.2, -11.8]], 1)
+    # Zone A (Immediate Spawn Carpet): Razor-neat 8x4 Sprinkle Carpet right in front of hole!
+    add_items(it, "w1_sprinkle", pt_grid(0.0, 8.6, 8, 4, 0.72, 0.72), 3)
+    # Zone B (Flanking Berry & Gummy Blocks): Tight 3x3 blocks visible on Frame 1 + 3x3 outer wing pairs
+    add_items(it, "w1_strawberry", pt_grid(-3.2, 4.8, 3, 3, 0.88, 0.88) + pt_grid(-9.2, 8.6, 3, 3, 0.92, 0.92), 1)
+    add_items(it, "w1_gummy_bear", pt_grid(3.2, 4.8, 3, 3, 0.90, 0.90) + pt_grid(9.2, 8.6, 3, 3, 0.94, 0.94), 3)
+    # Zone C (Mid Wings): Tight 3x3 Macaron (West) & 3x3 Rainbow-Cream Boba Sundae (East)
+    add_items(it, "w1_macaron", pt_grid(-8.2, 0.6, 3, 3, 1.35, 1.35), 3)
+    add_items(it, "w1_boba_tea", pt_grid(8.2, 0.6, 3, 3, 1.35, 1.35), 1)
+    # Zone D (Center Plaza): Razor-neat 4x2 Donut Precision Grid
+    add_items(it, "w1_donut", pt_grid(0.0, -2.6, 4, 2, 2.15, 2.15), 2)
+    # Zone E (Upper Terrace): 3 Symmetrical Tier-4 Cakes
+    add_items(it, "w1_cake", [[-8.6, -8.4], [0.0, -8.4], [8.6, -8.4]], 1)
+    # Zone F (Far-North Vault): 4 Majestic Tier-5 Grand Cakes in a crisp row
+    add_items(it, "w1_grand_cake", [[-9.6, -13.6], [-3.2, -13.6], [3.2, -13.6], [9.6, -13.6]], 1)
     traps = [
-        {"pos": [-6.2, 2.6]}, {"pos": [0.0, 2.6]}, {"pos": [6.2, 2.6]},
-        {"pos": [-3.4, -1.2]}, {"pos": [3.4, -1.2]},
-        {"pos": [-6.8, -5.2]}, {"pos": [0.0, -4.4]}, {"pos": [6.8, -5.2]},
-        {"pos": [-4.2, -10.4]}, {"pos": [4.2, -10.4]},
+        {"pos": [-4.4, -5.6]}, {"pos": [4.4, -5.6]},
+        {"pos": [-4.8, -11.0]}, {"pos": [4.8, -11.0]},
     ]
-    emit(10, 1, "Gum Gauntlet", "SUPER_HARD", 31, 24, 28, [0, 10.6],
-         {"w1_donut": 7, "w1_cake": 4, "w1_grand_cake": 3}, it,
-         [{"kind": "ice", "pos": [-5.2, 7.6]}], traps, streak_hint=49)
+    emit(10, 1, "Bakery Plaza", "SUPER_HARD", 23, 30, 34, [0.0, 12.2],
+         {"w1_donut": 8, "w1_cake": 3, "w1_grand_cake": 4}, it,
+         [{"kind": "magnet", "pos": [0.0, 5.2]}, {"kind": "ice", "pos": [0.0, 1.4]}], traps, streak_hint=49)
 
     # Lv.11 — Candy S-Wave
     it = []
