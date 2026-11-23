@@ -431,75 +431,84 @@ func _build_hud() -> void:
 	top_vbox.add_theme_constant_override("separation", 9)
 	_gameplay_top_margin.add_child(top_vbox)
 
-	# === ROW 1: Mobile-Friendly Icon-First Top HUD ([Home Exit] | [Timer] | [Targets Icons] | [Flame] | [Pause]) ===
+	# === ROW 1: Clear Button vs Status Separation! [Home Btn] | [Unified Frosted HUD Status Dock] | [Pause Btn] ===
 	var row1 := HBoxContainer.new()
 	row1.alignment = BoxContainer.ALIGNMENT_CENTER
-	row1.add_theme_constant_override("separation", 10)
+	row1.add_theme_constant_override("separation", 14)
 	top_vbox.add_child(row1)
 
-	var btn_exit_home := CandyUI.create_square_icon_button("icon_home", "", false, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 84, 48)
+	var btn_exit_home := CandyUI.create_square_icon_button("icon_home", "", false, Color("#F45D94"), Color("#B83264"), Color("#5C1430"), 78, 44)
 	btn_exit_home.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		_request_exit_confirm()
 	)
 	row1.add_child(btn_exit_home)
 
-	_timer_pill = CandyUI.create_icon_pill("icon_timer", "0:45", Color("#22B8EE"), Color("#0B78A8"), 34, 44, Color("#0A4266"))
-	row1.add_child(_timer_pill)
+	# Unified Translucent Frosted Status Dock (visually unmistakable as read-only HUD status!)
+	var status_dock := PanelContainer.new()
+	status_dock.add_theme_stylebox_override("panel", CandyUI.make_hud_glass_dock_style(22, 12, 6))
+	row1.add_child(status_dock)
+
+	var status_row := HBoxContainer.new()
+	status_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	status_row.add_theme_constant_override("separation", 10)
+	status_dock.add_child(status_row)
+
+	_timer_pill = CandyUI.create_icon_pill("icon_timer", "0:45", Color("#38BDF8"), Color("#0B78A8"), 32, 38, Color("#0A4266"))
+	status_row.add_child(_timer_pill)
 
 	_targets_box = HBoxContainer.new()
 	_targets_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	_targets_box.add_theme_constant_override("separation", 10)
-	row1.add_child(_targets_box)
+	_targets_box.add_theme_constant_override("separation", 8)
+	status_row.add_child(_targets_box)
 
-	_streak_pill = CandyUI.create_icon_pill("icon_flame", "0", Color("#FF8A2B"), Color("#C2410C"), 30, 42, Color("#662004"))
-	row1.add_child(_streak_pill)
+	_streak_pill = CandyUI.create_icon_pill("icon_flame", "0", Color("#FF8A2B"), Color("#C2410C"), 26, 36, Color("#662004"))
+	status_row.add_child(_streak_pill)
 
-	_btn_pause = CandyUI.create_square_icon_button("icon_pause", "", false, Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), 84, 48)
+	_btn_pause = CandyUI.create_square_icon_button("icon_pause", "", false, Color("#22B8E8"), Color("#0B78A8"), Color("#0A4266"), 78, 44)
 	_btn_pause.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		_pause_gameplay()
 	)
 	row1.add_child(_btn_pause)
 
-	# === ROW 2: Larger Mobile Hole Level + Level Badge + Golden Lightning Fever Bar ===
+	# === ROW 2: Sleek Slim Status Sub-Strip (LV · Hole Size · Fever Gauge) ===
+	var row2_panel := PanelContainer.new()
+	row2_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	row2_panel.add_theme_stylebox_override("panel", CandyUI.make_hud_glass_dock_style(16, 12, 4))
+	top_vbox.add_child(row2_panel)
+
 	var row2 := HBoxContainer.new()
 	row2.alignment = BoxContainer.ALIGNMENT_CENTER
 	row2.add_theme_constant_override("separation", 12)
-	top_vbox.add_child(row2)
+	row2_panel.add_child(row2)
 
-	_level_pill = CandyUI.create_icon_pill("icon_crown", "LV.1", Color("#F7AD26"), Color("#B86D0A"), 25, 34, Color("#663804"))
+	_level_pill = CandyUI.create_icon_pill("icon_crown", "LV.1", Color("#F7AD26"), Color("#B86D0A"), 20, 28, Color("#663804"))
 	row2.add_child(_level_pill)
 
-	_hole_lvl_pill = CandyUI.create_icon_pill("icon_hole", "Lv.1", Color("#24C964"), Color("#12823D"), 26, 36, Color("#094A22"))
+	_hole_lvl_pill = CandyUI.create_icon_pill("icon_hole", "Lv.1", Color("#24C964"), Color("#12823D"), 20, 28, Color("#094A22"))
 	row2.add_child(_hole_lvl_pill)
 
 	var fever_wrap := HBoxContainer.new()
 	fever_wrap.alignment = BoxContainer.ALIGNMENT_CENTER
-	fever_wrap.add_theme_constant_override("separation", 8)
+	fever_wrap.add_theme_constant_override("separation", 6)
 	row2.add_child(fever_wrap)
 
-	fever_wrap.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_fever"), 38))
+	fever_wrap.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_fever"), 30))
 
 	_fever_bar = ProgressBar.new()
-	_fever_bar.custom_minimum_size = Vector2(250, 30)
+	_fever_bar.custom_minimum_size = Vector2(210, 22)
 	_fever_bar.max_value = 100.0
 	_fever_bar.value = 0.0
 	_fever_bar.show_percentage = false
 	var fb_bg := StyleBoxFlat.new()
-	fb_bg.bg_color = Color(1.0, 0.98, 0.92, 0.94)
-	fb_bg.border_color = Color("#D98A1C")
-	fb_bg.border_width_left = 3
-	fb_bg.border_width_right = 3
-	fb_bg.border_width_top = 3
-	fb_bg.border_width_bottom = 6
-	fb_bg.set_corner_radius_all(12)
-	fb_bg.shadow_color = Color(0.1, 0.1, 0.2, 0.22)
-	fb_bg.shadow_size = 5
-	fb_bg.shadow_offset = Vector2(0, 3)
+	fb_bg.bg_color = Color(0.05, 0.10, 0.18, 0.72)
+	fb_bg.border_color = Color(1.0, 1.0, 1.0, 0.25)
+	fb_bg.set_border_width_all(2)
+	fb_bg.set_corner_radius_all(10)
 	var fb_fill := StyleBoxFlat.new()
 	fb_fill.bg_color = Color("#FFBE2E")
-	fb_fill.set_corner_radius_all(9)
+	fb_fill.set_corner_radius_all(8)
 	_fever_bar.add_theme_stylebox_override("background", fb_bg)
 	_fever_bar.add_theme_stylebox_override("fill", fb_fill)
 	fever_wrap.add_child(_fever_bar)

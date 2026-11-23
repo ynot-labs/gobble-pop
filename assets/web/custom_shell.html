@@ -34,67 +34,85 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			justify-content: center;
-			padding: 24px;
-			background: radial-gradient(circle at 50% 20%, #a7f3d0 0%, #fef9c3 55%, #f9a8d4 100%);
+			justify-content: flex-end;
+			padding: 0 24px calc(38px + var(--sab));
+			background: linear-gradient(180deg, #0876e8 0%, #2bb8ff 55%, #1b96f0 100%);
 			transition: opacity 0.4s ease, visibility 0.4s ease;
+			overflow: hidden;
 		}
 		#splash-screen.hidden {
 			opacity: 0;
 			visibility: hidden;
 			pointer-events: none;
 		}
-		.cover-card {
-			position: relative;
-			width: min(84vw, 370px);
-			aspect-ratio: 3 / 4;
-			border-radius: 32px;
-			overflow: hidden;
-			border: 5px solid rgba(255, 255, 255, 0.94);
-			box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25), 0 0 0 6px rgba(255, 111, 165, 0.25);
-			background: #fff8f0;
-			animation: floatCover 2.6s ease-in-out infinite;
-		}
-		.cover-card img {
+		.splash-bg-img {
+			position: absolute;
+			inset: 0;
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
+			object-position: center center;
 			display: block;
+			z-index: 0;
+			animation: gentleZoom 6s ease-in-out infinite alternate;
+		}
+		@media (min-aspect-ratio: 11/10) {
+			/* On Desktop 16:9 widescreen, keep full hero artwork crisp & centered over radiant sky backdrop */
+			.splash-bg-img {
+				object-fit: contain;
+			}
+		}
+		.splash-bottom-scrim {
+			position: absolute;
+			left: 0; right: 0; bottom: 0;
+			height: 32%;
+			background: linear-gradient(180deg, rgba(8, 22, 48, 0) 0%, rgba(8, 22, 48, 0.56) 100%);
+			z-index: 1;
+			pointer-events: none;
 		}
 		.loader-wrap {
-			width: min(82vw, 350px);
-			margin-top: 22px;
+			position: relative;
+			z-index: 2;
+			width: min(84vw, 390px);
+			padding: 14px 18px;
+			border-radius: 22px;
+			background: rgba(12, 26, 48, 0.58);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			border: 2px solid rgba(255, 255, 255, 0.28);
+			box-shadow: 0 12px 32px rgba(8, 20, 42, 0.32);
 			text-align: center;
 		}
 		.progress-track {
 			width: 100%;
-			height: 18px;
+			height: 16px;
 			border-radius: 999px;
-			background: rgba(255, 255, 255, 0.85);
-			border: 3px solid #ffffff;
-			box-shadow: 0 6px 16px rgba(15, 23, 42, 0.14);
+			background: rgba(255, 255, 255, 0.22);
+			border: 2px solid rgba(255, 255, 255, 0.72);
 			overflow: hidden;
 		}
 		.progress-fill {
 			height: 100%;
 			width: 6%;
 			border-radius: 999px;
-			background: linear-gradient(90deg, #ff4d94 0%, #facc15 50%, #14b8a6 100%);
+			background: linear-gradient(90deg, #ff5d9e 0%, #ffd93d 50%, #2ee8b7 100%);
 			background-size: 200% 100%;
 			animation: shimmer 1.4s linear infinite;
 			transition: width 0.18s ease-out;
 		}
 		.loader-text {
-			margin-top: 10px;
-			font-size: 14px;
+			margin-top: 9px;
+			font-size: 13px;
 			font-weight: 800;
-			letter-spacing: 0.3px;
-			color: #0f172a;
-			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+			letter-spacing: 0.4px;
+			color: #ffffff;
+			text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
 		}
 		#status-notice {
+			position: relative;
+			z-index: 2;
 			display: none;
-			margin-top: 14px;
+			margin-top: 12px;
 			padding: 12px 16px;
 			border-radius: 16px;
 			background: #fff1f2;
@@ -105,9 +123,9 @@
 			max-width: 360px;
 			text-align: center;
 		}
-		@keyframes floatCover {
-			0%, 100% { transform: translateY(0px) scale(1); }
-			50% { transform: translateY(-6px) scale(1.012); }
+		@keyframes gentleZoom {
+			0% { transform: scale(1.0); }
+			100% { transform: scale(1.03); }
 		}
 		@keyframes shimmer {
 			0% { background-position: 0% 50%; }
@@ -121,14 +139,13 @@
 	<canvas id="canvas">Your browser does not support HTML5 Canvas.</canvas>
 
 	<div id="splash-screen">
-		<div class="cover-card">
-			<img src="cover_splash.jpg" alt="Gobble Pop! Cover" />
-		</div>
+		<img class="splash-bg-img" src="cover_splash.jpg" alt="Gobble Pop! Splash" />
+		<div class="splash-bottom-scrim"></div>
 		<div class="loader-wrap">
 			<div class="progress-track">
 				<div class="progress-fill" id="progress-fill"></div>
 			</div>
-			<div class="loader-text" id="loader-text">Warming up the Candy Vortex... 0%</div>
+			<div class="loader-text" id="loader-text">Warming up the Vortex... 0%</div>
 		</div>
 		<div id="status-notice"></div>
 	</div>

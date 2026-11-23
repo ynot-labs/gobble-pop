@@ -111,7 +111,9 @@ func _auto_normalize_model(root: Node3D, target_radius: float, target_height: fl
 	var center_x := (aabb.position.x + aabb.size.x * 0.5) * s
 	var center_z := (aabb.position.z + aabb.size.z * 0.5) * s
 	var min_y := aabb.position.y * s
-	root.position = Vector3(-center_x, -min_y, -center_z)
+	# Clear +0.052m above Y=0 tabletop, Y=0.014 contact shadow, and Y=0.032 target ring so flat-bottom meshes
+	# (like pancakes.glb syrup puddle, cookies, and pizza) NEVER Z-fight or flicker against the plane!
+	root.position = Vector3(-center_x, -min_y + 0.052, -center_z)
 
 
 func _compute_merged_aabb(node: Node, parent_xform: Transform3D) -> Dictionary:

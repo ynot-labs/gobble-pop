@@ -257,16 +257,26 @@ func _build_home_view() -> void:
 	res_row.add_theme_constant_override("separation", 14)
 	top_v.add_child(res_row)
 
-	_star_pill = CandyUI.create_icon_pill("icon_star", "0", Color("#F7AD26"), Color("#B86D0A"), 28, 42, Color("#663804"))
-	res_row.add_child(_star_pill)
+	# Unified Frosted Glass Currency Status Bar (clearly read-only counters, NOT clickable buttons!)
+	var res_dock := PanelContainer.new()
+	res_dock.add_theme_stylebox_override("panel", CandyUI.make_hud_glass_dock_style(22, 12, 6))
+	res_row.add_child(res_dock)
 
-	_coin_pill = CandyUI.create_icon_pill("icon_coin", "150", Color("#FF8A2B"), Color("#C2410C"), 28, 42, Color("#662004"))
-	res_row.add_child(_coin_pill)
+	var res_inner := HBoxContainer.new()
+	res_inner.alignment = BoxContainer.ALIGNMENT_CENTER
+	res_inner.add_theme_constant_override("separation", 10)
+	res_dock.add_child(res_inner)
 
-	_shard_pill = CandyUI.create_icon_pill("icon_shard", "2", Color("#A855F7"), Color("#6B21A8"), 28, 42, Color("#3B0764"))
-	res_row.add_child(_shard_pill)
+	_star_pill = CandyUI.create_icon_pill("icon_star", "0", Color("#F7AD26"), Color("#B86D0A"), 24, 34, Color("#663804"))
+	res_inner.add_child(_star_pill)
 
-	var btn_gear := CandyUI.create_square_icon_button("icon_gear", "", false, Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), 82, 46)
+	_coin_pill = CandyUI.create_icon_pill("icon_coin", "150", Color("#FF8A2B"), Color("#C2410C"), 24, 34, Color("#662004"))
+	res_inner.add_child(_coin_pill)
+
+	_shard_pill = CandyUI.create_icon_pill("icon_shard", "2", Color("#A855F7"), Color("#6B21A8"), 24, 34, Color("#3B0764"))
+	res_inner.add_child(_shard_pill)
+
+	var btn_gear := CandyUI.create_square_icon_button("icon_gear", "", false, Color("#22B8E8"), Color("#0B78A8"), Color("#0A4266"), 76, 42)
 	btn_gear.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		settings_requested.emit()
@@ -303,11 +313,11 @@ func _build_home_view() -> void:
 	bot_v.add_theme_constant_override("separation", 20)
 	_home_bot_margin.add_child(bot_v)
 
-	# Win-Streak Milestone Chest Strip
+	# Win-Streak Milestone Status Strip (flat frosted card — ONLY the Claim Chest is a 3D button!)
 	var chest_card := PanelContainer.new()
 	chest_card.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	chest_card.custom_minimum_size = Vector2(680, 102)
-	chest_card.add_theme_stylebox_override("panel", CandyUI.make_pill_style(Color(1.0, 0.98, 0.93, 0.96), Color("#E08E22"), 30, 20, 12))
+	chest_card.custom_minimum_size = Vector2(680, 96)
+	chest_card.add_theme_stylebox_override("panel", CandyUI.make_hud_glass_dock_style(24, 18, 10))
 	bot_v.add_child(chest_card)
 
 	var ch_row := HBoxContainer.new()
@@ -388,10 +398,10 @@ func _build_home_view() -> void:
 	)
 	dock.add_child(btn_map)
 
-	# Booster Stash Capsule
+	# Booster Stash Readout (flat frosted display — clearly inventory count, NOT a clickable button!)
 	var stash := PanelContainer.new()
-	stash.custom_minimum_size = Vector2(280, 136)
-	stash.add_theme_stylebox_override("panel", CandyUI.make_pill_style(Color(1.0, 0.99, 0.95, 0.95), Color("#28B9E8"), 30, 18, 12))
+	stash.custom_minimum_size = Vector2(260, 128)
+	stash.add_theme_stylebox_override("panel", CandyUI.make_hud_glass_dock_style(24, 16, 10))
 	dock.add_child(stash)
 
 	var stash_h := HBoxContainer.new()
@@ -404,16 +414,16 @@ func _build_home_view() -> void:
 	mag_v.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_magnet"), 58))
 	_stash_mag_lbl = Label.new()
 	_stash_mag_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	CandyUI.apply_outlined_label(_stash_mag_lbl, 26, Color("#EC36A0"), Color("#4A072D"), 4)
+	CandyUI.apply_outlined_label(_stash_mag_lbl, 24, Color("#FFD6EC"), Color("#4A072D"), 3)
 	mag_v.add_child(_stash_mag_lbl)
 	stash_h.add_child(mag_v)
 
 	var ice_v := VBoxContainer.new()
 	ice_v.alignment = BoxContainer.ALIGNMENT_CENTER
-	ice_v.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_ice"), 58))
+	ice_v.add_child(CandyUI.make_icon_rect(CandyUI.get_icon("icon_ice"), 54))
 	_stash_ice_lbl = Label.new()
 	_stash_ice_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	CandyUI.apply_outlined_label(_stash_ice_lbl, 26, Color("#0EA5E9"), Color("#083344"), 4)
+	CandyUI.apply_outlined_label(_stash_ice_lbl, 24, Color("#BAE6FD"), Color("#083344"), 3)
 	ice_v.add_child(_stash_ice_lbl)
 	stash_h.add_child(ice_v)
 

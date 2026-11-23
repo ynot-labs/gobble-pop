@@ -23,6 +23,7 @@ PLATES_DIR = "/Users/unmercy/.gemini/antigravity/brain/3be651bd-193c-44b0-a17f-2
 PLATE_SQUARE = os.path.join(PLATES_DIR, "v2_plate_square_1024.png")
 PLATE_LANDSCAPE = os.path.join(PLATES_DIR, "v2_plate_landscape_1920.png")
 PLATE_PORTRAIT = os.path.join(PLATES_DIR, "v2_plate_portrait_800x1200.png")
+PLATE_SPLASH = os.path.join(PLATES_DIR, "v2_plate_splash_9x16.png")
 
 
 def load_rgb(path: str, w: int, h: int) -> bytes:
@@ -316,15 +317,16 @@ def main():
     for ext in ("png", "jpg"):
         save_rgb(port_final, 800, 1200, os.path.join(covers_dir, f"crazygames_portrait_800x1200.{ext}"))
 
-    # 5. Seamless 3:4 H5 Splash Loading Card (900x1200)
-    splash_plate = load_rgb(PLATE_PORTRAIT, 900, 1200)
+    # 5. Fullscreen 9:16 Mobile Splash Screen (1080x1920) — Hero title + floating island dead-center!
+    splash_src = PLATE_SPLASH if os.path.isfile(PLATE_SPLASH) else PLATE_PORTRAIT
+    splash_plate = load_rgb(splash_src, 1080, 1920)
     splash_final = add_sky_sunburst_and_logo(
-        splash_plate, 900, 1200, logo_patch,
-        logo_rect=(110, 82, 680, 396),
-        burst_center=(450, 730)
+        splash_plate, 1080, 1920, logo_patch,
+        logo_rect=(120, 295, 840, 490),
+        burst_center=(540, 1040)
     )
-    save_rgb(splash_final, 900, 1200, os.path.join(ROOT_DIR, "assets", "web", "cover_splash.jpg"))
-    save_rgb(splash_final, 900, 1200, os.path.join(ROOT_DIR, "build", "h5", "cover_splash.jpg"))
+    save_rgb(splash_final, 1080, 1920, os.path.join(ROOT_DIR, "assets", "web", "cover_splash.jpg"))
+    save_rgb(splash_final, 1080, 1920, os.path.join(ROOT_DIR, "build", "h5", "cover_splash.jpg"))
 
     print("All V2.0 High-CTR Kenney 3D Diorama covers & icons built successfully!")
 
