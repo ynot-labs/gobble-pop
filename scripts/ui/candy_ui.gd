@@ -71,22 +71,54 @@ static func make_icon_rect(tex: Texture2D, sz: int) -> TextureRect:
 	return tr
 
 
-static func make_pill_style(bg: Color, bottom_bevel: Color, radius: int = 20, pad_h: int = 14, pad_v: int = 6) -> StyleBoxFlat:
+static func make_pill_style(bg: Color, bottom_bevel: Color, radius: int = 18, pad_h: int = 14, pad_v: int = 6) -> StyleBoxFlat:
+	# V2.1 Status Readout Style: sleek, flat frosted-glass / soft-matte display (ZERO 3D button bevel!)
+	# Visually distinct from clickable extruded 3D buttons so players immediately recognize info vs actions.
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
 	sb.border_color = bottom_bevel
-	sb.border_width_left = 2
-	sb.border_width_right = 2
-	sb.border_width_top = 2
-	sb.border_width_bottom = 6
+	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(radius)
 	sb.content_margin_left = pad_h
 	sb.content_margin_right = pad_h
 	sb.content_margin_top = pad_v
-	sb.content_margin_bottom = pad_v + 2
-	sb.shadow_color = Color(0.10, 0.14, 0.24, 0.20)
+	sb.content_margin_bottom = pad_v
+	sb.shadow_color = Color(0.04, 0.08, 0.16, 0.14)
+	sb.shadow_size = 4
+	sb.shadow_offset = Vector2(0, 2)
+	sb.anti_aliasing = true
+	sb.anti_aliasing_size = 1.5
+	return sb
+
+
+static func make_hud_glass_dock_style(radius: int = 24, pad_h: int = 16, pad_v: int = 8) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.07, 0.14, 0.24, 0.72)
+	sb.border_color = Color(1.0, 1.0, 1.0, 0.24)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(radius)
+	sb.content_margin_left = pad_h
+	sb.content_margin_right = pad_h
+	sb.content_margin_top = pad_v
+	sb.content_margin_bottom = pad_v
+	sb.shadow_color = Color(0.03, 0.07, 0.14, 0.22)
 	sb.shadow_size = 8
 	sb.shadow_offset = Vector2(0, 4)
+	sb.anti_aliasing = true
+	sb.anti_aliasing_size = 1.5
+	return sb
+
+
+static func make_status_chip_style(accent: Color, radius: int = 16, pad_h: int = 12, pad_v: int = 4) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.08, 0.16, 0.26, 0.70)
+	sb.border_color = Color(accent.r, accent.g, accent.b, 0.55)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(radius)
+	sb.content_margin_left = pad_h
+	sb.content_margin_right = pad_h
+	sb.content_margin_top = pad_v
+	sb.content_margin_bottom = pad_v
 	sb.anti_aliasing = true
 	sb.anti_aliasing_size = 1.5
 	return sb
@@ -124,7 +156,7 @@ static func apply_outlined_label(lbl: Label, font_sz: int, text_col: Color = Col
 
 static func create_icon_pill(icon_name: String, txt: String, bg: Color, bevel: Color, font_sz: int = 24, icon_sz: int = 34, outline_col: Color = Color("#1D2D44")) -> PanelContainer:
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 20, 13, 5))
+	panel.add_theme_stylebox_override("panel", make_status_chip_style(bg, 16, 11, 4))
 
 	var hb := HBoxContainer.new()
 	hb.name = "Box"
@@ -143,15 +175,25 @@ static func create_icon_pill(icon_name: String, txt: String, bg: Color, bevel: C
 	lbl.text = txt
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	apply_outlined_label(lbl, font_sz, Color.WHITE, outline_col, 3 if font_sz <= 22 else 4)
+	apply_outlined_label(lbl, font_sz, Color.WHITE, Color(0.05, 0.10, 0.18, 0.85), 2)
 	hb.add_child(lbl)
 	return panel
 
 
 static func create_target_chip(item_key: String, count: int, tier: int, bg: Color, bevel: Color, outline_col: Color) -> PanelContainer:
-	# V2.0 Cozy Toybox Craft Target Card: warm ivory surface with crisp colored maple-bevel border!
+	# Clean flat matte-ivory target readout chip (visually distinct from clickable 3D extruded buttons!)
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", make_pill_style(Color("#FFFDF7"), bg, 22, 13, 5))
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(1.0, 0.99, 0.96, 0.95)
+	sb.border_color = Color(bg.r, bg.g, bg.b, 0.78)
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(16)
+	sb.content_margin_left = 11
+	sb.content_margin_right = 11
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	sb.anti_aliasing = true
+	panel.add_theme_stylebox_override("panel", sb)
 
 	var hb := HBoxContainer.new()
 	hb.name = "Box"
@@ -159,24 +201,24 @@ static func create_target_chip(item_key: String, count: int, tier: int, bg: Colo
 	hb.add_theme_constant_override("separation", 7)
 	panel.add_child(hb)
 
-	var tr := make_icon_rect(get_item_icon(item_key), 52)
+	var tr := make_icon_rect(get_item_icon(item_key), 46)
 	tr.name = "Icon"
 	hb.add_child(tr)
 
 	var lbl := Label.new()
 	lbl.name = "Count"
 	lbl.text = str(count)
-	apply_outlined_label(lbl, 30, Color("#1E293B"), Color.WHITE, 4)
+	apply_outlined_label(lbl, 28, Color("#1E293B"), Color(1, 1, 1, 0.85), 2)
 	hb.add_child(lbl)
 
 	if tier >= 2:
 		var lv_lbl := Label.new()
 		lv_lbl.name = "TierTag"
 		lv_lbl.text = "Lv.%d" % tier
-		apply_outlined_label(lv_lbl, 16, bg.darkened(0.18), Color.WHITE, 3)
+		apply_outlined_label(lv_lbl, 15, bg.darkened(0.22), Color(1, 1, 1, 0.90), 2)
 		hb.add_child(lv_lbl)
 
-	var chk := make_icon_rect(get_icon("icon_check"), 38)
+	var chk := make_icon_rect(get_icon("icon_check"), 36)
 	chk.name = "Check"
 	chk.visible = false
 	hb.add_child(chk)
@@ -215,13 +257,12 @@ static func add_keycap_badge(btn: Button, key_txt: String) -> PanelContainer:
 
 
 static func update_icon_pill(panel: PanelContainer, txt: String, bg: Color, bevel: Color, outline_col: Color = Color("#13304A"), new_icon_name: String = "") -> void:
-	panel.add_theme_stylebox_override("panel", make_pill_style(bg, bevel, 26, 12, 5))
+	panel.add_theme_stylebox_override("panel", make_status_chip_style(bg, 16, 11, 4))
 	var hb := panel.get_node_or_null("Box")
 	if hb:
 		var lbl := hb.get_node_or_null("Text") as Label
 		if lbl:
 			lbl.text = txt
-			lbl.add_theme_color_override("font_outline_color", outline_col)
 		if new_icon_name != "":
 			var tr := hb.get_node_or_null("Icon") as TextureRect
 			if tr:
