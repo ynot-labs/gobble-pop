@@ -11,6 +11,7 @@ const WORLD_META := {
 	2: {"name": "GACHA TOYBOX",      "short": "W2 Toybox", "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
 	3: {"name": "NEON BENTO STREET", "short": "W3 Bento",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
 	4: {"name": "ALCHEMIST DESK",    "short": "W4 Magic",  "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
+	5: {"name": "PIXEL ARCADE",      "short": "W5 Game",   "start": 51, "hard": 55, "cliff": 59, "mega": 60, "trap_name": "GLITCH GOO"},
 }
 
 const TARGET_PILL_THEMES := [
@@ -59,11 +60,16 @@ var _lobby_orbit_time: float = 0.0
 # UI References
 var _hud_layer: CanvasLayer
 var _gameplay_hud_root: Control
+var _gameplay_top_margin: MarginContainer
+var _gameplay_bot_bar: HBoxContainer
 var _beta_bar_container: MarginContainer
 var _joystick_overlay: JoystickOverlay
 var _helpers_ui: GameplayHelpersUI
 var _home_lobby_ui: HomeLobbyUI
 var _pause_settings_ui: PauseSettingsUI
+var _consent_ui: ConsentLegalUI
+var _ad_overlay_ui: AdOverlayUI
+var _beta_bi_ui: BetaBIInspectorUI
 
 var _world_buttons: Dictionary = {}
 var _stage_buttons: Dictionary = {}
@@ -101,17 +107,19 @@ func _ready() -> void:
 	_joystick_overlay.hole = _hole
 	AdManager.rewarded_ad_completed.connect(_on_rewarded_completed)
 	PlatformBridge.visibility_changed.connect(_on_app_visibility_changed)
+	PlatformBridge.safe_area_changed.connect(_apply_safe_area_margins)
 	GameManager.economy_changed.connect(_refresh_booster_buttons)
+	_apply_safe_area_margins(PlatformBridge.get_safe_margins())
 
-	var start_lv := clampi(GameManager.current_level, 1, 50)
+	var start_lv := clampi(GameManager.current_level, 1, GameManager.MAX_LEVEL)
 	var qa_env := OS.get_environment("QA_START_LEVEL")
 	var qa_screen := OS.get_environment("QA_SCREEN")
 
 	if qa_screen != "":
-		var lv := clampi(int(qa_env), 1, 50) if qa_env.is_valid_int() else start_lv
+		var lv := clampi(int(qa_env), 1, GameManager.MAX_LEVEL) if qa_env.is_valid_int() else start_lv
 		_run_qa_screen(qa_screen, lv)
 	elif qa_env.is_valid_int():
-		start_lv = clampi(int(qa_env), 1, 50)
+		start_lv = clampi(int(qa_env), 1, GameManager.MAX_LEVEL)
 		var show_modal := (OS.get_environment("QA_SHOW_MODAL") == "1")
 		_in_lobby = false
 		_home_lobby_ui.close_all()
@@ -121,6 +129,8 @@ func _ready() -> void:
 		# Default Commercial Boot Flow: Load current stage live in background + open Home Lobby!
 		_load_level(start_lv, false, true)
 		_show_home_lobby()
+		if not GameManager.consent_accepted:
+			_consent_ui.open_consent()
 
 	PlatformBridge.notify_game_ready()
 
@@ -170,6 +180,25 @@ func _run_qa_screen(screen: String, lv: int) -> void:
 			for k in _remaining_targets:
 				_remaining_targets[k] = 0
 			_check_victory()
+		"consent":
+			_load_level(lv, false, true)
+			_show_home_lobby()
+			_consent_ui.open_consent()
+		"settings":
+			_load_level(lv, false, true)
+			_show_home_lobby()
+			_pause_settings_ui.open_settings()
+		"bi":
+			_load_level(lv, false, true)
+			_show_home_lobby()
+			if _beta_bi_ui:
+				_beta_bi_ui.open_inspector()
+		"ad_fail":
+			_in_lobby = false
+			_home_lobby_ui.close_all()
+			_gameplay_hud_root.visible = true
+			_load_level(lv, false)
+			_ad_overlay_ui.show_qa_notice("AD UNAVAILABLE · TRY AGAIN", true)
 		_:
 			_load_level(lv, false, true)
 			_show_home_lobby()
@@ -269,16 +298,16 @@ func _build_hud() -> void:
 	_gameplay_hud_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud_layer.add_child(_gameplay_hud_root)
 
-	var top_margin := MarginContainer.new()
-	_gameplay_hud_root.add_child(top_margin)
-	top_margin.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	top_margin.add_theme_constant_override("margin_left", 16)
-	top_margin.add_theme_constant_override("margin_right", 16)
-	top_margin.add_theme_constant_override("margin_top", 112 if GameManager.is_beta_build() else 18)
+	_gameplay_top_margin = MarginContainer.new()
+	_gameplay_hud_root.add_child(_gameplay_top_margin)
+	_gameplay_top_margin.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	_gameplay_top_margin.add_theme_constant_override("margin_left", 16)
+	_gameplay_top_margin.add_theme_constant_override("margin_right", 16)
+	_gameplay_top_margin.add_theme_constant_override("margin_top", 112 if GameManager.is_beta_build() else 18)
 
 	var top_vbox := VBoxContainer.new()
 	top_vbox.add_theme_constant_override("separation", 9)
-	top_margin.add_child(top_vbox)
+	_gameplay_top_margin.add_child(top_vbox)
 
 	# === ROW 1: Mobile-Friendly Icon-First Top HUD ([Home Exit] | [Timer] | [Targets Icons] | [Flame] | [Pause]) ===
 	var row1 := HBoxContainer.new()
@@ -359,28 +388,28 @@ func _build_hud() -> void:
 	top_vbox.add_child(_buff_label)
 
 	# === BOTTOM BAR: Large Mobile-Friendly 3D Arcade Icon Buttons (Magnet | Freeze | Retry) ===
-	var bot_bar := HBoxContainer.new()
-	_gameplay_hud_root.add_child(bot_bar)
-	bot_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	bot_bar.offset_top = -176
-	bot_bar.offset_bottom = -26
-	bot_bar.alignment = BoxContainer.ALIGNMENT_CENTER
-	bot_bar.add_theme_constant_override("separation", 34)
+	_gameplay_bot_bar = HBoxContainer.new()
+	_gameplay_hud_root.add_child(_gameplay_bot_bar)
+	_gameplay_bot_bar.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	_gameplay_bot_bar.offset_top = -176
+	_gameplay_bot_bar.offset_bottom = -26
+	_gameplay_bot_bar.alignment = BoxContainer.ALIGNMENT_CENTER
+	_gameplay_bot_bar.add_theme_constant_override("separation", 34)
 
 	_btn_rv_mag = CandyUI.create_square_icon_button("icon_magnet", "7s", true, Color("#EC36A0"), Color("#9B1464"), Color("#5E093C"), 138, 74)
 	_btn_rv_mag.pressed.connect(_on_magnet_booster_pressed)
-	bot_bar.add_child(_btn_rv_mag)
+	_gameplay_bot_bar.add_child(_btn_rv_mag)
 
 	_btn_rv_ice = CandyUI.create_square_icon_button("icon_ice", "+6s", true, Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), 138, 74)
 	_btn_rv_ice.pressed.connect(_on_ice_booster_pressed)
-	bot_bar.add_child(_btn_rv_ice)
+	_gameplay_bot_bar.add_child(_btn_rv_ice)
 
 	var btn_retry := CandyUI.create_square_icon_button("icon_restart", "", false, Color("#24B4F5"), Color("#0B70B8"), Color("#083B66"), 138, 70)
 	btn_retry.pressed.connect(func():
 		AudioManager.play_sfx("ui_click")
 		_load_level(_level_number, false)
 	)
-	bot_bar.add_child(btn_retry)
+	_gameplay_bot_bar.add_child(btn_retry)
 
 	# === IN-GAME POLISH HELPERS LAYER (Radar Arrows, FTUE Drag Hand, Mechanic Tips, Confetti) ===
 	_helpers_ui = GameplayHelpersUI.new()
@@ -472,7 +501,7 @@ func _build_hud() -> void:
 	_home_lobby_ui.confetti_requested.connect(func(cnt: int): _helpers_ui.spawn_confetti(cnt))
 	_hud_layer.add_child(_home_lobby_ui)
 
-	# === PAUSE / SETTINGS MODAL (topmost over lobby & gameplay) ===
+	# === PAUSE / SETTINGS / EXIT MODAL (topmost over lobby & gameplay) ===
 	_pause_settings_ui = PauseSettingsUI.new()
 	_pause_settings_ui.resumed.connect(_resume_gameplay)
 	_pause_settings_ui.restarted.connect(func():
@@ -481,10 +510,21 @@ func _build_hud() -> void:
 		_load_level(_level_number, false)
 	)
 	_pause_settings_ui.go_home.connect(_show_home_lobby)
+	_pause_settings_ui.privacy_requested.connect(func(): _consent_ui.open_consent())
 	_hud_layer.add_child(_pause_settings_ui)
 
-	# === BETA-ONLY FLOATING QA BAR (Zero pixels rendered in Release!) ===
+	# === PRIVACY / GDPR CONSENT & IN-APP LEGAL READER ===
+	_consent_ui = ConsentLegalUI.new()
+	_hud_layer.add_child(_consent_ui)
+
+	# === AD LOADING SPINNER & NO-FILL / IAP NOTICE LAYER ===
+	_ad_overlay_ui = AdOverlayUI.new()
+	_hud_layer.add_child(_ad_overlay_ui)
+
+	# === BETA-ONLY FLOATING QA BAR & BI INSPECTOR (Zero pixels rendered in Release!) ===
 	if GameManager.is_beta_build():
+		_beta_bi_ui = BetaBIInspectorUI.new()
+		_hud_layer.add_child(_beta_bi_ui)
 		_build_beta_bar()
 
 	_refresh_booster_buttons()
@@ -536,7 +576,14 @@ func _build_beta_bar() -> void:
 	)
 	world_row.add_child(btn_b_reset)
 
-	for wid in [1, 2, 3, 4]:
+	var btn_b_bi := CandyUI.create_beta_chip("BI", Color("#7C3AED"))
+	btn_b_bi.pressed.connect(func():
+		if _beta_bi_ui:
+			_beta_bi_ui.open_inspector()
+	)
+	world_row.add_child(btn_b_bi)
+
+	for wid in [1, 2, 3, 4, 5]:
 		var wb := CandyUI.create_beta_chip(str(WORLD_META[wid]["short"]), Color("#1E293B"))
 		var target_w: int = wid
 		wb.pressed.connect(func(): _beta_jump_level(int(WORLD_META[target_w]["start"])))
@@ -549,7 +596,7 @@ func _build_beta_bar() -> void:
 	beta_v.add_child(stage_row)
 
 	var btn_prev := CandyUI.create_beta_chip("< Prev", Color("#334155"))
-	btn_prev.pressed.connect(func(): _beta_jump_level(50 if _level_number <= 1 else _level_number - 1))
+	btn_prev.pressed.connect(func(): _beta_jump_level(GameManager.MAX_LEVEL if _level_number <= 1 else _level_number - 1))
 	stage_row.add_child(btn_prev)
 
 	for kind in ["start", "hard", "cliff", "mega"]:
@@ -561,7 +608,7 @@ func _build_beta_bar() -> void:
 		_stage_buttons[kind] = sb
 
 	var btn_next := CandyUI.create_beta_chip("Next >", Color("#334155"))
-	btn_next.pressed.connect(func(): _beta_jump_level((_level_number % 50) + 1))
+	btn_next.pressed.connect(func(): _beta_jump_level((_level_number % GameManager.MAX_LEVEL) + 1))
 	stage_row.add_child(btn_next)
 
 
@@ -643,6 +690,21 @@ func _on_app_visibility_changed(is_visible: bool) -> void:
 		_pause_gameplay()
 
 
+func _apply_safe_area_margins(margins: Dictionary) -> void:
+	var st := int(round(float(margins.get("top", 0.0))))
+	var sb := int(round(float(margins.get("bottom", 0.0))))
+	if _beta_bar_container:
+		_beta_bar_container.add_theme_constant_override("margin_top", 8 + st)
+	if _gameplay_top_margin:
+		var base_top := 112 if GameManager.is_beta_build() else 18
+		_gameplay_top_margin.add_theme_constant_override("margin_top", base_top + st)
+	if _gameplay_bot_bar:
+		_gameplay_bot_bar.offset_top = -176 - sb
+		_gameplay_bot_bar.offset_bottom = -26 - sb
+	if _home_lobby_ui:
+		_home_lobby_ui.apply_safe_margins(margins)
+
+
 func _refresh_booster_buttons() -> void:
 	if _btn_rv_mag:
 		CandyUI.set_booster_button_stock(_btn_rv_mag, GameManager.inv_magnet)
@@ -651,19 +713,21 @@ func _refresh_booster_buttons() -> void:
 
 
 func _on_magnet_booster_pressed() -> void:
-	if not _playing:
+	if not _playing or AdManager.is_ad_playing:
 		return
 	if GameManager.consume_booster("magnet"):
 		_hole.activate_magnet(7.0)
 		_spawn_popup(_hole.position, "MAGNET 7s!", Color("#EC36A0"))
 		_update_buff_banner()
 		_refresh_booster_buttons()
+		AnalyticsManager.track("booster_use", {"kind": "magnet", "source": "inventory", "level": _level_number})
 	else:
-		AdManager.show_rewarded("in_level_magnet")
+		AdManager.note_rv_offer("in_level_magnet", _level_number)
+		AdManager.show_rewarded("in_level_magnet", _level_number)
 
 
 func _on_ice_booster_pressed() -> void:
-	if not _playing:
+	if not _playing or AdManager.is_ad_playing:
 		return
 	if GameManager.consume_booster("ice"):
 		_ice_freeze_timer = maxf(_ice_freeze_timer, 6.0)
@@ -672,8 +736,10 @@ func _on_ice_booster_pressed() -> void:
 		_spawn_popup(_hole.position, "+6s FREEZE!", Color("#0EA5E9"))
 		_update_buff_banner()
 		_refresh_booster_buttons()
+		AnalyticsManager.track("booster_use", {"kind": "ice", "source": "inventory", "level": _level_number})
 	else:
-		AdManager.show_rewarded("in_level_ice")
+		AdManager.note_rv_offer("in_level_ice", _level_number)
+		AdManager.show_rewarded("in_level_ice", _level_number)
 
 
 func _apply_world_theme(world_id: int) -> void:
@@ -692,6 +758,10 @@ func _apply_world_theme(world_id: int) -> void:
 			_env.background_color = Color("#8A74D6")
 			_table_mat.set_shader_parameter("border_color", Color("#AC98EC"))
 			tex_path = "res://assets/textures/w4_01_desk_tile.png"
+		5:
+			_env.background_color = Color("#48A8E8")
+			_table_mat.set_shader_parameter("border_color", Color("#7AD0FA"))
+			tex_path = "res://assets/textures/w5_01_arcade_tile.png"
 		_:
 			_env.background_color = Color("#55BEA6")
 			_table_mat.set_shader_parameter("border_color", Color("#76D7BE"))
@@ -718,7 +788,7 @@ func _clear_entities() -> void:
 
 func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false) -> void:
 	_clear_entities()
-	_level_number = clampi(num, 1, 50)
+	_level_number = clampi(num, 1, GameManager.MAX_LEVEL)
 	_used_rv_this_run = false
 	if not lobby_backdrop:
 		_attempts_this_level += 1
@@ -937,10 +1007,11 @@ func _show_start_overlay(tag: String, fname: String, world_id: int, targets: Dic
 		_begin_play()
 	)
 	_btn_secondary.visible = true
+	AdManager.note_rv_offer("pre_level_boost", _level_number)
 	_rebind_button(_btn_secondary, "icon_ad", "LV.2 + 7s", Color("#F7A526"), Color("#B8670A"), Color("#663404"), "icon_magnet", func():
 		AudioManager.start_bgm()
 		AudioManager.play_sfx("ui_click")
-		AdManager.show_rewarded("pre_level_boost")
+		AdManager.show_rewarded("pre_level_boost", _level_number)
 	)
 	_animate_modal_open()
 
@@ -953,6 +1024,14 @@ func _begin_play() -> void:
 	_hole.is_paused = false
 	_hole.is_controllable = true
 	PlatformBridge.notify_gameplay_start()
+	AnalyticsManager.track("level_start", {
+		"level": _level_number,
+		"world": _world_id,
+		"tag": str(_level_data.get("difficulty_tag", "NORMAL")),
+		"attempt": _attempts_this_level,
+		"skin": GameManager.equipped_skin,
+		"streak": GameManager.win_streak,
+	})
 
 	# FTUE Lv.1 drag hand guide (shows until player starts dragging!)
 	if _level_number == 1 and not GameManager.has_seen_tutorial("drag"):
@@ -993,9 +1072,10 @@ func _process(delta: float) -> void:
 		_camera.look_at(Vector3(look_x, 0.0, look_z), Vector3.UP)
 
 	# Always step helpers (keeps confetti fluttering during Victory modal & radar active in play!)
-	_helpers_ui.step_helpers(delta, _playing and not _paused, _camera, _hole, _items, _remaining_targets)
+	var active_play := _playing and not _paused and not AdManager.is_ad_playing
+	_helpers_ui.step_helpers(delta, active_play, _camera, _hole, _items, _remaining_targets)
 
-	if not _playing or _paused:
+	if not active_play:
 		return
 
 	for wall in _walls:
@@ -1267,6 +1347,20 @@ func _check_victory() -> void:
 	var next_lv := GameManager.current_level
 	var new_world := int(res.get("new_world", 0))
 
+	if stars >= 3 or _is_mega_stage or new_world > 0:
+		PlatformBridge.notify_happytime()
+
+	AnalyticsManager.track("level_win", {
+		"level": _level_number,
+		"world": _world_id,
+		"stars": stars,
+		"time_left": snappedf(_time_left, 0.1),
+		"used_rv": _used_rv_this_run,
+		"coins": int(res.get("coins", 0)),
+		"shards": int(res.get("shards", 0)),
+		"streak": GameManager.win_streak,
+	})
+
 	_modal_targets_box.visible = false
 	_populate_victory_stars(stars)
 	_populate_victory_rewards(res)
@@ -1280,8 +1374,8 @@ func _check_victory() -> void:
 		Color("#663804") if new_world > 0 else Color("#0A4C22"),
 		"icon_crown" if (_is_mega_stage or new_world > 0) else "icon_check"
 	)
-	if _level_number == 50:
-		_overlay_title.text = "ALL 4 WORLDS!"
+	if _level_number == GameManager.MAX_LEVEL:
+		_overlay_title.text = "ALL 5 WORLDS!"
 	elif new_world > 0:
 		_overlay_title.text = "WORLD %d UNLOCKED!" % new_world
 	else:
@@ -1323,13 +1417,23 @@ func _on_level_timeout() -> void:
 	else:
 		_overlay_desc.text = "+15s  ·  Clear Hazards  ·  +20% Size"
 
+	AdManager.note_rv_offer("fail_rescue", _level_number)
 	_rebind_button(_btn_primary, "icon_ad", "+15s RESCUE!", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), "icon_timer", func():
 		AudioManager.play_sfx("ui_click")
-		AdManager.show_rewarded("fail_rescue")
+		AdManager.show_rewarded("fail_rescue", _level_number)
 	)
 	_btn_secondary.visible = true
 	_rebind_button(_btn_secondary, "icon_restart", "RETRY", Color("#94A3B8"), Color("#475569"), Color("#1E293B"), "", func():
 		AudioManager.play_sfx("ui_click")
+		var lost_streak := GameManager.win_streak
+		AnalyticsManager.track("level_fail", {
+			"level": _level_number,
+			"world": _world_id,
+			"rem_targets": rem_total,
+			"attempt": _attempts_this_level,
+			"used_rv": _used_rv_this_run,
+			"streak_lost": lost_streak,
+		})
 		DDAController.record_level_fail(_level_number, _used_rv_this_run)
 		GameManager.win_streak = 0
 		GameManager.streak_chest_progress = 0
@@ -1375,10 +1479,12 @@ func _on_rewarded_completed(placement: String, success: bool) -> void:
 			AudioManager.play_sfx("ice")
 			_spawn_popup(_hole.position, "+6s FREEZE!", Color("#0EA5E9"))
 			_update_buff_banner()
+			AnalyticsManager.track("booster_use", {"kind": "ice", "source": "rv", "level": _level_number})
 		"in_level_magnet":
 			_hole.activate_magnet(7.0)
 			_spawn_popup(_hole.position, "MAGNET 7s!", Color("#EC36A0"))
 			_update_buff_banner()
+			AnalyticsManager.track("booster_use", {"kind": "magnet", "source": "rv", "level": _level_number})
 
 
 func _rebind_button(btn: Button, icon_name: String, txt: String, bg: Color, bevel: Color, outline: Color, extra_icon: String, cb: Callable) -> void:

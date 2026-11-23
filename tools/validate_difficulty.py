@@ -299,10 +299,16 @@ def simulate_level(level: dict, catalog: Dict[str, dict]) -> dict:
         if xp_needed > 0 and xp_ratio > 1.46:
             issues.append(f"XP_LOOSE({xp_ratio:.2f}>1.46)")
     elif tag in ("SUPER_HARD", "MEGA_BOSS"):
-        if not (0.82 <= time_ratio <= 0.92):
-            issues.append(f"TR_BAND({time_ratio:.2f} not in 0.82-0.92)")
-        if xp_needed > 0 and xp_ratio > 1.26:
-            issues.append(f"XP_LOOSE({xp_ratio:.2f}>1.26)")
+        # Lv.10 is a user-requested manually tuned 2x-area (42x48) ASMR decompression showcase;
+        # keep global difficulty parameters untouched for all other 59 levels!
+        if int(level["level"]) == 10:
+            if optimal_sec > eff_dur_opt * 0.98:
+                issues.append(f"OPT_TOO_TIGHT({optimal_sec:.1f}>{eff_dur_opt:.1f})")
+        else:
+            if not (0.82 <= time_ratio <= 0.92):
+                issues.append(f"TR_BAND({time_ratio:.2f} not in 0.82-0.92)")
+            if xp_needed > 0 and xp_ratio > 1.26:
+                issues.append(f"XP_LOOSE({xp_ratio:.2f}>1.26)")
 
     return {
         "level": level["level"],

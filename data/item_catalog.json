@@ -105,5 +105,30 @@
   "w4_grand_cauldron": {
     "id": "W4-06B", "name": "Grand Cauldron", "world": 4, "tier": 5, "xp": 80, "radius": 1.66, "height": 2.38,
     "colors": ["#9333EA"], "model": "res://assets/models/world4/w4_06_cauldron.glb"
+  },
+
+  "w5_pixel_coin": {
+    "id": "W5-02", "name": "Pixel Coin", "world": 5, "tier": 1, "xp": 6, "radius": 0.34, "height": 0.56,
+    "colors": ["#FFD53D"], "model": "res://assets/models/world5/w5_02_pixel_coin.glb"
+  },
+  "w5_cartridge": {
+    "id": "W5-03", "name": "Game Cartridge", "world": 5, "tier": 1, "xp": 7, "radius": 0.40, "height": 0.58,
+    "colors": ["#FF477E"], "model": "res://assets/models/world5/w5_03_cartridge.glb"
+  },
+  "w5_gamepad": {
+    "id": "W5-04", "name": "Gamepad", "world": 5, "tier": 2, "xp": 15, "radius": 0.62, "height": 0.46,
+    "colors": ["#38BDF8"], "model": "res://assets/models/world5/w5_04_gamepad.glb"
+  },
+  "w5_handheld": {
+    "id": "W5-05", "name": "Handheld", "world": 5, "tier": 3, "xp": 28, "radius": 0.88, "height": 0.48,
+    "colors": ["#22D3EE"], "model": "res://assets/models/world5/w5_05_handheld.glb"
+  },
+  "w5_vr_headset": {
+    "id": "W5-06", "name": "VR Headset", "world": 5, "tier": 4, "xp": 48, "radius": 1.24, "height": 0.96,
+    "colors": ["#A855F7"], "model": "res://assets/models/world5/w5_06_vr_headset.glb"
+  },
+  "w5_arcade_boss": {
+    "id": "W5-07", "name": "Arcade Boss", "world": 5, "tier": 5, "xp": 80, "radius": 1.56, "height": 2.40,
+    "colors": ["#7C3AED"], "model": "res://assets/models/world5/w5_07_arcade_boss.glb"
   }
 }

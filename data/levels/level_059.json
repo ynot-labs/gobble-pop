@@ -1,0 +1,700 @@
+{
+  "level": 59,
+  "world": 5,
+  "formation_name": "High Score Rush",
+  "difficulty_tag": "SUPER_HARD",
+  "duration": 32,
+  "arena": [
+    24,
+    28
+  ],
+  "spawn": [
+    0,
+    10.6
+  ],
+  "max_target_tier": 5,
+  "streak_hint": 449,
+  "targets": {
+    "w5_handheld": 7,
+    "w5_vr_headset": 4,
+    "w5_arcade_boss": 3
+  },
+  "items": [
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -8.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -6.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        4.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        6.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        8.0,
+        8.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -8.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -6.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        4.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        6.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        8.0,
+        10.25
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -8.8,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -7.2,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -5.6,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.0,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -2.4,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -0.8,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        0.8,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.4,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.0,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        5.6,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        7.2,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        8.8,
+        6.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -8.0,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.22,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.44,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -2.67,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -0.89,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        0.89,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.67,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.44,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.22,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        8.0,
+        4.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -8.8,
+        1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -8.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -8.8,
+        -1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -8.8,
+        -2.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -8.8,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -8.8,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        8.8,
+        1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        8.8,
+        0.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        8.8,
+        -1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        8.8,
+        -2.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        8.8,
+        -4.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        8.8,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -3.8,
+        1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.9,
+        1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.0,
+        1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.9,
+        1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        3.8,
+        1.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -8.8,
+        -2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        8.8,
+        -2.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -4.2,
+        -4.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        4.2,
+        -4.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        0,
+        -8.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -8.8,
+        4.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        8.8,
+        4.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        0,
+        0.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        -9.2,
+        -9.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        9.2,
+        -9.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        -4.4,
+        -9.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        4.4,
+        -9.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        0,
+        -2.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_arcade_boss",
+      "pos": [
+        -8.4,
+        -12.0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_arcade_boss",
+      "pos": [
+        0.0,
+        -12.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_arcade_boss",
+      "pos": [
+        8.4,
+        -12.0
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        -6.0,
+        7.8
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        -7.4,
+        3.0
+      ]
+    },
+    {
+      "pos": [
+        7.4,
+        3.0
+      ]
+    },
+    {
+      "pos": [
+        0,
+        3.0
+      ]
+    },
+    {
+      "pos": [
+        -7.4,
+        -1.6
+      ]
+    },
+    {
+      "pos": [
+        7.4,
+        -1.6
+      ]
+    },
+    {
+      "pos": [
+        -5.4,
+        -7.4
+      ]
+    },
+    {
+      "pos": [
+        5.4,
+        -7.4
+      ]
+    }
+  ],
+  "walls": [
+    {
+      "pos": [
+        -5.4,
+        1.4
+      ],
+      "rot_deg": 90.0
+    },
+    {
+      "pos": [
+        5.4,
+        1.4
+      ],
+      "rot_deg": 90.0
+    },
+    {
+      "pos": [
+        0.0,
+        -5.8
+      ],
+      "rot_deg": 0.0
+    }
+  ],
+  "bombs": [
+    {
+      "pos": [
+        -3.0,
+        5.2
+      ]
+    },
+    {
+      "pos": [
+        3.0,
+        5.2
+      ]
+    },
+    {
+      "pos": [
+        0.0,
+        -1.2
+      ]
+    },
+    {
+      "pos": [
+        -4.2,
+        -11.0
+      ]
+    },
+    {
+      "pos": [
+        4.2,
+        -11.0
+      ]
+    }
+  ]
+}

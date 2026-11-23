@@ -8,6 +8,7 @@ signal resumed()
 signal restarted()
 signal go_home()
 signal closed()
+signal privacy_requested()
 
 enum Mode { SETTINGS, PAUSE, EXIT_CONFIRM }
 
@@ -132,7 +133,7 @@ func open_pause(level_num: int) -> void:
 
 func open_settings() -> void:
 	_mode = Mode.SETTINGS
-	_card.custom_minimum_size = Vector2(760, 540)
+	_card.custom_minimum_size = Vector2(780, 720)
 	_card.add_theme_stylebox_override("panel", CandyUI.create_candy_card_style(Color("#A855F7"), Color("#6B21A8")))
 	CandyUI.update_icon_pill(_badge, "OPTIONS", Color("#A855F7"), Color("#6B21A8"), Color("#3B0764"), "icon_gear")
 	_title_lbl.text = "SETTINGS"
@@ -140,7 +141,7 @@ func open_settings() -> void:
 	_sub_lbl.visible = false
 	_toggles_row.visible = true
 	_version_lbl.visible = true
-	_version_lbl.text = "Gobble Pop!  v%s" % GameManager.build_version
+	_version_lbl.text = "Gobble Pop!  v%s  ·  %s" % [GameManager.build_version, PlatformBridge.get_platform_name()]
 	_rebuild_actions()
 	_refresh_toggles()
 	visible = true
@@ -230,7 +231,46 @@ func _rebuild_actions() -> void:
 		)
 		row.add_child(btn_home)
 	else:
-		var btn_done := CandyUI.create_cta_button("icon_check", "DONE", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(540, 104), 36)
+		# Commercial IAP Row: Remove Forced Ads + Restore Purchases
+		var iap_row := HBoxContainer.new()
+		iap_row.alignment = BoxContainer.ALIGNMENT_CENTER
+		iap_row.add_theme_constant_override("separation", 18)
+		_actions_box.add_child(iap_row)
+
+		var no_ads := GameManager.no_forced_ads
+		var btn_noads := CandyUI.create_cta_button(
+			"icon_check" if no_ads else "icon_crown",
+			"NO ADS ACTIVE" if no_ads else "NO ADS · $2.99",
+			Color("#25CF65") if no_ads else Color("#F7A526"),
+			Color("#12853E") if no_ads else Color("#B8670A"),
+			Color("#0A4C22") if no_ads else Color("#663404"),
+			Vector2(360, 86), 24
+		)
+		btn_noads.pressed.connect(func():
+			AudioManager.play_sfx("ui_click")
+			AdManager.purchase_no_ads()
+			_rebuild_actions()
+		)
+		iap_row.add_child(btn_noads)
+
+		var btn_restore := CandyUI.create_cta_button("icon_restart", "RESTORE", Color("#38BDF8"), Color("#0284C7"), Color("#0A4266"), Vector2(230, 86), 22)
+		btn_restore.pressed.connect(func():
+			AudioManager.play_sfx("ui_click")
+			AdManager.restore_purchases()
+		)
+		iap_row.add_child(btn_restore)
+
+		# Compliance Row: Privacy Policy / GDPR Consent Manager
+		var btn_privacy := CandyUI.create_cta_button("icon_gear", "PRIVACY & TERMS", Color("#64748B"), Color("#334155"), Color("#0F172A"), Vector2(540, 78), 24)
+		btn_privacy.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		btn_privacy.pressed.connect(func():
+			AudioManager.play_sfx("ui_click")
+			visible = false
+			privacy_requested.emit()
+		)
+		_actions_box.add_child(btn_privacy)
+
+		var btn_done := CandyUI.create_cta_button("icon_check", "DONE", Color("#25CF65"), Color("#12853E"), Color("#0A4C22"), Vector2(540, 96), 34)
 		btn_done.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		btn_done.pressed.connect(func():
 			AudioManager.play_sfx("ui_click")

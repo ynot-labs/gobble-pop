@@ -83,6 +83,13 @@ def gen_tabletop(path, col_a_hex, col_b_hex, seam_col_hex, style="marble", size=
                 edge = max(dx, dy)
                 seam_w = max(0.0, (edge - 0.952) / 0.048) * 0.46
                 mod = weave
+            elif style == "arcade":
+                # World 5 Pixel Arcade: Sunny sky-blue & soft cloud-blue checkerboard with subtle pixel '+' corner accents
+                t = float((cx + cy) % 2)
+                px_cross = -0.024 if ((abs(fx - 0.5) < 0.045 and abs(fy - 0.5) < 0.14) or (abs(fy - 0.5) < 0.045 and abs(fx - 0.5) < 0.14)) else 0.0
+                edge = max(dx, dy)
+                seam_w = max(0.0, (edge - 0.950) / 0.050) * 0.50
+                mod = px_cross
             else:
                 # Option 2 Sunny Pastel Mint & Vanilla Glossy Bakery Tiles!
                 t = float((cx + cy) % 2)
@@ -118,6 +125,7 @@ def main():
     gen_tabletop(os.path.join(TEX_DIR, "w2_01_playmat_tile.png"), "#EED794", "#F9ECC2", "#CFAF60", style="playmat")
     gen_tabletop(os.path.join(TEX_DIR, "w3_01_table_tile.png"), "#E2BE95", "#F1D8B8", "#C29668", style="hinoki")
     gen_tabletop(os.path.join(TEX_DIR, "w4_01_desk_tile.png"), "#C8BDF0", "#E2DBFB", "#9E8ED4", style="linen")
+    gen_tabletop(os.path.join(TEX_DIR, "w5_01_arcade_tile.png"), "#B6E2FA", "#DBF1FE", "#7BBBE6", style="arcade")
 
 
 if __name__ == "__main__":

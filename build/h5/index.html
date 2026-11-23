@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 	<title>Gobble Pop!</title>
 	<style>
+		:root {
+			--sat: env(safe-area-inset-top, 0px);
+			--sab: env(safe-area-inset-bottom, 0px);
+			--sal: env(safe-area-inset-left, 0px);
+			--sar: env(safe-area-inset-right, 0px);
+		}
 		* { box-sizing: border-box; margin: 0; padding: 0; }
 		html, body, #canvas {
 			width: 100%; height: 100%;
@@ -125,10 +131,27 @@
 
 	<script src="index.js"></script>
 	<script>
-		const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":2945240,"index.wasm":37685705},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+		const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":3305532,"index.wasm":37685705},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 		const GODOT_THREADS_ENABLED = false;
 		// Automatic byte-exact cache buster so browser/CDN NEVER serves stale index.pck after an update!
 		(function () {
+			// Helper exposed to Godot PlatformBridge for live CSS safe-area insets (notch / Dynamic Island / home bar)
+			window.gobblePopGetSafeInsets = function () {
+				try {
+					const cs = getComputedStyle(document.documentElement);
+					const px = (v) => parseFloat(v) || 0;
+					return JSON.stringify({
+						top: px(cs.getPropertyValue('--sat')),
+						bottom: px(cs.getPropertyValue('--sab')),
+						left: px(cs.getPropertyValue('--sal')),
+						right: px(cs.getPropertyValue('--sar')),
+						vh: window.innerHeight || 1,
+						vw: window.innerWidth || 1
+					});
+				} catch (e) {
+					return '{"top":0,"bottom":0,"left":0,"right":0,"vh":1,"vw":1}';
+				}
+			};
 			const pckVer = (GODOT_CONFIG && GODOT_CONFIG.fileSizes && GODOT_CONFIG.fileSizes['index.pck'])
 				? String(GODOT_CONFIG.fileSizes['index.pck'])
 				: String(Date.now());

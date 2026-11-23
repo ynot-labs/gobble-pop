@@ -1,0 +1,547 @@
+{
+  "level": 51,
+  "world": 5,
+  "formation_name": "Pixel Start",
+  "difficulty_tag": "EASY",
+  "duration": 45,
+  "arena": [
+    18,
+    22
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 3,
+  "streak_hint": 0,
+  "targets": {
+    "w5_gamepad": 8,
+    "w5_handheld": 5
+  },
+  "items": [
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -5.4,
+        -0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.05,
+        -0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.7,
+        -0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.7,
+        -0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        4.05,
+        -0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        5.4,
+        -0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -5.4,
+        0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.05,
+        0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.7,
+        0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.7,
+        0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        4.05,
+        0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        5.4,
+        0.68
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.68,
+        -5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.68,
+        -5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.68,
+        -4.05
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.68,
+        -4.05
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.68,
+        -2.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.68,
+        -2.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.68,
+        2.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.68,
+        2.7
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.68,
+        4.05
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.68,
+        4.05
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.68,
+        5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.68,
+        5.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.0,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.8,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -3.6,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.0,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.8,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -3.6,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.6,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.8,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.0,
+        -5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.6,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.8,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.0,
+        -4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.0,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.8,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -3.6,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.0,
+        5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.8,
+        5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -3.6,
+        5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.6,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.8,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.0,
+        4.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.6,
+        5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.8,
+        5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.0,
+        5.6
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        5.04,
+        1.43
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        3.32,
+        4.46
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.33,
+        5.79
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -2.78,
+        4.9
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -4.83,
+        2.14
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -5.04,
+        -1.43
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -3.32,
+        -4.46
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -0.33,
+        -5.79
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        2.78,
+        -4.9
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        4.83,
+        -2.14
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -6.8,
+        -7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        6.8,
+        -7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -6.8,
+        7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        6.8,
+        7.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        0,
+        -8.2
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        0,
+        8.2
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "magnet",
+      "pos": [
+        0,
+        -3.0
+      ]
+    }
+  ],
+  "traps": [],
+  "walls": [],
+  "bombs": []
+}

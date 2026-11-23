@@ -92,8 +92,24 @@ const SKIN_CATALOG: Array[Dictionary] = [
 		"vortex_teal": Color(0.40, 0.18, 0.78),
 		"vortex_aqua": Color(0.98, 0.82, 0.42),
 	},
+	{
+		"id": "pixel",
+		"name": "Pixel Pop",
+		"icon": "skin_pixel",
+		"currency": "shards",
+		"cost": 12,
+		"gold_dark": Color(0.58, 0.36, 0.06),
+		"gold_mid": Color(0.98, 0.78, 0.22),
+		"gold_shine": Color(0.32, 0.96, 1.00),
+		"xp_cyan": Color(0.24, 0.96, 1.00),
+		"vortex_abyss": Color(0.08, 0.04, 0.28),
+		"vortex_teal": Color(0.56, 0.12, 0.88),
+		"vortex_aqua": Color(0.98, 0.28, 0.78),
+	},
 ]
 
+const MAX_LEVEL: int = 60
+const MAX_WORLDS: int = 5
 const STREAK_CHEST_STEP: int = 3
 
 var build_channel: String = "release"
@@ -127,16 +143,27 @@ var bgm_enabled: bool = true
 var sfx_enabled: bool = true
 var haptics_enabled: bool = true
 
+# Phase 2 Commercial & Compliance state
+var no_forced_ads: bool = false
+var consent_accepted: bool = false
+var consent_analytics: bool = true
+var consent_personalized_ads: bool = true
+var total_score: int = 0
+
 var item_catalog: Dictionary = {}
 
 
 func _ready() -> void:
 	_load_build_config()
 	_load_item_catalog()
+	PlatformBridge.cloud_data_loaded.connect(_on_cloud_data_loaded)
 	if _check_web_reset_query():
 		reset_all_progress()
 	else:
 		load_progress()
+		PlatformBridge.request_cloud_load()
+	if is_instance_valid(AdManager):
+		AdManager.no_forced_ads_purchased = no_forced_ads
 
 
 func _check_web_reset_query() -> bool:
@@ -163,11 +190,86 @@ func reset_all_progress() -> void:
 	owned_skins = ["classic"]
 	equipped_skin = "classic"
 	seen_tutorials = {}
+	no_forced_ads = false
+	consent_accepted = false
+	consent_analytics = true
+	consent_personalized_ads = true
+	total_score = 0
+	if is_instance_valid(AdManager):
+		AdManager.no_forced_ads_purchased = false
 	if FileAccess.file_exists(SAVE_PATH):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
 	save_progress()
 	economy_changed.emit()
 	skin_equipped.emit("classic")
+
+
+func set_consent(analytics_ok: bool, personalized_ads_ok: bool) -> void:
+	consent_accepted = true
+	consent_analytics = analytics_ok
+	consent_personalized_ads = personalized_ads_ok
+	save_progress()
+	if is_instance_valid(AnalyticsManager):
+		AnalyticsManager.track("consent_updated", {
+			"analytics_ok": analytics_ok,
+			"personalized_ads_ok": personalized_ads_ok,
+		})
+
+
+func set_no_forced_ads(purchased: bool) -> void:
+	no_forced_ads = purchased
+	if is_instance_valid(AdManager):
+		AdManager.no_forced_ads_purchased = purchased
+	save_progress()
+	economy_changed.emit()
+
+
+func _on_cloud_data_loaded(json_str: String) -> void:
+	var parsed = JSON.parse_string(json_str)
+	if not (parsed is Dictionary):
+		return
+	var dirty := false
+	var c_max := clampi(int(parsed.get("max_unlocked_level", 1)), 1, MAX_LEVEL)
+	if c_max > max_unlocked_level:
+		max_unlocked_level = c_max
+		current_level = clampi(int(parsed.get("current_level", c_max)), 1, MAX_LEVEL)
+		dirty = true
+	var c_worlds := clampi(int(parsed.get("unlocked_worlds", 1)), 1, MAX_WORLDS)
+	if c_worlds > unlocked_worlds:
+		unlocked_worlds = c_worlds
+		dirty = true
+	var c_coins := int(parsed.get("coins", 0))
+	if c_coins > coins:
+		coins = c_coins
+		dirty = true
+	var c_shards := int(parsed.get("skin_shards", 0))
+	if c_shards > skin_shards:
+		skin_shards = c_shards
+		dirty = true
+	var c_score := int(parsed.get("total_score", 0))
+	if c_score > total_score:
+		total_score = c_score
+		dirty = true
+	if bool(parsed.get("no_forced_ads", false)) and not no_forced_ads:
+		no_forced_ads = true
+		if is_instance_valid(AdManager):
+			AdManager.no_forced_ads_purchased = true
+		dirty = true
+	var c_stars = parsed.get("level_stars", {})
+	if c_stars is Dictionary:
+		for k in c_stars:
+			if int(c_stars[k]) > int(level_stars.get(k, 0)):
+				level_stars[k] = int(c_stars[k])
+				dirty = true
+	var c_skins = parsed.get("owned_skins", [])
+	if c_skins is Array:
+		for sid in c_skins:
+			if not (sid in owned_skins):
+				owned_skins.append(sid)
+				dirty = true
+	if dirty:
+		save_progress()
+		economy_changed.emit()
 
 
 func _load_build_config() -> void:
@@ -238,6 +340,8 @@ func buy_or_equip_skin(skin_id: String) -> bool:
 		equipped_skin = skin_id
 		save_progress()
 		skin_equipped.emit(skin_id)
+		if is_instance_valid(AnalyticsManager):
+			AnalyticsManager.track("skin_equip", {"skin_id": skin_id})
 		return true
 	var s := get_skin_def(skin_id)
 	var cur := str(s.get("currency", "coins"))
@@ -255,6 +359,8 @@ func buy_or_equip_skin(skin_id: String) -> bool:
 	save_progress()
 	economy_changed.emit()
 	skin_equipped.emit(skin_id)
+	if is_instance_valid(AnalyticsManager):
+		AnalyticsManager.track("skin_unlock", {"skin_id": skin_id, "currency": cur, "cost": cost})
 	return true
 
 
@@ -274,12 +380,14 @@ func record_level_clear(lv_num: int, stars: int, is_mega: bool) -> Dictionary:
 
 	coins += coin_reward
 	skin_shards += shard_reward
+	total_score += (250 if is_mega else 100) * stars + win_streak * 25
+	PlatformBridge.submit_score(total_score)
 
-	var next_lv := mini(50, lv_num + 1)
-	if lv_num == 50:
+	var next_lv := mini(MAX_LEVEL, lv_num + 1)
+	if lv_num == MAX_LEVEL:
 		next_lv = 1
 	current_level = next_lv
-	max_unlocked_level = maxi(max_unlocked_level, mini(50, lv_num + 1))
+	max_unlocked_level = maxi(max_unlocked_level, mini(MAX_LEVEL, lv_num + 1))
 
 	var newly_unlocked_world := 0
 	if lv_num == 20 and unlocked_worlds < 2:
@@ -291,6 +399,9 @@ func record_level_clear(lv_num: int, stars: int, is_mega: bool) -> Dictionary:
 	elif lv_num == 40 and unlocked_worlds < 4:
 		unlocked_worlds = 4
 		newly_unlocked_world = 4
+	elif lv_num == 50 and unlocked_worlds < 5:
+		unlocked_worlds = 5
+		newly_unlocked_world = 5
 
 	save_progress()
 	economy_changed.emit()
@@ -319,6 +430,13 @@ func claim_streak_chest() -> Dictionary:
 	inv_ice += int(reward["ice"])
 	save_progress()
 	economy_changed.emit()
+	PlatformBridge.notify_happytime()
+	if is_instance_valid(AnalyticsManager):
+		AnalyticsManager.track("streak_chest_claim", {
+			"coins": int(reward["coins"]),
+			"shards": int(reward["shards"]),
+			"win_streak": win_streak,
+		})
 	return reward
 
 
@@ -360,6 +478,9 @@ func get_world_stars(world_id: int) -> Vector2i:
 		4:
 			start_lv = 41
 			end_lv = 50
+		5:
+			start_lv = 51
+			end_lv = 60
 	var earned := 0
 	for lv in range(start_lv, end_lv + 1):
 		earned += get_level_stars(lv)
@@ -409,7 +530,7 @@ func set_haptics_enabled(enabled: bool) -> void:
 func save_progress() -> void:
 	max_unlocked_level = maxi(max_unlocked_level, current_level)
 	var data := {
-		"save_version": 2,
+		"save_version": 3,
 		"current_level": current_level,
 		"max_unlocked_level": max_unlocked_level,
 		"win_streak": win_streak,
@@ -426,10 +547,17 @@ func save_progress() -> void:
 		"bgm_enabled": bgm_enabled,
 		"sfx_enabled": sfx_enabled,
 		"haptics_enabled": haptics_enabled,
+		"no_forced_ads": no_forced_ads,
+		"consent_accepted": consent_accepted,
+		"consent_analytics": consent_analytics,
+		"consent_personalized_ads": consent_personalized_ads,
+		"total_score": total_score,
 	}
+	var json_txt := JSON.stringify(data)
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f:
-		f.store_string(JSON.stringify(data))
+		f.store_string(json_txt)
+	PlatformBridge.save_cloud_data(json_txt)
 
 
 func load_progress() -> void:
@@ -437,13 +565,13 @@ func load_progress() -> void:
 		return
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
 	if parsed is Dictionary:
-		current_level = clampi(int(parsed.get("current_level", 1)), 1, 50)
-		max_unlocked_level = clampi(int(parsed.get("max_unlocked_level", current_level)), 1, 50)
+		current_level = clampi(int(parsed.get("current_level", 1)), 1, MAX_LEVEL)
+		max_unlocked_level = clampi(int(parsed.get("max_unlocked_level", current_level)), 1, MAX_LEVEL)
 		win_streak = int(parsed.get("win_streak", 0))
 		streak_chest_progress = int(parsed.get("streak_chest_progress", 0))
 		coins = int(parsed.get("coins", 150))
 		skin_shards = int(parsed.get("skin_shards", 2))
-		unlocked_worlds = clampi(int(parsed.get("unlocked_worlds", 1)), 1, 4)
+		unlocked_worlds = clampi(int(parsed.get("unlocked_worlds", 1)), 1, MAX_WORLDS)
 		inv_magnet = int(parsed.get("inv_magnet", 2))
 		inv_ice = int(parsed.get("inv_ice", 2))
 		var ls = parsed.get("level_stars", {})
@@ -461,3 +589,8 @@ func load_progress() -> void:
 		bgm_enabled = bool(parsed.get("bgm_enabled", true))
 		sfx_enabled = bool(parsed.get("sfx_enabled", true))
 		haptics_enabled = bool(parsed.get("haptics_enabled", true))
+		no_forced_ads = bool(parsed.get("no_forced_ads", false))
+		consent_accepted = bool(parsed.get("consent_accepted", false))
+		consent_analytics = bool(parsed.get("consent_analytics", true))
+		consent_personalized_ads = bool(parsed.get("consent_personalized_ads", true))
+		total_score = int(parsed.get("total_score", 0))

@@ -58,6 +58,14 @@ SHEETS = [
             "skin_neon", "skin_royal", "skin_mint", "skin_magma",
         ],
     ),
+    (
+        os.path.join(ART_DIR, "retro_gaming_candy_pop_icons_grid_clean_1795399699847.jpg"),
+        4, 2,
+        [
+            "item_w5_coin", "item_w5_cartridge", "item_w5_gamepad", "item_w5_handheld",
+            "item_w5_vr", "item_w5_arcade_boss", "icon_trophy", "skin_pixel",
+        ],
+    ),
 ]
 
 

@@ -27,6 +27,7 @@ AudioManager="*res://scripts/core/audio_manager.gd"
 DDAController="*res://scripts/core/dda_controller.gd"
 AdManager="*res://scripts/platform/ad_manager.gd"
 GameManager="*res://scripts/core/game_manager.gd"
+AnalyticsManager="*res://scripts/platform/analytics_manager.gd"
 
 [display]
 
