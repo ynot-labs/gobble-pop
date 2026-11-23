@@ -11,6 +11,7 @@ const WORLD_META := {
 	2: {"name": "GACHA TOYBOX",      "short": "W2 Toybox", "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
 	3: {"name": "NEON BENTO STREET", "short": "W3 Bento",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
 	4: {"name": "ALCHEMIST DESK",    "short": "W4 Magic",  "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
+	5: {"name": "PIXEL ARCADE",      "short": "W5 Game",   "start": 51, "hard": 55, "cliff": 59, "mega": 60, "trap_name": "GLITCH GOO"},
 }
 
 const TARGET_PILL_THEMES := [
@@ -110,15 +111,15 @@ func _ready() -> void:
 	GameManager.economy_changed.connect(_refresh_booster_buttons)
 	_apply_safe_area_margins(PlatformBridge.get_safe_margins())
 
-	var start_lv := clampi(GameManager.current_level, 1, 50)
+	var start_lv := clampi(GameManager.current_level, 1, GameManager.MAX_LEVEL)
 	var qa_env := OS.get_environment("QA_START_LEVEL")
 	var qa_screen := OS.get_environment("QA_SCREEN")
 
 	if qa_screen != "":
-		var lv := clampi(int(qa_env), 1, 50) if qa_env.is_valid_int() else start_lv
+		var lv := clampi(int(qa_env), 1, GameManager.MAX_LEVEL) if qa_env.is_valid_int() else start_lv
 		_run_qa_screen(qa_screen, lv)
 	elif qa_env.is_valid_int():
-		start_lv = clampi(int(qa_env), 1, 50)
+		start_lv = clampi(int(qa_env), 1, GameManager.MAX_LEVEL)
 		var show_modal := (OS.get_environment("QA_SHOW_MODAL") == "1")
 		_in_lobby = false
 		_home_lobby_ui.close_all()
@@ -582,7 +583,7 @@ func _build_beta_bar() -> void:
 	)
 	world_row.add_child(btn_b_bi)
 
-	for wid in [1, 2, 3, 4]:
+	for wid in [1, 2, 3, 4, 5]:
 		var wb := CandyUI.create_beta_chip(str(WORLD_META[wid]["short"]), Color("#1E293B"))
 		var target_w: int = wid
 		wb.pressed.connect(func(): _beta_jump_level(int(WORLD_META[target_w]["start"])))
@@ -595,7 +596,7 @@ func _build_beta_bar() -> void:
 	beta_v.add_child(stage_row)
 
 	var btn_prev := CandyUI.create_beta_chip("< Prev", Color("#334155"))
-	btn_prev.pressed.connect(func(): _beta_jump_level(50 if _level_number <= 1 else _level_number - 1))
+	btn_prev.pressed.connect(func(): _beta_jump_level(GameManager.MAX_LEVEL if _level_number <= 1 else _level_number - 1))
 	stage_row.add_child(btn_prev)
 
 	for kind in ["start", "hard", "cliff", "mega"]:
@@ -607,7 +608,7 @@ func _build_beta_bar() -> void:
 		_stage_buttons[kind] = sb
 
 	var btn_next := CandyUI.create_beta_chip("Next >", Color("#334155"))
-	btn_next.pressed.connect(func(): _beta_jump_level((_level_number % 50) + 1))
+	btn_next.pressed.connect(func(): _beta_jump_level((_level_number % GameManager.MAX_LEVEL) + 1))
 	stage_row.add_child(btn_next)
 
 
@@ -757,6 +758,10 @@ func _apply_world_theme(world_id: int) -> void:
 			_env.background_color = Color("#8A74D6")
 			_table_mat.set_shader_parameter("border_color", Color("#AC98EC"))
 			tex_path = "res://assets/textures/w4_01_desk_tile.png"
+		5:
+			_env.background_color = Color("#48A8E8")
+			_table_mat.set_shader_parameter("border_color", Color("#7AD0FA"))
+			tex_path = "res://assets/textures/w5_01_arcade_tile.png"
 		_:
 			_env.background_color = Color("#55BEA6")
 			_table_mat.set_shader_parameter("border_color", Color("#76D7BE"))
@@ -783,7 +788,7 @@ func _clear_entities() -> void:
 
 func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false) -> void:
 	_clear_entities()
-	_level_number = clampi(num, 1, 50)
+	_level_number = clampi(num, 1, GameManager.MAX_LEVEL)
 	_used_rv_this_run = false
 	if not lobby_backdrop:
 		_attempts_this_level += 1
@@ -1369,8 +1374,8 @@ func _check_victory() -> void:
 		Color("#663804") if new_world > 0 else Color("#0A4C22"),
 		"icon_crown" if (_is_mega_stage or new_world > 0) else "icon_check"
 	)
-	if _level_number == 50:
-		_overlay_title.text = "ALL 4 WORLDS!"
+	if _level_number == GameManager.MAX_LEVEL:
+		_overlay_title.text = "ALL 5 WORLDS!"
 	elif new_world > 0:
 		_overlay_title.text = "WORLD %d UNLOCKED!" % new_world
 	else:

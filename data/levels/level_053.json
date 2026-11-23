@@ -1,0 +1,659 @@
+{
+  "level": 53,
+  "world": 5,
+  "formation_name": "Cartridge Vault",
+  "difficulty_tag": "NORMAL",
+  "duration": 34,
+  "arena": [
+    21,
+    25
+  ],
+  "spawn": [
+    0,
+    0
+  ],
+  "max_target_tier": 4,
+  "streak_hint": 0,
+  "targets": {
+    "w5_handheld": 5,
+    "w5_vr_headset": 4
+  },
+  "items": [
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -5.25,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.75,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.25,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.75,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.75,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.25,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.75,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        5.25,
+        5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -5.25,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.75,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.25,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.75,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.75,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.25,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.75,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        5.25,
+        6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -5.25,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.75,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.25,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.75,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.75,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.25,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.75,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        5.25,
+        -6.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -5.25,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.75,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.25,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.75,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.75,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.25,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.75,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        5.25,
+        -5.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.4,
+        -1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -5.2,
+        -1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.0,
+        -1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.4,
+        -0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -5.2,
+        -0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.0,
+        -0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.4,
+        0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -5.2,
+        0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.0,
+        0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -6.4,
+        1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -5.2,
+        1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -4.0,
+        1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.0,
+        -1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        5.2,
+        -1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.4,
+        -1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.0,
+        -0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        5.2,
+        -0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.4,
+        -0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.0,
+        0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        5.2,
+        0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.4,
+        0.65
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.0,
+        1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        5.2,
+        1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        6.4,
+        1.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.2,
+        -2.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.2,
+        -2.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.2,
+        -0.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.2,
+        -0.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.2,
+        0.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.2,
+        0.95
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.2,
+        2.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.2,
+        2.85
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -7.8,
+        -5.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        7.8,
+        -5.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -7.8,
+        5.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        7.8,
+        5.8
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -7.8,
+        0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        7.8,
+        0
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        -6.8,
+        -9.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        0,
+        -9.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        6.8,
+        -9.4
+      ],
+      "color_idx": 0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        0,
+        9.4
+      ],
+      "color_idx": 0
+    }
+  ],
+  "powerups": [
+    {
+      "kind": "ice",
+      "pos": [
+        0,
+        1.8
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "pos": [
+        -3.0,
+        -3.4
+      ]
+    },
+    {
+      "pos": [
+        3.0,
+        3.4
+      ]
+    }
+  ],
+  "walls": [],
+  "bombs": [
+    {
+      "pos": [
+        0,
+        -3.6
+      ]
+    },
+    {
+      "pos": [
+        0,
+        3.6
+      ]
+    },
+    {
+      "pos": [
+        -7.4,
+        -2.8
+      ]
+    }
+  ]
+}

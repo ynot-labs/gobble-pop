@@ -10,10 +10,11 @@ signal world_preview_requested(world_id: int)
 signal confetti_requested(count: int)
 
 const WORLD_THEMES := {
-	1: {"title": "SUGAR RUSH BAKERY", "short": "W1", "icon": "item_w1_donut", "range": [1, 20],  "bg": Color("#FF6EB3"), "bevel": Color("#B01C65"), "out": Color("#630B38")},
-	2: {"title": "GACHA TOYBOX",      "short": "W2", "icon": "item_w2_duck",  "range": [21, 30], "bg": Color("#F7AD26"), "bevel": Color("#B86D0A"), "out": Color("#663804")},
-	3: {"title": "NEON BENTO STREET", "short": "W3", "icon": "item_w3_bento", "range": [31, 40], "bg": Color("#22B8EE"), "bevel": Color("#0B78A8"), "out": Color("#0A4266")},
-	4: {"title": "ALCHEMIST DESK",    "short": "W4", "icon": "item_w4_potion","range": [41, 50], "bg": Color("#A855F7"), "bevel": Color("#6B21A8"), "out": Color("#3B0764")},
+	1: {"title": "SUGAR RUSH BAKERY", "short": "W1", "icon": "item_w1_donut",   "range": [1, 20],  "bg": Color("#FF6EB3"), "bevel": Color("#B01C65"), "out": Color("#630B38")},
+	2: {"title": "GACHA TOYBOX",      "short": "W2", "icon": "item_w2_duck",    "range": [21, 30], "bg": Color("#F7AD26"), "bevel": Color("#B86D0A"), "out": Color("#663804")},
+	3: {"title": "NEON BENTO STREET", "short": "W3", "icon": "item_w3_bento",   "range": [31, 40], "bg": Color("#22B8EE"), "bevel": Color("#0B78A8"), "out": Color("#0A4266")},
+	4: {"title": "ALCHEMIST DESK",    "short": "W4", "icon": "item_w4_potion",  "range": [41, 50], "bg": Color("#A855F7"), "bevel": Color("#6B21A8"), "out": Color("#3B0764")},
+	5: {"title": "PIXEL ARCADE",      "short": "W5", "icon": "item_w5_gamepad", "range": [51, 60], "bg": Color("#3B82F6"), "bevel": Color("#1D4ED8"), "out": Color("#172554")},
 }
 
 var _home_root: Control
@@ -91,7 +92,7 @@ func open_map(world_id: int = 0) -> void:
 	_home_root.visible = false
 	_shop_overlay.visible = false
 	_map_overlay.visible = true
-	_selected_map_world = world_id if world_id in [1, 2, 3, 4] else _world_for_level(GameManager.current_level)
+	_selected_map_world = world_id if world_id in [1, 2, 3, 4, 5] else _world_for_level(GameManager.current_level)
 	_refresh_map()
 
 
@@ -126,12 +127,12 @@ func refresh_all() -> void:
 	CandyUI.update_icon_pill(_coin_pill, str(GameManager.coins), Color("#FF8A2B"), Color("#C2410C"), Color("#662004"))
 	CandyUI.update_icon_pill(_shard_pill, str(GameManager.skin_shards), Color("#A855F7"), Color("#6B21A8"), Color("#3B0764"))
 
-	var cur_lv := clampi(GameManager.current_level, 1, 50)
+	var cur_lv := clampi(GameManager.current_level, 1, GameManager.MAX_LEVEL)
 	var wid := _world_for_level(cur_lv)
 	var wt: Dictionary = WORLD_THEMES[wid]
 	CandyUI.update_icon_pill(_world_badge, "%s · %s" % [wt["short"], wt["title"]], wt["bg"], wt["bevel"], wt["out"], wt["icon"])
 
-	var is_mega := cur_lv in [20, 30, 40, 50]
+	var is_mega := cur_lv in [20, 30, 40, 50, 60]
 	CandyUI.update_cta_button(
 		_play_btn,
 		"icon_crown" if is_mega else "icon_play",
@@ -164,7 +165,8 @@ func _world_for_level(lv: int) -> int:
 	if lv <= 20: return 1
 	if lv <= 30: return 2
 	if lv <= 40: return 3
-	return 4
+	if lv <= 50: return 4
+	return 5
 
 
 func _build_home_view() -> void:
@@ -469,16 +471,16 @@ func _build_map_overlay() -> void:
 	)
 	hdr.add_child(btn_back)
 
-	# 4 World Tabs
+	# 5 World Tabs
 	var tabs := HBoxContainer.new()
 	tabs.alignment = BoxContainer.ALIGNMENT_CENTER
-	tabs.add_theme_constant_override("separation", 12)
+	tabs.add_theme_constant_override("separation", 10)
 	vb.add_child(tabs)
 
-	for wid in [1, 2, 3, 4]:
+	for wid in [1, 2, 3, 4, 5]:
 		var wt: Dictionary = WORLD_THEMES[wid]
-		var tb := CandyUI.create_square_icon_button(wt["icon"], wt["short"], false, wt["bg"], wt["bevel"], wt["out"], 192, 58)
-		tb.custom_minimum_size = Vector2(192, 114)
+		var tb := CandyUI.create_square_icon_button(wt["icon"], wt["short"], false, wt["bg"], wt["bevel"], wt["out"], 156, 54)
+		tb.custom_minimum_size = Vector2(156, 110)
 		var target_w: int = wid
 		tb.pressed.connect(func():
 			AudioManager.play_sfx("ui_click")
@@ -522,7 +524,7 @@ func _build_map_overlay() -> void:
 
 
 func _refresh_map() -> void:
-	for wid_v in [1, 2, 3, 4]:
+	for wid_v in [1, 2, 3, 4, 5]:
 		var wid: int = int(wid_v)
 		var wt: Dictionary = WORLD_THEMES[wid]
 		var tb: Button = _map_world_tabs[wid]
@@ -550,7 +552,7 @@ func _refresh_map() -> void:
 		var unlocked := GameManager.is_level_unlocked(lv)
 		var stars := GameManager.get_level_stars(lv)
 		var is_cur := (lv == GameManager.current_level)
-		var is_mega := lv in [20, 30, 40, 50]
+		var is_mega := lv in [20, 30, 40, 50, 60]
 
 		var tile := Button.new()
 		tile.custom_minimum_size = Vector2(184, 152)
@@ -679,10 +681,15 @@ func _build_shop_overlay() -> void:
 	)
 	hdr.add_child(btn_back)
 
-	# 2x3 Skin Cards Grid
+	# Scrollable 2-column Skin Cards Grid (smoothly holds 7+ Hole Skins including Pixel Pop!)
+	var shop_scroll := ScrollContainer.new()
+	shop_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	shop_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	vb.add_child(shop_scroll)
+
 	var grid_center := CenterContainer.new()
-	grid_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	vb.add_child(grid_center)
+	grid_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	shop_scroll.add_child(grid_center)
 
 	_shop_grid = GridContainer.new()
 	_shop_grid.columns = 2

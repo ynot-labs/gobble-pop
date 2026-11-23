@@ -30,6 +30,12 @@ func setup(spawn_pos: Vector3, world_id: int = 1) -> void:
 		_mat.set_shader_parameter("gum_color", Color("#38E578"))
 		_mat.set_shader_parameter("highlight_color", Color("#D8FFE6"))
 		model_path = "res://assets/models/world4/w4_07_slime_trap.glb"
+	elif world_id == 5:
+		trap_color = Color("#22D3EE")
+		trap_label = "GLITCH GOO!"
+		_mat.set_shader_parameter("gum_color", Color("#22D3EE"))
+		_mat.set_shader_parameter("highlight_color", Color("#CFFAFE"))
+		model_path = "res://assets/models/world4/w4_07_slime_trap.glb"
 	else:
 		trap_color = Color("#FF52A8")
 		trap_label = "STICKY GUM!"

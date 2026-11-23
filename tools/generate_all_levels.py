@@ -311,33 +311,29 @@ def build_all():
          {"w1_donut": 8, "w1_cake": 5}, it,
          [{"kind": "ice", "pos": [0, 2.6]}], traps, streak_hint=9)
 
-    # Lv.10 — SUPER HARD CLIFF · Bakery Plaza!
-    # Large 30x34 ASMR decompression showcase: tightly packed, razor-neat regional candy blocks!
-    # Screen 1 immediately showcases the dense 8x4 Sprinkle Carpet + Twin 3x3 Strawberry/Gummy blocks + Magnet!
-    # Outer wings: 3x3 Macaron (W), 3x3 Rainbow-Cream Boba (E), 4x2 Donut Plaza (C), 3-Cake Terrace, 4-Grand-Cake Row!
-    # Scheme A XP below Tier 5: 32*5 + 18*6 + 18*7 + 9*14 + 9*13 + 8*26 + 3*46 = 983 / 810 = 1.21x!
+    # Lv.10 — SUPER HARD CLIFF · Bakery Wonderland! (User-requested 2x Area 42x48 ASMR Showcase!)
+    # Manually tuned dense, razor-neat regional candy blocks (212 items!) with ONLY 2 bubblegum traps!
     it = []
-    # Zone A (Immediate Spawn Carpet): Razor-neat 8x4 Sprinkle Carpet right in front of hole!
-    add_items(it, "w1_sprinkle", pt_grid(0.0, 8.6, 8, 4, 0.72, 0.72), 3)
-    # Zone B (Flanking Berry & Gummy Blocks): Tight 3x3 blocks visible on Frame 1 + 3x3 outer wing pairs
-    add_items(it, "w1_strawberry", pt_grid(-3.2, 4.8, 3, 3, 0.88, 0.88) + pt_grid(-9.2, 8.6, 3, 3, 0.92, 0.92), 1)
-    add_items(it, "w1_gummy_bear", pt_grid(3.2, 4.8, 3, 3, 0.90, 0.90) + pt_grid(9.2, 8.6, 3, 3, 0.94, 0.94), 3)
-    # Zone C (Mid Wings): Tight 3x3 Macaron (West) & 3x3 Rainbow-Cream Boba Sundae (East)
-    add_items(it, "w1_macaron", pt_grid(-8.2, 0.6, 3, 3, 1.35, 1.35), 3)
-    add_items(it, "w1_boba_tea", pt_grid(8.2, 0.6, 3, 3, 1.35, 1.35), 1)
-    # Zone D (Center Plaza): Razor-neat 4x2 Donut Precision Grid
-    add_items(it, "w1_donut", pt_grid(0.0, -2.6, 4, 2, 2.15, 2.15), 2)
-    # Zone E (Upper Terrace): 3 Symmetrical Tier-4 Cakes
-    add_items(it, "w1_cake", [[-8.6, -8.4], [0.0, -8.4], [8.6, -8.4]], 1)
-    # Zone F (Far-North Vault): 4 Majestic Tier-5 Grand Cakes in a crisp row
-    add_items(it, "w1_grand_cake", [[-9.6, -13.6], [-3.2, -13.6], [3.2, -13.6], [9.6, -13.6]], 1)
-    traps = [
-        {"pos": [-4.4, -5.6]}, {"pos": [4.4, -5.6]},
-        {"pos": [-4.8, -11.0]}, {"pos": [4.8, -11.0]},
-    ]
-    emit(10, 1, "Bakery Plaza", "SUPER_HARD", 23, 30, 34, [0.0, 12.2],
-         {"w1_donut": 8, "w1_cake": 3, "w1_grand_cake": 4}, it,
-         [{"kind": "magnet", "pos": [0.0, 5.2]}, {"kind": "ice", "pos": [0.0, 1.4]}], traps, streak_hint=49)
+    # Zone A (Immediate Spawn Carpet): Massive 12x6 ultra-tight Sprinkle Carpet right above spawn (0, 20.6)
+    add_items(it, "w1_sprinkle", pt_grid(0.0, 15.8, 12, 6, 0.68, 0.68), 3)
+    # Zone B (South-Mid Orchards + Outer Wings): 4x4 & 4x5 tight Strawberry (West) & Gummy Bear (East) blocks
+    add_items(it, "w1_strawberry", pt_grid(-5.6, 10.2, 4, 4, 0.90, 0.90) + pt_grid(-14.6, 14.2, 4, 5, 0.92, 0.92), 1)
+    add_items(it, "w1_gummy_bear", pt_grid(5.6, 10.2, 4, 4, 0.92, 0.92) + pt_grid(14.6, 14.2, 4, 5, 0.94, 0.94), 3)
+    # Zone C (Mid-Field Twin Patisserie Wings): 4x4 Macaron (Far-West) & 4x4 Rainbow-Cream Boba Sundae (Far-East)
+    add_items(it, "w1_macaron", pt_grid(-13.8, 1.4, 4, 4, 1.42, 1.42), 3)
+    add_items(it, "w1_boba_tea", pt_grid(13.8, 1.4, 4, 4, 1.42, 1.42), 1)
+    # Zone D (Grand Central Donut Promenade): 6x3 razor-straight Donut Precision Grid dead-center!
+    add_items(it, "w1_donut", pt_grid(0.0, 0.4, 6, 3, 2.25, 2.25), 2)
+    # Zone E (Upper-North Cake Avenue): 8 Symmetrical Tier-4 Layered Cakes in two crisp 4-cake rows
+    add_items(it, "w1_cake", pt_grid(-11.4, -9.2, 2, 2, 3.6, 3.6) + pt_grid(11.4, -9.2, 2, 2, 3.6, 3.6), 1)
+    # Zone F (Far-North Royal Bakery Vault): 6 Majestic Tier-5 Grand Cakes in a crisp 3x2 royal display!
+    add_items(it, "w1_grand_cake", pt_grid(0.0, -17.6, 3, 2, 6.4, 4.8), 1)
+    # Only 2 cleanly placed bubblegum traps (manual user request!)
+    traps = [{"pos": [-5.2, -5.6]}, {"pos": [5.2, -5.6]}]
+    emit(10, 1, "Bakery Wonderland", "SUPER_HARD", 48, 42, 48, [0.0, 20.6],
+         {"w1_donut": 14, "w1_cake": 6, "w1_grand_cake": 6}, it,
+         [{"kind": "magnet", "pos": [0.0, 11.4]}, {"kind": "ice", "pos": [0.0, 5.6]}, {"kind": "magnet", "pos": [0.0, -5.6]}],
+         traps, streak_hint=49)
 
     # Lv.11 — Candy S-Wave
     it = []
@@ -925,7 +921,160 @@ def build_all():
          {"w4_spellbook": 7, "w4_cauldron": 5, "w4_grand_cauldron": 5}, it,
          [{"kind": "ice", "pos": [0, -3.4]}, {"kind": "magnet", "pos": [0, 3.4]}], traps, walls, bombs, streak_hint=499)
 
-    print(f"Generated ALL {len(levels)} sculptural levels across 4 Worlds (Lv.1-50)!")
+    # =========================================================================
+    # WORLD 5: PIXEL ARCADE (Lv.51 - Lv.60) — Gaming Theme + Glitch Goo + Walls + Bombs!
+    # =========================================================================
+
+    # Lv.51 — Pixel Start (EASY · Crisp D-Pad Coin Cross + Cartridge Corners)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_grid(0, 0, 9, 2, 1.35, 1.35) + pt_grid(0, 0, 2, 9, 1.35, 1.35), 1, [0, 0])
+    add_items(it, "w5_cartridge", pt_grid(-4.8, -5.0, 3, 2, 1.2, 1.2) + pt_grid(4.8, -5.0, 3, 2, 1.2, 1.2) +
+              pt_grid(-4.8, 5.0, 3, 2, 1.2, 1.2) + pt_grid(4.8, 5.0, 3, 2, 1.2, 1.2), 1)
+    add_items(it, "w5_gamepad", pt_ring(0, 0, 5.2, 5.8, 10, 0.25), 1)
+    add_items(it, "w5_handheld", [[-6.8, -7.8], [6.8, -7.8], [-6.8, 7.8], [6.8, 7.8], [0, -8.2], [0, 8.2]], 1)
+    emit(51, 5, "Pixel Start", "EASY", 45, 18, 22, [0, 0],
+         {"w5_gamepad": 8, "w5_handheld": 5}, it,
+         [{"kind": "magnet", "pos": [0, -3.0]}], [])
+
+    # Lv.52 — Gamepad Arena (EASY · Twin Controller Grips + VR Corners)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_ring(-4.4, 0, 2.4, 2.4, 14) + pt_ring(4.4, 0, 2.4, 2.4, 14), 1)
+    add_items(it, "w5_cartridge", pt_grid(0, -4.6, 5, 2, 1.3, 1.2) + pt_grid(0, 4.6, 5, 2, 1.3, 1.2), 1)
+    add_items(it, "w5_gamepad", pt_grid(-4.4, 0, 2, 2, 1.8, 1.8) + pt_grid(4.4, 0, 2, 2, 1.8, 1.8) + [[0, -2.0], [0, 2.0]], 1)
+    add_items(it, "w5_handheld", [[-7.2, -5.2], [7.2, -5.2], [-7.2, 5.2], [7.2, 5.2], [0, -8.4], [0, 8.4]], 1)
+    add_items(it, "w5_vr_headset", [[-7.6, -8.8], [7.6, -8.8], [-7.6, 8.8], [7.6, 8.8]], 1)
+    traps = [{"pos": [-2.2, 0]}, {"pos": [2.2, 0]}]
+    emit(52, 5, "Gamepad Arena", "EASY", 45, 20, 24, [0, 0],
+         {"w5_handheld": 5, "w5_vr_headset": 4}, it,
+         [{"kind": "magnet", "pos": [0, 3.2]}, {"kind": "ice", "pos": [0, -3.2]}], traps)
+
+    # Lv.53 — Cartridge Vault (NORMAL · Neat Retro Shelves + 3 Time Bombs)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_grid(0, 6.4, 8, 2, 1.5, 1.1) + pt_grid(0, -6.4, 8, 2, 1.5, 1.1), 1)
+    add_items(it, "w5_cartridge", pt_grid(-5.2, 0, 3, 4, 1.2, 1.3) + pt_grid(5.2, 0, 3, 4, 1.2, 1.3), 1)
+    add_items(it, "w5_gamepad", pt_grid(0, 0, 2, 4, 2.4, 1.9), 1)
+    add_items(it, "w5_handheld", [[-7.8, -5.8], [7.8, -5.8], [-7.8, 5.8], [7.8, 5.8], [-7.8, 0], [7.8, 0]], 1)
+    add_items(it, "w5_vr_headset", [[-6.8, -9.4], [0, -9.4], [6.8, -9.4], [0, 9.4]], 1)
+    traps = [{"pos": [-3.0, -3.4]}, {"pos": [3.0, 3.4]}]
+    bombs = [{"pos": [0, -3.6]}, {"pos": [0, 3.6]}, {"pos": [-7.4, -2.8]}]
+    emit(53, 5, "Cartridge Vault", "NORMAL", 34, 21, 25, [0, 0],
+         {"w5_handheld": 5, "w5_vr_headset": 4}, it,
+         [{"kind": "ice", "pos": [0, 1.8]}], traps, [], bombs)
+
+    # Lv.54 — Joystick Rings (NORMAL · Concentric Pixel Arcade Orbits)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_ring(0, 0, 3.4, 3.6, 20) + pt_ring(0, 0, 7.6, 8.4, 22), 1)
+    add_items(it, "w5_cartridge", pt_ring(0, 0, 5.2, 5.8, 18), 1)
+    add_items(it, "w5_gamepad", pt_ring(0, 0, 6.4, 7.2, 12, 0.25), 1)
+    add_items(it, "w5_handheld", pt_ring(0, 0, 8.2, 9.2, 8, 0.1), 1)
+    add_items(it, "w5_vr_headset", [[-8.0, -9.4], [8.0, -9.4], [-8.0, 9.4], [8.0, 9.4]], 1)
+    traps = [{"pos": [-4.0, 0]}, {"pos": [4.0, 0]}]
+    bombs = [{"pos": [0, -5.4]}, {"pos": [0, 5.4]}]
+    emit(54, 5, "Joystick Rings", "NORMAL", 32, 21, 25, [0, 0],
+         {"w5_handheld": 7, "w5_vr_headset": 4}, it,
+         [{"kind": "magnet", "pos": [0, 2.2]}], traps, [], bombs)
+
+    # Lv.55 — HARD · Boss Fight (Scheme A tightened XP ~635/475 = 1.34x + Glitch Goo + 4 Bombs!)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_grid(0, 8.2, 8, 2, 1.7, 1.2), 1, [0, 8.8])
+    add_items(it, "w5_cartridge", pt_line(-7.2, 4.6, 7.2, 4.6, 9) + pt_line(-7.2, -4.6, 7.2, -4.6, 9), 1)
+    add_items(it, "w5_gamepad", pt_grid(-6.4, 0, 2, 3, 1.8, 2.2) + pt_grid(6.4, 0, 2, 3, 1.8, 2.2), 1)
+    add_items(it, "w5_handheld", [[-7.6, -7.2], [7.6, -7.2], [-3.8, -1.6], [3.8, -1.6], [-7.6, 6.8], [7.6, 6.8], [0, -7.8], [0, 2.2]], 1)
+    add_items(it, "w5_vr_headset", [[-8.2, -9.8], [8.2, -9.8], [0, -10.2], [-8.2, 9.6], [8.2, 9.6]], 1)
+    traps = [{"pos": [-3.0, 2.2]}, {"pos": [3.0, 2.2]}, {"pos": [-3.0, -4.4]}, {"pos": [3.0, -4.4]}, {"pos": [0, -1.2]}]
+    bombs = [{"pos": [-5.2, 5.8]}, {"pos": [5.2, 5.8]}, {"pos": [-5.2, -7.6]}, {"pos": [5.2, -7.6]}]
+    emit(55, 5, "Boss Fight", "HARD", 34, 21, 25, [0, 9.0],
+         {"w5_handheld": 7, "w5_vr_headset": 5}, it,
+         [{"kind": "ice", "pos": [0, 5.8]}], traps, [], bombs, streak_hint=55)
+
+    # Lv.56 — Glitch Slalom (NORMAL · Rubber Bumper Lanes + Arcade Bosses!)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_grid(0, 7.2, 10, 2, 1.6, 1.2) + pt_grid(0, -7.2, 10, 2, 1.6, 1.2), 1)
+    add_items(it, "w5_cartridge", pt_grid(-7.0, 0, 3, 4, 1.4, 1.4) + pt_grid(7.0, 0, 3, 4, 1.4, 1.4), 1)
+    add_items(it, "w5_gamepad", pt_line(-6.4, 3.8, 6.4, 3.8, 7) + pt_line(-6.4, -3.8, 6.4, -3.8, 7), 1)
+    add_items(it, "w5_handheld", [[-8.6, -5.2], [8.6, -5.2], [-8.6, 5.2], [8.6, 5.2], [0, 0.2], [-3.8, -7.2], [3.8, -7.2], [0, 9.4]], 1)
+    add_items(it, "w5_vr_headset", [[-9.2, -9.8], [9.2, -9.8], [-9.2, 9.8], [9.2, 9.8]], 1)
+    add_items(it, "w5_arcade_boss", [[0, -10.8], [0, 10.8]], 1)
+    walls = [{"pos": [-4.2, 0.0], "rot_deg": 90.0}, {"pos": [4.2, 0.0], "rot_deg": 90.0}, {"pos": [0.0, -5.6], "rot_deg": 0.0}]
+    traps = [{"pos": [-7.4, 0]}, {"pos": [7.4, 0]}, {"pos": [0, 5.4]}]
+    bombs = [{"pos": [-4.2, 5.4]}, {"pos": [4.2, 5.4]}, {"pos": [-4.2, -7.8]}, {"pos": [4.2, -7.8]}]
+    emit(56, 5, "Glitch Slalom", "NORMAL", 42, 23, 26, [0, 2.2],
+         {"w5_handheld": 7, "w5_vr_headset": 4, "w5_arcade_boss": 2}, it,
+         [{"kind": "magnet", "pos": [0, 7.0]}, {"kind": "ice", "pos": [0, -2.0]}], traps, walls, bombs)
+
+    # Lv.57 — Co-Op Twins (NORMAL · Symmetrical P1 / P2 Gaming Chambers!)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_grid(-6.4, 5.6, 4, 3, 1.3, 1.2) + pt_grid(6.4, 5.6, 4, 3, 1.3, 1.2), 1)
+    add_items(it, "w5_cartridge", pt_grid(-6.4, -3.2, 4, 3, 1.3, 1.3) + pt_grid(6.4, -3.2, 4, 3, 1.3, 1.3), 1)
+    add_items(it, "w5_gamepad", pt_line(-8.8, 1.2, -3.2, 1.2, 4) + pt_line(3.2, 1.2, 8.8, 1.2, 4) +
+              [[-6.0, -7.6], [6.0, -7.6], [-6.0, 9.2], [6.0, 9.2]], 1)
+    add_items(it, "w5_handheld", [[-9.2, -5.8], [9.2, -5.8], [-9.2, 4.4], [9.2, 4.4], [-3.4, -6.2], [3.4, -6.2], [0, 8.8], [0, -8.8]], 1)
+    add_items(it, "w5_vr_headset", [[-9.0, -9.8], [9.0, -9.8], [-9.0, 9.8], [9.0, 9.8]], 1)
+    add_items(it, "w5_arcade_boss", [[-4.4, -10.8], [4.4, -10.8]], 1)
+    walls = [{"pos": [0.0, -4.6], "rot_deg": 90.0}, {"pos": [0.0, 4.6], "rot_deg": 90.0}, {"pos": [-6.4, -0.8], "rot_deg": 0.0}, {"pos": [6.4, -0.8], "rot_deg": 0.0}]
+    traps = [{"pos": [-3.0, 1.2]}, {"pos": [3.0, 1.2]}, {"pos": [-6.4, -7.8]}, {"pos": [6.4, -7.8]}]
+    bombs = [{"pos": [0, 0]}, {"pos": [-9.2, 0]}, {"pos": [9.2, 0]}, {"pos": [0, -9.8]}]
+    emit(57, 5, "Co-Op Twins", "NORMAL", 44, 24, 26, [0, 1.6],
+         {"w5_handheld": 7, "w5_vr_headset": 4, "w5_arcade_boss": 2}, it,
+         [{"kind": "ice", "pos": [0, 6.2]}, {"kind": "magnet", "pos": [0, -2.4]}], traps, walls, bombs)
+
+    # Lv.58 — VR Matrix (NORMAL · Crisp Pixel Grid Matrix + 4 Wide Walls + 5 Bombs)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_ring(0, 0, 8.2, 9.0, 32), 1)
+    add_items(it, "w5_cartridge", pt_ring(0, 0, 5.4, 6.0, 22), 1)
+    add_items(it, "w5_gamepad", pt_ring(0, 0, 3.0, 3.4, 12), 1)
+    add_items(it, "w5_handheld", [[-7.6, -3.0], [7.6, -3.0], [-7.6, 3.0], [7.6, 3.0], [-3.2, -8.8], [3.2, -8.8], [-3.2, 8.8], [3.2, 8.8]], 1)
+    add_items(it, "w5_vr_headset", [[-8.8, -9.2], [8.8, -9.2], [-8.8, 9.2], [8.8, 9.2]], 1)
+    add_items(it, "w5_arcade_boss", [[0, -10.6], [0, 10.6]], 1)
+    walls = [{"pos": [-5.2, 0.0], "rot_deg": 0.0}, {"pos": [5.2, 0.0], "rot_deg": 0.0},
+             {"pos": [0.0, -6.2], "rot_deg": 90.0}, {"pos": [0.0, 6.2], "rot_deg": 90.0}]
+    traps = [{"pos": [-2.6, -2.6]}, {"pos": [2.6, -2.6]}, {"pos": [-2.6, 2.6]}, {"pos": [2.6, 2.6]}]
+    bombs = [{"pos": [-8.4, 0.0]}, {"pos": [8.4, 0.0]}, {"pos": [-5.2, -5.6]}, {"pos": [5.2, 5.6]}, {"pos": [0.0, -9.2]}]
+    emit(58, 5, "VR Matrix", "NORMAL", 48, 24, 26, [0, 0],
+         {"w5_handheld": 7, "w5_vr_headset": 4, "w5_arcade_boss": 2}, it,
+         [{"kind": "ice", "pos": [0, -2.4]}, {"kind": "magnet", "pos": [0, 2.4]}], traps, walls, bombs)
+
+    # Lv.59 — SUPER_HARD CLIFF · High Score Rush! (Scheme A XP ~969/810 = 1.20x + Walls + Goo + 5 Bombs!)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_grid(0, 9.6, 9, 2, 2.0, 1.3), 1, [0, 10.4])
+    add_items(it, "w5_cartridge", pt_line(-8.8, 6.6, 8.8, 6.6, 12) + pt_line(-8.0, 4.0, 8.0, 4.0, 10), 1)
+    add_items(it, "w5_gamepad", pt_line(-8.8, 1.4, -8.8, -5.6, 6) + pt_line(8.8, 1.4, 8.8, -5.6, 6) + pt_line(-3.8, 1.4, 3.8, 1.4, 5), 1)
+    add_items(it, "w5_handheld", [[-8.8, -2.6], [8.8, -2.6], [-4.2, -4.6], [4.2, -4.6], [0, -8.4], [-8.8, 4.6], [8.8, 4.6], [0, 0.2]], 1)
+    add_items(it, "w5_vr_headset", [[-9.2, -9.2], [9.2, -9.2], [-4.4, -9.6], [4.4, -9.6], [0, -2.8]], 1)
+    add_items(it, "w5_arcade_boss", [[-8.4, -12.0], [0.0, -12.2], [8.4, -12.0]], 1)
+    walls = [{"pos": [-5.4, 1.4], "rot_deg": 90.0}, {"pos": [5.4, 1.4], "rot_deg": 90.0}, {"pos": [0.0, -5.8], "rot_deg": 0.0}]
+    traps = [{"pos": [-7.4, 3.0]}, {"pos": [7.4, 3.0]}, {"pos": [0, 3.0]}, {"pos": [-7.4, -1.6]}, {"pos": [7.4, -1.6]}, {"pos": [-5.4, -7.4]}, {"pos": [5.4, -7.4]}]
+    bombs = [{"pos": [-3.0, 5.2]}, {"pos": [3.0, 5.2]}, {"pos": [0.0, -1.2]}, {"pos": [-4.2, -11.0]}, {"pos": [4.2, -11.0]}]
+    emit(59, 5, "High Score Rush", "SUPER_HARD", 32, 24, 28, [0, 10.6],
+         {"w5_handheld": 7, "w5_vr_headset": 4, "w5_arcade_boss": 3}, it,
+         [{"kind": "ice", "pos": [-6.0, 7.8]}], traps, walls, bombs, streak_hint=449)
+
+    # Lv.60 — MEGA_BOSS FINALE (30x34 Epic Stage!) · Grand Game Expo! (5 Giant Arcade Boss Cabinets!)
+    it = []
+    add_items(it, "w5_pixel_coin", pt_ring(0, 0, 3.2, 3.2, 16) + pt_line(-9.0, 0, -4.5, 0, 4) + pt_line(4.5, 0, 9.0, 0, 4), 1)
+    add_items(it, "w5_cartridge", pt_ring(0, 0, 5.6, 6.2, 14), 1)
+    add_items(it, "w5_gamepad", pt_ring(0, 0, 8.2, 9.2, 12) + [[-4.8, -11.4], [4.8, -11.4], [-4.8, 11.4], [4.8, 11.4]], 1)
+    add_items(it, "w5_handheld", [[-11.2, -5.2], [11.2, -5.2], [-11.2, 5.2], [11.2, 5.2], [-5.2, -12.8], [5.2, -12.8], [-5.2, 12.8], [5.2, 12.8]], 1)
+    add_items(it, "w5_vr_headset", [[-12.0, -10.4], [12.0, -10.4], [-12.0, 10.4], [12.0, 10.4], [0, -11.2], [0, 14.0]], 1)
+    # 5 Giant Arcade Boss Cabinets: 4 far corners + Northern Expo Main Stage!
+    add_items(it, "w5_arcade_boss", [[-12.6, -14.4], [0.0, -14.8], [12.6, -14.4], [-12.6, 14.4], [12.6, 14.4]], 1)
+    walls = [
+        {"pos": [-7.4, -7.8], "rot_deg": 0.0}, {"pos": [7.4, -7.8], "rot_deg": 0.0},
+        {"pos": [-7.4, 7.8], "rot_deg": 0.0}, {"pos": [7.4, 7.8], "rot_deg": 0.0},
+    ]
+    traps = [
+        {"pos": [0, -6.2]}, {"pos": [0, 6.2]}, {"pos": [-7.4, 0]}, {"pos": [7.4, 0]},
+        {"pos": [-11.8, -7.8]}, {"pos": [11.8, -7.8]}, {"pos": [-11.8, 7.8]}, {"pos": [11.8, 7.8]},
+    ]
+    bombs = [
+        {"pos": [-9.2, -12.4]}, {"pos": [9.2, -12.4]}, {"pos": [-9.2, 12.4]}, {"pos": [9.2, 12.4]},
+        {"pos": [-12.2, 0.0]}, {"pos": [12.2, 0.0]}, {"pos": [0.0, -12.8]},
+    ]
+    emit(60, 5, "Grand Game Expo", "MEGA_BOSS", 53, 30, 34, [0, 0],
+         {"w5_handheld": 7, "w5_vr_headset": 5, "w5_arcade_boss": 5}, it,
+         [{"kind": "ice", "pos": [0, -3.4]}, {"kind": "magnet", "pos": [0, 3.4]}], traps, walls, bombs, streak_hint=599)
+
+    print(f"Generated ALL {len(levels)} sculptural levels across 5 Worlds (Lv.1-60)!")
     for row in levels:
         num, w, nm, tg, dur, ni, nt, nw, nb, xa, xr = row
         print(f"  Lv.{num:02d} W{w} | {nm:24s} | {tg:10s} | {dur:2.0f}s | items={ni:3d} T={nt:2d} W={nw} B={nb} | XP={xa:4d}/{xr}")

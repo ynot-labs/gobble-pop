@@ -36,6 +36,12 @@ const ITEM_ICON_MAP := {
 	"w4_spellbook": "item_w4_spellbook",
 	"w4_cauldron": "item_w4_cauldron",
 	"w4_grand_cauldron": "item_w4_cauldron",
+	"w5_pixel_coin": "item_w5_coin",
+	"w5_cartridge": "item_w5_cartridge",
+	"w5_gamepad": "item_w5_gamepad",
+	"w5_handheld": "item_w5_handheld",
+	"w5_vr_headset": "item_w5_vr",
+	"w5_arcade_boss": "item_w5_arcade_boss",
 }
 
 
