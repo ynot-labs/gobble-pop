@@ -59,6 +59,8 @@ var _used_rv_this_run: bool = false
 var _attempts_this_level: int = 0
 var _camera_shake: float = 0.0
 var _target_cam_height: float = 17.5
+var _cam_look_pos := Vector3.ZERO
+var _cam_snap_next: bool = true
 var _lobby_orbit_time: float = 0.0
 
 # UI References
@@ -557,7 +559,7 @@ func _build_hud() -> void:
 
 	# PC Desktop subtle control hint strip (hidden on mobile!)
 	_pc_hint_label = Label.new()
-	_pc_hint_label.text = "MOVE MOUSE or WASD  ·  [Q] MAGNET  ·  [E] FREEZE  ·  [R] RESTART"
+	_pc_hint_label.text = "DRAG MOUSE or WASD  ·  [Q] MAGNET  ·  [E] FREEZE  ·  [R] RESTART"
 	_pc_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_pc_hint_label.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	_pc_hint_label.offset_top = -28
@@ -1077,6 +1079,7 @@ func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false,
 	_hole.reset_for_level(1, Vector3(float(sp_arr[0]), 0.0, float(sp_arr[1])))
 	_hole.apply_skin(GameManager.equipped_skin)
 	_target_cam_height = 18.5 if _is_mega_stage else (15.4 if _is_landscape_desktop() else 16.8)
+	_cam_snap_next = true
 
 	var targets: Dictionary = _level_data.get("targets", {})
 
@@ -1315,14 +1318,37 @@ func _process(delta: float) -> void:
 		_camera.position = _camera.position.lerp(lobby_cam, minf(delta * 3.5, 1.0))
 		_camera.look_at(Vector3(0.0, -0.6, 0.0), Vector3.UP)
 	else:
-		var cam_lim_x := maxf(1.5, _board_half.x - (6.8 if is_land else 4.4))
-		var cam_lim_z := maxf(1.5, _board_half.y - (4.2 if is_land else 5.0))
-		var look_x := clampf(_hole.position.x * (0.42 if is_land else 0.78), -cam_lim_x, cam_lim_x)
-		# Sweet-spot camera framing: keeps both towering All-in-Hole monuments below top HUD
-		# AND the foreground hole cleanly visible above bottom booster buttons!
-		var look_z := clampf(_hole.position.z * (0.34 if is_land else 0.58) - (1.15 if is_land else 0.95), -cam_lim_z, cam_lim_z)
-		var z_off := 18.2 if is_land else 11.4
-		var cam_h := (_target_cam_height * 1.06) if is_land else (_target_cam_height * 1.05)
+		# Mathematically guaranteed 1:1 Hole Follow Camera for ALL map sizes (17x21 -> 42x48) & ALL screen ratios!
+		var vp_sz := get_viewport().get_visible_rect().size
+		var aspect := clampf(vp_sz.x / maxf(vp_sz.y, 1.0), 0.45, 2.4)
+		var z_off := 15.8 if is_land else 11.4
+		var cam_h := (_target_cam_height * 1.08) if is_land else (_target_cam_height * 1.05)
+		var dist_cam := sqrt(cam_h * cam_h + z_off * z_off)
+		var tan_half_v := tan(deg_to_rad(_camera.fov * 0.5))
+		var sin_pitch := cam_h / maxf(dist_cam, 0.01)
+
+		# Live visible ground half-spans at Y=0 for current FOV, height, pitch & viewport aspect
+		var vis_half_x := dist_cam * tan_half_v * aspect
+		var vis_half_z := (dist_cam * tan_half_v) / maxf(sin_pitch, 0.35)
+
+		# Edge clamp limits: keep board nicely framed on small maps while panning fully across giant maps
+		var pad_x := maxf(1.5, vis_half_x * 0.48)
+		var pad_z := maxf(1.5, vis_half_z * 0.36)
+		var lim_x := maxf(0.0, _board_half.x - pad_x)
+		var lim_z := maxf(0.0, _board_half.y - pad_z)
+
+		# Follow the hole 1:1 (never 0.34x lag!) with a subtle -Z look-ahead for tall 3D stacks
+		var look_x := clampf(_hole.position.x, -lim_x, lim_x)
+		var look_z := clampf(_hole.position.z - (0.65 if is_land else 0.50), -lim_z, lim_z)
+
+		# Hard safety envelope: hole can NEVER drift outside the clear inner safe zone (below HUD, above Q/E/R!)
+		var safe_x := maxf(1.8, vis_half_x * 0.52)
+		var safe_z_top := maxf(1.8, vis_half_z * 0.34)
+		var safe_z_bot := maxf(1.8, vis_half_z * 0.40)
+		look_x = clampf(look_x, _hole.position.x - safe_x, _hole.position.x + safe_x)
+		look_z = clampf(look_z, _hole.position.z - safe_z_bot, _hole.position.z + safe_z_top)
+
+		var target_look := Vector3(look_x, -0.45 if is_land else -0.20, look_z)
 		var desired_cam := Vector3(look_x, cam_h, look_z + z_off)
 
 		if _camera_shake > 0.0:
@@ -1330,8 +1356,15 @@ func _process(delta: float) -> void:
 			desired_cam.x += randf_range(-0.12, 0.12) * _camera_shake
 			desired_cam.z += randf_range(-0.12, 0.12) * _camera_shake
 
-		_camera.position = _camera.position.lerp(desired_cam, minf(delta * 6.5, 1.0))
-		_camera.look_at(Vector3(look_x, -0.55 if is_land else -0.2, look_z), Vector3.UP)
+		if _cam_snap_next:
+			_cam_snap_next = false
+			_cam_look_pos = target_look
+			_camera.position = desired_cam
+		else:
+			var t_cam := minf(delta * 8.5, 1.0)
+			_cam_look_pos = _cam_look_pos.lerp(target_look, t_cam)
+			_camera.position = _camera.position.lerp(desired_cam, t_cam)
+		_camera.look_at(_cam_look_pos, Vector3.UP)
 
 	if _pc_hint_label:
 		_pc_hint_label.visible = is_land and _playing and not _in_lobby and not _paused

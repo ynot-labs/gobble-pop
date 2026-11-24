@@ -38,14 +38,10 @@ var board_bounds := Vector2(8.0, 10.0)
 var is_controllable: bool = false
 var is_paused: bool = false
 
-# Floating virtual joystick state (exposed for HUD rendering!)
+# Floating virtual joystick state (exposed for HUD rendering — unified Click+Drag & Touch+Drag!)
 var joy_active: bool = false
 var joy_origin := Vector2.ZERO
 var joy_dir := Vector2.ZERO
-# V2.0 PC Native Mouse Cursor Chase (no click-drag required on desktop!)
-var _using_touch: bool = false
-var _mouse_chase_active: bool = false
-var _mouse_screen_pos := Vector2.ZERO
 var _velocity := Vector3.ZERO
 var _spin_phase: float = 0.0
 
@@ -292,12 +288,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not is_controllable:
 		joy_active = false
 		joy_dir = Vector2.ZERO
-		_mouse_chase_active = false
 		return
 
 	if event is InputEventScreenTouch:
-		_using_touch = true
-		_mouse_chase_active = false
 		if event.pressed:
 			joy_active = true
 			joy_origin = event.position
@@ -306,47 +299,22 @@ func _unhandled_input(event: InputEvent) -> void:
 			joy_active = false
 			joy_dir = Vector2.ZERO
 	elif event is InputEventScreenDrag and joy_active:
-		_using_touch = true
 		_update_virtual_joystick(event.position)
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if GameManager.mouse_follow_enabled and not _using_touch:
-			_mouse_screen_pos = event.position
-			_mouse_chase_active = true
+		if event.pressed:
+			joy_active = true
+			joy_origin = event.position
+			joy_dir = Vector2.ZERO
 		else:
-			if event.pressed:
-				joy_active = true
-				joy_origin = event.position
-				joy_dir = Vector2.ZERO
-			else:
-				joy_active = false
-				joy_dir = Vector2.ZERO
-	elif event is InputEventMouseMotion:
-		if not _using_touch and GameManager.mouse_follow_enabled:
-			_mouse_screen_pos = event.position
-			_mouse_chase_active = true
 			joy_active = false
-		elif joy_active:
+			joy_dir = Vector2.ZERO
+	elif event is InputEventMouseMotion and joy_active:
+		# Guard against mouse button released outside the browser canvas/iframe!
+		if (event.button_mask & MOUSE_BUTTON_MASK_LEFT) == 0:
+			joy_active = false
+			joy_dir = Vector2.ZERO
+		else:
 			_update_virtual_joystick(event.position)
-
-
-func _get_mouse_chase_vector() -> Vector2:
-	var cam := get_viewport().get_camera_3d()
-	if not cam:
-		return Vector2.ZERO
-	var ray_o := cam.project_ray_origin(_mouse_screen_pos)
-	var ray_d := cam.project_ray_normal(_mouse_screen_pos)
-	if absf(ray_d.y) < 0.001:
-		return Vector2.ZERO
-	var t := -ray_o.y / ray_d.y
-	if t <= 0.0:
-		return Vector2.ZERO
-	var hit := ray_o + ray_d * t
-	var delta_xz := Vector2(hit.x - position.x, hit.z - position.z)
-	var dist := delta_xz.length()
-	if dist < 0.22:
-		return Vector2.ZERO
-	var mag := clampf((dist - 0.22) / 1.45, 0.0, 1.0)
-	return (delta_xz / dist) * mag
 
 
 func _update_virtual_joystick(pointer_pos: Vector2) -> void:
@@ -365,7 +333,7 @@ func _update_virtual_joystick(pointer_pos: Vector2) -> void:
 func _process(delta: float) -> void:
 	if is_paused:
 		return
-	# Compute desired input vector (Keyboard WASD/Arrows -> Touch Joystick -> PC Mouse Cursor Chase)
+	# Compute desired input vector (Keyboard WASD/Arrows or Click/Touch + Drag Joystick — NO hover mouse chase!)
 	var inp := Vector2.ZERO
 	if is_controllable:
 		var kx := Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -376,12 +344,9 @@ func _process(delta: float) -> void:
 		if Input.is_key_pressed(KEY_W): kz -= 1.0
 		var kb := Vector2(kx, kz)
 		if kb.length() > 0.05:
-			_mouse_chase_active = false
 			inp = kb.normalized() if kb.length() > 1.0 else kb
 		elif joy_active:
 			inp = joy_dir
-		elif _mouse_chase_active and GameManager.mouse_follow_enabled and not _using_touch:
-			inp = _get_mouse_chase_vector()
 
 	var upg_spd := GameManager.get_upgrade_speed_mult() if is_instance_valid(GameManager) else 1.0
 	var speed := (BASE_MOVE_SPEED + float(hole_level - 1) * SPEED_PER_LEVEL) * upg_spd
