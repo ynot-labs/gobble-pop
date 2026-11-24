@@ -73,15 +73,31 @@
 		.loader-wrap {
 			position: relative;
 			z-index: 2;
-			width: min(84vw, 390px);
-			padding: 14px 18px;
+			width: min(86vw, 400px);
+			padding: 13px 18px 14px;
 			border-radius: 22px;
-			background: rgba(12, 26, 48, 0.58);
+			background: rgba(8, 28, 46, 0.76);
 			backdrop-filter: blur(10px);
 			-webkit-backdrop-filter: blur(10px);
-			border: 2px solid rgba(255, 255, 255, 0.28);
-			box-shadow: 0 12px 32px rgba(8, 20, 42, 0.32);
+			border: 2px solid rgba(240, 231, 205, 0.38);
+			box-shadow: 0 12px 32px rgba(6, 18, 38, 0.40);
 			text-align: center;
+		}
+		.studio-brand {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding-bottom: 10px;
+			margin-bottom: 11px;
+			border-bottom: 1px solid rgba(240, 231, 205, 0.22);
+		}
+		.studio-logo-img {
+			display: block;
+			height: 44px;
+			max-width: 72%;
+			width: auto;
+			object-fit: contain;
+			filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
 		}
 		.progress-track {
 			width: 100%;
@@ -144,6 +160,9 @@
 		<img class="splash-bg-img" src="cover_splash.jpg" alt="Gobble Pop! Splash" />
 		<div class="splash-bottom-scrim"></div>
 		<div class="loader-wrap">
+			<div class="studio-brand">
+				<img class="studio-logo-img" src="studio_logo.png" alt="PLAYGOD Studio" />
+			</div>
 			<div class="progress-track">
 				<div class="progress-fill" id="progress-fill"></div>
 			</div>
@@ -154,7 +173,7 @@
 
 	<script src="index.js"></script>
 	<script>
-		const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":6090716,"index.wasm":37685705},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+		const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":6090764,"index.wasm":37685705},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 		const GODOT_THREADS_ENABLED = false;
 		// Automatic byte-exact cache buster + Mobile Thermal DPR Cap (<= 1.5x cuts 3x Retina GPU fillrate by 75%!)
 		(function () {

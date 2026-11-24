@@ -31,6 +31,7 @@ RUNTIME_FILES = [
     "index.apple-touch-icon.png",
     "index.png",
     "cover_splash.jpg",
+    "studio_logo.png",
 ]
 
 MARKER = "<!-- $PLATFORM_SDK_HEAD_INJECT -->"
@@ -178,11 +179,11 @@ def generate_store_assets() -> None:
 
 
 def main():
-    print("=== PACKAGING H5 LAUNCH SUBMISSION BUNDLES (v2.3.0) ===")
+    print("=== PACKAGING H5 LAUNCH SUBMISSION BUNDLES (v2.3.1) ===")
     results = [
-        build_channel_zip("gobble_pop_v2.3.0_crazygames.zip", CG_SCRIPT, "CrazyGames SDK v3"),
-        build_channel_zip("gobble_pop_v2.3.0_youtube_playables.zip", YT_SCRIPT, "YouTube Playables v1"),
-        build_channel_zip("gobble_pop_v2.3.0_web_standalone.zip", "", "Standalone Web / Itch.io"),
+        build_channel_zip("gobble_pop_v2.3.1_crazygames.zip", CG_SCRIPT, "CrazyGames SDK v3"),
+        build_channel_zip("gobble_pop_v2.3.1_youtube_playables.zip", YT_SCRIPT, "YouTube Playables v1"),
+        build_channel_zip("gobble_pop_v2.3.1_web_standalone.zip", "", "Standalone Web / Itch.io"),
     ]
     for r in results:
         print(
