@@ -26,14 +26,16 @@ var _lock_label: Label3D
 var _bounce: float = 0.0
 var _shimmer_phase: float = 0.0
 var _wobble_time: float = 0.0
+var _wobble_active: bool = false
 var _stacked_base_y: float = 0.0
 var _collapse_delay: float = 0.0
 var _pending_collapse: bool = false
 var _pending_impulse: Vector3 = Vector3.ZERO
-var _toy_mats: Array[ShaderMaterial] = []
 
+static var mobile_low_power: bool = false
 static var _shared_shadow_mat: ShaderMaterial = null
 static var _shared_toy_shader: Shader = null
+static var _shared_mat_cache: Dictionary = {}
 
 
 func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0, p_is_objective: bool = false, rot_deg: float = NAN) -> void:
@@ -162,37 +164,37 @@ func _apply_toy_gloss_recursive(node: Node, solid_tint: bool, use_vcol: bool) ->
 		_shared_toy_shader = load("res://shaders/toy_gloss.gdshader")
 	if node is MeshInstance3D:
 		var mi := node as MeshInstance3D
-		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if mobile_low_power else GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 		var surf_cnt := mi.mesh.get_surface_count() if mi.mesh else 1
 		for s_idx in range(surf_cnt):
 			var src_mat := mi.get_active_material(s_idx)
-			var sm := ShaderMaterial.new()
-			sm.shader = _shared_toy_shader
+			var tex: Texture2D = null
+			var tint_col := Color.WHITE
 			var has_tex := false
 			if not solid_tint and src_mat is StandardMaterial3D:
 				var std := src_mat as StandardMaterial3D
 				if std.albedo_texture != null:
-					sm.set_shader_parameter("albedo_tex", std.albedo_texture)
-					sm.set_shader_parameter("use_albedo_tex", true)
+					tex = std.albedo_texture
 					has_tex = true
-				sm.set_shader_parameter("albedo_tint", std.albedo_color if not use_vcol else Color.WHITE)
+				tint_col = std.albedo_color if not use_vcol else Color.WHITE
 			elif solid_tint:
-				sm.set_shader_parameter("use_albedo_tex", false)
-				sm.set_shader_parameter("albedo_tint", tint_color)
-			else:
-				sm.set_shader_parameter("use_albedo_tex", false)
-				sm.set_shader_parameter("albedo_tint", Color.WHITE)
+				tint_col = tint_color
 
-			if use_vcol and not has_tex and not solid_tint:
-				sm.set_shader_parameter("use_vertex_color", true)
-				sm.set_shader_parameter("albedo_tint", Color.WHITE)
-			else:
-				sm.set_shader_parameter("use_vertex_color", false)
-
-			sm.set_shader_parameter("roughness_val", 0.20)
-			sm.set_shader_parameter("rim_strength", 0.38)
+			var use_vc := use_vcol and (not has_tex) and (not solid_tint)
+			var cache_key := "%d_%s_%d_%d" % [tex.get_rid().get_id() if tex else 0, tint_col.to_html(false), 1 if has_tex else 0, 1 if use_vc else 0]
+			var sm: ShaderMaterial = _shared_mat_cache.get(cache_key, null)
+			if sm == null:
+				sm = ShaderMaterial.new()
+				sm.shader = _shared_toy_shader
+				if has_tex:
+					sm.set_shader_parameter("albedo_tex", tex)
+				sm.set_shader_parameter("use_albedo_tex", has_tex)
+				sm.set_shader_parameter("albedo_tint", tint_col)
+				sm.set_shader_parameter("use_vertex_color", use_vc)
+				sm.set_shader_parameter("roughness_val", 0.20)
+				sm.set_shader_parameter("rim_strength", 0.38)
+				_shared_mat_cache[cache_key] = sm
 			mi.set_surface_override_material(s_idx, sm)
-			_toy_mats.append(sm)
 	for child in node.get_children():
 		_apply_toy_gloss_recursive(child, solid_tint, use_vcol)
 
@@ -313,17 +315,18 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 	var to_hole := Vector3(hole.position.x - position.x, 0.0, hole.position.z - position.z)
 	var dist := to_hole.length()
 
-	# Cute anticipation wobble when hole approaches near rim!
+	# Cute anticipation wobble when hole approaches near rim (zero per-frame shader uniform writes -> 100% shared GPU materials!)
 	var suction_r := maxf(0.48, hole.get_suction_radius() - item_radius * 0.24)
 	if state == State.IDLE and dist < suction_r + 1.35:
 		_wobble_time += delta
-		var amp := clampf(1.0 - (dist - suction_r) / 1.35, 0.0, 1.0) * (0.08 if can_eat else 0.045)
-		for sm in _toy_mats:
-			sm.set_shader_parameter("wobble_time", _wobble_time)
-			sm.set_shader_parameter("wobble_amp", amp)
-	elif state == State.IDLE and _toy_mats.size() > 0:
-		for sm in _toy_mats:
-			sm.set_shader_parameter("wobble_amp", 0.0)
+		_wobble_active = true
+		var amp := clampf(1.0 - (dist - suction_r) / 1.35, 0.0, 1.0) * (0.14 if can_eat else 0.08)
+		_visual_root.rotation.z = sin(_wobble_time * 18.0) * amp
+		_visual_root.rotation.x = cos(_wobble_time * 15.0) * amp * 0.7
+	elif state == State.IDLE and _wobble_active:
+		_wobble_active = false
+		_visual_root.rotation.z = 0.0
+		_visual_root.rotation.x = 0.0
 
 	if _bounce > 0.0:
 		_bounce = maxf(_bounce - delta * 5.0, 0.0)

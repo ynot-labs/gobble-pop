@@ -55,6 +55,7 @@ var _magnet_ring: MeshInstance3D
 var _strand_mesh_inst: MeshInstance3D
 var _strand_mesh: ImmediateMesh
 var _strand_mat: StandardMaterial3D
+var _strands_drawn: bool = false
 var _pulse_boost: float = 0.0
 
 
@@ -437,16 +438,21 @@ func _process(delta: float) -> void:
 
 
 func _redraw_sticky_strands() -> void:
-	_strand_mesh.clear_surfaces()
 	if sticky_timer <= 0.0 or not is_instance_valid(active_gum_trap):
+		if _strands_drawn:
+			_strand_mesh.clear_surfaces()
+			_strands_drawn = false
 		return
 
+	_strand_mesh.clear_surfaces()
 	var p0 := active_gum_trap.position + Vector3(0.0, 0.14, 0.0)
 	var diff := position - active_gum_trap.position
 	diff.y = 0.0
 	var dist := diff.length()
 	if dist < 0.25 or dist > STICKY_SNAP_DIST + 0.4:
+		_strands_drawn = false
 		return
+	_strands_drawn = true
 
 	var dir := diff / dist
 	var perp := Vector3(-dir.z, 0.0, dir.x)

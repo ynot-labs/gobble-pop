@@ -62,6 +62,17 @@ var _target_cam_height: float = 17.5
 var _cam_look_pos := Vector3.ZERO
 var _cam_snap_next: bool = true
 var _lobby_orbit_time: float = 0.0
+var _is_mobile_perf: bool = false
+var _last_fps_cap: int = 0
+
+# Zero-allocation pooled particle system (prevents WebGL2 GC & material churn during waterfall combos!)
+const PARTICLE_POOL_SIZE: int = 48
+var _particle_pool: Array[Dictionary] = []
+var _particle_quad: QuadMesh = null
+var _particle_tex: Texture2D = null
+var _particle_mat_cache: Dictionary = {}
+var _particle_cursor: int = 0
+var _last_particle_burst_ms: int = 0
 
 # UI References
 var _hud_layer: CanvasLayer
@@ -119,8 +130,17 @@ func _ready() -> void:
 		if parts.size() == 2 and parts[0].is_valid_int() and parts[1].is_valid_int():
 			get_window().size = Vector2i(int(parts[0]), int(parts[1]))
 
+	_is_mobile_perf = _detect_mobile_device()
+	SwallowableItem.mobile_low_power = _is_mobile_perf
+	if _is_mobile_perf:
+		# P0 Mobile Thermal Optimization: disable 2x MSAA on high-PPI mobile screens & cap 120Hz -> 60 FPS!
+		get_viewport().msaa_3d = Viewport.MSAA_DISABLED
+		Engine.max_fps = 60
+		_last_fps_cap = 60
+
 	_build_hud()
 	_build_3d_stage()
+	_init_particle_pool()
 	_joystick_overlay.hole = _hole
 	AdManager.rewarded_ad_completed.connect(_on_rewarded_completed)
 	PlatformBridge.visibility_changed.connect(_on_app_visibility_changed)
@@ -324,7 +344,7 @@ func _build_3d_stage() -> void:
 	_env.sky = sky
 	_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	_env.ambient_light_color = Color("#FFF7EB")
-	_env.ambient_light_energy = 0.28
+	_env.ambient_light_energy = 0.42 if _is_mobile_perf else 0.28
 	_env.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
 	_env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	_env.tonemap_exposure = 0.96
@@ -338,26 +358,30 @@ func _build_3d_stage() -> void:
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-52, 34, 0)
 	sun.light_color = Color("#FFF4E2")
-	sun.light_energy = 0.68
-	sun.shadow_enabled = true
-	sun.shadow_opacity = 0.30
-	sun.shadow_blur = 2.4
-	sun.directional_shadow_max_distance = 62.0
+	sun.light_energy = 0.80 if _is_mobile_perf else 0.68
+	# P0 Mobile Thermal Optimization: skip expensive 2048 real-time shadow pass on mobile (use cheap contact shadows!)
+	sun.shadow_enabled = not _is_mobile_perf
+	if sun.shadow_enabled:
+		sun.shadow_opacity = 0.30
+		sun.shadow_blur = 2.4
+		sun.directional_shadow_max_distance = 62.0
 	add_child(sun)
 
-	var fill := DirectionalLight3D.new()
-	fill.rotation_degrees = Vector3(-28, -142, 0)
-	fill.light_color = Color("#CFEAFF")
-	fill.light_energy = 0.16
-	fill.shadow_enabled = false
-	add_child(fill)
+	if not _is_mobile_perf:
+		# Desktop keeps 3-point studio lighting; Mobile uses single key light + built-in Fresnel rim shader!
+		var fill := DirectionalLight3D.new()
+		fill.rotation_degrees = Vector3(-28, -142, 0)
+		fill.light_color = Color("#CFEAFF")
+		fill.light_energy = 0.16
+		fill.shadow_enabled = false
+		add_child(fill)
 
-	var rim := DirectionalLight3D.new()
-	rim.rotation_degrees = Vector3(-20, 165, 0)
-	rim.light_color = Color("#FFD6EC")
-	rim.light_energy = 0.10
-	rim.shadow_enabled = false
-	add_child(rim)
+		var rim := DirectionalLight3D.new()
+		rim.rotation_degrees = Vector3(-20, 165, 0)
+		rim.light_color = Color("#FFD6EC")
+		rim.light_energy = 0.10
+		rim.shadow_enabled = false
+		add_child(rim)
 
 	_camera = Camera3D.new()
 	_camera.fov = 38.0 if _is_landscape_desktop() else 45.0
@@ -1017,6 +1041,11 @@ func _clear_entities() -> void:
 		c.queue_free()
 	for c in _popups_root.get_children():
 		c.queue_free()
+	for entry in _particle_pool:
+		entry["active"] = false
+		var mi: MeshInstance3D = entry["node"]
+		if is_instance_valid(mi):
+			mi.visible = false
 	_items.clear()
 	_powerups.clear()
 	_traps.clear()
@@ -1369,8 +1398,10 @@ func _process(delta: float) -> void:
 	if _pc_hint_label:
 		_pc_hint_label.visible = is_land and _playing and not _in_lobby and not _paused
 
-	# Always step helpers (keeps confetti fluttering during Victory modal & radar active in play!)
+	# Always step helpers & pooled particles (keeps confetti fluttering & zero GC allocations!)
 	var active_play := _playing and not _paused and not AdManager.is_ad_playing
+	_update_thermal_fps(active_play)
+	_step_particle_pool(delta)
 	_helpers_ui.step_helpers(delta, active_play, _camera, _hole, _items, _remaining_targets)
 
 	if not active_play:
@@ -1523,33 +1554,106 @@ func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, ti
 		_check_victory()
 
 
-func _spawn_pop_particles(pos: Vector3, tint: Color, count: int) -> void:
-	var vfx_tex: Texture2D = load("res://assets/textures/vfx_m1_atlas.png") if ResourceLoader.exists("res://assets/textures/vfx_m1_atlas.png") else null
-	for i in range(mini(count, 24)):
-		var p := MeshInstance3D.new()
-		var q := QuadMesh.new()
-		q.size = Vector2(0.36, 0.36)
-		p.mesh = q
-		var mat := StandardMaterial3D.new()
-		mat.albedo_color = tint
-		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
-		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		if vfx_tex:
-			mat.albedo_texture = vfx_tex
-			mat.uv1_scale = Vector3(0.5, 0.5, 1.0)
-			mat.uv1_offset = Vector3(0.5 * (i % 2), 0.5 * ((i / 2) % 2), 0.0)
-		p.material_override = mat
-		p.position = pos
-		_particles_root.add_child(p)
+func _detect_mobile_device() -> bool:
+	if OS.has_feature("mobile") or OS.has_feature("android") or OS.has_feature("ios"):
+		return true
+	if OS.has_feature("web"):
+		var res = JavaScriptBridge.eval("(window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '')")
+		return bool(res)
+	return false
 
+
+func _update_thermal_fps(active_play: bool) -> void:
+	if not _is_mobile_perf:
+		return
+	var want_fps := 60 if active_play else 35
+	if want_fps != _last_fps_cap:
+		_last_fps_cap = want_fps
+		Engine.max_fps = want_fps
+
+
+func _init_particle_pool() -> void:
+	_particle_quad = QuadMesh.new()
+	_particle_quad.size = Vector2(0.36, 0.36)
+	_particle_tex = load("res://assets/textures/vfx_m1_atlas.png") if ResourceLoader.exists("res://assets/textures/vfx_m1_atlas.png") else null
+	_particle_pool.clear()
+	for i in range(PARTICLE_POOL_SIZE):
+		var mi := MeshInstance3D.new()
+		mi.mesh = _particle_quad
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mi.visible = false
+		_particles_root.add_child(mi)
+		_particle_pool.append({
+			"node": mi,
+			"active": false,
+			"t": 0.0,
+			"dur": 0.36,
+			"start": Vector3.ZERO,
+			"target": Vector3.ZERO,
+		})
+
+
+func _get_pooled_particle_mat(tint: Color, variant: int) -> StandardMaterial3D:
+	var key := "%s_%d" % [tint.to_html(false), variant % 4]
+	var cached: StandardMaterial3D = _particle_mat_cache.get(key, null)
+	if cached != null:
+		return cached
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = tint
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	if _particle_tex:
+		mat.albedo_texture = _particle_tex
+		mat.uv1_scale = Vector3(0.5, 0.5, 1.0)
+		mat.uv1_offset = Vector3(0.5 * (variant % 2), 0.5 * ((variant / 2) % 2), 0.0)
+	_particle_mat_cache[key] = mat
+	return mat
+
+
+func _step_particle_pool(delta: float) -> void:
+	for entry in _particle_pool:
+		if not entry["active"]:
+			continue
+		var t: float = float(entry["t"]) + delta
+		var dur: float = float(entry["dur"])
+		var mi: MeshInstance3D = entry["node"]
+		if t >= dur:
+			entry["active"] = false
+			mi.visible = false
+		else:
+			entry["t"] = t
+			var p := t / dur
+			var ease_out := 1.0 - (1.0 - p) * (1.0 - p)
+			mi.position = (entry["start"] as Vector3).lerp(entry["target"] as Vector3, ease_out)
+			var sc := maxf(0.01, 1.0 - p)
+			mi.scale = Vector3(sc, sc, sc)
+
+
+func _spawn_pop_particles(pos: Vector3, tint: Color, count: int) -> void:
+	if _particle_pool.is_empty():
+		return
+	# Throttle waterfall bursts (< 65ms between swallows) to 3-4 crisp pooled particles -> zero CPU/GC spikes!
+	var now_ms := Time.get_ticks_msec()
+	var rapid := (now_ms - _last_particle_burst_ms) < 65
+	_last_particle_burst_ms = now_ms
+	var cap := (3 if rapid else 8) if _is_mobile_perf else (5 if rapid else 14)
+	var spawn_n := mini(count, cap)
+
+	for i in range(spawn_n):
+		var slot: Dictionary = _particle_pool[_particle_cursor]
+		_particle_cursor = (_particle_cursor + 1) % PARTICLE_POOL_SIZE
+		var mi: MeshInstance3D = slot["node"]
+		mi.material_override = _get_pooled_particle_mat(tint, i)
+		mi.position = pos
+		mi.scale = Vector3.ONE
+		mi.visible = true
 		var ang := randf() * TAU
-		var target := pos + Vector3(cos(ang) * randf_range(0.7, 1.8), randf_range(0.8, 1.9), sin(ang) * randf_range(0.7, 1.8))
-		var tw := create_tween()
-		tw.set_parallel(true)
-		tw.tween_property(p, "position", target, 0.38).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tw.tween_property(p, "scale", Vector3.ZERO, 0.38)
-		tw.chain().tween_callback(p.queue_free)
+		slot["active"] = true
+		slot["t"] = 0.0
+		slot["dur"] = 0.34
+		slot["start"] = pos
+		slot["target"] = pos + Vector3(cos(ang) * randf_range(0.65, 1.65), randf_range(0.75, 1.75), sin(ang) * randf_range(0.65, 1.65))
 
 
 func _on_powerup_collected(kind: String, _pos: Vector3) -> void:

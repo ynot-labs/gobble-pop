@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode cull_disabled, diffuse_lambert, specular_schlick_ggx;
+render_mode cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 albedo_tint : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform bool use_albedo_tex = false;

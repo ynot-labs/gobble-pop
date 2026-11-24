@@ -2,10 +2,22 @@ extends Control
 class_name JoystickOverlay
 
 var hole: HoleController = null
+var _was_drawn: bool = false
+var _last_origin := Vector2.ZERO
+var _last_dir := Vector2.ZERO
 
 
 func _process(_delta: float) -> void:
-	queue_redraw()
+	var active := hole != null and hole.joy_active and hole.is_controllable
+	if active:
+		if (not _was_drawn) or _last_origin.distance_squared_to(hole.joy_origin) > 0.25 or _last_dir.distance_squared_to(hole.joy_dir) > 0.0004:
+			_was_drawn = true
+			_last_origin = hole.joy_origin
+			_last_dir = hole.joy_dir
+			queue_redraw()
+	elif _was_drawn:
+		_was_drawn = false
+		queue_redraw()
 
 
 func _draw() -> void:

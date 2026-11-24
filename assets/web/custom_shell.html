@@ -154,8 +154,19 @@
 	<script>
 		const GODOT_CONFIG = $GODOT_CONFIG;
 		const GODOT_THREADS_ENABLED = $GODOT_THREADS_ENABLED;
-		// Automatic byte-exact cache buster so browser/CDN NEVER serves stale index.pck after an update!
+		// Automatic byte-exact cache buster + Mobile Thermal DPR Cap (<= 1.5x cuts 3x Retina GPU fillrate by 75%!)
 		(function () {
+			try {
+				const isMobile = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches)
+					|| /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+				if (isMobile && window.devicePixelRatio && window.devicePixelRatio > 1.5) {
+					Object.defineProperty(window, 'devicePixelRatio', {
+						get: function () { return 1.5; },
+						configurable: true
+					});
+				}
+			} catch (e) {}
+
 			// Prevent outer iframe page scroll on arrow keys, spacebar, and mouse wheel (CrazyGames / YouTube QA requirement)
 			window.addEventListener('keydown', function (e) {
 				if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(e.code) !== -1) {
@@ -306,6 +317,8 @@
 				fill.style.width = '100%';
 				label.textContent = 'Let\'s Gobble!';
 				setTimeout(() => { splash.classList.add('hidden'); }, 350);
+				// Completely remove splash from DOM compositor after fade so backdrop-filter & CSS animations burn 0% GPU!
+				setTimeout(() => { splash.style.display = 'none'; }, 850);
 			}, showError);
 		}());
 	</script>

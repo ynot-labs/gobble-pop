@@ -307,8 +307,8 @@ func _build_rounded_slab(half: Vector2, r: float, y_bot: float, y_top: float, ma
 		var p1 := pts[(i + 1) % n]
 		st.set_normal(Vector3.UP)
 		st.add_vertex(center_top)
-		st.add_vertex(Vector3(p1.x, y_top, p1.y))
 		st.add_vertex(Vector3(p0.x, y_top, p0.y))
+		st.add_vertex(Vector3(p1.x, y_top, p1.y))
 
 	# Outer curved walls with smooth outward normals
 	for i in range(n):
@@ -326,11 +326,11 @@ func _build_rounded_slab(half: Vector2, r: float, y_bot: float, y_top: float, ma
 
 		st.set_normal(nrm)
 		st.add_vertex(t0)
+		st.add_vertex(b1)
 		st.add_vertex(t1)
-		st.add_vertex(b1)
 		st.add_vertex(t0)
-		st.add_vertex(b1)
 		st.add_vertex(b0)
+		st.add_vertex(b1)
 
 	var mesh := st.commit()
 	var mi := MeshInstance3D.new()
