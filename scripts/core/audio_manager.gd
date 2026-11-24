@@ -13,6 +13,8 @@ var _combo_step: int = 0
 var _combo_reset_timer: float = 0.0
 var _sfx_cache: Dictionary = {}
 var _bgm_player: AudioStreamPlayer
+var _current_bgm_key: String = "bgm_main"
+var _bgm_fade_tween: Tween = null
 var _sfx_pool: Array[AudioStreamPlayer] = []
 var _pool_index: int = 0
 
@@ -65,12 +67,13 @@ func _preload_audio_assets() -> void:
 		"win": "res://assets/audio/sfx_11_win.mp3",
 		"fail": "res://assets/audio/sfx_12_fail.mp3",
 		"rv_blast": "res://assets/audio/sfx_13_rv_blast.mp3",
-		"bgm": "res://assets/audio/bgm_01_marimba.mp3",
+		"bgm_main": "res://assets/audio/bgm_glockenspiel_puzzle.mp3",
+		"bgm_island": "res://assets/audio/bgm_island_hopper.mp3",
 	}
 	for key in files:
 		if ResourceLoader.exists(files[key]):
 			var st = load(files[key])
-			if key == "bgm" and st is AudioStreamMP3:
+			if key.begins_with("bgm_") and st is AudioStreamMP3:
 				st.loop = true
 			_sfx_cache[key] = st
 
@@ -111,11 +114,65 @@ func _preload_audio_assets() -> void:
 		_sfx_cache["chest_open"] = _make_arpeggio_wav([523.25, 659.25, 783.99, 1046.5, 1567.98], 0.08)
 
 
-func start_bgm() -> void:
-	if _sfx_cache.has("bgm") and not _bgm_player.playing:
-		_bgm_player.stream = _sfx_cache["bgm"]
+func _bgm_key_for_world(world_id: int) -> String:
+	# Main signature theme = Glockenspiel Puzzle (Lobby, W1, W3, W5); Island Hopper for W2 & W4 variety!
+	if world_id == 2 or world_id == 4:
+		return "bgm_island" if _sfx_cache.has("bgm_island") else "bgm_main"
+	return "bgm_main"
+
+
+func start_bgm(world_id: int = 0) -> void:
+	var key := _bgm_key_for_world(world_id) if world_id > 0 else _current_bgm_key
+	if not _sfx_cache.has(key):
+		key = "bgm_main"
+	if not _sfx_cache.has(key):
+		return
+	if not _bgm_player.playing:
+		_current_bgm_key = key
+		_bgm_player.stream = _sfx_cache[key]
 		_bgm_player.play()
-	_apply_mute_state()
+		_apply_mute_state()
+	elif _current_bgm_key != key:
+		switch_bgm(key)
+
+
+func set_world_bgm(world_id: int) -> void:
+	var key := _bgm_key_for_world(world_id)
+	if not _sfx_cache.has(key):
+		return
+	if _bgm_player.playing:
+		if _current_bgm_key != key:
+			switch_bgm(key)
+	else:
+		_current_bgm_key = key
+
+
+func switch_bgm(key: String) -> void:
+	if not _sfx_cache.has(key):
+		return
+	_current_bgm_key = key
+	if _bgm_fade_tween and _bgm_fade_tween.is_valid():
+		_bgm_fade_tween.kill()
+	var target_db := -11.0 if _is_bgm_audible() else -80.0
+	if not _bgm_player.playing or target_db <= -70.0:
+		_bgm_player.stream = _sfx_cache[key]
+		_bgm_player.play()
+		_bgm_player.volume_db = target_db
+		return
+	_bgm_fade_tween = create_tween()
+	_bgm_fade_tween.tween_property(_bgm_player, "volume_db", -42.0, 0.28)
+	_bgm_fade_tween.tween_callback(func():
+		_bgm_player.stream = _sfx_cache[key]
+		_bgm_player.play()
+	)
+	_bgm_fade_tween.tween_property(_bgm_player, "volume_db", target_db, 0.35)
+
+
+func _is_bgm_audible() -> bool:
+	var bgm_on := true
+	if is_instance_valid(GameManager):
+		bgm_on = GameManager.bgm_enabled
+	return bgm_on and not _is_silenced()
 
 
 func play_swallow(tier: int) -> void:
@@ -171,11 +228,8 @@ func _is_silenced() -> bool:
 
 func _apply_mute_state() -> void:
 	AudioServer.set_bus_mute(0, _is_silenced())
-	var bgm_on := true
-	if is_instance_valid(GameManager):
-		bgm_on = GameManager.bgm_enabled
 	if _bgm_player:
-		_bgm_player.volume_db = -10.0 if (bgm_on and not _is_silenced()) else -80.0
+		_bgm_player.volume_db = -11.0 if _is_bgm_audible() else -80.0
 
 
 func _make_pop_wav(base_freq: float, dur: float, sweep_ratio: float) -> AudioStreamWAV:

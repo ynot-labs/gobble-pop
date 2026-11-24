@@ -1034,6 +1034,7 @@ func _apply_world_theme(world_id: int) -> void:
 		_table_mat.set_shader_parameter("use_albedo_tex", true)
 	else:
 		_table_mat.set_shader_parameter("use_albedo_tex", false)
+	AudioManager.set_world_bgm(world_id)
 
 
 func _clear_entities() -> void:
