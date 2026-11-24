@@ -3,14 +3,14 @@
   "world": 5,
   "formation_name": "Joystick Rings",
   "difficulty_tag": "NORMAL",
-  "duration": 32,
+  "duration": 20,
   "arena": [
     21,
     25
   ],
   "spawn": [
-    0,
-    0
+    0.0,
+    7.75
   ],
   "max_target_tier": 4,
   "streak_hint": 0,
@@ -22,674 +22,1001 @@
     {
       "key": "w5_pixel_coin",
       "pos": [
-        3.4,
-        0.0
+        -4.02,
+        -0.02
       ],
-      "color_idx": 0
+      "color_idx": 0,
+      "rot_deg": 0.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        3.23,
-        1.11
+        -4.02,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 1,
+      "rot_deg": 0.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        2.75,
-        2.12
+        -4.02,
+        1.22
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        2.0,
-        2.91
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        1.05,
-        3.42
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        0.0,
-        3.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -1.05,
-        3.42
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -2.0,
-        2.91
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -2.75,
-        2.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -3.23,
-        1.11
-      ],
-      "color_idx": 0
+      "color_idx": 2,
+      "rot_deg": 0.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
         -3.4,
+        -0.02
+      ],
+      "color_idx": 3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        0.6
+      ],
+      "color_idx": 4,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        1.22
+      ],
+      "color_idx": 5,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        -0.02
+      ],
+      "color_idx": 6,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        0.6
+      ],
+      "color_idx": 7,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        1.22
+      ],
+      "color_idx": 8,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        -0.02
+      ],
+      "color_idx": 9,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        0.6
+      ],
+      "color_idx": 10,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        1.22
+      ],
+      "color_idx": 11,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        -0.02
+      ],
+      "color_idx": 12,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        0.6
+      ],
+      "color_idx": 13,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        1.22
+      ],
+      "color_idx": 14,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        -0.02
+      ],
+      "color_idx": 15,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        0.6
+      ],
+      "color_idx": 16,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        1.22
+      ],
+      "color_idx": 17,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        -0.02
+      ],
+      "color_idx": 18,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        0.6
+      ],
+      "color_idx": 19,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        1.22
+      ],
+      "color_idx": 20,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        -0.02
+      ],
+      "color_idx": 21,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        0.6
+      ],
+      "color_idx": 22,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        1.22
+      ],
+      "color_idx": 23,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        -0.02
+      ],
+      "color_idx": 24,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        0.6
+      ],
+      "color_idx": 25,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        1.22
+      ],
+      "color_idx": 26,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        -0.02
+      ],
+      "color_idx": 27,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        0.6
+      ],
+      "color_idx": 28,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.02,
+        1.22
+      ],
+      "color_idx": 29,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        -0.02
+      ],
+      "color_idx": 30,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        0.6
+      ],
+      "color_idx": 31,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -3.4,
+        1.22
+      ],
+      "color_idx": 32,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        -0.02
+      ],
+      "color_idx": 33,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        0.6
+      ],
+      "color_idx": 34,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.78,
+        1.22
+      ],
+      "color_idx": 35,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        -3.4,
+        0.6
+      ],
+      "color_idx": 36,
+      "y": 1.58,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.78,
+        -0.02
+      ],
+      "color_idx": 37,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.78,
+        0.6
+      ],
+      "color_idx": 38,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.78,
+        1.22
+      ],
+      "color_idx": 39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.4,
+        -0.02
+      ],
+      "color_idx": 40,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.4,
+        0.6
+      ],
+      "color_idx": 41,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.4,
+        1.22
+      ],
+      "color_idx": 42,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        -0.02
+      ],
+      "color_idx": 43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        0.6
+      ],
+      "color_idx": 44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        1.22
+      ],
+      "color_idx": 45,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        -0.02
+      ],
+      "color_idx": 46,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        0.6
+      ],
+      "color_idx": 47,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        1.22
+      ],
+      "color_idx": 48,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.4,
+        -0.02
+      ],
+      "color_idx": 49,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.4,
+        0.6
+      ],
+      "color_idx": 50,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.4,
+        1.22
+      ],
+      "color_idx": 51,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        -0.02
+      ],
+      "color_idx": 52,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        0.6
+      ],
+      "color_idx": 53,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        1.22
+      ],
+      "color_idx": 54,
+      "y": 0.39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        -0.02
+      ],
+      "color_idx": 55,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        0.6
+      ],
+      "color_idx": 56,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        1.22
+      ],
+      "color_idx": 57,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.4,
+        -0.02
+      ],
+      "color_idx": 58,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.4,
+        0.6
+      ],
+      "color_idx": 59,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.4,
+        1.22
+      ],
+      "color_idx": 60,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        4.02,
+        -0.02
+      ],
+      "color_idx": 61,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        0.6
+      ],
+      "color_idx": 62,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        4.02,
+        1.22
+      ],
+      "color_idx": 63,
+      "y": 0.79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        -0.02
+      ],
+      "color_idx": 64,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        2.78,
+        0.6
+      ],
+      "color_idx": 65,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.78,
+        1.22
+      ],
+      "color_idx": 66,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.4,
+        -0.02
+      ],
+      "color_idx": 67,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        3.4,
+        0.6
+      ],
+      "color_idx": 68,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        3.4,
+        1.22
+      ],
+      "color_idx": 69,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        -0.02
+      ],
+      "color_idx": 70,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        4.02,
+        0.6
+      ],
+      "color_idx": 71,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        4.02,
+        1.22
+      ],
+      "color_idx": 72,
+      "y": 1.18,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        3.4,
+        0.6
+      ],
+      "color_idx": 73,
+      "y": 1.58,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.55,
+        0.6
+      ],
+      "color_idx": 74,
+      "y": 1.63,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.7,
+        0.6
+      ],
+      "color_idx": 75,
+      "y": 1.81,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        -0.85,
+        0.6
+      ],
+      "color_idx": 76,
+      "y": 1.93,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.0,
+        0.6
+      ],
+      "color_idx": 77,
+      "y": 1.97,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.85,
+        0.6
+      ],
+      "color_idx": 78,
+      "y": 1.93,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.7,
+        0.6
+      ],
+      "color_idx": 79,
+      "y": 1.81,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_cartridge",
+      "pos": [
+        2.55,
+        0.6
+      ],
+      "color_idx": 80,
+      "y": 1.63,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        0.0,
+        -10.3
+      ],
+      "color_idx": 81,
+      "rot_deg": 90.0
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        3.21,
+        -9.52
+      ],
+      "color_idx": 82,
+      "rot_deg": 67.5
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        5.94,
+        -7.28
+      ],
+      "color_idx": 83,
+      "rot_deg": 45.0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        7.76,
+        -3.94
+      ],
+      "color_idx": 84,
+      "rot_deg": 22.5
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        8.4,
         0.0
       ],
-      "color_idx": 0
+      "color_idx": 85,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        7.76,
+        3.94
+      ],
+      "color_idx": 86,
+      "rot_deg": 337.5
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        5.94,
+        7.28
+      ],
+      "color_idx": 87,
+      "rot_deg": 315.0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        3.21,
+        9.52
+      ],
+      "color_idx": 88,
+      "rot_deg": 292.5
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        0.0,
+        10.3
+      ],
+      "color_idx": 89,
+      "rot_deg": 270.0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -3.21,
+        9.52
+      ],
+      "color_idx": 90,
+      "rot_deg": 247.5
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        6.4,
+        1.3
+      ],
+      "color_idx": 91,
+      "rot_deg": 349.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        4.5,
+        5.24
+      ],
+      "color_idx": 92,
+      "rot_deg": 313.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -3.09,
+        6.38
+      ],
+      "color_idx": 93,
+      "rot_deg": 241.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -5.87,
+        3.14
+      ],
+      "color_idx": 94,
+      "rot_deg": 205.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -6.4,
+        -1.3
+      ],
+      "color_idx": 95,
+      "rot_deg": 169.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -4.5,
+        -5.24
+      ],
+      "color_idx": 96,
+      "rot_deg": 133.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -0.87,
+        -7.18
+      ],
+      "color_idx": 97,
+      "rot_deg": 97.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        3.09,
+        -6.38
+      ],
+      "color_idx": 98,
+      "rot_deg": 61.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        5.87,
+        -3.14
+      ],
+      "color_idx": 99,
+      "rot_deg": 25.7
     },
     {
       "key": "w5_pixel_coin",
-      "pos": [
-        -3.23,
-        -1.11
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -2.75,
-        -2.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -2.0,
-        -2.91
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -1.05,
-        -3.42
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -0.0,
-        -3.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        1.05,
-        -3.42
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        2.0,
-        -2.91
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        2.75,
-        -2.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        3.23,
-        -1.11
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        7.6,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        7.29,
-        2.37
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        6.39,
-        4.54
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        4.98,
-        6.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        3.16,
-        7.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        1.08,
-        8.31
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -1.08,
-        8.31
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -3.16,
-        7.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -4.98,
-        6.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -6.39,
-        4.54
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -7.29,
-        2.37
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -7.6,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -7.29,
-        -2.37
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -6.39,
-        -4.54
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -4.98,
-        -6.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -3.16,
-        -7.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -1.08,
-        -8.31
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        1.08,
-        -8.31
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        3.16,
-        -7.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        4.98,
-        -6.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        6.39,
-        -4.54
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        7.29,
-        -2.37
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        5.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        4.89,
-        1.98
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        3.98,
-        3.73
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        2.6,
-        5.02
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        0.9,
-        5.71
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -0.9,
-        5.71
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
       "pos": [
         -2.6,
-        5.02
+        7.09
       ],
-      "color_idx": 0
+      "color_idx": 100,
+      "rot_deg": 0.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        -3.98,
-        3.73
+        -3.55,
+        6.43
       ],
-      "color_idx": 0
+      "color_idx": 101,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -4.3,
+        5.78
+      ],
+      "color_idx": 102,
+      "rot_deg": 0.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        -4.89,
-        1.98
+        -4.78,
+        5.12
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -5.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -4.89,
-        -1.98
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -3.98,
-        -3.73
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -2.6,
-        -5.02
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -0.9,
-        -5.71
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        0.9,
-        -5.71
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        2.6,
-        -5.02
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        3.98,
-        -3.73
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        4.89,
-        -1.98
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        6.2,
-        1.78
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        4.58,
-        5.03
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        1.73,
-        6.93
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -1.58,
-        6.98
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -4.47,
-        5.15
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -6.16,
-        1.95
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -6.2,
-        -1.78
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -4.58,
-        -5.03
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -1.73,
-        -6.93
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        1.58,
-        -6.98
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        4.47,
-        -5.15
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        6.16,
-        -1.95
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        8.16,
-        0.92
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        5.19,
-        7.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        -0.82,
-        9.15
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        -6.35,
-        5.82
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        -8.16,
-        -0.92
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        -5.19,
-        -7.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        0.82,
-        -9.15
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_handheld",
-      "pos": [
-        6.35,
-        -5.82
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_vr_headset",
-      "pos": [
-        -8.0,
-        -9.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_vr_headset",
-      "pos": [
-        8.0,
-        -9.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_vr_headset",
-      "pos": [
-        -8.0,
-        9.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_vr_headset",
-      "pos": [
-        8.0,
-        9.4
-      ],
-      "color_idx": 0
+      "color_idx": 103,
+      "rot_deg": 0.0
     }
   ],
   "powerups": [
@@ -719,14 +1046,14 @@
   "bombs": [
     {
       "pos": [
-        0,
+        0.0,
         -5.4
       ]
     },
     {
       "pos": [
-        0,
-        5.4
+        8.2,
+        9.9
       ]
     }
   ]

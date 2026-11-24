@@ -3,14 +3,14 @@
   "world": 5,
   "formation_name": "High Score Rush",
   "difficulty_tag": "SUPER_HARD",
-  "duration": 32,
+  "duration": 24,
   "arena": [
     24,
     28
   ],
   "spawn": [
-    0,
-    10.6
+    0.0,
+    8.68
   ],
   "max_target_tier": 5,
   "streak_hint": 449,
@@ -21,572 +21,675 @@
   },
   "items": [
     {
-      "key": "w5_pixel_coin",
+      "key": "w5_gamepad",
       "pos": [
-        -8.0,
-        8.95
+        0.0,
+        0.4
       ],
-      "color_idx": 0
+      "color_idx": 0,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.0,
+        0.4
+      ],
+      "color_idx": 1,
+      "y": 0.66,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.0,
+        0.4
+      ],
+      "color_idx": 2,
+      "y": 1.32,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.0,
+        0.4
+      ],
+      "color_idx": 3,
+      "y": 1.97,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_arcade_boss",
+      "pos": [
+        0.0,
+        0.4
+      ],
+      "color_idx": 4,
+      "y": 2.63,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.45,
+        0.4
+      ],
+      "color_idx": 5,
+      "y": 0.84,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.17,
+        1.25
+      ],
+      "color_idx": 6,
+      "y": 0.84,
+      "rot_deg": 324.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.45,
+        1.78
+      ],
+      "color_idx": 7,
+      "y": 0.84,
+      "rot_deg": 288.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -0.45,
+        1.78
+      ],
+      "color_idx": 8,
+      "y": 0.84,
+      "rot_deg": 252.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.17,
+        1.25
+      ],
+      "color_idx": 9,
+      "y": 0.84,
+      "rot_deg": 216.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.45,
+        0.4
+      ],
+      "color_idx": 10,
+      "y": 0.84,
+      "rot_deg": 180.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -1.17,
+        -0.45
+      ],
+      "color_idx": 11,
+      "y": 0.84,
+      "rot_deg": 144.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -0.45,
+        -0.98
+      ],
+      "color_idx": 12,
+      "y": 0.84,
+      "rot_deg": 108.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        0.45,
+        -0.98
+      ],
+      "color_idx": 13,
+      "y": 0.84,
+      "rot_deg": 72.0
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        1.17,
+        -0.45
+      ],
+      "color_idx": 14,
+      "y": 0.84,
+      "rot_deg": 36.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        -6.0,
-        8.95
+        2.55,
+        0.4
       ],
-      "color_idx": 0
+      "color_idx": 15,
+      "y": 0.42,
+      "rot_deg": 0.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        -4.0,
-        8.95
+        2.4,
+        1.27
       ],
-      "color_idx": 0
+      "color_idx": 16,
+      "y": 0.42,
+      "rot_deg": 340.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        -2.0,
-        8.95
+        1.95,
+        2.04
       ],
-      "color_idx": 0
+      "color_idx": 17,
+      "y": 0.42,
+      "rot_deg": 320.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        2.0,
-        8.95
+        1.28,
+        2.61
       ],
-      "color_idx": 0
+      "color_idx": 18,
+      "y": 0.42,
+      "rot_deg": 300.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        4.0,
-        8.95
+        0.44,
+        2.91
       ],
-      "color_idx": 0
+      "color_idx": 19,
+      "y": 0.42,
+      "rot_deg": 280.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        6.0,
-        8.95
+        -0.44,
+        2.91
       ],
-      "color_idx": 0
+      "color_idx": 20,
+      "y": 0.42,
+      "rot_deg": 260.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        8.0,
-        8.95
+        -1.27,
+        2.61
       ],
-      "color_idx": 0
+      "color_idx": 21,
+      "y": 0.42,
+      "rot_deg": 240.0
     },
     {
       "key": "w5_pixel_coin",
       "pos": [
-        -8.0,
-        10.25
+        -1.95,
+        2.04
       ],
-      "color_idx": 0
+      "color_idx": 22,
+      "y": 0.42,
+      "rot_deg": 220.0
     },
     {
       "key": "w5_pixel_coin",
-      "pos": [
-        -6.0,
-        10.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -4.0,
-        10.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        -2.0,
-        10.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        2.0,
-        10.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        4.0,
-        10.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        6.0,
-        10.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_pixel_coin",
-      "pos": [
-        8.0,
-        10.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -8.8,
-        6.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -7.2,
-        6.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -5.6,
-        6.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -4.0,
-        6.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
       "pos": [
         -2.4,
-        6.6
+        1.27
       ],
-      "color_idx": 0
+      "color_idx": 23,
+      "y": 0.42,
+      "rot_deg": 200.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.55,
+        0.4
+      ],
+      "color_idx": 24,
+      "y": 0.42,
+      "rot_deg": 180.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -2.4,
+        -0.47
+      ],
+      "color_idx": 25,
+      "y": 0.42,
+      "rot_deg": 160.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -1.95,
+        -1.24
+      ],
+      "color_idx": 26,
+      "y": 0.42,
+      "rot_deg": 140.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -1.28,
+        -1.81
+      ],
+      "color_idx": 27,
+      "y": 0.42,
+      "rot_deg": 120.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        -0.44,
+        -2.11
+      ],
+      "color_idx": 28,
+      "y": 0.42,
+      "rot_deg": 100.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        0.44,
+        -2.11
+      ],
+      "color_idx": 29,
+      "y": 0.42,
+      "rot_deg": 80.0
+    },
+    {
+      "key": "w5_pixel_coin",
+      "pos": [
+        1.28,
+        -1.81
+      ],
+      "color_idx": 30,
+      "y": 0.42,
+      "rot_deg": 60.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        -0.8,
-        6.6
+        1.95,
+        -1.24
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        0.8,
-        6.6
-      ],
-      "color_idx": 0
+      "color_idx": 31,
+      "y": 0.42,
+      "rot_deg": 40.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
         2.4,
-        6.6
+        -0.47
       ],
-      "color_idx": 0
+      "color_idx": 32,
+      "y": 0.42,
+      "rot_deg": 20.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        4.0,
-        6.6
+        3.65,
+        0.4
       ],
-      "color_idx": 0
+      "color_idx": 33,
+      "rot_deg": 0.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        5.6,
-        6.6
+        3.47,
+        1.53
       ],
-      "color_idx": 0
+      "color_idx": 34,
+      "rot_deg": 342.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        7.2,
-        6.6
+        2.95,
+        2.55
       ],
-      "color_idx": 0
+      "color_idx": 35,
+      "rot_deg": 324.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        8.8,
-        6.6
+        2.15,
+        3.35
       ],
-      "color_idx": 0
+      "color_idx": 36,
+      "rot_deg": 306.0
     },
     {
       "key": "w5_cartridge",
       "pos": [
-        -8.0,
-        4.0
+        1.13,
+        3.87
       ],
-      "color_idx": 0
+      "color_idx": 37,
+      "rot_deg": 288.0
     },
     {
       "key": "w5_cartridge",
-      "pos": [
-        -6.22,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -4.44,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -2.67,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        -0.89,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        0.89,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        2.67,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        4.44,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        6.22,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_cartridge",
-      "pos": [
-        8.0,
-        4.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -8.8,
-        1.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -8.8,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -8.8,
-        -1.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -8.8,
-        -2.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -8.8,
-        -4.2
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -8.8,
-        -5.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        8.8,
-        1.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        8.8,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        8.8,
-        -1.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        8.8,
-        -2.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        8.8,
-        -4.2
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        8.8,
-        -5.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -3.8,
-        1.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
-      "pos": [
-        -1.9,
-        1.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_gamepad",
       "pos": [
         0.0,
-        1.4
+        4.05
       ],
-      "color_idx": 0
+      "color_idx": 38,
+      "rot_deg": 270.0
     },
     {
-      "key": "w5_gamepad",
+      "key": "w5_cartridge",
       "pos": [
-        1.9,
-        1.4
+        -1.13,
+        3.87
       ],
-      "color_idx": 0
+      "color_idx": 39,
+      "rot_deg": 252.0
     },
     {
-      "key": "w5_gamepad",
+      "key": "w5_cartridge",
       "pos": [
-        3.8,
-        1.4
+        -2.15,
+        3.35
       ],
-      "color_idx": 0
+      "color_idx": 40,
+      "rot_deg": 234.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        -8.8,
-        -2.6
+        -2.95,
+        2.55
       ],
-      "color_idx": 0
+      "color_idx": 41,
+      "rot_deg": 216.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        8.8,
-        -2.6
+        -3.47,
+        1.53
       ],
-      "color_idx": 0
+      "color_idx": 42,
+      "rot_deg": 198.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        -4.2,
-        -4.6
+        -3.65,
+        0.4
       ],
-      "color_idx": 0
+      "color_idx": 43,
+      "rot_deg": 180.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        4.2,
-        -4.6
+        -3.47,
+        -0.73
       ],
-      "color_idx": 0
+      "color_idx": 44,
+      "rot_deg": 162.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        0,
-        -8.4
+        -2.95,
+        -1.75
       ],
-      "color_idx": 0
+      "color_idx": 45,
+      "rot_deg": 144.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        -8.8,
-        4.6
+        -2.15,
+        -2.55
       ],
-      "color_idx": 0
+      "color_idx": 46,
+      "rot_deg": 126.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        8.8,
-        4.6
+        -1.13,
+        -3.07
       ],
-      "color_idx": 0
+      "color_idx": 47,
+      "rot_deg": 108.0
     },
     {
-      "key": "w5_handheld",
+      "key": "w5_cartridge",
       "pos": [
-        0,
-        0.2
+        -0.0,
+        -3.25
       ],
-      "color_idx": 0
+      "color_idx": 48,
+      "rot_deg": 90.0
     },
     {
-      "key": "w5_vr_headset",
+      "key": "w5_cartridge",
       "pos": [
-        -9.2,
-        -9.2
+        1.13,
+        -3.07
       ],
-      "color_idx": 0
+      "color_idx": 49,
+      "rot_deg": 72.0
     },
     {
-      "key": "w5_vr_headset",
+      "key": "w5_cartridge",
       "pos": [
-        9.2,
-        -9.2
+        2.15,
+        -2.55
       ],
-      "color_idx": 0
+      "color_idx": 50,
+      "rot_deg": 54.0
     },
     {
-      "key": "w5_vr_headset",
+      "key": "w5_cartridge",
       "pos": [
-        -4.4,
-        -9.6
+        2.95,
+        -1.75
       ],
-      "color_idx": 0
+      "color_idx": 51,
+      "rot_deg": 36.0
     },
     {
-      "key": "w5_vr_headset",
+      "key": "w5_cartridge",
       "pos": [
-        4.4,
-        -9.6
+        3.47,
+        -0.73
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_vr_headset",
-      "pos": [
-        0,
-        -2.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w5_arcade_boss",
-      "pos": [
-        -8.4,
-        -12.0
-      ],
-      "color_idx": 0
+      "color_idx": 52,
+      "rot_deg": 18.0
     },
     {
       "key": "w5_arcade_boss",
       "pos": [
         0.0,
-        -12.2
+        -11.8
       ],
-      "color_idx": 0
+      "color_idx": 53,
+      "rot_deg": 90.0
     },
     {
       "key": "w5_arcade_boss",
       "pos": [
-        8.4,
-        -12.0
+        5.58,
+        -9.75
       ],
-      "color_idx": 0
+      "color_idx": 54,
+      "rot_deg": 55.7
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        7.74,
+        -7.36
+      ],
+      "color_idx": 55,
+      "rot_deg": 38.6
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        9.22,
+        -4.31
+      ],
+      "color_idx": 56,
+      "rot_deg": 21.4
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        9.87,
+        -0.88
+      ],
+      "color_idx": 57,
+      "rot_deg": 4.3
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        9.65,
+        2.63
+      ],
+      "color_idx": 58,
+      "rot_deg": 347.1
+    },
+    {
+      "key": "w5_vr_headset",
+      "pos": [
+        8.57,
+        5.9
+      ],
+      "color_idx": 59,
+      "rot_deg": 330.0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        6.73,
+        8.65
+      ],
+      "color_idx": 60,
+      "rot_deg": 312.9
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        4.3,
+        10.63
+      ],
+      "color_idx": 61,
+      "rot_deg": 295.7
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        1.48,
+        11.67
+      ],
+      "color_idx": 62,
+      "rot_deg": 278.6
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -1.48,
+        11.67
+      ],
+      "color_idx": 63,
+      "rot_deg": 261.4
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -4.3,
+        10.63
+      ],
+      "color_idx": 64,
+      "rot_deg": 244.3
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -6.73,
+        8.65
+      ],
+      "color_idx": 65,
+      "rot_deg": 227.1
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -8.57,
+        5.9
+      ],
+      "color_idx": 66,
+      "rot_deg": 210.0
+    },
+    {
+      "key": "w5_handheld",
+      "pos": [
+        -9.65,
+        2.63
+      ],
+      "color_idx": 67,
+      "rot_deg": 192.9
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        7.32,
+        1.45
+      ],
+      "color_idx": 68,
+      "rot_deg": 349.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        5.14,
+        5.87
+      ],
+      "color_idx": 69,
+      "rot_deg": 313.7
+    },
+    {
+      "key": "w5_gamepad",
+      "pos": [
+        -3.53,
+        7.15
+      ],
+      "color_idx": 70,
+      "rot_deg": 241.7
     }
   ],
   "powerups": [
@@ -680,8 +783,8 @@
     },
     {
       "pos": [
-        0.0,
-        -1.2
+        9.7,
+        -11.4
       ]
     },
     {

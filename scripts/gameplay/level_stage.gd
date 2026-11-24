@@ -1080,6 +1080,7 @@ func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false,
 
 	var targets: Dictionary = _level_data.get("targets", {})
 
+	var max_stack_y := 0.0
 	for entry in _level_data.get("items", []):
 		var key := str(entry["key"])
 		var def := GameManager.get_item_def(key)
@@ -1087,11 +1088,16 @@ func _load_level(num: int, show_start_modal: bool, lobby_backdrop: bool = false,
 			continue
 		var p: Array = entry["pos"]
 		var sy := float(entry.get("y", 0.0))
+		max_stack_y = maxf(max_stack_y, sy)
+		var rot_d: float = float(entry["rot_deg"]) if entry.has("rot_deg") else NAN
 		var item := SwallowableItem.new()
-		item.setup(key, def, Vector3(float(p[0]), sy, float(p[1])), int(entry.get("color_idx", 0)), targets.has(key))
+		item.setup(key, def, Vector3(float(p[0]), sy, float(p[1])), int(entry.get("color_idx", 0)), targets.has(key), rot_d)
 		item.swallowed.connect(_on_item_swallowed)
 		_entities_root.add_child(item)
 		_items.append(item)
+
+	if max_stack_y >= 1.8:
+		_target_cam_height += minf((max_stack_y - 1.2) * 0.45, 1.85)
 
 	for pu in _level_data.get("powerups", []):
 		var p: Array = pu["pos"]
@@ -1312,7 +1318,9 @@ func _process(delta: float) -> void:
 		var cam_lim_x := maxf(1.5, _board_half.x - (6.8 if is_land else 4.4))
 		var cam_lim_z := maxf(1.5, _board_half.y - (4.2 if is_land else 5.0))
 		var look_x := clampf(_hole.position.x * (0.42 if is_land else 0.78), -cam_lim_x, cam_lim_x)
-		var look_z := clampf(_hole.position.z * (0.48 if is_land else 0.78), -cam_lim_z, cam_lim_z)
+		# Sweet-spot camera framing: keeps both towering All-in-Hole monuments below top HUD
+		# AND the foreground hole cleanly visible above bottom booster buttons!
+		var look_z := clampf(_hole.position.z * (0.34 if is_land else 0.58) - (1.15 if is_land else 0.95), -cam_lim_z, cam_lim_z)
 		var z_off := 18.2 if is_land else 11.4
 		var cam_h := (_target_cam_height * 1.06) if is_land else (_target_cam_height * 1.05)
 		var desired_cam := Vector3(look_x, cam_h, look_z + z_off)
@@ -1441,13 +1449,14 @@ func _on_item_swallowed(item_key: String, tier: int, xp: float, pos: Vector3, ti
 	_hole.add_xp(xp)
 	_spawn_pop_particles(pos, tint, clampi(10 + tier * 4, 10, 26))
 
-	# Trigger cascade tumble for any stacked tower items perched above the swallowed base!
+	# Trigger staggered domino-waterfall cascade for stacked monument items perched above!
 	for other in _items:
 		if is_instance_valid(other) and other.state == SwallowableItem.State.IDLE and other.position.y > 0.06:
 			var dxz := Vector2(other.position.x - pos.x, other.position.z - pos.z)
-			if dxz.length() < 1.35:
+			if dxz.length() < 1.55:
 				var imp := Vector3(pos.x - other.position.x, 0.0, pos.z - other.position.z)
-				other.trigger_stack_collapse(imp.normalized() if imp.length() > 0.05 else Vector3.FORWARD)
+				var delay := clampf((other.position.y - pos.y) * 0.032, 0.0, 0.28)
+				other.trigger_stack_collapse(imp.normalized() if imp.length() > 0.05 else Vector3.FORWARD, delay)
 
 	if _combo_ui:
 		var combo := _combo_ui.register_swallow(tier)

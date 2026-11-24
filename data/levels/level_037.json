@@ -3,14 +3,14 @@
   "world": 3,
   "formation_name": "Tempura Star",
   "difficulty_tag": "NORMAL",
-  "duration": 36,
+  "duration": 22,
   "arena": [
     22,
     26
   ],
   "spawn": [
-    0,
-    0
+    0.0,
+    8.06
   ],
   "max_target_tier": 5,
   "streak_hint": 0,
@@ -23,882 +23,1023 @@
     {
       "key": "w3_sushi",
       "pos": [
-        0.0,
-        -8.8
+        -1.67,
+        -1.27
       ],
-      "color_idx": 0
+      "color_idx": 0,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        0.42,
-        -7.77
+        -1.67,
+        -0.6
       ],
-      "color_idx": 0
+      "color_idx": 1,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        0.84,
-        -6.73
+        -1.67,
+        0.07
       ],
-      "color_idx": 0
+      "color_idx": 2,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        1.26,
-        -5.7
+        -1.67,
+        0.73
       ],
-      "color_idx": 0
+      "color_idx": 3,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        1.68,
-        -4.67
+        -1.67,
+        1.4
       ],
-      "color_idx": 0
+      "color_idx": 4,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        2.1,
-        -3.64
+        -1.67,
+        2.07
       ],
-      "color_idx": 0
+      "color_idx": 5,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        3.2,
-        -3.79
+        -1.0,
+        -1.27
       ],
-      "color_idx": 0
+      "color_idx": 6,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        4.31,
-        -3.94
+        -1.0,
+        -0.6
       ],
-      "color_idx": 0
+      "color_idx": 7,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        5.41,
-        -4.09
+        -1.0,
+        0.07
       ],
-      "color_idx": 0
+      "color_idx": 8,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        6.52,
-        -4.25
+        -1.0,
+        0.73
       ],
-      "color_idx": 0
+      "color_idx": 9,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        7.62,
-        -4.4
+        -1.0,
+        1.4
       ],
-      "color_idx": 0
+      "color_idx": 10,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        6.94,
-        -3.52
+        -1.0,
+        2.07
       ],
-      "color_idx": 0
+      "color_idx": 11,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        6.25,
-        -2.64
+        -0.33,
+        -1.27
       ],
-      "color_idx": 0
+      "color_idx": 12,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        5.57,
-        -1.76
+        -0.33,
+        -0.6
       ],
-      "color_idx": 0
+      "color_idx": 13,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        4.88,
-        -0.88
+        -0.33,
+        1.4
       ],
-      "color_idx": 0
+      "color_idx": 14,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        4.2,
-        0.0
+        -0.33,
+        2.07
       ],
-      "color_idx": 0
+      "color_idx": 15,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        4.88,
-        0.88
+        0.33,
+        -1.27
       ],
-      "color_idx": 0
+      "color_idx": 16,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        5.57,
-        1.76
+        0.33,
+        -0.6
       ],
-      "color_idx": 0
+      "color_idx": 17,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        6.25,
-        2.64
+        0.33,
+        1.4
       ],
-      "color_idx": 0
+      "color_idx": 18,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        6.94,
-        3.52
+        0.33,
+        2.07
       ],
-      "color_idx": 0
+      "color_idx": 19,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        7.62,
-        4.4
+        1.0,
+        -1.27
       ],
-      "color_idx": 0
+      "color_idx": 20,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        6.52,
-        4.25
+        1.0,
+        -0.6
       ],
-      "color_idx": 0
+      "color_idx": 21,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        5.41,
-        4.09
+        1.0,
+        0.07
       ],
-      "color_idx": 0
+      "color_idx": 22,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        4.31,
-        3.94
+        1.0,
+        0.73
       ],
-      "color_idx": 0
+      "color_idx": 23,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        3.2,
-        3.79
+        1.0,
+        1.4
       ],
-      "color_idx": 0
+      "color_idx": 24,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        2.1,
-        3.64
+        1.0,
+        2.07
       ],
-      "color_idx": 0
+      "color_idx": 25,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        1.68,
-        4.67
+        1.67,
+        -1.27
       ],
-      "color_idx": 0
+      "color_idx": 26,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        1.26,
-        5.7
+        1.67,
+        -0.6
       ],
-      "color_idx": 0
+      "color_idx": 27,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        0.84,
-        6.73
+        1.67,
+        0.07
       ],
-      "color_idx": 0
+      "color_idx": 28,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        0.42,
-        7.77
+        1.67,
+        0.73
       ],
-      "color_idx": 0
+      "color_idx": 29,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        0.0,
-        8.8
+        1.67,
+        1.4
       ],
-      "color_idx": 0
+      "color_idx": 30,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_sushi",
       "pos": [
-        -0.42,
-        7.77
+        1.67,
+        2.07
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -0.84,
-        6.73
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -1.26,
-        5.7
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -1.68,
-        4.67
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -2.1,
-        3.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -3.2,
-        3.79
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -4.31,
-        3.94
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -5.41,
-        4.09
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -6.52,
-        4.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -7.62,
-        4.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -6.94,
-        3.52
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -6.25,
-        2.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -5.57,
-        1.76
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -4.88,
-        0.88
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -4.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -4.88,
-        -0.88
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -5.57,
-        -1.76
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -6.25,
-        -2.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -6.94,
-        -3.52
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -7.62,
-        -4.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -6.52,
-        -4.25
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -5.41,
-        -4.09
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -4.31,
-        -3.94
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -3.2,
-        -3.79
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -2.1,
-        -3.64
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -1.68,
-        -4.67
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -1.26,
-        -5.7
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -0.84,
-        -6.73
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_sushi",
-      "pos": [
-        -0.42,
-        -7.77
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        3.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        3.01,
-        1.16
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        2.45,
-        2.19
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        1.6,
-        2.94
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        0.56,
-        3.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -0.56,
-        3.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -1.6,
-        2.94
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -2.45,
-        2.19
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -3.01,
-        1.16
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -3.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -3.01,
-        -1.16
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -2.45,
-        -2.19
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -1.6,
-        -2.94
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        -0.56,
-        -3.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        0.56,
-        -3.35
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        1.6,
-        -2.94
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        2.45,
-        -2.19
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_takoyaki",
-      "pos": [
-        3.01,
-        -1.16
-      ],
-      "color_idx": 0
+      "color_idx": 31,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        5.4,
-        0.0
+        -1.54,
+        -1.14
       ],
-      "color_idx": 0
+      "color_idx": 32,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        4.87,
-        2.6
+        -1.54,
+        -0.11
       ],
-      "color_idx": 0
+      "color_idx": 33,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        3.37,
-        4.69
+        -1.54,
+        0.91
       ],
-      "color_idx": 0
+      "color_idx": 34,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        1.2,
-        5.85
+        -1.54,
+        1.94
       ],
-      "color_idx": 0
+      "color_idx": 35,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        -1.2,
-        5.85
+        -0.51,
+        -1.14
       ],
-      "color_idx": 0
+      "color_idx": 36,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        -3.37,
-        4.69
+        -0.51,
+        1.94
       ],
-      "color_idx": 0
+      "color_idx": 37,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        -4.87,
-        2.6
+        0.51,
+        -1.14
       ],
-      "color_idx": 0
+      "color_idx": 38,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        -5.4,
-        0.0
+        0.51,
+        1.94
       ],
-      "color_idx": 0
+      "color_idx": 39,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        -4.87,
-        -2.6
+        1.54,
+        -1.14
       ],
-      "color_idx": 0
+      "color_idx": 40,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        -3.37,
-        -4.69
+        1.54,
+        -0.11
       ],
-      "color_idx": 0
+      "color_idx": 41,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        -1.2,
-        -5.85
+        1.54,
+        0.91
       ],
-      "color_idx": 0
+      "color_idx": 42,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_ramen",
       "pos": [
-        1.2,
-        -5.85
+        1.54,
+        1.94
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_ramen",
-      "pos": [
-        3.37,
-        -4.69
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_ramen",
-      "pos": [
-        4.87,
-        -2.6
-      ],
-      "color_idx": 0
+      "color_idx": 43,
+      "y": 0.32,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_big_ramen",
       "pos": [
-        6.78,
-        1.93
+        -0.59,
+        -0.19
       ],
-      "color_idx": 0
+      "color_idx": 44,
+      "y": 0.76,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_big_ramen",
       "pos": [
-        4.47,
-        6.0
+        -0.59,
+        0.99
       ],
-      "color_idx": 0
+      "color_idx": 45,
+      "y": 0.76,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_big_ramen",
       "pos": [
-        0.45,
-        7.78
+        0.59,
+        -0.19
       ],
-      "color_idx": 0
+      "color_idx": 46,
+      "y": 0.76,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_big_ramen",
       "pos": [
-        -3.74,
-        6.59
+        0.59,
+        0.99
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_big_ramen",
-      "pos": [
-        -6.51,
-        2.88
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_big_ramen",
-      "pos": [
-        -6.78,
-        -1.93
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_big_ramen",
-      "pos": [
-        -4.47,
-        -6.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_big_ramen",
-      "pos": [
-        -0.45,
-        -7.78
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_big_ramen",
-      "pos": [
-        3.74,
-        -6.59
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_big_ramen",
-      "pos": [
-        6.51,
-        -2.88
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_bento",
-      "pos": [
-        8.8,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_bento",
-      "pos": [
-        4.4,
-        8.31
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_bento",
-      "pos": [
-        -4.4,
-        8.31
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_bento",
-      "pos": [
-        -8.8,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_bento",
-      "pos": [
-        -4.4,
-        -8.31
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w3_bento",
-      "pos": [
-        4.4,
-        -8.31
-      ],
-      "color_idx": 0
+      "color_idx": 47,
+      "y": 0.76,
+      "rot_deg": 0.0
     },
     {
       "key": "w3_grand_bento",
       "pos": [
-        0,
+        0.0,
+        0.4
+      ],
+      "color_idx": 48,
+      "y": 1.48,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_grand_bento",
+      "pos": [
+        0.0,
         -10.8
       ],
-      "color_idx": 0
+      "color_idx": 49,
+      "rot_deg": 90.0
     },
     {
-      "key": "w3_grand_bento",
+      "key": "w3_bento",
       "pos": [
-        0,
-        10.8
+        2.89,
+        -10.21
       ],
-      "color_idx": 0
+      "color_idx": 50,
+      "rot_deg": 71.1
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        5.47,
+        -8.52
+      ],
+      "color_idx": 51,
+      "rot_deg": 52.1
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        7.45,
+        -5.91
+      ],
+      "color_idx": 52,
+      "rot_deg": 33.2
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        8.63,
+        -2.65
+      ],
+      "color_idx": 53,
+      "rot_deg": 14.2
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        8.87,
+        0.89
+      ],
+      "color_idx": 54,
+      "rot_deg": 355.3
+    },
+    {
+      "key": "w3_bento",
+      "pos": [
+        8.15,
+        4.34
+      ],
+      "color_idx": 55,
+      "rot_deg": 336.3
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        6.55,
+        7.31
+      ],
+      "color_idx": 56,
+      "rot_deg": 317.4
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        4.24,
+        9.5
+      ],
+      "color_idx": 57,
+      "rot_deg": 298.4
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        1.46,
+        10.65
+      ],
+      "color_idx": 58,
+      "rot_deg": 279.5
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -1.46,
+        10.65
+      ],
+      "color_idx": 59,
+      "rot_deg": 260.5
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -4.24,
+        9.5
+      ],
+      "color_idx": 60,
+      "rot_deg": 241.6
+    },
+    {
+      "key": "w3_big_ramen",
+      "pos": [
+        -6.55,
+        7.31
+      ],
+      "color_idx": 61,
+      "rot_deg": 222.6
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        6.71,
+        1.35
+      ],
+      "color_idx": 62,
+      "rot_deg": 349.7
+    },
+    {
+      "key": "w3_ramen",
+      "pos": [
+        4.71,
+        5.45
+      ],
+      "color_idx": 63,
+      "rot_deg": 313.7
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.6,
+        7.36
+      ],
+      "color_idx": 64,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.55,
+        6.65
+      ],
+      "color_idx": 65,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.3,
+        5.95
+      ],
+      "color_idx": 66,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.78,
+        5.24
+      ],
+      "color_idx": 67,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.95,
+        4.54
+      ],
+      "color_idx": 68,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.78,
+        3.83
+      ],
+      "color_idx": 69,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -4.3,
+        3.13
+      ],
+      "color_idx": 70,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -3.55,
+        2.42
+      ],
+      "color_idx": 71,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -2.6,
+        1.72
+      ],
+      "color_idx": 72,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.6,
+        7.36
+      ],
+      "color_idx": 73,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.55,
+        6.65
+      ],
+      "color_idx": 74,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.3,
+        5.95
+      ],
+      "color_idx": 75,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.78,
+        5.24
+      ],
+      "color_idx": 76,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.95,
+        4.54
+      ],
+      "color_idx": 77,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.78,
+        3.83
+      ],
+      "color_idx": 78,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        4.3,
+        3.13
+      ],
+      "color_idx": 79,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        3.55,
+        2.42
+      ],
+      "color_idx": 80,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        2.6,
+        1.72
+      ],
+      "color_idx": 81,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.25,
+        -4.35
+      ],
+      "color_idx": 82,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.25,
+        -2.9
+      ],
+      "color_idx": 83,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.25,
+        -1.45
+      ],
+      "color_idx": 84,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.25,
+        0.0
+      ],
+      "color_idx": 85,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.25,
+        1.45
+      ],
+      "color_idx": 86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.25,
+        2.9
+      ],
+      "color_idx": 87,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        -9.25,
+        4.35
+      ],
+      "color_idx": 88,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        9.25,
+        -4.35
+      ],
+      "color_idx": 89,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        9.25,
+        -2.9
+      ],
+      "color_idx": 90,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_sushi",
+      "pos": [
+        9.25,
+        -1.45
+      ],
+      "color_idx": 91,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        9.25,
+        0.0
+      ],
+      "color_idx": 92,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        9.25,
+        1.45
+      ],
+      "color_idx": 93,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        9.25,
+        2.9
+      ],
+      "color_idx": 94,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        9.25,
+        4.35
+      ],
+      "color_idx": 95,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.6,
+        7.36
+      ],
+      "color_idx": 96,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.55,
+        6.65
+      ],
+      "color_idx": 97,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -4.3,
+        5.95
+      ],
+      "color_idx": 98,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -4.78,
+        5.24
+      ],
+      "color_idx": 99,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -4.95,
+        4.54
+      ],
+      "color_idx": 100,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -4.78,
+        3.83
+      ],
+      "color_idx": 101,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -4.3,
+        3.13
+      ],
+      "color_idx": 102,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -3.55,
+        2.42
+      ],
+      "color_idx": 103,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        -2.6,
+        1.72
+      ],
+      "color_idx": 104,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        2.6,
+        7.36
+      ],
+      "color_idx": 105,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        3.55,
+        6.65
+      ],
+      "color_idx": 106,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.3,
+        5.95
+      ],
+      "color_idx": 107,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.78,
+        5.24
+      ],
+      "color_idx": 108,
+      "y": 0.44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w3_takoyaki",
+      "pos": [
+        4.95,
+        4.54
+      ],
+      "color_idx": 109,
+      "y": 0.44,
+      "rot_deg": 0.0
     }
   ],
   "powerups": [
@@ -965,8 +1106,8 @@
     },
     {
       "pos": [
-        0.0,
-        7.2
+        8.7,
+        10.4
       ]
     }
   ]

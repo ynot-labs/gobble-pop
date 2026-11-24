@@ -27,13 +27,16 @@ var _bounce: float = 0.0
 var _shimmer_phase: float = 0.0
 var _wobble_time: float = 0.0
 var _stacked_base_y: float = 0.0
+var _collapse_delay: float = 0.0
+var _pending_collapse: bool = false
+var _pending_impulse: Vector3 = Vector3.ZERO
 var _toy_mats: Array[ShaderMaterial] = []
 
 static var _shared_shadow_mat: ShaderMaterial = null
 static var _shared_toy_shader: Shader = null
 
 
-func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0, p_is_objective: bool = false) -> void:
+func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0, p_is_objective: bool = false, rot_deg: float = NAN) -> void:
 	item_key = key
 	tier = int(def.get("tier", 1))
 	xp_value = float(def.get("xp", 5.0))
@@ -55,9 +58,10 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 	if is_objective:
 		_build_target_ring()
 		if _stacked_base_y > 0.06:
-			_target_ring.position.y = -_stacked_base_y + 0.032
+			# Keep towering stacked monuments crisp and uncluttered; reveal ring once landed!
+			_target_ring.visible = false
 			if _target_outer_ring:
-				_target_outer_ring.position.y = -_stacked_base_y + 0.026
+				_target_outer_ring.visible = false
 	if tier >= 3:
 		_build_lock_badge()
 
@@ -72,7 +76,9 @@ func setup(key: String, def: Dictionary, spawn_pos: Vector3, color_idx: int = 0,
 
 			if auto_fit:
 				_auto_normalize_model(inst, item_radius, item_height)
-				if item_key in ["w1_sprinkle", "w2_block", "w4_d20", "w4_slime", "w5_pixel_coin"]:
+				if not is_nan(rot_deg):
+					inst.rotation.y = deg_to_rad(rot_deg)
+				elif item_key in ["w1_sprinkle", "w2_block", "w4_d20", "w4_slime", "w5_pixel_coin"]:
 					inst.rotation.y = randf() * TAU
 				else:
 					inst.rotation.y = randf_range(-0.55, 0.55)
@@ -261,11 +267,23 @@ func _build_fallback_mesh() -> void:
 	_visual_root.add_child(m)
 
 
-func trigger_stack_collapse(impulse_dir: Vector3) -> void:
+func trigger_stack_collapse(impulse_dir: Vector3, delay: float = 0.0) -> void:
 	if state != State.IDLE or position.y <= 0.04:
 		return
+	if delay > 0.005:
+		if not _pending_collapse or delay < _collapse_delay:
+			_pending_collapse = true
+			_collapse_delay = delay
+			_pending_impulse = impulse_dir
+		return
+	_start_collapse_now(impulse_dir)
+
+
+func _start_collapse_now(impulse_dir: Vector3) -> void:
+	_pending_collapse = false
 	state = State.FALLING_STACK
-	_fall_vel = Vector3(impulse_dir.x * randf_range(0.6, 1.8), randf_range(0.8, 1.9), impulse_dir.z * randf_range(0.6, 1.8))
+	# Tight inward waterfall drop so tall All-in-Hole towers pour straight into the vortex!
+	_fall_vel = Vector3(impulse_dir.x * randf_range(0.22, 0.72), randf_range(0.10, 0.42), impulse_dir.z * randf_range(0.22, 0.72))
 	var perp := Vector3(-impulse_dir.z, 0.0, impulse_dir.x)
 	_tilt_axis = perp.normalized() if perp.length() > 0.05 else Vector3.RIGHT
 
@@ -315,17 +333,25 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 	elif state == State.IDLE:
 		_visual_root.scale = Vector3.ONE
 
+	# Staggered domino countdown for stacked monuments!
+	if state == State.IDLE and _pending_collapse:
+		_collapse_delay -= delta
+		if _collapse_delay <= 0.0:
+			_start_collapse_now(_pending_impulse)
+			return
+
 	# Handle stacked tower cascade collapse!
 	if state == State.FALLING_STACK:
-		_fall_vel.y -= 24.0 * delta
+		_fall_vel.y -= 28.0 * delta
 		position += _fall_vel * delta
-		_visual_root.rotate(_tilt_axis, delta * 5.2)
-		if _target_ring:
-			_target_ring.position.y = -position.y + 0.032
-		if _target_outer_ring:
-			_target_outer_ring.position.y = -position.y + 0.026
-		# If edible and already over the hole, seamlessly suck right in mid-cascade!
-		if can_eat and dist < suction_r * 1.15 and position.y < 1.35:
+		_visual_root.rotate(_tilt_axis, delta * 5.8)
+		# Pull smoothly toward hole if directly above it during waterfall drop!
+		if can_eat and dist < suction_r * 1.45 and dist > 0.04:
+			var pull_xz := to_hole / dist
+			position.x += pull_xz.x * 3.8 * delta
+			position.z += pull_xz.z * 3.8 * delta
+		# If edible and falling over the hole, seamlessly suck right in mid-cascade!
+		if can_eat and dist < suction_r * 1.25 and position.y < 1.85:
 			_enter_pulling(to_hole, dist)
 			return
 		if position.y <= 0.0:
@@ -336,17 +362,19 @@ func step_interaction(hole: HoleController, delta: float, board_bounds: Vector2)
 			if _contact_shadow:
 				_contact_shadow.visible = true
 			if _target_ring:
+				_target_ring.visible = true
 				_target_ring.position.y = 0.032
 			if _target_outer_ring:
+				_target_outer_ring.visible = true
 				_target_outer_ring.position.y = 0.026
 			state = State.IDLE
 		return
 
 	if state == State.IDLE:
-		# If stacked high up and hole undercuts underneath, collapse immediately!
-		if position.y > 0.06 and dist < hole.get_suction_radius() + item_radius * 0.85:
+		# If stacked high up and hole undercuts underneath, collapse immediately with crisp height stagger!
+		if position.y > 0.06 and dist < hole.get_suction_radius() + item_radius * 0.95:
 			var push_dir := (to_hole / maxf(dist, 0.01))
-			trigger_stack_collapse(push_dir)
+			trigger_stack_collapse(push_dir, clampf(position.y * 0.028, 0.0, 0.24))
 			return
 
 		var magnet_r := hole.get_magnet_radius()

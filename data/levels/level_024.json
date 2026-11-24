@@ -9,8 +9,8 @@
     24
   ],
   "spawn": [
-    0,
-    0
+    0.0,
+    7.44
   ],
   "max_target_tier": 4,
   "streak_hint": 0,
@@ -23,914 +23,794 @@
     {
       "key": "w2_block",
       "pos": [
-        0.0,
-        -8.0
+        -4.03,
+        -0.03
       ],
-      "color_idx": 0
+      "color_idx": 0,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        0.26,
-        -7.36
+        -4.03,
+        0.6
       ],
-      "color_idx": 1
+      "color_idx": 1,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        0.53,
-        -6.73
+        -4.03,
+        1.23
       ],
-      "color_idx": 2
+      "color_idx": 2,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        0.79,
-        -6.09
+        -3.4,
+        -0.03
       ],
-      "color_idx": 3
+      "color_idx": 3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        1.06,
-        -5.46
+        -3.4,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 4,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        1.32,
-        -4.82
+        -3.4,
+        1.23
       ],
-      "color_idx": 1
+      "color_idx": 5,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        1.59,
-        -4.18
+        -2.77,
+        -0.03
       ],
-      "color_idx": 2
+      "color_idx": 6,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        1.85,
-        -3.55
+        -2.77,
+        0.6
       ],
-      "color_idx": 3
+      "color_idx": 7,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        2.12,
-        -2.91
+        -2.77,
+        1.23
       ],
-      "color_idx": 0
+      "color_idx": 8,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        2.8,
-        -2.86
+        -4.03,
+        -0.03
       ],
-      "color_idx": 1
+      "color_idx": 9,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.49,
-        -2.8
+        -4.03,
+        0.6
       ],
-      "color_idx": 2
+      "color_idx": 10,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.18,
-        -2.75
+        -4.03,
+        1.23
       ],
-      "color_idx": 3
+      "color_idx": 11,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.86,
-        -2.69
+        -3.4,
+        -0.03
       ],
-      "color_idx": 0
+      "color_idx": 12,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        5.55,
-        -2.64
+        -3.4,
+        0.6
       ],
-      "color_idx": 1
+      "color_idx": 13,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        6.24,
-        -2.58
+        -3.4,
+        1.23
       ],
-      "color_idx": 2
+      "color_idx": 14,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        6.92,
-        -2.53
+        -2.77,
+        -0.03
       ],
-      "color_idx": 3
+      "color_idx": 15,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        7.61,
-        -2.47
+        -2.77,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 16,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        7.09,
-        -2.02
+        -2.77,
+        1.23
       ],
-      "color_idx": 1
+      "color_idx": 17,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        6.56,
-        -1.58
+        -4.03,
+        -0.03
       ],
-      "color_idx": 2
+      "color_idx": 18,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        6.04,
-        -1.13
+        -4.03,
+        0.6
       ],
-      "color_idx": 3
+      "color_idx": 19,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        5.52,
-        -0.68
+        -4.03,
+        1.23
       ],
-      "color_idx": 0
+      "color_idx": 20,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.99,
-        -0.23
+        -3.4,
+        -0.03
       ],
-      "color_idx": 1
+      "color_idx": 21,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.47,
-        0.22
+        -3.4,
+        0.6
       ],
-      "color_idx": 2
+      "color_idx": 22,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.95,
-        0.66
+        -3.4,
+        1.23
       ],
-      "color_idx": 3
+      "color_idx": 23,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.42,
-        1.11
+        -2.77,
+        -0.03
       ],
-      "color_idx": 0
+      "color_idx": 24,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.58,
-        1.78
+        -2.77,
+        0.6
       ],
-      "color_idx": 1
+      "color_idx": 25,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.74,
-        2.45
+        -2.77,
+        1.23
       ],
-      "color_idx": 2
+      "color_idx": 26,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.9,
-        3.12
+        -4.03,
+        -0.03
       ],
-      "color_idx": 3
+      "color_idx": 27,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.06,
-        3.79
+        -4.03,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 28,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.22,
-        4.46
+        -4.03,
+        1.23
       ],
-      "color_idx": 1
+      "color_idx": 29,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.38,
-        5.13
+        -3.4,
+        -0.03
       ],
-      "color_idx": 2
+      "color_idx": 30,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.54,
-        5.8
+        -3.4,
+        0.6
       ],
-      "color_idx": 3
+      "color_idx": 31,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.7,
-        6.47
+        -3.4,
+        1.23
       ],
-      "color_idx": 0
+      "color_idx": 32,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.11,
-        6.11
+        -2.77,
+        -0.03
       ],
-      "color_idx": 1
+      "color_idx": 33,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.53,
-        5.75
+        -2.77,
+        0.6
       ],
-      "color_idx": 2
+      "color_idx": 34,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        2.94,
-        5.4
+        -2.77,
+        1.23
       ],
-      "color_idx": 3
+      "color_idx": 35,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
-      "key": "w2_block",
-      "pos": [
-        2.35,
-        5.04
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        1.76,
-        4.68
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        1.18,
-        4.32
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        0.59,
-        3.96
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        0.0,
-        3.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
+      "key": "w2_unicorn",
       "pos": [
-        -0.59,
-        3.96
+        -3.4,
+        0.6
       ],
-      "color_idx": 1
+      "color_idx": 36,
+      "y": 1.73,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -1.18,
-        4.32
+        2.77,
+        -0.03
       ],
-      "color_idx": 2
+      "color_idx": 37,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -1.76,
-        4.68
+        2.77,
+        0.6
       ],
-      "color_idx": 3
+      "color_idx": 38,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -2.35,
-        5.04
+        2.77,
+        1.23
       ],
-      "color_idx": 0
+      "color_idx": 39,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -2.94,
-        5.4
+        3.4,
+        -0.03
       ],
-      "color_idx": 1
+      "color_idx": 40,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.53,
-        5.75
+        3.4,
+        0.6
       ],
-      "color_idx": 2
+      "color_idx": 41,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.11,
-        6.11
+        3.4,
+        1.23
       ],
-      "color_idx": 3
+      "color_idx": 42,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.7,
-        6.47
+        4.03,
+        -0.03
       ],
-      "color_idx": 0
+      "color_idx": 43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.54,
-        5.8
+        4.03,
+        0.6
       ],
-      "color_idx": 1
+      "color_idx": 44,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.38,
-        5.13
+        4.03,
+        1.23
       ],
-      "color_idx": 2
+      "color_idx": 45,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.22,
-        4.46
+        2.77,
+        -0.03
       ],
-      "color_idx": 3
+      "color_idx": 46,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.06,
-        3.79
+        2.77,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 47,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.9,
-        3.12
+        2.77,
+        1.23
       ],
-      "color_idx": 1
+      "color_idx": 48,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.74,
-        2.45
+        3.4,
+        -0.03
       ],
-      "color_idx": 2
+      "color_idx": 49,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.58,
-        1.78
+        3.4,
+        0.6
       ],
-      "color_idx": 3
+      "color_idx": 50,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.42,
-        1.11
+        3.4,
+        1.23
       ],
-      "color_idx": 0
+      "color_idx": 51,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.95,
-        0.66
+        4.03,
+        -0.03
       ],
-      "color_idx": 1
+      "color_idx": 52,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.47,
-        0.22
+        4.03,
+        0.6
       ],
-      "color_idx": 2
+      "color_idx": 53,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.99,
-        -0.23
+        4.03,
+        1.23
       ],
-      "color_idx": 3
+      "color_idx": 54,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -5.52,
-        -0.68
+        2.77,
+        -0.03
       ],
-      "color_idx": 0
+      "color_idx": 55,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -6.04,
-        -1.13
+        2.77,
+        0.6
       ],
-      "color_idx": 1
+      "color_idx": 56,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -6.56,
-        -1.58
+        2.77,
+        1.23
       ],
-      "color_idx": 2
+      "color_idx": 57,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -7.09,
-        -2.02
+        3.4,
+        -0.03
       ],
-      "color_idx": 3
+      "color_idx": 58,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -7.61,
-        -2.47
+        3.4,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 59,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -6.92,
-        -2.53
+        3.4,
+        1.23
       ],
-      "color_idx": 1
+      "color_idx": 60,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -6.24,
-        -2.58
+        4.03,
+        -0.03
       ],
-      "color_idx": 2
+      "color_idx": 61,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -5.55,
-        -2.64
+        4.03,
+        0.6
       ],
-      "color_idx": 3
+      "color_idx": 62,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.86,
-        -2.69
+        4.03,
+        1.23
       ],
-      "color_idx": 0
+      "color_idx": 63,
+      "y": 0.86,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.18,
-        -2.75
+        2.77,
+        -0.03
       ],
-      "color_idx": 1
+      "color_idx": 64,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.49,
-        -2.8
+        2.77,
+        0.6
       ],
-      "color_idx": 2
+      "color_idx": 65,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -2.8,
-        -2.86
+        2.77,
+        1.23
       ],
-      "color_idx": 3
+      "color_idx": 66,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -2.12,
-        -2.91
+        3.4,
+        -0.03
       ],
-      "color_idx": 0
+      "color_idx": 67,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -1.85,
-        -3.55
+        3.4,
+        0.6
       ],
-      "color_idx": 1
+      "color_idx": 68,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -1.59,
-        -4.18
+        3.4,
+        1.23
       ],
-      "color_idx": 2
+      "color_idx": 69,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -1.32,
-        -4.82
+        4.03,
+        -0.03
       ],
-      "color_idx": 3
+      "color_idx": 70,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -1.06,
-        -5.46
+        4.03,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 71,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -0.79,
-        -6.09
+        4.03,
+        1.23
       ],
-      "color_idx": 1
+      "color_idx": 72,
+      "y": 1.3,
+      "rot_deg": 0.0
     },
     {
-      "key": "w2_block",
+      "key": "w2_unicorn",
       "pos": [
-        -0.53,
-        -6.73
+        3.4,
+        0.6
       ],
-      "color_idx": 2
+      "color_idx": 73,
+      "y": 1.73,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -0.26,
-        -7.36
+        -2.55,
+        0.6
       ],
-      "color_idx": 3
+      "color_idx": 74,
+      "y": 1.77,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_duck",
       "pos": [
-        3.2,
-        0.0
+        -1.7,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 75,
+      "y": 1.95,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.85,
+        0.6
+      ],
+      "color_idx": 76,
+      "y": 2.06,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_duck",
-      "pos": [
-        2.88,
-        1.39
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        2.0,
-        2.5
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        0.71,
-        3.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -0.71,
-        3.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -2.0,
-        2.5
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -2.88,
-        1.39
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -3.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -2.88,
-        -1.39
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -2.0,
-        -2.5
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -0.71,
-        -3.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        0.71,
-        -3.12
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        2.0,
-        -2.5
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        2.88,
-        -1.39
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        5.16,
-        1.71
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        3.67,
-        4.25
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        1.2,
-        5.66
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        -1.6,
-        5.54
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        -3.96,
-        3.94
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        -5.27,
-        1.29
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        -5.16,
-        -1.71
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        -3.67,
-        -4.25
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        -1.2,
-        -5.66
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        1.6,
-        -5.54
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        3.96,
-        -3.94
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        5.27,
-        -1.29
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_arcade",
-      "pos": [
-        6.8,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_arcade",
-      "pos": [
-        4.81,
-        5.37
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_arcade",
       "pos": [
         0.0,
-        7.6
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 77,
+      "y": 2.11,
+      "rot_deg": 0.0
     },
     {
-      "key": "w2_arcade",
+      "key": "w2_block",
       "pos": [
-        -4.81,
-        5.37
+        0.85,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 78,
+      "y": 2.06,
+      "rot_deg": 0.0
     },
     {
-      "key": "w2_arcade",
+      "key": "w2_duck",
       "pos": [
-        -6.8,
-        0.0
+        1.7,
+        0.6
       ],
-      "color_idx": 0
+      "color_idx": 79,
+      "y": 1.95,
+      "rot_deg": 0.0
     },
     {
-      "key": "w2_arcade",
+      "key": "w2_block",
       "pos": [
-        -4.81,
-        -5.37
+        2.55,
+        0.6
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_arcade",
-      "pos": [
-        -0.0,
-        -7.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_arcade",
-      "pos": [
-        4.81,
-        -5.37
-      ],
-      "color_idx": 0
+      "color_idx": 80,
+      "y": 1.77,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_unicorn",
@@ -938,39 +818,344 @@
         0.0,
         -9.8
       ],
-      "color_idx": 0
+      "color_idx": 81,
+      "rot_deg": 90.0
     },
     {
       "key": "w2_unicorn",
       "pos": [
-        7.99,
-        -3.03
+        2.85,
+        -9.14
       ],
-      "color_idx": 0
+      "color_idx": 82,
+      "rot_deg": 68.8
     },
     {
       "key": "w2_unicorn",
       "pos": [
-        4.94,
-        7.93
+        5.32,
+        -7.24
       ],
-      "color_idx": 0
+      "color_idx": 83,
+      "rot_deg": 47.6
     },
     {
-      "key": "w2_unicorn",
+      "key": "w2_arcade",
       "pos": [
-        -4.94,
-        7.93
+        7.07,
+        -4.37
       ],
-      "color_idx": 0
+      "color_idx": 84,
+      "rot_deg": 26.5
     },
     {
-      "key": "w2_unicorn",
+      "key": "w2_arcade",
       "pos": [
-        -7.99,
-        -3.03
+        7.87,
+        -0.9
       ],
-      "color_idx": 0
+      "color_idx": 85,
+      "rot_deg": 5.3
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        7.6,
+        2.68
+      ],
+      "color_idx": 86,
+      "rot_deg": 344.1
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        6.3,
+        5.91
+      ],
+      "color_idx": 87,
+      "rot_deg": 322.9
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        4.16,
+        8.33
+      ],
+      "color_idx": 88,
+      "rot_deg": 301.8
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        1.45,
+        9.63
+      ],
+      "color_idx": 89,
+      "rot_deg": 280.6
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -1.45,
+        9.63
+      ],
+      "color_idx": 90,
+      "rot_deg": 259.4
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -4.16,
+        8.33
+      ],
+      "color_idx": 91,
+      "rot_deg": 238.2
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        6.1,
+        1.25
+      ],
+      "color_idx": 92,
+      "rot_deg": 349.7
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        5.57,
+        3.05
+      ],
+      "color_idx": 93,
+      "rot_deg": 334.0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        4.64,
+        4.62
+      ],
+      "color_idx": 94,
+      "rot_deg": 318.4
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.35,
+        5.85
+      ],
+      "color_idx": 95,
+      "rot_deg": 302.7
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.09,
+        6.03
+      ],
+      "color_idx": 96,
+      "rot_deg": 240.1
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -4.42,
+        4.88
+      ],
+      "color_idx": 97,
+      "rot_deg": 224.5
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.43,
+        3.35
+      ],
+      "color_idx": 98,
+      "rot_deg": 208.8
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -6.04,
+        1.59
+      ],
+      "color_idx": 99,
+      "rot_deg": 193.2
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -6.19,
+        -0.3
+      ],
+      "color_idx": 100,
+      "rot_deg": 177.5
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.89,
+        -2.17
+      ],
+      "color_idx": 101,
+      "rot_deg": 161.9
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.15,
+        -3.87
+      ],
+      "color_idx": 102,
+      "rot_deg": 146.2
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -4.03,
+        -5.29
+      ],
+      "color_idx": 103,
+      "rot_deg": 130.6
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -2.61,
+        -6.31
+      ],
+      "color_idx": 104,
+      "rot_deg": 114.9
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        -1.0,
+        -6.87
+      ],
+      "color_idx": 105,
+      "rot_deg": 99.3
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        0.69,
+        -6.92
+      ],
+      "color_idx": 106,
+      "rot_deg": 83.6
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        2.33,
+        -6.45
+      ],
+      "color_idx": 107,
+      "rot_deg": 67.9
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        3.79,
+        -5.51
+      ],
+      "color_idx": 108,
+      "rot_deg": 52.3
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        4.97,
+        -4.15
+      ],
+      "color_idx": 109,
+      "rot_deg": 36.6
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        5.79,
+        -2.49
+      ],
+      "color_idx": 110,
+      "rot_deg": 21.0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        6.17,
+        -0.65
+      ],
+      "color_idx": 111,
+      "rot_deg": 5.3
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        6.1,
+        1.25
+      ],
+      "color_idx": 112,
+      "y": 0.72,
+      "rot_deg": 349.7
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        5.57,
+        3.05
+      ],
+      "color_idx": 113,
+      "y": 0.72,
+      "rot_deg": 334.0
+    },
+    {
+      "key": "w2_figurine",
+      "pos": [
+        4.64,
+        4.62
+      ],
+      "color_idx": 114,
+      "y": 0.72,
+      "rot_deg": 318.4
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.6,
+        6.81
+      ],
+      "color_idx": 115,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.55,
+        6.18
+      ],
+      "color_idx": 116,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.3,
+        5.55
+      ],
+      "color_idx": 117,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -4.78,
+        4.92
+      ],
+      "color_idx": 118,
+      "rot_deg": 0.0
     }
   ],
   "powerups": [

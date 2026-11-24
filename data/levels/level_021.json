@@ -9,8 +9,8 @@
     22
   ],
   "spawn": [
-    0,
-    0
+    0.0,
+    6.82
   ],
   "max_target_tier": 3,
   "streak_hint": 0,
@@ -22,762 +22,1245 @@
     {
       "key": "w2_block",
       "pos": [
-        -6.8,
-        -5.4
+        -0.62,
+        -1.82
       ],
-      "color_idx": 0
+      "color_idx": 0,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -5.1,
-        -5.4
+        -0.62,
+        -1.2
       ],
-      "color_idx": 1
+      "color_idx": 1,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.4,
-        -5.4
+        -0.62,
+        -0.58
       ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -1.7,
-        -5.4
-      ],
-      "color_idx": 3
+      "color_idx": 2,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
         0.0,
-        -5.4
+        -1.82
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        1.7,
-        -5.4
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        3.4,
-        -5.4
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        5.1,
-        -5.4
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        6.8,
-        -5.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -6.8,
-        -3.6
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -5.1,
-        -3.6
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -3.4,
-        -3.6
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -1.7,
-        -3.6
-      ],
-      "color_idx": 0
+      "color_idx": 3,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
         0.0,
-        -3.6
+        -1.2
       ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        1.7,
-        -3.6
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        3.4,
-        -3.6
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        5.1,
-        -3.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        6.8,
-        -3.6
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -6.8,
-        -1.8
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -5.1,
-        -1.8
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -3.4,
-        -1.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -1.7,
-        -1.8
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        1.7,
-        -1.8
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        3.4,
-        -1.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        5.1,
-        -1.8
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        6.8,
-        -1.8
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -6.8,
-        0.0
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -5.1,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -3.4,
-        0.0
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        3.4,
-        0.0
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        5.1,
-        0.0
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        6.8,
-        0.0
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -6.8,
-        1.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -5.1,
-        1.8
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -3.4,
-        1.8
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -1.7,
-        1.8
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        1.7,
-        1.8
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        3.4,
-        1.8
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        5.1,
-        1.8
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        6.8,
-        1.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -6.8,
-        3.6
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -5.1,
-        3.6
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -3.4,
-        3.6
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -1.7,
-        3.6
-      ],
-      "color_idx": 0
+      "color_idx": 4,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
         0.0,
-        3.6
+        -0.58
       ],
-      "color_idx": 1
+      "color_idx": 5,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        1.7,
-        3.6
+        0.62,
+        -1.82
       ],
-      "color_idx": 2
+      "color_idx": 6,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.4,
-        3.6
+        0.62,
+        -1.2
       ],
-      "color_idx": 3
+      "color_idx": 7,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        5.1,
-        3.6
+        0.62,
+        -0.58
       ],
-      "color_idx": 0
+      "color_idx": 8,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        6.8,
-        3.6
+        -0.62,
+        -1.82
       ],
-      "color_idx": 1
+      "color_idx": 9,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -6.8,
-        5.4
+        -0.62,
+        -1.2
       ],
-      "color_idx": 2
+      "color_idx": 10,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -5.1,
-        5.4
+        -0.62,
+        -0.58
       ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -3.4,
-        5.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        -1.7,
-        5.4
-      ],
-      "color_idx": 1
+      "color_idx": 11,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
         0.0,
-        5.4
+        -1.82
       ],
-      "color_idx": 2
+      "color_idx": 12,
+      "y": 0.43,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
-      "pos": [
-        1.7,
-        5.4
-      ],
-      "color_idx": 3
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        3.4,
-        5.4
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        5.1,
-        5.4
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_block",
-      "pos": [
-        6.8,
-        5.4
-      ],
-      "color_idx": 2
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        5.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        4.69,
-        2.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        3.24,
-        4.69
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        1.16,
-        5.85
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -1.16,
-        5.85
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -3.24,
-        4.69
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -4.69,
-        2.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -5.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -4.69,
-        -2.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -3.24,
-        -4.69
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        -1.16,
-        -5.85
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        1.16,
-        -5.85
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        3.24,
-        -4.69
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_duck",
-      "pos": [
-        4.69,
-        -2.6
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        3.2,
-        0.0
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_figurine",
-      "pos": [
-        2.26,
-        2.69
-      ],
-      "color_idx": 1
-    },
-    {
-      "key": "w2_figurine",
       "pos": [
         0.0,
-        3.8
+        -1.2
       ],
-      "color_idx": 2
+      "color_idx": 13,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -0.58
+      ],
+      "color_idx": 14,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -1.82
+      ],
+      "color_idx": 15,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -1.2
+      ],
+      "color_idx": 16,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -0.58
+      ],
+      "color_idx": 17,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.62,
+        -1.82
+      ],
+      "color_idx": 18,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.62,
+        -1.2
+      ],
+      "color_idx": 19,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.62,
+        -0.58
+      ],
+      "color_idx": 20,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -1.82
+      ],
+      "color_idx": 21,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -1.2
+      ],
+      "color_idx": 22,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -0.58
+      ],
+      "color_idx": 23,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -1.82
+      ],
+      "color_idx": 24,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -1.2
+      ],
+      "color_idx": 25,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -0.58
+      ],
+      "color_idx": 26,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.62,
+        -1.82
+      ],
+      "color_idx": 27,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.62,
+        -1.2
+      ],
+      "color_idx": 28,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -0.62,
+        -0.58
+      ],
+      "color_idx": 29,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -1.82
+      ],
+      "color_idx": 30,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -1.2
+      ],
+      "color_idx": 31,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.0,
+        -0.58
+      ],
+      "color_idx": 32,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -1.82
+      ],
+      "color_idx": 33,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -1.2
+      ],
+      "color_idx": 34,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        0.62,
+        -0.58
+      ],
+      "color_idx": 35,
+      "y": 1.3,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        0.0,
+        -1.2
+      ],
+      "color_idx": 36,
+      "y": 1.73,
+      "rot_deg": 18.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        1.23
+      ],
+      "color_idx": 37,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        1.85
+      ],
+      "color_idx": 38,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        2.47
+      ],
+      "color_idx": 39,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        1.23
+      ],
+      "color_idx": 40,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        1.85
+      ],
+      "color_idx": 41,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        2.47
+      ],
+      "color_idx": 42,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        1.23
+      ],
+      "color_idx": 43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        1.85
+      ],
+      "color_idx": 44,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        2.47
+      ],
+      "color_idx": 45,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        1.23
+      ],
+      "color_idx": 46,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        1.85
+      ],
+      "color_idx": 47,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        2.47
+      ],
+      "color_idx": 48,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        1.23
+      ],
+      "color_idx": 49,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        1.85
+      ],
+      "color_idx": 50,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        2.47
+      ],
+      "color_idx": 51,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        1.23
+      ],
+      "color_idx": 52,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        1.85
+      ],
+      "color_idx": 53,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        2.47
+      ],
+      "color_idx": 54,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        1.23
+      ],
+      "color_idx": 55,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        1.85
+      ],
+      "color_idx": 56,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.77,
+        2.47
+      ],
+      "color_idx": 57,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        1.23
+      ],
+      "color_idx": 58,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        1.85
+      ],
+      "color_idx": 59,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -3.15,
+        2.47
+      ],
+      "color_idx": 60,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        1.23
+      ],
+      "color_idx": 61,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        1.85
+      ],
+      "color_idx": 62,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -2.53,
+        2.47
+      ],
+      "color_idx": 63,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        -3.15,
+        1.85
+      ],
+      "color_idx": 64,
+      "y": 1.3,
+      "rot_deg": 342.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        1.23
+      ],
+      "color_idx": 65,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        1.85
+      ],
+      "color_idx": 66,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        2.47
+      ],
+      "color_idx": 67,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        1.23
+      ],
+      "color_idx": 68,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        1.85
+      ],
+      "color_idx": 69,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        2.47
+      ],
+      "color_idx": 70,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        1.23
+      ],
+      "color_idx": 71,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        1.85
+      ],
+      "color_idx": 72,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        2.47
+      ],
+      "color_idx": 73,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        1.23
+      ],
+      "color_idx": 74,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        1.85
+      ],
+      "color_idx": 75,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        2.47
+      ],
+      "color_idx": 76,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        1.23
+      ],
+      "color_idx": 77,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        1.85
+      ],
+      "color_idx": 78,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        2.47
+      ],
+      "color_idx": 79,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        1.23
+      ],
+      "color_idx": 80,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        1.85
+      ],
+      "color_idx": 81,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        2.47
+      ],
+      "color_idx": 82,
+      "y": 0.43,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        1.23
+      ],
+      "color_idx": 83,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        1.85
+      ],
+      "color_idx": 84,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        2.53,
+        2.47
+      ],
+      "color_idx": 85,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        1.23
+      ],
+      "color_idx": 86,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        1.85
+      ],
+      "color_idx": 87,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.15,
+        2.47
+      ],
+      "color_idx": 88,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        1.23
+      ],
+      "color_idx": 89,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        1.85
+      ],
+      "color_idx": 90,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        3.77,
+        2.47
+      ],
+      "color_idx": 91,
+      "y": 0.86,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        3.15,
+        1.85
+      ],
+      "color_idx": 92,
+      "y": 1.3,
+      "rot_deg": 18.0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        0.0,
+        -8.8
+      ],
+      "color_idx": 93,
+      "rot_deg": 90.0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        3.45,
+        -7.62
+      ],
+      "color_idx": 94,
+      "rot_deg": 60.0
+    },
+    {
+      "key": "w2_arcade",
+      "pos": [
+        5.98,
+        -4.4
+      ],
+      "color_idx": 95,
+      "rot_deg": 30.0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        4.08,
+        4.35
+      ],
+      "color_idx": 96,
+      "rot_deg": 317.0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        2.84,
+        5.49
+      ],
+      "color_idx": 97,
+      "rot_deg": 300.6
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -3.19,
+        5.24
+      ],
+      "color_idx": 98,
+      "rot_deg": 235.1
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.55,
+        0.67
+      ],
+      "color_idx": 99,
+      "rot_deg": 186.1
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -5.49,
+        -1.14
+      ],
+      "color_idx": 100,
+      "rot_deg": 169.7
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -4.99,
+        -2.86
+      ],
+      "color_idx": 101,
+      "rot_deg": 153.3
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -4.08,
+        -4.35
+      ],
+      "color_idx": 102,
+      "rot_deg": 137.0
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -2.84,
+        -5.49
+      ],
+      "color_idx": 103,
+      "rot_deg": 120.6
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        -1.37,
+        -6.18
+      ],
+      "color_idx": 104,
+      "rot_deg": 104.2
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        0.21,
+        -6.38
+      ],
+      "color_idx": 105,
+      "rot_deg": 87.9
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        1.77,
+        -6.05
+      ],
+      "color_idx": 106,
+      "rot_deg": 71.5
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        3.19,
+        -5.24
+      ],
+      "color_idx": 107,
+      "rot_deg": 55.1
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        4.35,
+        -4.0
+      ],
+      "color_idx": 108,
+      "rot_deg": 38.8
+    },
+    {
+      "key": "w2_duck",
+      "pos": [
+        5.16,
+        -2.43
+      ],
+      "color_idx": 109,
+      "rot_deg": 22.4
     },
     {
       "key": "w2_figurine",
       "pos": [
-        -2.26,
-        2.69
+        5.55,
+        -0.67
       ],
-      "color_idx": 0
+      "color_idx": 110,
+      "rot_deg": 6.1
     },
     {
       "key": "w2_figurine",
       "pos": [
-        -3.2,
-        0.0
+        4.08,
+        4.35
       ],
-      "color_idx": 1
+      "color_idx": 111,
+      "y": 0.72,
+      "rot_deg": 317.0
     },
     {
       "key": "w2_figurine",
       "pos": [
-        -2.26,
-        -2.69
+        2.84,
+        5.49
       ],
-      "color_idx": 2
+      "color_idx": 112,
+      "y": 0.72,
+      "rot_deg": 300.6
     },
     {
       "key": "w2_figurine",
       "pos": [
-        -0.0,
-        -3.8
+        -3.19,
+        5.24
       ],
-      "color_idx": 0
+      "color_idx": 113,
+      "y": 0.72,
+      "rot_deg": 235.1
     },
     {
       "key": "w2_figurine",
       "pos": [
-        2.26,
-        -2.69
+        -5.55,
+        0.67
       ],
-      "color_idx": 1
+      "color_idx": 114,
+      "y": 0.72,
+      "rot_deg": 186.1
     },
     {
-      "key": "w2_arcade",
+      "key": "w2_figurine",
       "pos": [
-        -6.5,
-        -7.2
+        -5.49,
+        -1.14
       ],
-      "color_idx": 0
+      "color_idx": 115,
+      "y": 0.72,
+      "rot_deg": 169.7
     },
     {
-      "key": "w2_arcade",
+      "key": "w2_figurine",
       "pos": [
-        6.5,
-        -7.2
+        -4.99,
+        -2.86
       ],
-      "color_idx": 0
+      "color_idx": 116,
+      "y": 0.72,
+      "rot_deg": 153.3
     },
     {
-      "key": "w2_arcade",
+      "key": "w2_figurine",
       "pos": [
-        -6.5,
-        7.2
+        -4.08,
+        -4.35
       ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_arcade",
-      "pos": [
-        6.5,
-        7.2
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_arcade",
-      "pos": [
-        0,
-        -7.8
-      ],
-      "color_idx": 0
-    },
-    {
-      "key": "w2_arcade",
-      "pos": [
-        0,
-        7.8
-      ],
-      "color_idx": 0
+      "color_idx": 117,
+      "y": 0.72,
+      "rot_deg": 137.0
     },
     {
       "key": "w2_block",
       "pos": [
-        5.2,
-        0.0
+        -2.6,
+        6.08
       ],
-      "y": 0.62,
-      "color_idx": 86
+      "color_idx": 118,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        4.69,
-        2.6
+        -3.55,
+        5.34
       ],
-      "y": 0.62,
-      "color_idx": 87
+      "color_idx": 119,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        3.24,
-        4.69
+        -4.3,
+        4.61
       ],
-      "y": 0.62,
-      "color_idx": 88
+      "color_idx": 120,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        1.16,
-        5.85
+        -4.78,
+        3.87
       ],
-      "y": 0.62,
-      "color_idx": 89
+      "color_idx": 121,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -1.16,
-        5.85
+        -4.95,
+        3.13
       ],
-      "y": 0.62,
-      "color_idx": 90
+      "color_idx": 122,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -3.24,
-        4.69
+        2.6,
+        6.08
       ],
-      "y": 0.62,
-      "color_idx": 91
+      "color_idx": 123,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -4.69,
-        2.6
+        3.55,
+        5.34
       ],
-      "y": 0.62,
-      "color_idx": 92
+      "color_idx": 124,
+      "rot_deg": 0.0
     },
     {
       "key": "w2_block",
       "pos": [
-        -5.2,
-        0.0
+        4.3,
+        4.61
       ],
-      "y": 0.62,
-      "color_idx": 93
+      "color_idx": 125,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.78,
+        3.87
+      ],
+      "color_idx": 126,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        4.95,
+        3.13
+      ],
+      "color_idx": 127,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -7.25,
+        -4.35
+      ],
+      "color_idx": 128,
+      "rot_deg": 0.0
+    },
+    {
+      "key": "w2_block",
+      "pos": [
+        -7.25,
+        -2.9
+      ],
+      "color_idx": 129,
+      "rot_deg": 0.0
     }
   ],
   "powerups": [
