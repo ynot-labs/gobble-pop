@@ -83,28 +83,28 @@
   },
 
   "w4_d20": {
-    "id": "W4-02", "name": "Magic Jewel", "world": 4, "tier": 1, "xp": 6, "radius": 0.36, "height": 0.56,
-    "colors": ["#38BDF8"], "model": "res://assets/models/kenney_v2/platformer/jewel.glb", "auto_fit": true
+    "id": "W4-02", "name": "Traffic Cone", "world": 4, "tier": 1, "xp": 6, "radius": 0.36, "height": 0.56,
+    "colors": ["#F97316"], "model": "res://assets/models/kenney_v2/car/cone.glb", "auto_fit": true
   },
   "w4_slime": {
-    "id": "W4-03", "name": "Dungeon Coin", "world": 4, "tier": 1, "xp": 7, "radius": 0.38, "height": 0.46,
-    "colors": ["#FACC15"], "model": "res://assets/models/kenney_v2/platformer/star.glb", "auto_fit": true
+    "id": "W4-03", "name": "Park Tree", "world": 4, "tier": 1, "xp": 7, "radius": 0.38, "height": 0.62,
+    "colors": ["#22C55E"], "model": "res://assets/models/kenney_v2/city-suburban/tree-small.glb", "auto_fit": true
   },
   "w4_potion": {
-    "id": "W4-04", "name": "Oak Barrel", "world": 4, "tier": 2, "xp": 15, "radius": 0.54, "height": 0.78,
-    "colors": ["#D97706"], "model": "res://assets/models/kenney_v2/mini-dungeon/barrel.glb", "auto_fit": true
+    "id": "W4-04", "name": "Yellow Taxi", "world": 4, "tier": 2, "xp": 15, "radius": 0.56, "height": 0.70,
+    "colors": ["#FACC15"], "model": "res://assets/models/kenney_v2/car/taxi.glb", "auto_fit": true
   },
   "w4_spellbook": {
-    "id": "W4-05", "name": "Knight Shield", "world": 4, "tier": 3, "xp": 28, "radius": 0.84, "height": 0.72,
-    "colors": ["#8B5CF6"], "model": "res://assets/models/kenney_v2/mini-dungeon/shield-round.glb", "auto_fit": true
+    "id": "W4-05", "name": "Police Car", "world": 4, "tier": 3, "xp": 28, "radius": 0.84, "height": 0.82,
+    "colors": ["#3B82F6"], "model": "res://assets/models/kenney_v2/car/police.glb", "auto_fit": true
   },
   "w4_cauldron": {
-    "id": "W4-06", "name": "Treasure Chest", "world": 4, "tier": 4, "xp": 48, "radius": 1.24, "height": 1.15,
-    "colors": ["#F59E0B"], "model": "res://assets/models/kenney_v2/mini-dungeon/chest.glb", "auto_fit": true
+    "id": "W4-06", "name": "Fire Truck", "world": 4, "tier": 4, "xp": 48, "radius": 1.24, "height": 1.18,
+    "colors": ["#EF4444"], "model": "res://assets/models/kenney_v2/car/firetruck.glb", "auto_fit": true
   },
   "w4_grand_cauldron": {
-    "id": "W4-06B", "name": "Royal Chest", "world": 4, "tier": 5, "xp": 80, "radius": 1.58, "height": 1.48,
-    "colors": ["#A855F7"], "model": "res://assets/models/kenney_v2/platformer/chest.glb", "auto_fit": true
+    "id": "W4-06B", "name": "Suburban Villa", "world": 4, "tier": 5, "xp": 80, "radius": 1.58, "height": 1.65,
+    "colors": ["#F59E0B"], "model": "res://assets/models/kenney_v2/city-suburban/building-type-c.glb", "auto_fit": true
   },
 
   "w5_pixel_coin": {

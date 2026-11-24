@@ -25,10 +25,10 @@ func setup(spawn_pos: Vector3, world_id: int = 1) -> void:
 		_mat.set_shader_parameter("highlight_color", Color("#FFF6C4"))
 		model_path = "res://assets/models/world3/w3_06_cheese.glb"
 	elif world_id == 4:
-		trap_color = Color("#38E578")
-		trap_label = "STICKY SLIME!"
-		_mat.set_shader_parameter("gum_color", Color("#38E578"))
-		_mat.set_shader_parameter("highlight_color", Color("#D8FFE6"))
+		trap_color = Color("#334155")
+		trap_label = "WET TAR!"
+		_mat.set_shader_parameter("gum_color", Color("#334155"))
+		_mat.set_shader_parameter("highlight_color", Color("#94A3B8"))
 		model_path = "res://assets/models/world4/w4_07_slime_trap.glb"
 	elif world_id == 5:
 		trap_color = Color("#22D3EE")

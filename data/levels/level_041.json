@@ -1,7 +1,7 @@
 {
   "level": 41,
   "world": 4,
-  "formation_name": "Crystal Hex",
+  "formation_name": "Town Square",
   "difficulty_tag": "EASY",
   "duration": 45,
   "arena": [
@@ -630,73 +630,65 @@
     {
       "key": "w4_d20",
       "pos": [
-        3.0,
+        3.95,
         0.0
       ],
-      "y": 0.68,
       "color_idx": 76
     },
     {
       "key": "w4_d20",
       "pos": [
-        2.43,
-        2.0
+        3.16,
+        2.6
       ],
-      "y": 0.68,
       "color_idx": 77
     },
     {
       "key": "w4_d20",
       "pos": [
-        0.93,
-        3.23
+        1.19,
+        4.14
       ],
-      "y": 0.68,
       "color_idx": 78
     },
     {
       "key": "w4_d20",
       "pos": [
-        -0.93,
-        3.23
+        -1.19,
+        4.14
       ],
-      "y": 0.68,
       "color_idx": 79
     },
     {
       "key": "w4_d20",
       "pos": [
-        -2.43,
-        2.0
+        -3.16,
+        2.6
       ],
-      "y": 0.68,
       "color_idx": 80
     },
     {
       "key": "w4_d20",
       "pos": [
-        -3.0,
+        -3.95,
         0.0
       ],
-      "y": 0.68,
       "color_idx": 81
     },
     {
       "key": "w4_d20",
       "pos": [
-        -2.43,
-        -2.0
+        -3.16,
+        -2.6
       ],
-      "y": 0.68,
       "color_idx": 82
     },
     {
       "key": "w4_d20",
       "pos": [
-        -0.93,
-        -3.23
+        -1.19,
+        -4.14
       ],
-      "y": 0.68,
       "color_idx": 83
     }
   ],
