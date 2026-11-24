@@ -1,5 +1,5 @@
 {
-  "channel": "beta",
-  "enable_level_skip": true,
-  "version": "2.3.3-beta"
+  "channel": "release",
+  "enable_level_skip": false,
+  "version": "2.3.0"
 }
