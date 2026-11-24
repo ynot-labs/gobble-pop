@@ -10,7 +10,7 @@ const WORLD_META := {
 	1: {"name": "SWEET BAKERY",      "short": "W1 Bakery",  "start": 1,  "hard": 5,  "cliff": 10, "mega": 20, "trap_name": "BUBBLEGUM"},
 	2: {"name": "CUBE PETS TOYBOX",  "short": "W2 Pets",    "start": 21, "hard": 25, "cliff": 29, "mega": 30, "trap_name": "BUBBLEGUM"},
 	3: {"name": "STREET FOOD BENTO", "short": "W3 Street",  "start": 31, "hard": 35, "cliff": 39, "mega": 40, "trap_name": "CHEESE"},
-	4: {"name": "MINI DUNGEON",      "short": "W4 Dungeon", "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "SLIME"},
+	4: {"name": "MINI TOY CITY",     "short": "W4 City",    "start": 41, "hard": 45, "cliff": 49, "mega": 50, "trap_name": "WET TAR"},
 	5: {"name": "ARCADE HALL",       "short": "W5 Arcade",  "start": 51, "hard": 55, "cliff": 59, "mega": 60, "trap_name": "GLITCH GOO"},
 }
 
@@ -868,7 +868,7 @@ func _resume_gameplay() -> void:
 
 
 func _on_app_visibility_changed(is_visible: bool) -> void:
-	if OS.get_environment("QA_SCREEN") != "":
+	if OS.get_environment("QA_SCREEN") != "" or OS.get_environment("QA_START_LEVEL") != "":
 		return
 	if not is_visible and _playing and not _paused and not _in_lobby:
 		_pause_gameplay()
@@ -975,18 +975,18 @@ func _apply_world_theme(world_id: int) -> void:
 			_table_mat.set_shader_parameter("border_color", Color("#EBBF58"))
 			tex_path = "res://assets/textures/w2_01_playmat_tile.png"
 		3:
-			_sky_mat.sky_top_color = Color("#FF9A76")
-			_sky_mat.sky_horizon_color = Color("#FFE6B8")
-			_sky_mat.ground_horizon_color = Color("#FFD4A8")
-			_sky_mat.ground_bottom_color = Color("#E59866")
-			_table_mat.set_shader_parameter("border_color", Color("#DF9F6C"))
+			_sky_mat.sky_top_color = Color("#1E4E8C")
+			_sky_mat.sky_horizon_color = Color("#7EC4EA")
+			_sky_mat.ground_horizon_color = Color("#9CD8F2")
+			_sky_mat.ground_bottom_color = Color("#4D8BB8")
+			_table_mat.set_shader_parameter("border_color", Color("#436278"))
 			tex_path = "res://assets/textures/w3_01_table_tile.png"
 		4:
-			_sky_mat.sky_top_color = Color("#6352C8")
-			_sky_mat.sky_horizon_color = Color("#E0D2FF")
-			_sky_mat.ground_horizon_color = Color("#C9B6FA")
-			_sky_mat.ground_bottom_color = Color("#9A84E0")
-			_table_mat.set_shader_parameter("border_color", Color("#AC98EC"))
+			_sky_mat.sky_top_color = Color("#2FA687")
+			_sky_mat.sky_horizon_color = Color("#A6F0DC")
+			_sky_mat.ground_horizon_color = Color("#C8F7E8")
+			_sky_mat.ground_bottom_color = Color("#5EC9A8")
+			_table_mat.set_shader_parameter("border_color", Color("#52C478"))
 			tex_path = "res://assets/textures/w4_01_desk_tile.png"
 		5:
 			_sky_mat.sky_top_color = Color("#2F88E8")

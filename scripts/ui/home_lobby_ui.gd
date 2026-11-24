@@ -14,7 +14,7 @@ const WORLD_THEMES := {
 	1: {"title": "SWEET BAKERY",      "short": "W1", "icon": "item_w1_donut",   "range": [1, 20],  "bg": Color("#F45D94"), "bevel": Color("#B83264"), "out": Color("#5C1430")},
 	2: {"title": "CUBE PETS TOYBOX",  "short": "W2", "icon": "item_w2_duck",    "range": [21, 30], "bg": Color("#F5A623"), "bevel": Color("#B86E0A"), "out": Color("#5C3504")},
 	3: {"title": "STREET FOOD BENTO", "short": "W3", "icon": "item_w3_bento",   "range": [31, 40], "bg": Color("#22B8CF"), "bevel": Color("#0C7A8C"), "out": Color("#083D47")},
-	4: {"title": "MINI DUNGEON",      "short": "W4", "icon": "item_w4_cauldron","range": [41, 50], "bg": Color("#8B5CF6"), "bevel": Color("#5B21B6"), "out": Color("#2E1065")},
+	4: {"title": "MINI TOY CITY",     "short": "W4", "icon": "item_w4_cauldron","range": [41, 50], "bg": Color("#22C55E"), "bevel": Color("#15803D"), "out": Color("#052E16")},
 	5: {"title": "ARCADE HALL",       "short": "W5", "icon": "item_w5_arcade_boss", "range": [51, 60], "bg": Color("#3B82F6"), "bevel": Color("#1D4ED8"), "out": Color("#172554")},
 }
 

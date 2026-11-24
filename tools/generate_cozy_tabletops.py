@@ -62,7 +62,22 @@ def gen_tabletop(path, col_a_hex, col_b_hex, seam_col_hex, style="marble", size=
             seam_w = 0.0
             mod = 0.0
 
-            if style == "hinoki":
+            if style == "slate":
+                # World 3 Modern Japanese Slate-Teal Ceramic Bistro Tiles (cool contrast for warm food!)
+                t = float((cx + cy) % 2)
+                stone = math.sin(x * tau * 3.0 + math.cos(y * tau * 2.0) * 0.9) * 0.010
+                stone += math.cos((x - y) * tau * 5.0) * 0.006
+                edge = max(dx, dy)
+                seam_w = max(0.0, (edge - 0.948) / 0.052) * 0.55
+                mod = stone
+            elif style == "plaza":
+                # World 4 Mini Toy City Urban Sidewalk & Park Plaza Stone Tiles
+                t = float((cx + cy) % 2)
+                speck = math.sin(x * tau * 11.0 + y * tau * 7.0) * 0.005
+                edge = max(dx, dy)
+                seam_w = max(0.0, (edge - 0.946) / 0.054) * 0.56
+                mod = speck
+            elif style == "hinoki":
                 plank = int(y * 4.0) % 2
                 grain = math.sin(y * tau * 14.0 + math.sin(x * tau * 2.0) * 0.7) * 0.015
                 grain += math.sin(x * tau * 3.0 + y * tau * 5.0) * 0.007
@@ -123,8 +138,8 @@ def gen_tabletop(path, col_a_hex, col_b_hex, seam_col_hex, style="marble", size=
 def main():
     gen_tabletop(os.path.join(TEX_DIR, "w1_01_marble_tile.png"), "#B0EBDC", "#D7F5E8", "#7CCCB6", style="marble")
     gen_tabletop(os.path.join(TEX_DIR, "w2_01_playmat_tile.png"), "#EED794", "#F9ECC2", "#CFAF60", style="playmat")
-    gen_tabletop(os.path.join(TEX_DIR, "w3_01_table_tile.png"), "#E2BE95", "#F1D8B8", "#C29668", style="hinoki")
-    gen_tabletop(os.path.join(TEX_DIR, "w4_01_desk_tile.png"), "#C8BDF0", "#E2DBFB", "#9E8ED4", style="linen")
+    gen_tabletop(os.path.join(TEX_DIR, "w3_01_table_tile.png"), "#5A7D95", "#6E92AA", "#415E73", style="slate")
+    gen_tabletop(os.path.join(TEX_DIR, "w4_01_desk_tile.png"), "#9EB1C4", "#B2C4D6", "#7D91A6", style="plaza")
     gen_tabletop(os.path.join(TEX_DIR, "w5_01_arcade_tile.png"), "#B6E2FA", "#DBF1FE", "#7BBBE6", style="arcade")
 
 
