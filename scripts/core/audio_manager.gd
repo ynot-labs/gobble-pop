@@ -15,6 +15,7 @@ var _sfx_cache: Dictionary = {}
 var _bgm_player: AudioStreamPlayer
 var _current_bgm_key: String = "bgm_main"
 var _bgm_fade_tween: Tween = null
+var _audio_unlocked: bool = false
 var _sfx_pool: Array[AudioStreamPlayer] = []
 var _pool_index: int = 0
 
@@ -43,6 +44,30 @@ func _sync_from_game_manager() -> void:
 		if not GameManager.settings_changed.is_connected(_apply_mute_state):
 			GameManager.settings_changed.connect(_apply_mute_state)
 	_apply_mute_state()
+	# Start BGM immediately on game launch (Lobby or Instant Play)!
+	start_bgm()
+
+
+func _input(event: InputEvent) -> void:
+	if _audio_unlocked and _bgm_player and _bgm_player.playing:
+		return
+	var is_gesture := false
+	if event is InputEventMouseButton and event.pressed:
+		is_gesture = true
+	elif event is InputEventScreenTouch and event.pressed:
+		is_gesture = true
+	elif event is InputEventKey and event.pressed and not event.echo:
+		is_gesture = true
+	if is_gesture:
+		_audio_unlocked = true
+		if _bgm_player:
+			if not _bgm_player.playing:
+				start_bgm()
+			elif OS.has_feature("web") and _bgm_player.get_playback_position() <= 0.05:
+				# On browsers that suspended WebAudio before first gesture, re-kick stream cleanly once unlocked!
+				_bgm_player.stop()
+				_bgm_player.play()
+			_apply_mute_state()
 
 
 func _process(delta: float) -> void:
