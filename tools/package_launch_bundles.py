@@ -178,11 +178,11 @@ def generate_store_assets() -> None:
 
 
 def main():
-    print("=== PACKAGING H5 LAUNCH SUBMISSION BUNDLES (v2.0.0) ===")
+    print("=== PACKAGING H5 LAUNCH SUBMISSION BUNDLES (v2.1.0) ===")
     results = [
-        build_channel_zip("gobble_pop_v2.0.0_crazygames.zip", CG_SCRIPT, "CrazyGames SDK v3"),
-        build_channel_zip("gobble_pop_v2.0.0_youtube_playables.zip", YT_SCRIPT, "YouTube Playables v1"),
-        build_channel_zip("gobble_pop_v2.0.0_web_standalone.zip", "", "Standalone Web / Itch.io"),
+        build_channel_zip("gobble_pop_v2.1.0_crazygames.zip", CG_SCRIPT, "CrazyGames SDK v3"),
+        build_channel_zip("gobble_pop_v2.1.0_youtube_playables.zip", YT_SCRIPT, "YouTube Playables v1"),
+        build_channel_zip("gobble_pop_v2.1.0_web_standalone.zip", "", "Standalone Web / Itch.io"),
     ]
     for r in results:
         print(
